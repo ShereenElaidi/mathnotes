@@ -1,0 +1,947 @@
+\documentclass[11pt]{article}
+\title{\textbf{Math 454: Analysis 3 -- Theory of Lebesgue Measure}\vspace{-2ex}}
+\author{Definitions, Theorems, and Results from the Class\vspace{-2ex}}
+\date{Shereen Elaidi} 
+
+\usepackage{titlesec}
+\titleformat{\section}[hang]{\normalfont\scshape}{\thesection.}{1em}{}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amssymb} 
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage{enumitem} 
+\setlist[enumerate]{itemsep=0mm}
+\usepackage{xcolor}
+\setenumerate{label=(\roman*)}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{etoolbox}
+\usepackage{fancybox}
+\usepackage{framed}
+\usepackage{tcolorbox}
+% example environment
+\newtheorem{exmp}{Example}[section]
+
+% question environment
+\theoremstyle{definition}
+\newtheorem{question}{Question}
+
+%rd 
+\newcommand{\rd}[0]{\mathbb{R}^d}
+
+% Probability 
+\DeclareRobustCommand{\bbone}{\text{\usefont{U}{bbold}{m}{n}1}}
+\newcommand{\Var}[1]{\mathrm{Var[#1]}}			% variance
+\newcommand{\EX}[1]{\mathbb{E}\mathrm{[#1]}}	 % expected value 
+\newcommand{\seq}[1]{\{ #1_n	\}_{n \in \bb{N}}} % sequence of events
+\newcommand{\pspace}[0]{( \Omega, F, P)}		% probability space
+\newcommand{\msp}[0]{( \Omega, F)}		% measurable space
+	
+% Exercise environment 
+\newenvironment{myleftbar}{%
+\def\FrameCommand{\hspace{0.6em}\vrule width 2pt\hspace{0.6em}}%
+\MakeFramed{\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+\declaretheoremstyle[
+spaceabove=6pt,
+spacebelow=6pt
+headfont=\normalfont\bfseries,
+headpunct={} ,
+headformat={\cornersize*{2pt}\ovalbox{\NAME~\NUMBER\ifstrequal{\NOTE}{}{\relax}{\NOTE}:}},
+bodyfont=\normalfont,
+]{exobreak}
+
+\declaretheorem[style=exobreak, name=Exercise,%
+postheadhook=\leavevmode\myleftbar, %
+prefoothook = \endmyleftbar]{exo}
+
+% Solution environment 
+\newenvironment{mysolbar}{%
+\def\FrameCommand{\hspace{0.6em}\vrule width 2pt\hspace{0.6em}}%
+\MakeFramed{\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+\declaretheoremstyle[
+spaceabove=6pt,
+spacebelow=6pt
+headfont=\normalfont\bfseries,
+headpunct={} ,
+headformat={\cornersize*{2pt}\ovalbox{\NAME~\NUMBER\ifstrequal{\NOTE}{}{\relax}{\NOTE}:}},
+bodyfont=\normalfont,
+]{solbreak}
+
+\declaretheorem[style=solbreak, name=Solution,%
+postheadhook=\leavevmode\mysolbar, %
+prefoothook = \endmysolbar]{sol}
+
+% HEADERS
+\usepackage{fancyhdr}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{Page \thepage}
+\fancyhead[RE,LO]{Math 454: Analysis 3}
+\fancyfoot[CE,CO]{}
+\fancyfoot[LE,RO]{\thepage}
+
+% Definitions
+\newcommand{\dfn}[1]{\textbf{\textcolor{blue}{#1}}}
+\newcommand{\im}[1]{\textbf{\textcolor{red}{#1}}}
+
+% lower integral
+\usepackage{accents}
+
+\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
+\def\avint{\mathop{\,\rlap{-}\!\!\int}\nolimits} 
+
+% custom commands 
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\vc}[1]{\mathbf{#1}}
+\newcommand{\step}[1]{\textbf{#1}\textbf{. Step:}}
+\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\sets}[2]{ \left\{ #1\ |\ #2 \right\}}
+\DeclareMathOperator{\Tr}{Tr}
+
+% Proofs
+\newcommand{\claim}[1]{\textbf{#1}\textbf{. Claim:}}
+
+	% iff proofs
+	\newcommand{\rhs}[0]{(\Rightarrow )}
+	\newcommand{\lhs}[0]{(\Leftarrow )}
+
+% sequence of functions
+\newcommand{\funcseqx}{(f_n(x))_{n \in \bb{N}}}
+\newcommand{\funcseq}{(f_n)_{n \in \bb{N}}}
+
+% measurable sets 
+\newcommand{\measurable}{f^{-1}([-\infty, c[)} 
+
+% heat equation 
+\newcommand{\pbdry}[2]{C^{(#1, #2)} (\Omega_T) \cap C (\overline{\Omega_T})}
+\DeclareMathOperator\erf{erf}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+
+% Laplace Equation 
+\newcommand{\lapbdry}[1]{C^{#1} (\Omega) \cap C (\overline{\Omega})}
+
+
+% math environments 
+\usepackage[utf8]{inputenc}
+\newtheorem{theorem}{\textcolor{blue}{Theorem}}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{\textcolor{OliveGreen}{Definition}}
+\newtheorem{prop}{\textcolor{red}{Proposition}}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% cookbook proofs 
+\newcommand{\cb}[3]{\underline{(#1 #2): #3:}}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+
+% theorems 
+\newtcbtheorem[number within=section]{mytheo}{Theorem}%
+{colback=blue!5,colframe=blue!35!black,fonttitle=\bfseries}{th}
+
+% definitions 
+\newtcbtheorem[number within=section]{defn}{Definition}%
+{colback=black!5,colframe=black!35!black,fonttitle=\bfseries}{th}
+
+% axioms
+\newtcbtheorem[number within=section]{ax}{Axioms}%
+{colback=OliveGreen!5,colframe=black!35!OliveGreen,fonttitle=\bfseries}{th}
+
+
+% important examples
+\newtcbtheorem[number within=section]{examp}{Example}%
+{colback=Mahogany!5,colframe=black!35!Mahogany,fonttitle=\bfseries}{th}
+
+% upper and lower riemann integrals
+\newcommand{\upRiemannint}[2]{
+  \overline{\int_{#1}^{#2}}
+}
+\newcommand{\loRiemannint}[2]{
+  \underline{\int_{#1}^{#2}}
+}
+
+
+
+
+\begin{document}
+
+\maketitle 
+
+
+
+\section{Introduction}
+
+\begin{definition}[Riemann Integral]
+	Let $[a,b]$ be a bounded, closed interval and $f: [a, b] \rightarrow \bb{R}$ be a bounded function. Then, $f$ is \textbf{Riemann Integrable} if 
+	\begin{align}
+		\loRiemannint{a}{b} f = \upRiemannint{a}{b} f
+	\end{align}
+	where
+	\begin{align}
+		& \loRiemannint{a}{b} f := \sup \bigg\{ 	\sum_{i=1}^n \inf_{]x_{i-1}, x_i[} f \cdot (x_i - x_{i-1} )\ \bigg|\ a = x_0 < \cdots < x_n =b		\bigg\}  \\
+		& \upRiemannint{a}{b} f := \inf \bigg\{ 	\sum_{i=1}^n \sup_{]x_{i-1}, x_i[} f \cdot (x_i - x_{i-1} )\ \bigg|\ a = x_0 < \cdots < x_n =b		\bigg\} 	
+	\end{align}
+\end{definition}
+
+\begin{theorem}
+	Every continuous function $f: [a,b] \rightarrow \bb{R}$ is Riemann Integrable. 
+\end{theorem}
+
+\begin{definition}[Length]
+	$\forall I \subseteq \bb{R}$, $I$ an interval, we call the \textbf{length of I} to be the number: 
+	\begin{align}
+		\ell(I):= \begin{cases}
+			b-a;  & I = [a,b], [a,b[, ]a, b], \mbox{ or } ]a,b[ \\
+			\infty &  \mbox{ $I$ is unbounded } 
+		\end{cases}
+	\end{align}
+\end{definition}
+
+\begin{definition}[Outer Measure]
+	$\forall A \subseteq \bb{R}$, the \textbf{outer measure} of $A$, denoted by $m^*(A)$ is given by: 
+	\begin{align}
+		m^*(A) := \inf \left\{ 	\sum_{k=1}^\infty \ell(I_k)\ \bigg|\ (I_k) \mbox{ open, bounded intervals s.t. } A \subseteq \bigcup_{k=1}^\infty I_k		\right\} 
+	\end{align}
+\end{definition}
+
+\begin{prop}
+	$A \subseteq \bb{R}$ is countable $\Rightarrow m^*(A) = 0$ 
+\end{prop}
+\begin{prop}[Monotonicity of outer measure]
+		If $A \subseteq \bb{B}$, then $m^*(A) \leq m^*(B)$. 
+\end{prop}
+\begin{prop}
+	For every interval $I \subseteq \bb{R}$, $m^*(I) = \ell(I)$. 	
+\end{prop}
+\begin{prop}[Translation invariance of outer measure]
+	$\forall A \subseteq \bb{R}$, $ y \in \bb{R}$, define $A+y := \sets{x+y}{x \in A}$. Then, $m^*(A) = m^*(A+y)$. 
+\end{prop}
+
+\begin{prop}[Countable Subadditivity of outer measure] 
+	$\forall (A_k)_{k \in \bb{N}}$ subsets of $\bb{R}$: 
+	\begin{align}
+		m^* \left(  \bigcup_{k=1}^\infty A_k \right)  \leq \sum_{k=1}^\infty m^*(A_k) 
+	\end{align}
+	where the $A_k$'s are not necessarily disjoint. 
+\end{prop}
+
+\begin{definition}[Lebesgue Measure]
+	A set $A \subseteq \bb{R}$ is \textbf{measurable} if $\forall B \subseteq \bb{R}$, 
+	\begin{align}
+		m^*(B) = m^*(B \cap A) + m^*(B \setminus A) 
+	\end{align}
+	The only non-trival part of the definition to check is $		m^*(B) \geq m^*(B \cap A) + m^*(B \setminus A) $, since the other inequality follows from the subadditivity of outer measure. We can also restrict $B$ to the class of all finite-outer-measure sets, since the inequality is trivial for infinite-outer-measure sets. 
+\end{definition}
+
+\begin{prop}
+	If $m^*(A) = 0$, then $A$ is measurable. 
+\end{prop}
+
+\begin{prop}
+	$\forall A \subseteq \bb{R}$, $A$ measurable, $\Rightarrow$ $\bb{R} \setminus A$ is measurable. 
+\end{prop}
+
+\begin{theorem}[Excision Property]
+	$\forall A_1, A_2 \subseteq \bb{R}$ mesurable, $A_2 \subseteq A_1$, and $m(A_2) < \infty$, then: 
+	\begin{align}
+		m(A_1 \setminus A_2) = m(A_1) - m(A_2) 
+	\end{align}	
+\end{theorem}
+
+\begin{prop}
+	$\forall (A_k)_{k \in \bb{N}}$ measurable, we have: 
+	\begin{enumerate}[nolistsep]
+		\item $\bigcup_{k=1}^\infty A_k$ is measurable and $\bigcap_{k=1}^\infty A_k$ is measurable. 
+		\item \textbf{(Countable Additivity of Measure)}. If $A_i \cap A_j = \emptyset$ $\forall i \neq j$, then: 
+		\begin{align}
+			m \left( 	\bigcup_{k=1}^\infty A_k 	\right) = \sum_{i=1}^\infty m(A_k) 
+		\end{align}
+	\end{enumerate}	
+\end{prop}
+
+\begin{prop}[Continuity of Lebesgue Measure]
+	Let $(A_k)_{k \in \bb{N}}$ be sequence of measurable sets. Then: 
+	\begin{enumerate}
+		\item If $A_k \subseteq A_{k+1} \forall k$ (increasing sequence of sets), then: 
+		\begin{align}
+			m \left( 	\bigcup_{k=1}^\infty A_k 	\right) = \lim_{k \rightarrow \infty} m(A_k) 
+		\end{align}
+		\item If $A_{k+1} \subseteq A_k \forall k$ (decreasing sequence of sets), then: 
+		\begin{align}
+						m \left( 	\bigcap_{k=1}^\infty A_k 	\right) = \lim_{k \rightarrow \infty} m(A_k) 
+		\end{align}
+	\end{enumerate}
+\end{prop}
+
+\begin{prop}[Translation Invariance of Measurable Sets]
+	$\forall A \subseteq \bb{R}$ measurable, and $\forall y \in \bb{R}$ fixed, $A+y$ is measurable. 
+\end{prop}
+
+\begin{prop}
+	\begin{enumerate}[nolistsep]
+		\item Every interval in $\bb{R}$ is Lebesuge measurable. 
+		\item Every open set and every closed set is Lebesgue measurable. 
+	\end{enumerate}
+\end{prop}
+
+\begin{theorem}[Characterisation of Measurable Sets] 
+	Let $A \subseteq \bb{R}$. Then, TFAE: 
+	\begin{enumerate}[nolistsep]
+		\item $A$ is measurable. 
+		\item \textbf{(Outer Approximation of Measurable Sets by Open Sets)}. $\forall \varepsilon > 0,\ \exists\ O_\varepsilon \subseteq \bb{R}$ open such that $A \subseteq O_\varepsilon$ and $m^*(O_\varepsilon \setminus A) < \varepsilon$. 
+		\item \textbf{(Approximation by $G_\delta$ sets)}. $\exists (O_n)_{n \in \bb{N}}$ open such that $A \subseteq G$ and $m^*(G \setminus A) = 0$, where $G:= \bigcap_{n \in \bb{N}} O_n$. The countable intersection of open sets is a $\mathbf{G_\delta}$\textbf{-set}. 
+		\item \textbf{(Inner Approximation of Measurable Sets by Closed Sets)} $\forall \varepsilon > 0,\ \exists\ F_\varepsilon \subseteq \bb{R}$ closed such that $F_\varepsilon \subseteq A$ and $m^*(A \setminus F_\varepsilon) < \varepsilon$. 
+		\item \textbf{(Approximation by $F_\sigma$ sets)}. $\exists (F_n)_{n \in \bb{N}}$ closed such that $F \subseteq A$ and $m^*(A \setminus F) = 0$, where $F:= \bigcup_{n \in \bb{N}} F_n$. The countable intersection of closed sets is a $\mathbf{F_\sigma}$\textbf{-set}. 
+
+	\end{enumerate}
+\end{theorem}
+
+%\begin{question}[pg. 20]
+%	Do there exist non-measurable subsets of $\bb{R}$? 
+%\end{question}
+
+\begin{theorem}[Vitali]
+	$\forall A \subseteq \bb{R}$, if $m^*(A) < 0$, then $\exists B \subseteq A$ that is not measurable. 
+\end{theorem}
+
+\begin{definition}[Cantor Set]
+	The \textbf{Cantor Set} is recursively defined as: 
+	\begin{align}
+		C := \bigcap_{k=1}^\infty C_k 
+	\end{align}
+	Where: 
+	\begin{align*}
+		C_1:= \left[ 0, \frac{1}{3}	\right] \bigcup \left[ 	\frac{2}{3}, 1 \right]
+	\end{align*}
+	and for $k \geq 2 $: 
+	\begin{align*}
+		C_k := \bigcup_{j=1}^{2^k} I_{k, j}\ \forall j \in \{ 1, .., 2^{k-1} \} 	
+	\end{align*}
+	Where $I_{k, 2j-1}$ and $I_{k, 2j}$ are the first and second thirds of the interval $I_{k-1, j}$. 
+
+\end{definition}
+
+\begin{theorem}
+	$C$ is closed, uncountable, and $m^*(C) = 0$. 
+\end{theorem}
+
+\begin{definition}[$\sigma$-algebra]
+	A collection of sets $\mathcal{C}$ is called a $\mathbf{\sigma}$\textbf{-algebra} if the following are true: 
+	\begin{enumerate}[nolistsep]
+		\item $\bb{R} \in \mathcal{C}$. 
+		\item $\forall C_1, C_2 \in \mathcal{C}$, $C_1 \setminus C_2 \in \mathcal{C}$ (stable under complementation). 
+		\item $\forall (C_k)_{k \in \bb{N}} \in \mathcal{C}$, we have that: 
+		\begin{align*}
+			\bigcup_{k=1}^\infty C_k \in \mathcal{C} 	
+		\end{align*}
+		(stable under countable unions). 
+	\end{enumerate}
+\end{definition}
+
+\begin{prop}
+	Any intersection of $\sigma-$algebras is a $\sigma-$ algebra. 
+\end{prop}
+
+\begin{definition}[Borel Sets]
+	A \textbf{Borel set} is a set that is in the intersection of all the sigma algebras containing the open sets. The \textbf{Borel sigma algebra} os the smallest sigma algebra containing all the open sets. (Alternatively, it is the sigma algebra generated by the open sets). 
+\end{definition}
+
+\begin{prop}
+	There exists a subset of the Cantor Set which is not Borel. Thus, the set of measurable sets is indeed bigger than the smallest sigma algebra. 
+\end{prop}
+
+\begin{definition}[Cantor Lebesgue Function]
+	The \textbf{Cantor-Lebesgue Function} is the function $\varphi: [0,1] \rightarrow [0,1]$ defined as: 
+	\begin{align}
+		\varphi(x) := \frac{i}{2k}
+	\end{align}
+	if $x \in J_{k,i}$, where $J_{k,i}$ is the $i$-th interval in $[0,1] \setminus C_k$, $\forall i \in \{ 1,..., 2^k -1 \}$, and $\forall y \in [0,1] \setminus C$: 
+	\begin{align}
+		\varphi(y) : = \begin{cases}
+				\varphi(0) := 0 \\
+				\varphi(y) := \sup \sets{\varphi(x)}{x \in [0,y[ \setminus C}
+		\end{cases}
+	\end{align}
+\end{definition}
+
+\begin{prop}
+	$\varphi$ is an increasing and continuous function. 
+\end{prop}
+
+\section{Lebesgue Measurable Functions}
+
+\begin{prop}[Lebesgue Measurable Function]
+	Let $A \subseteq \bb{R}$ be a measurable set and $f: A \rightarrow \bb{R}$. Then, TFAE: 
+	\begin{enumerate}[nolistsep]
+		\item $\forall c \in \bb{R}$, $f^{-1} (]c, + \infty])$ is measurable. 
+		\item $\forall c \in \bb{R}$, $f^{-1} ([c, + \infty])$ is measurable.
+		\item $\forall c \in \bb{R}$, $f^{-1} ([-\infty, c[)$ is measurable.
+		\item $\forall c \in \bb{R}$, $f^{-1} ([-\infty, c])$ is measurable.
+	\end{enumerate}
+	If any of the above conditions are met, then we say that $f$ is \textbf{measurable}. 
+\end{prop}
+
+\begin{prop}
+	Let $A \subseteq \bb{R}$ be measurable, and let $f: A \rightarrow \overline{\bb{R}}$. Then: 
+	\begin{enumerate}
+		\item $f$ measurable $\Rightarrow$ $\forall B \subseteq \bb{R}$, $B$ a Borel Set, $f^{-1}(B)$ is measurable. (The inverse image of Borel sets are measurable sets).
+		\item If $f$ is finite-valued, i.e., $f(A) \subsetneq \overline{\bb{R}}$, then we get a \emph{characterisation of measurable functions}: $f$ measurable $\iff$ $\forall B \subseteq \bb{R}$, $B$ Borel, $f^{-1}(B)$ is measurable. 
+	\end{enumerate}
+\end{prop}
+
+\begin{prop}
+	Let $A \subseteq \bb{R}$ be measurable and $f: A \rightarrow \bb{R}$ be continuous. Then, $f$ is measurable. 
+\end{prop}
+
+%\begin{question}[pg. 35]
+%	Why can't we just define measurable functions as: $\forall M \subseteq \bb{R}$ measurable, $f^{-1}(M)$ is measurable? 
+%\end{question}
+
+
+\begin{definition}[Almost Everywhere]
+	Let $x \in \bb{R}$ be measurable, and let $P(x)$ be a statement depending on $x \in A$. We say that $P(x)$ is \textbf{true almost everywhere in $A$} (abbreviated as a.e $x \in A$) if $m(\sets{x \in A}{P(x) \mbox{ is false} })=0$
+\end{definition}
+
+%\begin{question}[pg. 35]
+%	When can you invert the quantifiers almost everywhere? 
+%\end{question}
+
+\begin{prop}
+	Let $f: A \rightarrow \overline{\bb{R}}$ be a measurable function. Let $g: A \rightarrow \overline{\bb{R}}$ be such that $f = g$ a.e. in $A$. Then, $g$ is measurable. 
+\end{prop}
+
+\begin{prop}
+	Let $(A_n)_{n \in \bb{N}}$ be disjoint, measurable sets and let $A = \bigcup_{n \in \bb{N}}$. Let $(f_n)_{n \in \bb{N}}$, $f_n: A_n \rightarrow \overline{\bb{R}}$ be measurable. Then, the function: 
+	\begin{align*}
+		f:= & A \rightarrow \overline{ \bb{R}	} \\
+		& x \mapsto f_n(x) 
+	\end{align*}
+	is measurable. 
+\end{prop}
+
+\begin{definition}[Characteristic Function]
+	$\forall B \subseteq A$, $B$ measurable, the \textbf{characteristic function of $B$} is the function $\chi_B: A \rightarrow \bb{R}$: 
+	\begin{align}
+		\chi_B := \begin{cases}
+			x \mapsto 1; & x \in B \\
+			x \mapsto 0; & x \notin B 
+		\end{cases}
+	\end{align}
+\end{definition}
+
+\begin{definition}[Simple Functions]
+	$f: A \rightarrow \bb{R}$ is a \textbf{simple function} if $f(A)$ is a finite set. This means that $f$ is a sum of characteristic functions; $\exists\ a_1 < a_2 < ... < a_N \in \bb{R}$ such that $f(A) = \{ a_1, ..., a_N \}$. Letting $A_k := f^{-1}(\{ a_k \})$, we have: 
+	\begin{align*}
+		f = \sum_{k=1}^N a_k \chi_k	
+	\end{align*}
+	This representation is unique and is called the \textbf{canonical representation of} $f$. 
+\end{definition}
+
+\begin{prop}[Properties of Measurable Functions]
+	Let $A \subseteq \bb{R}$ be measurable. Then: 
+	\begin{enumerate}[nolistsep]
+		\item $\forall B \subseteq A$ measurable, $f|_B$ is measurable. 
+		\item $\forall B \subseteq \bb{R}$ Borel, if $f: B \rightarrow \bb{R}$ is continuous, $g: A \rightarrow B$ is measurable, then $f \circ g$ is measurable. 
+		\begin{enumerate}[nolistsep]
+			\item Note that we need $f$ to be continuous, since we need the inverse image to preserve the Borel property. 
+		\end{enumerate}
+		\item $\forall f: A \rightarrow \overline{\bb{R}}$, $g: A \rightarrow \bb{R}$, $f+g$ is measurable. 
+		\begin{enumerate}[nolistsep]
+			\item Note that we need $g$ not into $\overline{\bb{R}}$ since we need to avoid the $\infty - \infty$ case. 
+		\end{enumerate}
+		\item $\forall f, g: A \rightarrow \bb{R}$ measurable, $f \cdot g$ is measurable. (No $\overline{\bb{R}}$ to avoid the $\infty \cdot 0$ case). 
+		\item $\forall f_1, ..., f_n$, $f_n: A \rightarrow \bb{R}$ measurable, 
+		\begin{enumerate}[nolistsep]
+			\item $\max \{f_1,...f_n \}$ 
+			\item $\min \{f_1, ..., f_n \}$ 
+		\end{enumerate}
+		are measurable. 
+	\end{enumerate}
+\end{prop}
+
+%\begin{question}[pg. 38]
+%	Can the conditions in Proposition 20 (ii) be relaxed to just requiring $f$ to be continuous? Why or why not? 
+%\end{question}
+
+\begin{definition}[Uniform and pointwise convergence] 
+	Let $\{ f_n \}_{n \in \bb{N}}$ be a sequence of measurable functions, $f_n A: \rightarrow \overline{\bb{R}}$, and $f: A \rightarrow \overline{\bb{R}}$. We say that: 
+	\begin{enumerate}[noitemsep]
+		\item $\{ f_n \}_{n \in \bb{N}}$ converges \textbf{pointwise} to $f$ in $B \subseteq A$ if 
+		\begin{align*}
+			\forall x \in B,\ \lim_{n \rightarrow \infty} f_n(x) = f(x) 	
+		\end{align*}
+		\item $\{ f_n \}_{n \in \bb{N}}$ converges \textbf{uniformly} to $f$ in $B \subseteq A$ if 
+		\begin{align*}
+			\lim_{n \rightarrow \infty} \sup_B | f_n - f| = 0 	
+		\end{align*}
+
+	\end{enumerate}
+\end{definition}
+
+\begin{prop}
+	Let $\{ f_n \}_{n \in \bb{N}}$ be a sequence of measurable functions, $f_n: A \rightarrow \overline{\bb{R}}$ converging pointwise almost everywhere in $A$ to a function $f: A \rightarrow \bb{R}$. Then, $f: A \rightarrow \bb{R}$ is measurable. 
+\end{prop}
+
+\begin{prop}[Simple Approximation Lemma]
+	Let $f: A \rightarrow \bb{R}$ be measurable and bounded everywhere (i.e., $\exists$ a $M > 0$ such that $|f| < M $ in $A$). Then, $\forall \varepsilon > 0$, $\exists$ $\psi_\varepsilon$, $\varphi_\varepsilon:$ $A \rightarrow \bb{R}$ simple functions such that
+	\begin{align*}
+		\varphi_\epsilon \leq f \leq \psi_\varepsilon < \varphi_\varepsilon + \varepsilon	
+	\end{align*}
+	in $A$. In particular, the $\varphi_\varepsilon$ and the $\psi_\varepsilon$ converge uniformly to $f$ in $A$. 
+\end{prop}
+
+\begin{theorem}[Simple Approximation Theorem]
+	Let $f: A \rightarrow \overline{\bb{R}}$ on a measurable set $A$. Then, $f$ is measurable $\iff$ there exist simple functions $(\varphi_n)_{n \in \bb{N}}$ such that: 
+	\begin{enumerate}[noitemsep]
+		\item $(\varphi_n)_{n \in \bb{N}}$ converges pointwise to $f$. 
+		\item $|\varphi_n| \leq |f|$ in $A$ $\forall n \in \bb{N}$. 
+	\end{enumerate}
+	Moreover, if $f \geq 0$ in $A$, we can choose $\varphi_n$ such that $\varphi_n \geq 0$ and $\varphi_{n +1} \geq \varphi_n$ $\forall n \in \bb{N}$. 
+\end{theorem}
+
+\begin{theorem}[Egoroff's Theorem] 
+	Let $A \subseteq \bb{R}$ be a measurable set, and assume that $m(A) < \infty$. Let $(f_n)_{n \in \bb{N}}$, $f_n: A \rightarrow \bb{R}$ be a sequence of measurable functions converging pointwise to $f: A \rightarrow \bb{R}$ (not $\overline{\bb{R}}$ !!). Then, $\forall \varepsilon > 0$, $\exists F_\varepsilon \subseteq A$ closed such that: 
+	\begin{enumerate}[noitemsep]
+		\item $\{ f_n \}_{n \in \bb{N}}$ converges uniformly on $F_\varepsilon$. 
+		\item $m(A \setminus F_\varepsilon) < \varepsilon$. 
+	\end{enumerate}
+\end{theorem}
+\begin{theorem}[Lusin's Theorem] 
+	Let $f: A \rightarrow \bb{R}$ be measurable (not into $\overline{\bb{R}}$!). Then, $\forall \varepsilon > 0$, $\exists$ $F_\varepsilon \subseteq A$ closed such that: 
+	\begin{enumerate}[noitemsep]
+		\item $f$ is continuous on $F_\varepsilon$. 
+		\item $m(A \setminus F_\varepsilon) < \varepsilon$. 
+	\end{enumerate}
+\end{theorem}
+
+\section{The Lebesgue Integral}
+
+\begin{definition}[Integral -- Case of Simple Functions on a Set of Finite Measure] Let $\psi: A \rightarrow \bb{R}$ be a simple function. Let $\psi = \sum_{k=1}^N a_k \chi_{A_k} $ be its canonical representation. We define the \textbf{integral} of $\psi$ over $A$ and denote $\int_A \psi$ and $\int_A \psi(x) dx$ to be the number: 
+\begin{align}
+	\int_A \psi := \sum_{k=1}^N a_k m(A_k) 
+\end{align}
+	For every $B \subseteq A$ measurable, we denote $\int_B \psi = \int_B \psi|_B$. Here, the measure of $A$ must be finite. 
+\end{definition}
+\begin{definition}[Integral -- Case of Measurable, Bounded Functions on a Set of Finite Measure] Let $A \subseteq \bb{R}$ be a measurable set such that $m(A) < \infty$, and let $f: A \rightarrow \bb{R}$ be a bounded function. We say that $f$ is \textbf{integrable over} $A$ if: 
+	\begin{align}
+		\loRiemannint{A}{} f = \upRiemannint{A}{} f
+	\end{align}
+	where 
+	\begin{align*}
+		& \loRiemannint{A}{} f : = \sup \sets{\int_A \varphi }{ \varphi \mbox{simple }, \varphi \leq f \mbox{ on } A } \\
+		& \upRiemannint{A}{} f := \inf \sets{\int_A \varphi}{\varphi \mbox{simple }, f \leq \varphi \mbox{ on } A}
+	\end{align*}
+	We then denote $\int_A f = \int_A f(x) dx = \loRiemannint{A}{} f = \upRiemannint{A}{} f$ and we call this number the \textbf{integral} of $f$ over $A$. For every $B \subseteq A$ measurable, we denote: 
+	\begin{align*}
+		\int_B f = \int_B f|_B	
+	\end{align*}
+\end{definition}
+
+\begin{theorem}
+	If $f: [a,b] \rightarrow \bb{R}$ is Riemann Integrable, then $f$ is Lebesgue Integrable. 
+\end{theorem}
+
+\begin{theorem}
+	Let $f: A \rightarrow \bb{R}$, $m(A) < \infty$, be a measurable and bounded function. Then, $f$ is integrable. 
+\end{theorem}
+\begin{prop}[Properties of the Integral] 
+	Let $f, g: A \rightarrow \bb{R}$ be measurable and bounded. Then: 
+	\begin{enumerate}[noitemsep]
+		\item $\forall \alpha, \beta \in \bb{R}$, $\alpha f + \beta g$ is measurable and bounded, and: 
+		\begin{align*}	
+			\int_A \left( 	\alpha f + \beta g		\right) 	= \alpha \int_A f + \beta \int_A g 
+		\end{align*}
+		\item (Monotonicity): if $f \leq g$ on $A$, then: 
+		\begin{align*}
+			\int_A f \leq \int_A g	
+		\end{align*}
+	\item $| \int_A f|$ is measurable and bounded, and $| \int_A f | \leq \int_A |f|$. 
+	\item $\forall B \subseteq \bb{R}$ measurable, $f \cdot \chi_B$ is measurable, bounded, and 
+	\begin{align*}
+		\int f \chi_B = \int_B f 	
+	\end{align*}
+	\item $\forall A_1, A_2$ measurable and disjoint, 
+	\begin{align*}
+		\int_{A_1 \cup A_2} f = \int_{A_1} f + \int_{A_2} f 	
+	\end{align*}
+	In particular, if $m(A_2) = 0$, then: 
+	\begin{align*}
+		\int_{A_2} f = 0 \mbox{ and so} \int_{A_1 \cup A_2}  f = \int_{A_1} f	
+	\end{align*}
+	\end{enumerate}
+\end{prop}
+
+\begin{lemma}[Independence of Representation] 
+	Let $n \in \bb{N}$ and let $a_1, ..., a_n \in \bb{R}$ and $A_1, ..., A_n \subseteq A$, where $m(A) < \infty$, be measurable and disjoint. Then: 
+	\begin{align*}
+		\int \sum_{k=1}^n a_k \chi_{A_k} = \sum_{k=1}^n a_k m(A_k) 	
+	\end{align*}
+
+\end{lemma}
+
+\begin{theorem}[Bounded Convergence Theorem]
+	Let $A \subseteq \bb{R}$ be measurable, $m(A) < \infty$. Let $(f_n)_{n \in \bb{N}}$, $f_n: A \rightarrow \bb{R}$ be a sequence of measurable functions on $A$ such that: 
+	\begin{enumerate}[noitemsep]
+		\item (Uniformly bounded) $\exists$ an $M > 0$ such that $\forall n \in \bb{N}$, $|f_n| \leq M$ on $A$. 
+		\item (Pointwise Convergence) $\exists$ $f: A \rightarrow \bb{R}$ such that $\forall x \in A$, $\lim_{n \rightarrow \infty} f_n(x) = f(x)$
+	\end{enumerate}
+	Then, $f$ is bounded and measurable, and we can interchange the limits as so: 
+	\begin{align*}
+		\lim_{n \rightarrow \infty} \int_A f_n = f	
+	\end{align*}
+\end{theorem}
+
+
+\begin{definition}[Integral in the case of a Non-Negative, Measurable Function on a Set of Possibly Infinite Measure] 
+	Let $A \subseteq \bb{R}$ be measurable, possibly of infinite measure, and let $f: A \rightarrow [0, \infty]$ be measurable. We call the \textbf{integral} of $f$ over $A$ and denote $\int_A f = \int_A f(x) dx$ the number defined as 
+	\begin{align}
+		\int_A f := \sup \sets{\int_B h}{B \subseteq A,\ m(B) < \infty,\ h: B \rightarrow \bb{R} \mbox{ measurable, bd, } 0 \leq h \leq f \mbox{ on } B}
+	\end{align}
+	For every $B \subseteq A$, we denote $\int_B f = \int_B f|_B$. If $\int_A f < \infty$, we say that $f$ is \textbf{integrable} over $A$. 
+\end{definition}
+
+\begin{prop}[Properties of the Integral] Let $f, g: A \rightarrow [0, \infty]$ be measurable. Then: 
+\begin{enumerate}[noitemsep]
+	\item $\forall \alpha, \beta \geq 0$, $\alpha f + \beta g$ is non-negative and measurable and :
+	\begin{align*}
+		\int (\alpha f + \beta g) = \alpha \int f + \beta \int g 	
+	\end{align*}
+	\item $f \leq g$ on $A$ $\Rightarrow$ $\int_A f \leq \int_A g$. 
+	\item If $|f| < \infty$, then $\forall B \subseteq A$ measurable, $\chi_B f$ is non-negative, measurable, and 
+	\begin{align*}
+		\int_A \chi_B f = \int_B f 	
+	\end{align*}
+	\item $\forall A_1, A_2 \subseteq A$ disjoint, measurable. Then: 
+	\begin{align*}
+		\int_{A_1 \cup A_2} f = \int_{A_1} f + \int_{A_2} f 	
+	\end{align*}
+	If, moreover, $m(A_2) = 0$, then
+	\begin{align*}
+		\int_{A_2} f = 0 \mbox{ and so } \int_{A_1 \cup A_2}f = \int_{A_1} f	
+	\end{align*}
+\end{enumerate}
+\end{prop}
+
+
+\begin{theorem}[Chebyshev's Inequality] 
+	Let $f$ be measurable, non-negative. Then, $\forall \lambda > 0$, then: 
+	\begin{align*}
+		m (f^{-1}([\lambda, + \infty] )) \leq \frac{1}{\lambda} \int_A f 	
+	\end{align*}
+\end{theorem}
+
+\begin{corollary}
+	Let $f$ be a non-negative, measurable function on $A$. Then, $f = 0$ a.e. in $A$ $\iff$ $\int_A f = 0$. 
+\end{corollary}
+
+\begin{corollary}
+	Let $f$ be non-negative, measurable on $A$. If $f$ is integrable over $A$, then $f < \infty$ a.e. in $A$. 
+\end{corollary}
+
+\begin{lemma}[Fatou's Lemma] 
+	Let $(f_n)_{n \in \bb{N}}$ be a sequence of non-negative, measurable functions on $A \subseteq \bb{R}$. Then $\liminf_{n \rightarrow \infty} f_n $ is measurable and 
+	\begin{align}
+		\int_A \liminf_{n \rightarrow \infty} f_n \leq \liminf_{n \rightarrow \infty} \int_A f_n 
+	\end{align}
+	In particular, if $(\int_A f_n)_{n \in \bb{N}}$ is bounded by $M < \infty$, then $\liminf_{n \rightarrow \infty} f_n$ is integrable and $\int_A \liminf_{n \rightarrow \infty} f_n \leq M$. 
+\end{lemma}
+
+\begin{theorem}[Monotone Convergence Theorem]
+	Let $(f_n)_{n \in \bb{N}}$ be a sequence of non-negative, measurable functions on $A \subseteq \bb{R}$ such that $\forall n \in \bb{N}$, $f_n \leq f_{n+1}$ (so that the $\lim_{n \rightarrow \infty} f_n(x) $ exists in $[0, \infty]$ $\forall x \in A$ and $\lim_{n \rightarrow \infty} \int_A f_n $ exists in $[0, \infty]$), then 
+	\begin{align}
+		\int_A \lim_{n \rightarrow \infty} f_n = \lim_{n \rightarrow \infty} \int_A f_n
+	\end{align}
+\end{theorem}
+
+\begin{corollary} Let $(U_n)_{n \in \bb{N}}$ be a sequence of non-negative, measurable functions on $A \subseteq \bb{R}$. Then: 
+\begin{align}
+	\int_A \sum_{n=1}^\infty U_n = \sum_{n=1}^\infty \int_A U_n
+\end{align}
+\end{corollary}
+
+\begin{definition}[Integral in the case of Possibly Sign-Changing Functions]
+	We say that a measurable function $f: A \rightarrow \overline{\bb{R}}$ is \textbf{integrable} over $A$ if $f_+ := \max\{ f, 0 \}$ and $f_- := \max\{ -f, 0 \}$ are integrable. We then denote: 
+	\begin{align}
+		\int_A f := \int_A f_+ - \int_A f_-
+	\end{align}
+	$\forall B \subseteq A$ measurable, $\int_B f = \int_B f|_B$. 
+\end{definition}
+
+\begin{prop}
+	$f$ is Lebesgue integrable $\iff$ $|f|$ is Lebesgue integrable. 
+\end{prop}
+
+\begin{prop} Let $f$, $g$ be integrable over $A \subseteq \bb{R}$. Then: 
+\begin{enumerate}[noitemsep]
+	\item $\forall \alpha, \beta \geq 0$, $\alpha f + \beta g$ is non-negative and measurable and :
+	\begin{align*}
+		\int (\alpha f + \beta g) = \alpha \int f + \beta \int g 	
+	\end{align*}
+	\item $f \leq g$ on $A$ $\Rightarrow$ $\int_A f \leq \int_A g$. 
+	\item $\forall B \subseteq A$ measurable, $\chi_B f$ is non-negative, measurable, and 
+	\begin{align*}
+		\int_A \chi_B f = \int_B f 	
+	\end{align*}
+	\item $\forall A_1, A_2 \subseteq A$ disjoint, measurable. Then: 
+	\begin{align*}
+		\int_{A_1 \cup A_2} f = \int_{A_1} f + \int_{A_2} f 	
+	\end{align*}
+	If, moreover, $m(A_2) = 0$, then
+	\begin{align*}
+		\int_{A_2} f = 0 \mbox{ and so } \int_{A_1 \cup A_2}f = \int_{A_1} f	
+	\end{align*}
+\end{enumerate}
+\end{prop}
+
+\begin{theorem}[Dominated Convergence Theorem]
+	Let $(f_n)_{n \in \bb{N}}$ be a sequence of measurable functions on $A \subseteq \bb{R}$ such that 
+	\begin{enumerate}[noitemsep]
+		\item (Uniformly bounded) $\exists$ a $g$ integrable over $A$ so that $\forall n \in \bb{N}$ $|f_n| \leq g$. 
+		\item (Pointwise convergence) $\exists f: A \rightarrow \overline{\bb{R}}$ such that $f_n \rightarrow f$ pointwise a.e. in $A$. 
+	\end{enumerate}
+	Then, the functions $f_n$ and $f$ are integrable and
+	\begin{align*}
+		\int_A f = \lim_{n \rightarrow \infty} \int_A f_n 	
+	\end{align*}
+\end{theorem}
+
+\begin{corollary}[Countable Additivity of Lebesgue Integration]
+	Let $f$ be integrable over $A \subseteq \bb{R}$ and let $(A_n)_{n \in \bb{N}}$ be measurable, disjoint subsets of $A$. Then: 
+	\begin{align}
+		\int_{\cup_{n=1}^\infty A_n} f = \sum_{n =1}^\infty \int_{A_n} f  
+	\end{align}
+\end{corollary}
+
+\begin{corollary}[Continuity of Lebesgue Integration] 
+Let $(X, \mathcal{F}, \mu)$ be a measure space and let $f$ be integrable over $A \subseteq X$. Then, if: 
+\begin{enumerate}[noitemsep]
+	\item If $(A_n)_{n \in \bb{N}}$ is an increasing sequence of measurable subsets of $A$ (that is, $A_n \subseteq  A_{n +1}$ $\forall n \in \bb{N}$), then: 
+	\begin{align*}
+		\int_{ \cup_{n \in \bb{N}} A_n} f d \mu  = \lim_{n \rightarrow \infty } \int_{A_n} f d \mu 
+	\end{align*}
+	\item If $(A_n)_{n \in \bb{N}}$ is a decreasing sequence of measurable subsets of $A$ (that is, $A_{n+1} \subseteq  A_{n}$ $\forall n \in \bb{N}$), then:
+	\begin{align*}
+		\int_{ \cap_{n \in \bb{N}} A_n} f d \mu  = \lim_{n \rightarrow \infty } \int_{A_n} f d \mu 
+	\end{align*}
+\end{enumerate}
+\end{corollary}
+
+\section{Integration and Differentiation}
+
+\begin{definition}[Differentiable]
+	A function $f$ is \textbf{differentiable} if $D_*(f) = D^*(f) < \infty$, where
+	\begin{align*}
+		& D_*(f) := \liminf_{t \rightarrow 0} \frac{f(x+t) - f(x)}{t} \\
+		& D^*(f) := \limsup_{t \rightarrow 0} \frac{f(x+t) - f(x)}{t} 
+	\end{align*}
+\end{definition}
+
+
+\begin{theorem}[Monster Theorem]
+	Every monotone function $f: [a, b] \rightarrow \bb{R}$ is differentiable a.e. in $[a,b]$. Furthermore, $f'$ is integrable over $[a,b]$ and: 
+\begin{enumerate}[noitemsep]
+	\item If $f$ is increasing, then $\int_a^b f' \leq f(b) - f(a)$. 
+	\item If $f$ is decreasing, then $\int_a^b f' \geq f(b) - f(a)$. 
+\end{enumerate}
+\end{theorem}
+
+\begin{definition}[Bounded Variation]
+	We say that a function $f: [a,b] \rightarrow \bb{R}$ is of \textbf{bounded variation} if TV$(f) < \infty$, where: 
+	\begin{align}
+		\mbox{TV}(f) := \sup \sets{\sum_{k=0}^{N-1} |f(x_{k+1}) - f(x_k) |}{a= x_0 < x_1 < ... < x_N = b}
+	\end{align}
+	TV$(f)$ is called the \textbf{total variation} of $f$. 
+\end{definition}
+
+\begin{prop} Let $f: [a,b] \rightarrow \bb{R}$ and let $c \in ]a, b[$. Then: 
+\begin{align*}
+	\mbox{TV}(f) = \mbox{TV}(f|_{[a,c]}) 	+  \mbox{TV}(f|_{[c,b]}) 
+\end{align*}
+\end{prop}
+
+\begin{theorem}[Characterisation of Functions of Bounded Variation] A function $f: [a,b] \rightarrow \bb{R}$ is of bounded variation $\iff$ it can be written as the difference of two increasing functions. In particular, every function $f: [a, b] \rightarrow \bb{R}$ is differentiable a.e. in $[a,b]$ and $f'$ is integrable over $[a,b]$. 
+\end{theorem}
+
+\begin{definition}[Absolutely Continuous]
+	We say that a function $f: [a,b] \rightarrow \bb{R}$ is \textbf{absolutely continuous} if $\forall \varepsilon > 0$, $\exists$ $\delta_\varepsilon > 0$ such that $\forall$ finite collections of open, bounded intervals that are disjoint $]a_1, b_1[, ..., ]a_N, b_N[$, if 
+	\begin{align*}
+		\sum_{k=1}^N |b_k - a_k| < \delta 	\Rightarrow 		\sum_{k=1}^N |f(b_k) - f(a_k) | < \varepsilon	
+	\end{align*}
+\end{definition}
+
+\begin{theorem}
+	Every absolutely continuous function $f: [a,b] \rightarrow \bb{R}$ can be written as the difference of two increasing and absolutely continuous functions. In particular, it is of bounded variation. 
+\end{theorem}
+
+\begin{theorem}
+	Let $f:[a,b] \rightarrow \bb{R}$. Then: 
+	\begin{enumerate}[noitemsep]
+		\item If $f$ is absolutely continuous on $[a,b]$ $\forall x \in [a,b]$, then 
+		\begin{align*}
+			\int_{[a,x]} f' = f(x) - f(a) 	
+		\end{align*}
+		\item Conversely, if $\exists$ a $g$ integrable over $[a,b]$ such that $\forall x \in [a,b]$, $\int_{[a,x]} g = f(x) - f(a)$, then $f$ is absolutely continuous and $f' = g$ a.e. in $[a,b]$. 
+	\end{enumerate}
+\end{theorem}
+
+\begin{lemma}
+	Let $h$ be integrable over $[a,b]$. Then, $h=0$ a.e. in $[a,b]$ $\iff$ $\forall$ $x < y \in ]a,b[$
+	\begin{align*}
+		\int_{]x,y[} h = 0 	
+	\end{align*}
+\end{lemma}
+
+\begin{corollary}
+	Let $f: [a,b] \rightarrow \bb{R}$ be monotone. Then, $f$ is absolutely continuous on $[a,b]$ $\iff$ 
+\begin{align*}
+	\int_{]a,b[} f' = f(b) - f(a) 	
+\end{align*}
+\end{corollary}
+
+\begin{corollary}
+	Every function $f : [a,b] \Rightarrow \bb{R}$ of bounded variation can be written as $f = f_{\mbox{abs}} + f_{\mbox{sing}}$, where $f_{\mbox{abs}}$ is absolutely continuous and $ f'_{\mbox{sing}} = 0$ a.e. in $]a, b[$. 
+\end{corollary}
+
+\section{Lebesgue Measure and Integration in $\bb{R}^d$, $d \geq 2$}
+
+\begin{definition}[Outer Measure]
+	Let $A \subseteq \rd$. We define the \textbf{outer measure} of $A$ as: 
+	\begin{align}
+		m^*(A) := \inf \sets{\sum_{k=1}^\infty \mbox{Vol}(R_k)}{R_k = ]a_{k_1}, b_{k_1}[ \times \cdots \times ]a_{k_d}, b_{k_d} [ \mbox{ open, bd rectangles covering } A}
+	\end{align}
+	where 
+	\begin{align*}
+		\mbox{Vol}(R_k) := \prod_{i=1}^d (b_{k_i} - a_{k_i} ) 	
+	\end{align*}
+\end{definition}
+
+\begin{prop}
+	Every open set $\mathcal{O} \subseteq \rd$ can be written as a countable union of almost disjoint closed cubes. 
+\end{prop}
+
+For the next family of theorems, we are in the following set-up. Let $d_1 , d_2 \in \bb{N}$ be such that $d_1 + d_2 = d$. For every $E \subseteq \rd$ and $(x,y) \in \bb{R}^{d_1} \times \bb{R}^{d_2}  = \rd$. We denote
+\begin{align*}
+	& E_{x_0} := \sets{y \in \bb{R}^{d_2} }{(x_0, y) \in E}	 \\
+	& E_{y_0} := \sets{x \in \bb{R}^{d_1} }{(x, y_0) \in E}
+\end{align*}
+and $\forall$ $f: E \rightarrow \bb{R}$
+\begin{align*}
+	& f_{x_0} := \begin{cases}
+		E_{x_0} \rightarrow \overline{\bb{R}} \\
+		y \mapsto f(x_0, y) 
+	\end{cases}	 \\
+	& f_{y_0} := \begin{cases}
+		E_{y_0} \rightarrow \overline{\bb{R}} \\
+		x \mapsto f(x, y_0) 
+	\end{cases}	 \\
+\end{align*}
+
+
+\begin{theorem}[Fubini's Theorem in $\rd$] 
+	Let $f: \rd \rightarrow \bb{R}$ be integrable over $\bb{R}$. Then: 
+	\begin{enumerate}[noitemsep]
+		\item (Existence of the Integral I) For almost every $y \in \bb{R}^{d2}$, $f_y$ is integrable over $\bb{R}^{d1}$. 
+		\item (Existence of the Integral II) $y \mapsto \int_{\bb{R}^{d1}} f_y$ is integrable over $\bb{R}^{d2}$. 
+		\item (Fubini's Theorem)
+		\begin{align}
+			\int_{\bb{R}^{d2}} \left( 	\int_{\bb{R}^{d1}} f(x,y) dx 	\right) dy = \int_{\bb{R}^d} f 
+		\end{align}
+	\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Tonelli's Theorem; Fubini's Theorem for non-negative measurable functions]
+Let $f: \rd \rightarrow [0, \infty]$ be measurable. Then:  
+	\begin{enumerate}[noitemsep]
+		\item (Existence of the Integral I) For almost every $y \in \bb{R}^{d2}$, $f_y$ is non-negative and measurable over $\bb{R}^{d1}$. 
+		\item (Existence of the Integral II) $y \mapsto \int_{\bb{R}^{d1}} f_y$ is non-negative, measurable over $\bb{R}^{d2}$. 
+		\item (Fubini's Theorem)
+		\begin{align}
+			\int_{\bb{R}^{d2}} \left( 	\int_{\bb{R}^{d1}} f_y dx 	\right) dy = \int_{\bb{R}^d} f 
+		\end{align}
+	\end{enumerate}
+\end{theorem}
+
+\begin{corollary}
+	Let $E \subseteq \rd$ be measurable. Then: 
+	\begin{enumerate}[noitemsep]
+		\item For a.e. $y \in \bb{R}^{d2}$, $E_y$ is measurable. 
+		\item $y \mapsto m(E_y)$ is measurable. 
+		\item $m(E) = \int_{\bb{R}^{d2}} m(E_y)dy$. 
+	\end{enumerate}
+\end{corollary}
+
+\begin{corollary}[General Version of Tonelli's Theorem]\footnote{The difference between points i and ii here vs. Tonelli's theorem is that we cannot fix $x$ here.} Let $E \subseteq \bb{R}^d$ be measurable, and let $f: E \rightarrow [0, \infty]$ be measurable. Then: 
+	\begin{enumerate}[noitemsep]
+		\item For almost every $y \in \bb{R}^{d2}$, $f$ is non-negative and measurable on $E_y$. 
+		\item $y \mapsto \int_{E_y} f_y$ is non-negative, measurable, on $\bb{R}^{d2}$. 
+		\item 
+		\begin{align*}
+		\int_{\bb{R}^{d2}} \int_{E_y} f_y = \int_E f 	
+		\end{align*}
+	\end{enumerate}
+\end{corollary}
+
+\begin{corollary}[General Version of Fubini's Theorem]
+	Let $E \subseteq \rd$ be measurable and let $f: E \rightarrow \overline{\bb{R}}$ be measurable. Then: 
+	\begin{enumerate}[noitemsep]
+		\item For almost every $y \in \bb{R}^{d2}$ , $f_y$ is integrable on $E_y$. 
+		\item $y \mapsto \int_{E_y} f_y$ is measurable on $\bb{R}^{d2}$. 
+		\item 
+		\begin{align*}	
+			\int_{\bb{R}^{d2}} \int_{E_y} f_y = \int_E f 	
+		\end{align*}
+	\end{enumerate}
+\end{corollary}
+
+\begin{theorem}
+	Let $E_1$ and $E_2$ be measurable sets in $\bb{R}^{d1}$ and $\bb{R}^{d2}$ respectively. Then $E_1 \times E_2$ is measurable and
+	\begin{align*}
+		m(E_1 \times E_2) = \begin{cases}
+			m(E_1) \times m(E_2) & \mbox{ if } m(E_1) \neq 0\ \land m(E_2) \neq 0 \\
+			0 \mbox{ else } 
+		\end{cases}	
+	\end{align*}
+\end{theorem}
+
+\begin{corollary}
+	Let $E_1$, $E_2$ be two measurable sets, $E_1 \subseteq \bb{R}^{d1}$ and $E_2 \subseteq \bb{R}^{d2}$. Let $f: E_1 \rightarrow \overline{\bb{R}}$ be measurable. Then: 
+	\begin{align*}
+		\widetilde{f} := 
+		\begin{cases}
+			 E_1 \times E_2 \rightarrow \overline{\bb{R}} \\
+			 \widetilde{f}(x,y) = f(x) 
+		\end{cases}
+	\end{align*}
+	is measurable as a function of $E_1 \times E_2$. 
+\end{corollary}
+
+\begin{theorem}[Formula for the Integral of a non-negative measurable function in terms of a region in $\rd$] 
+	Assume that $d_1 = d - 1$ and $d_2 = 1$. Let $E_1 \subseteq \bb{R}^{d-1}$ be measurable and consider $f: E_1 \rightarrow [0, \infty]$. 
+	\begin{enumerate}[noitemsep]
+		\item $f$ is measurable $\iff$ the set $A$: 
+	\begin{align*}
+		A := \sets{(x,y) \in E_1 \times \bb{R}}{0 < y < f(x)}	
+	\end{align*}
+	is measurable. 
+	\item Moreover, if $f$ is measurable, then 
+	\begin{align}
+		m(A) = \int_{E_1} f 
+	\end{align}
+	\end{enumerate}	
+\end{theorem}
+
+\end{document}
