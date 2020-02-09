@@ -1,7 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage{titlesec}
 \titleformat{\section}[hang]{\normalfont\scshape}{\thesection.}{1em}{}
-
+\usepackage[T1]{fontenc}
 \usepackage[dvipsnames]{xcolor}
 \usepackage[margin=2cm]{geometry}
 \usepackage{amssymb} 
@@ -23,6 +23,9 @@
 \usepackage{fancybox}
 \usepackage{framed}
 \usepackage{tcolorbox}
+
+% open 
+\newcommand{\open}[0]{\mathcal{O}}
 % example environment
 \theoremstyle{definition} 
 \newtheorem{exmp}{Example}[section]
@@ -236,6 +239,8 @@ prefoothook = \endmysolbar]{sol}
 	Syllabus: $L^p$ space, duality, weak convergence, Young, Holder, and Minkowski inequalities, point-set topology, topological space, dense sets, completeness, compactness, connectedness, path-connectedness, separability, Tychnoff theorem, Stone-Weierstrass Theorem, Arzela-Ascoli, Baire category theorem, open mapping theorem, closed graph theorem, uniform boudnedness principle, Hahn Banch theorem. 
 \end{abstract}
 
+\textbf{This section was not covered in class, but since we have homework on this chapter I figured having this as a review from analysis 2 might be helpful. Also, there are a few terms/results that I don't think we covered in analysis 2.}
+
 \section{Examples of Metric Spaces}
 
 \begin{definition}[Metric Space]
@@ -257,5 +262,270 @@ prefoothook = \endmysolbar]{sol}
 	For any metric space $(X, \rho)$, let $Y \subseteq X$ be non-empty. Then, the restriction of $\rho$ to $Y \times Y$ defines a metric on $Y$. We define this induced metric space as a \textbf{metric subspace}. 
 \end{definition}
 
+\begin{exmp}[Examples of metric spaces] The following are examples of metric spaces: 
+\begin{enumerate}[noitemsep]
+	\item Every non-empty subset of a Euclidean space. 
+	\item $L^p(E)$, where $E \subseteq \R$ is a measurable set. 
+	\item $C[a,b]$. 
+\end{enumerate}
+\end{exmp}
+
+\begin{definition}[Product Metric] For metric spaces $(X_1, \rho_1)$ and $(X_2, \rho_2)$, we define the \textbf{product metric} $\tau$ on the cartesian product $X_1 \times X_2$ by setting, for $(x_1, x_2)$ and $(y_1, y_2)$ in $X_1 \times X_2$:
+	\begin{align}
+		\tau ( (x_1, x_2), (y_1, y_2) ) := \{ 	[\rho_1(x_1, x_2)]^2 + [\rho_2(y_1, y_2)]^2	\}^{1/2} 
+	\end{align}
+\end{definition}
+
+\begin{definition}
+	Two metrics $\rho$ and $\sigma$ on a set $X$ are said to be \textbf{equivalent} if there are positive numbers $c_1$ and $c_2$ such that $\forall$ $x_1, x_2 \in X$, 
+	\begin{align*}
+		c_1 \sigma (x_1, x_2) \leq \rho(x_1, x_2) \leq c_2 \sigma(x_1, x_2) 	
+	\end{align*}
+\end{definition}
+
+\begin{definition}[Isometry] 
+	A mapping $f: (X, \rho) \rightarrow (Y, \sigma)$ between two metric spaces is called an \textbf{isometry} provided that $f$ is surjective and $\forall x_1, x_2 \in X$: 
+	\begin{align}
+		\sigma(f(x_1), f(x_2)) = \rho(x_1, x_2) 
+	\end{align}
+	We say that two metric spaces are \textbf{isometric} if there is an isometry from one to another. 
+\end{definition}
+
+\section{Open Sets, Closed Sets, and Convergent Sequences}
+
+\begin{definition}[Open Ball]
+	Let $(X, \rho)$ be a metric space. For a point $x \in X$ and $r>0$, the set: 
+	\begin{align}
+		B(x,r) := \sets{x' \in X}{\rho(x', x) < r}
+	\end{align}
+	is called the \textbf{open ball} centred at $x$ of radius $r$. A subset $\open \subseteq X$ is said to be \textbf{open} if $\forall x \in \open$, there exists an open ball centred at $x$ and contained in $\open$. For a point $x \in X$, an open set containing $x$ is called a \textbf{neighbourhood} of $x$.  
+\end{definition}
+
+\begin{prop}
+	Let $X$ be a metric space. The whole set $X$ and the empty set $\emptyset$ are open. The intersection of any two open sets is open. The union of any collection of open sets is open. 
+\end{prop}
+
+\begin{prop}
+	Let $X$ be a subspace of a metric space $Y$ and $E \subseteq X$. Then, E is \textbf{open in $X$} $\iff$ $E = X \cap \open$, where $\open$ is open in $Y$. 
+\end{prop}
+
+\begin{definition}[Closure]
+	For a subset $E \subseteq X$, a point $x \in X$ is called a \textbf{point of closure} of $E$ provided that every neighbourhood of $x$ contains a point in $E$. The collection of the points of closure of $E$ is called the \textbf{closure} of $E$ and is denoted by $\overline{E}$. 
+\end{definition}
+
+\begin{prop}
+	For $E \subseteq X$, where $X$ is a metric space, its closure $\overline{E}$ is closed. Moreover, $\overline{E}$ is the smallest closed subset of $X$ containing $E$ in the sense that if $F$ is closed and if $E \subseteq F$, then $\overline{E} \subseteq F$. 
+\end{prop}
+
+\begin{definition}[Converge]
+	A sequence $\{ x_n \}$ in a metric space $(X, \rho)$ is said to \textbf{converge} to the point $x \in x$ provided that: 
+	\begin{align*}
+		\lim_{n \rightarrow \infty} \rho(x_n, x) = 0 	
+	\end{align*}
+	that is, $\forall$ $\varepsilon > 0$, $\exists$ an index $N$ such that $\forall n \geq N$, $\rho(x_n, x) < \varepsilon$. 
+\end{definition}
+
+\begin{prop}
+	Let $\rho$ and $\sigma$ be equivalent metrics on a non-empty set $X$. Then, a subset $X$ is open in a metric space $(X, \rho)$ $\iff$ it is open in $(X, \sigma)$. 
+\end{prop}
+	
+\section{Continuous Mappings Between Metric Spaces}
+
+\begin{definition}[Continuous]
+	A mapping $f$ from a metric space $X$ to a metric space $Y$ is continuous at the point $x \in X$ if $\forall$ $\{ x_n \} \in X$, if $\{ x_n \} \rightarrow x$, then $\{ f(x_n) \} \rightarrow f(x)$. $f$ is said to be \textbf{continuous} if it is continuous at every point in $X$. 
+\end{definition}
+
+\begin{prop}[$\varepsilon$-$\delta$ criteria for continuity] 
+	A mapping from a metric space $(X, \rho)$ to a metric $(Y, \sigma)$ is continuous at the point $x \in X$ $\iff$ $\forall$ $\varepsilon > 0$, $\exists$ $\delta > 0$ such that if $\rho(x, x') < \delta$, then $\sigma(f(x), f(x')) < \varepsilon$. That is: 
+	\begin{align}
+		f(B(x, \delta)) \subseteq B(f(x), \varepsilon) 
+	\end{align}
+\end{prop}
+
+\begin{prop}
+	A mapping $f$ from a metric space $X$ to a metric space $Y$ is continuous $\iff$ $\forall$ open subsets $\open \subseteq Y$, the inverse image under $f$ of $\open$, $f^{-1}(\open)$, is an open subset of $X$. 
+\end{prop}
+
+\begin{prop}
+	The composition of continuous mappings between metric spaces, when defined, is continuous. 
+\end{prop}
+
+\begin{definition}[Uniformly Continuous] 
+	A mapping from a metric space $(X, \rho)$ to a metric space $(Y, \sigma)$ is said to be \textbf{uniformly continuous} if $\forall$ $\varepsilon > 0$, $\exists$ $\delta > 0$ such that $\forall u, v \in X$, if $\rho(u, v) < \delta$, $\sigma(f(u), f(v)) < \varepsilon$. 
+\end{definition}
+
+\begin{definition}[Lipschitz] 
+	A mapping $f: (X, \rho) \rightarrow (Y, \sigma)$ is said to be \textbf{Lipschitz} if $\exists$ a $c \geq 0$ such that $\forall$ $u, v \in X$: 
+	\begin{align*}
+		\sigma(f (u), f(v) ) \leq c \rho(u,v) 	
+	\end{align*}
+\end{definition}
+
+\section{Complete Metric Spaces} 
+
+\begin{definition}[Cauchy] A sequence $\{ x_n \}$ in a metric space $(X, \rho)$ is said to be a \textbf{Cauchy sequence} if $\forall \varepsilon > 0$, there exists a $N \in \mathbb{N}$ such that if $m, n \geq N$, then $\rho(x_n, x) < \varepsilon$. 
+\end{definition}
+
+\begin{definition}[Complete]
+	A metric space $X$ is said to be \textbf{complete} if every Cauchy sequence in $X$ converges to a point in $X$. 
+\end{definition}
+
+\begin{prop}
+	Let $[a,b]$ be a closed and bounded interval of real numbers. Then, $C[a,b]$ with the metric induced by the max norm is complete. 
+\end{prop}
+
+\begin{prop}[Characterisation of Complete Subspaces of Metric Spaces]
+	Let $E \subseteq X$, where $X$ is a complete metric space. Then, the metric subspace $E$ is complete $\iff$ $E$ is a closed subset of $X$. 
+\end{prop}
+
+\begin{theorem}
+	The following are complete metric spaces: 
+	\begin{enumerate}[noitemsep]
+		\item Every non-empty closed subset of $\R^n$. 
+		\item $E \subseteq \R$ measurable, $1 \leq p \leq \infty$, each non-empty closed subset of $L^p(E)$. 
+		\item Each non-empty closed subset of $C[a,b]$. 
+	\end{enumerate}
+\end{theorem}
+
+\begin{definition}[Diameter]
+	Let $E$ be a non-empty subset of a metric space $(X, \rho)$. We define the \textbf{diameter} of $E$, denoted by diam$(E)$, by: 
+	\begin{align}
+		\text{diam}(E):= \sup \sets{\rho(x,y)}{x, y \in E}
+	\end{align}
+	We say that $E$ is \textbf{bounded} if it has finite diameter. 
+\end{definition}
+
+\begin{definition}[Contracting Sequence]
+	A decreasing sequence $\{ E_n \}$ of non-empty subsets of $X$ is called a \textbf{contracting sequence} if: 
+	\begin{align}
+		\lim_{n \rightarrow \infty} \text{diam}(E_n) = 0 
+	\end{align}
+\end{definition}
+
+\begin{theorem}[Cantor Intersection Theorem]
+	Let $X$ be a metric space. Then, $X$ is complete $\iff$ whenever $\{ F_n \}$ is a contracting sequence of non-empty closed subsets of $X$, there is a point $x \in X$ for which: 
+	\begin{align}
+		\bigcap_{n=1}^\infty F_n = \{ x \}
+	\end{align}
+\end{theorem}
+
+\begin{theorem}
+	Let $(X, \rho)$ be a metric space. Then, there is a complete metric space $(\widetilde{X}, \tilde{\rho})$ for which $X$ is a dense subset of $\widetilde{X}$ and 
+	\begin{align}
+		\rho(u,v) = \tilde{\rho}(u,v) \text{ 		} \forall\ u, v \in X
+	\end{align}
+	we call such a space the \textbf{completion} of $(X, \rho)$. 
+\end{theorem}
+
+\section{Compact Metric Spaces}
+
+\begin{definition}[Compact Metric Space]
+	A metric space $X$ is called \textbf{compact} if every open cover of $X$ has a finite sub-cover. A subset $K \subseteq X$ is compact if $K$, considered as a metric subspace of $X$, is compact. 
+\end{definition}
+
+\underline{\textbf{Formulation of compactness in terms of closed sets:}} Let $\mathcal{T}$ be a collection of open subsets of a metric space $X$. Define $\mathcal{F}$ to be the collection of the complements of elements in $\mathcal{T}$. Since the elements of $\mathcal{T}$ are open, the elements of $\mathcal{F}$ are closed. Thus, $\mathcal{T}$ is a cover $\iff$ the elements of $\mathcal{F}$ have \emph{empty intersection}. By deMorgan's law, we can formulate compactness in terms of closed sets as: 
+\begin{quote}
+	A metric space $X$ is compact $\iff$ every collection of closed sets with empty intersection has a finite sub-collection whose intersection is non-empty. 
+\end{quote}
+	This property is called the \textbf{finite intersection property}.
+	
+\begin{definition}[Finite Intersection Property]
+	A collection of sets $\mathcal{F}$ is said to have the \textbf{finite intersection property} if any finite sub-collection of $\mathcal{F}$ has a non-empty intersection.
+\end{definition}
+
+\begin{prop}[Compactness in terms of closed sets]
+	A metric space $X$ is compact $\iff$ every collection $\mathcal{F}$ of closed subsets of $X$ with the finite intersection property has a non-empty intersection. 
+\end{prop}
+
+\begin{definition}[Totally Bounded]
+	A metric space $X$ is \textbf{totally bounded} if $\forall$ $\varepsilon > 0$,  the space $X$ can be covered by a finite number of open balls of radius $\varepsilon$. A subset $E \subseteq X$ is said to be \textbf{totally bounded} if $E$, a s a subspace of the metric space $X$, is totally bounded. 
+\end{definition}
+
+\begin{definition}[$\varepsilon$-net] 
+	Let $E$ be a subset of a metric space $X$. A $\varepsilon$-\textbf{net} for $R$ is a finite collection of open balls $\{ B(x_k, \varepsilon) \}_{k=1}^n$ with centres $x_k \in X$ whose union covers $E$. 
+\end{definition}
+
+\begin{prop}
+	A metric space $E$ is totally bounded $\iff$ $\forall$ $\varepsilon > 0$, there is a finite $\varepsilon$-net for $E$. 
+\end{prop}
+
+\begin{prop}
+	A subset of Euclidean space $\R^n$ is bounded $\iff$ it is totally bounded. 
+\end{prop}
+
+\begin{definition}[Sequentially Compact]
+	A metric space $X$ is \textbf{sequentially compact} if every sequence $X$ has a subsequence that converges to a point in $X$. 
+\end{definition}
+
+\begin{theorem}[Characterisation of Compactness for a metric space]. Let $X$ be a metric space. Then, TFAE: 
+\begin{enumerate}[noitemsep]
+	\item $X$ is complete and totally bounded. 
+	\item $X$ is compact. 
+	\item $X$ is sequentially compact. 
+\end{enumerate}
+\end{theorem}
+	The following three propositions of this chapter are just breaking down these equivalences, so I will not write them.
+	
+\begin{theorem}
+	Let $K \subseteq \mathbb{R}^n$. Then, TFAE: 
+	\begin{enumerate}[noitemsep]
+		\item $K$ is closed and bounded. 
+		\item $K$ is compact. 
+		\item $K$ is sequentially compact. 
+	\end{enumerate}
+	\textbf{Observe}: The equivalence $(1) \iff (2)$ is the Heine-Borel theorem. The  equivalence $(2) \iff (3)$ is the Bolzano-Weierstrass theorem.  
+\end{theorem} 
+
+\begin{prop}
+	Let $f$ be a continuous mapping from a compact metric space $X$ to a compact metric space $Y$. Then, its image $f(X)$ is compact. 
+\end{prop}
+
+\begin{theorem}[Extreme Value Theorem]
+	Let $X$ be a metric space. Then, $X$ is compact $\iff$ every continuous real-valued function on $X$ attains a minimum and maximum value. 
+\end{theorem}
+
+\begin{definition}[Lebesgue Number]
+	Let $X$ be a metric space, and let $\{ \open_\lambda \}_{\lambda \in \Lambda}$ be an open cover of $X$. Thus, each $x \in X$ is contained in a member of the cover, $\open_\lambda$. Since $\open_\lambda$ is open, $\exists$ $\varepsilon > 0$ such that: 
+	\begin{align*}
+		B(x, \varepsilon) \subseteq \open_\lambda 	
+	\end{align*}
+	In general, $\varepsilon$ on $X$, but for compact metric spaces we can get \emph{uniform control}. This $\varepsilon$ that uniformly works is called the \textbf{Lebesgue number} for the cover $\{ \open_\lambda \}_{\lambda \in \Lambda }$. 
+\end{definition}
+
+\begin{lemma}
+	Let $\{ \open_\lambda \}_{\lambda in \Lambda}$ be an open cover of a compact metric space $X$. Then, there is a number $\varepsilon > 0$ such that for each $x \in X$, the open ball $B(x, \varepsilon) $ is contained in some member of the cover. 
+\end{lemma}
+
+\begin{prop}
+	A continuous mapping from a compact space $(X, \rho)$ to a metric space $(Y, \sigma)$ is uniformly continuous. 
+\end{prop}
+
+\section{Separable Metric Spaces}
+
+\begin{definition}[Dense \& Separable] A subset $D $ of a metric space $X$ is \textbf{dense} in $X$ if every non-empty subset of $X$ contains a point of $D$. A metric space is \textbf{separable} if there is a countable subset of $X$ that is dense in $X$. 	
+\end{definition}
+
+The \textbf{Weierstrass Approximation Theorem} states that polynomials are dense in $C[a,b]$. So, $C[a,b]$ is separable, with the countable dense set being the set of polynomials with rational coefficients. 
+
+\begin{prop}
+	A compact metric space is separable. 
+\end{prop}
+
+\begin{prop}
+	A metric space $X$ is separable $\iff$ there is a countable collection of $\{ \open_n \}$ of open subsets of $X$ such that any open subset of $X$ is the union of a sub-collection of $\{ \open_n \}$. 
+\end{prop}
+
+\begin{prop}
+	Every subspace of a separable metric space is separable. 
+\end{prop}
+
+\begin{theorem}
+	Each of the following are separable metric spaces: 
+	\begin{enumerate}[noitemsep]
+		\item Every non-empty subset of Euclidean space $\R^n$. 
+		\item $1 \leq p < \infty$, $L^p(E)$ and all non-empty subsets of $L^p(E)$. 
+		\item Each non-empty subset of $C[a,b]$. 
+	\end{enumerate}
+\end{theorem}
 
 \end{document}
