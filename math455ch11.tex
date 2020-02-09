@@ -1,0 +1,363 @@
+\documentclass[11pt]{article}
+\usepackage{titlesec}
+\titleformat{\section}[hang]{\normalfont\scshape}{\thesection.}{1em}{}
+\usepackage[T1]{fontenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amssymb} 
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[normalem]{ulem} 
+\usepackage{enumitem} 
+\setlist[enumerate]{itemsep=0mm}
+\usepackage{xcolor}
+\setenumerate{label=(\roman*)}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{etoolbox}
+\usepackage{fancybox}
+\usepackage{framed}
+\usepackage{tcolorbox}
+\usepackage{xcolor} 
+% open 
+\newcommand{\open}[0]{\mathcal{O}}
+\newcommand{\topo}[0]{\mathcal{T}}
+\newcommand{\hood}[0]{\mathcal{U}}
+\newcommand{\base}[0]{\mathcal{B}} 
+% example environment
+\theoremstyle{definition} 
+\newtheorem{exmp}{Example}[section]
+
+
+% question environment
+\theoremstyle{definition}
+\newtheorem{question}{Question}
+
+%rd 
+\newcommand{\rd}[0]{\mathbb{R}^d}
+\newcommand{\R}[0]{\mathbb{R}}
+
+% let E in R be measurable 
+\newcommand{\EinR}[0]{Let $E \subseteq \R$ be measurable}
+
+%integral 
+\newcommand{\idx}[2]{\int_{#1}^{#2}}
+
+% weak convergence 
+\newcommand{\warrow}[0]{\rightharpoonup}
+\newcommand{\fcvw}[0]{ \{f_n \} \warrow f \text{ in } L^p(E)} 
+
+% Probability 
+\DeclareRobustCommand{\bbone}{\text{\usefont{U}{bbold}{m}{n}1}}
+\newcommand{\Var}[1]{\mathrm{Var[#1]}}			% variance
+\newcommand{\EX}[1]{\mathbb{E}\mathrm{[#1]}}	 % expected value 
+\newcommand{\seq}[1]{\{ #1_n	\}_{n \in \bb{N}}} % sequence of events
+\newcommand{\pspace}[0]{( \Omega, F, P)}		% probability space
+\newcommand{\msp}[0]{( \Omega, F)}		% measurable space
+	
+% Exercise environment 
+\newenvironment{myleftbar}{%
+\def\FrameCommand{\hspace{0.6em}\vrule width 2pt\hspace{0.6em}}%
+\MakeFramed{\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+\declaretheoremstyle[
+spaceabove=6pt,
+spacebelow=6pt
+headfont=\normalfont\bfseries,
+headpunct={} ,
+headformat={\cornersize*{2pt}\ovalbox{\NAME~\NUMBER\ifstrequal{\NOTE}{}{\relax}{\NOTE}:}},
+bodyfont=\normalfont,
+]{exobreak}
+
+\declaretheorem[style=exobreak, name=Exercise,%
+postheadhook=\leavevmode\myleftbar, %
+prefoothook = \endmyleftbar]{exo}
+
+% Solution environment 
+\newenvironment{mysolbar}{%
+\def\FrameCommand{\hspace{0.6em}\vrule width 2pt\hspace{0.6em}}%
+\MakeFramed{\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+\declaretheoremstyle[
+spaceabove=6pt,
+spacebelow=6pt
+headfont=\normalfont\bfseries,
+headpunct={} ,
+headformat={\cornersize*{2pt}\ovalbox{\NAME~\NUMBER\ifstrequal{\NOTE}{}{\relax}{\NOTE}:}},
+bodyfont=\normalfont,
+]{solbreak}
+
+\declaretheorem[style=solbreak, name=Solution,%
+postheadhook=\leavevmode\mysolbar, %
+prefoothook = \endmysolbar]{sol}
+
+% HEADERS
+\usepackage{fancyhdr}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{Page \thepage}
+\fancyhead[RE,LO]{Math 455: Analysis 4}
+\fancyfoot[CE,CO]{}
+\fancyfoot[LE,RO]{\thepage}
+
+% Definitions
+\newcommand{\dfn}[1]{\textbf{\textcolor{blue}{#1}}}
+\newcommand{\im}[1]{\textbf{\textcolor{red}{#1}}}
+
+% lower integral
+\usepackage{accents}
+
+\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
+\def\avint{\mathop{\,\rlap{-}\!\!\int}\nolimits} 
+
+% custom commands 
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\vc}[1]{\mathbf{#1}}
+\newcommand{\step}[1]{\textbf{#1}\textbf{. Step:}}
+\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\sets}[2]{ \left\{ #1\ |\ #2 \right\}}
+\DeclareMathOperator{\Tr}{Tr}
+
+% Proofs
+\newcommand{\claim}[1]{\textbf{#1}\textbf{. Claim:}}
+
+	% iff proofs
+	\newcommand{\rhs}[0]{(\Rightarrow )}
+	\newcommand{\lhs}[0]{(\Leftarrow )}
+
+% sequence of functions
+\newcommand{\funcseqx}{(f_n(x))_{n \in \bb{N}}}
+\newcommand{\funcseq}{(f_n)_{n \in \bb{N}}}
+
+% measurable sets 
+\newcommand{\measurable}{f^{-1}([-\infty, c[)} 
+
+% heat equation 
+\newcommand{\pbdry}[2]{C^{(#1, #2)} (\Omega_T) \cap C (\overline{\Omega_T})}
+\DeclareMathOperator\erf{erf}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+
+% Laplace Equation 
+\newcommand{\lapbdry}[1]{C^{#1} (\Omega) \cap C (\overline{\Omega})}
+
+
+% math environments 
+\usepackage[utf8]{inputenc}
+\newtheorem{theorem}{\textcolor{blue}{Theorem}}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{\textcolor{OliveGreen}{Definition}}
+\newtheorem{prop}{\textcolor{red}{Proposition}}
+\newtheorem{ex}{\textcolor{Maroon}{Example}}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% cookbook proofs 
+\newcommand{\cb}[3]{\underline{(#1 #2): #3:}}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+
+% theorems 
+\newtcbtheorem[number within=section]{mytheo}{Theorem}%
+{colback=blue!5,colframe=blue!35!black,fonttitle=\bfseries}{th}
+
+% definitions 
+\newtcbtheorem[number within=section]{defn}{Definition}%
+{colback=black!5,colframe=black!35!black,fonttitle=\bfseries}{th}
+
+% axioms
+\newtcbtheorem[number within=section]{ax}{Axioms}%
+{colback=OliveGreen!5,colframe=black!35!OliveGreen,fonttitle=\bfseries}{th}
+
+
+% important examples
+\newtcbtheorem[number within=section]{examp}{Example}%
+{colback=Mahogany!5,colframe=black!35!Mahogany,fonttitle=\bfseries}{th}
+
+% upper and lower riemann integrals
+\newcommand{\upRiemannint}[2]{
+  \overline{\int_{#1}^{#2}}
+}
+\newcommand{\loRiemannint}[2]{
+  \underline{\int_{#1}^{#2}}
+}
+
+
+\setlength{\headheight}{20pt}
+\setlength{\headsep}{0.25 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+\sloppy
+
+%% Begin the header/lecture structure 
+\newcommand{\lecture}[5]{
+   \pagestyle{fancy}
+   \fancyhf{}
+   \fancyhead[LE,RO]{\thepage}
+   \fancyhead[CE,CO]{Lecture #1: #2}
+   \thispagestyle{plain}
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \vspace*{-.5in}
+   \setlength{\fboxsep}{3mm}
+   \setlength{\fboxrule}{1.5pt}
+   \begin{center}
+   \framebox{
+      \vbox{
+      \hbox to 6.18in {\textsc{Winter 2020 Semester (Results, Definitions, and Theorems) \hfill Lecture: #1}}
+      \vspace{6mm}
+      \hbox to 6.18in {{\bf \Large \hfill #2  \hfill}}
+      \vspace{6mm}
+      \hbox to 6.18in {Class:~ Math 455 (Analysis 4) 
+\hfill Date:~{#3} \hfill Shereen Elaidi}}}
+   \end{center}
+   \vspace*{4mm}
+}
+%% End the header structure
+% number everything using the lecture number counter
+% so there is never any question as to whether we
+% are referring to an example, theorem, exercise, etc.
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+\begin{document}
+
+\lecture{011}{Chapter 11: Topological Spaces (General Properties)}{9 February 2020}{Shereen Elaidi}{}
+
+\begin{abstract}
+	This document contains a summary of all the key definitions, results, and theorems from class. There are probably typos, and so I would be grateful if you brought those to my attention :-). 
+	
+	Syllabus: $L^p$ space, duality, weak convergence, Young, Holder, and Minkowski inequalities, point-set topology, topological space, dense sets, completeness, compactness, connectedness, path-connectedness, separability, Tychnoff theorem, Stone-Weierstrass Theorem, Arzela-Ascoli, Baire category theorem, open mapping theorem, closed graph theorem, uniform boudnedness principle, Hahn Banch theorem. 
+\end{abstract}
+
+\section{Open Sets, Closed Sets, Bases, and Sub-bases}
+
+\begin{definition}[Open Sets] 
+	Let $X$ be a non-empty set. A \textbf{topology} $\topo$ for $X$ is a collection of subsets of $X$, called \textbf{open sets}, posessing the following properties: 
+	\begin{enumerate}[noitemsep]
+		\item The entire set $X$ and the empty set $\emptyset$ are open. 
+		\item The finite intersection of open sets are open. 
+		\item The union of any collection of open sets is open. 
+	\end{enumerate}
+	A non-empty set $X$, together with a topology on $X$, is called a \textbf{topological space}. For a point $x \in X$, an open set that contains $x$ is called a \textbf{neighbourhood} of $x$. 
+\end{definition}
+
+\begin{prop}
+	A subset $E \subseteq X$ is open $\iff$ for each $x \in E$, there exists a neighbourhood of $x$ that is contained in $E$. 
+\end{prop}
+
+\begin{ex}[Metric Topology]
+	Let $(X, \rho)$ be a metric space. Let $\open \subseteq X$ be  open if for all $x \in \open$, $\exists$ an open ball at $x$ that is contained in $\open$. This collection of open sets forms a topology; we call this the \textbf{metric topology} induced by $\rho$. 
+\end{ex}
+
+\begin{ex}[Discrete Topology] 
+	This topology is ``too much.'' Let $X$ be a non-empty subset. Let $\topo := \mathcal{P}(X)$. Then, every set containing a point is a neighbourhood of that point. This is induced by the discrete metric. 
+\end{ex}
+
+\begin{ex}[Trivial Topology]
+	Let $X$ be non-empty. Define $\topo := \{ X, \emptyset \}$. The only neighbourhood of any point is the whole set $X$. 	
+\end{ex}
+
+\begin{definition}[Topological Subspaces]
+	Let $(X, \topo)$ be a topological space and let $E$ be a non-empty subset of $X$. The inherited topology $\mathcal{S}$ for $E$ is the set of all sets of the form $E \cap \topo$, where $\open \in \topo$. The topological space $(E, \mathcal{S})$ is called a \textbf{subspace} of $(X, \topo)$. 
+\end{definition}
+
+\begin{definition}[Base for the Topology]
+	The building blocks of a topology is called a \textbf{base}. Let $(X, \topo)$ be a topological space. For a point $x \in X$, a collection of neighbourhoods of $x$, $B_x$, is called a \textbf{base for the topology at $X$} if $\forall$ neighbourhoods $\mathcal{U}$ of $x$, there exists a set $B$ in the collection $B_x$ for which $B \subseteq \mathcal{U}$. 
+	
+	A collection of open sets $\mathcal{B}$ is called a \textbf{base for the topology} $\topo$ provided it contains a base for the topology at each point. 
+\end{definition}
+
+\begin{center} 
+\textbf{A base for a topology completely determines a topology, alongside $\emptyset$ and $X$.}
+\end{center} 
+
+\begin{prop}
+	For a non-empty set $X$, let $\mathcal{B}$ be a collection of subsets of $X$. Then, $\mathcal{B}$ is a base for a topology for $X$ $\iff$: 
+	\begin{enumerate}[noitemsep]
+		\item $\mathcal{B}$ covers $X$. That is:
+		\begin{align}
+			X = \bigcup_{B \in \mathcal{B}} B
+		\end{align}
+		\item If $B_1, B_2 \in \mathcal{B}$, and $x \in B_1 \cap B_2$, then there is a set $B_3 \in \mathcal{B}$ for which $x \in B_3 \subseteq B_1 \cap B_2$. 
+	\end{enumerate}
+	The unique topology that has $\mathcal{B}$ as its base consists of $\emptyset$ and unions of sub-collections of $\mathcal{B}$. 
+\end{prop}
+
+\begin{definition}[Product Topology]
+	Let $(X, \topo)$ and $(Y, \mathcal{S})$ be two topological spaces. In the cartesian product $X \times Y$, consider the collection of sets $\mathcal{B}$ containing the products $\open_1 \times \open_2$, where $\open_1$ is open in $X$ and $\open_2$ is open in $Y$. Then, $\mathcal{B}$ is a base for a topology on $X \times Y$, which we call the \textbf{product topology.}
+\end{definition}
+
+\begin{definition}[Sub-base]
+	Let $(X, \topo)$ be a topological space. The collection of $\mathcal{S}$ of $\topo$ that covers $X$ is called a \textbf{sub-base} for the topology $\topo$ provided intersections of finite collections of $\mathcal{S}$ are a base for $\topo$. 
+\end{definition}
+
+\begin{definition}[Closure]
+	Let $E \subseteq X$ be a subset of a topological space. A point $x \in E$ is called a \textbf{point of closure} of $E$ if every neighbourhood of $x$ contains a point in $E$. The collection of the points of closure of $E$ is called the \textbf{closure} of $E$, denoted $\overline{E}$. 
+\end{definition}
+
+\begin{prop}
+	Let $X$ be a topological space, $E \subseteq X$. Then, $\overline{E}$ is closed. Moreover, $\overline{E}$ is the smallest closed subset of $X$ containing $E$ in the sense that if $F$ is closed and $E \subseteq F$, then $\overline{E} \subseteq F$. 
+\end{prop}
+
+\begin{prop}
+	A subset of a topological space $X$ is open $\iff$ its complement is closed. 
+\end{prop}
+
+\begin{prop}
+	Let $X$ be a topological space. Then, (a) $\emptyset$ and $X$ are closed, (b) the union of a finite collection of closed sets is closed, (c) the intersection of any collection of closed sets in $X$ is closed. 
+\end{prop}
+
+\section{Separation Properties}
+\textbf{Motivation:} Separation properties for a topology allow us to discriminate between which topologies discriminate between certain disjoint pairs of sets, which will then allow us to study a robust collection of cts real-valued functions on $X$. 
+
+\begin{definition}[Neighbourhood]
+	A \textbf{neighbourhood} of $K$ for a subset $K \subseteq X$ is an open set that contains $K$. 
+\end{definition} 
+
+\begin{definition}[Separated by Neighbourhoods]
+	We say that two disjoint sets $A$ and $B$ in $X$ can be separated by disjoint neighbourhoods provided that there exists neighbourhoods of $A$ and $B$, respectively, that are disjoint. 
+\end{definition}
+
+\begin{definition}[Separation Properties of Topological Spaces]. In the order of most general to least general, they are: 
+\begin{enumerate}[noitemsep]
+	\item \underline{\textbf{Tychonoff Separation Property}}: For each two points $u, v \in X$, there exists a neighbourhood of $u$ that does not contain $v$ and a neighbourhood of $v$ that does not contain $u$. 
+	\item \underline{\textbf{Hausdorff Separation Property}}: Each two points in $X$ can be separated by disjoint neighbourhoods. 
+	\item \underline{\textbf{Regular Separation Property}}: Tychonoff $+$ each closed set and a point not in the set can be separated by disjoint neighbourhoods.
+	\item \underline{\textbf{Normal Separation Property}}: Tychonoff $+$ each two disjoint closed sets can be separated by disjoint neighbourhoods. 
+\end{enumerate}
+\end{definition}
+
+\begin{prop}
+	A topological space is Tychonoff $\iff$ every set containing a single point, $\{ x \}$, is closed. 
+\end{prop}
+
+\begin{prop}
+	Every metric space is normal.
+\end{prop}
+
+\begin{lemma}
+	$F$ is closed $\iff$ dist$(x, F) > 0$ $\forall$ $ x \notin F$. 
+\end{lemma}
+
+\begin{prop}
+	Let $X$ be a Tychonoff topological space. Then, $X$ is normal $\iff$ whenever $\hood$ is a neighbourhood of a closed subset of $F$ of $X$, there is another neighbourhood of $F$ whose closure is contained in $\hood$. that is, there is an open set $\open$ for which: 
+	\begin{align}
+		F \subseteq \open \subseteq \overline{\open} \subseteq \hood 
+	\end{align}
+\end{prop}
+
+\end{document}
