@@ -1,0 +1,798 @@
+\documentclass[11pt]{scrartcl}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{xcolor} 
+\usepackage{enumitem}
+\newcommand{\R}[0]{\mathbb{R}}
+\addtokomafont{section}{\rmfamily\centering\scshape}
+% math environments 
+\usepackage[utf8]{inputenc}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{prop}{Proposition}
+\newtheorem{ex}{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% definition
+\newcommand{\dfn}[1]{\textbf{\underline{#1}}}
+\newcommand{\dist}[0]{\mathcal{F}}
+\newcommand{\pr}[1]{\mathbb{P}[#1]} 
+\newcommand{\stat}[0]{T(X_1, ..., X_n )} 
+
+% converge in probability 
+\newcommand{\cvp}[0]{\overset{p}{\to}}
+
+% sample mean
+\newcommand{\smean}[0]{\frac{1}{n} \sum_{i=1}^n x_i} 
+
+% sample variance
+\newcommand{\svar}[0]{\frac{1}{(n-1)} \sum_{i=1}^n (x_i - \overline{x})^2}
+
+% expected value 
+\newcommand{\EX}[1]{\mathbb{E}\left[#1 \right]}  
+
+% integral
+\newcommand{\idx}[2]{\int_{#1}^{#2}}
+
+
+\title{\textbf{Math 357: Statistics}}
+\author{Shereen Elaidi}
+\date{Winter 2020 Term}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+
+
+\section{Introduction}
+Data consists of observations $x_1, ..., x_n$. These are regarded as realisations of random phenomena modelled by the random variables $X_1, ... , X_n$. In this course, the $X_i$'s will be random variables in $\R^d$, usually with $d=1$. 
+
+\begin{definition}[Random Sample]
+	The random variables $X_1, ..., X_n$ are called a \dfn{random sample} from a distribution $F$ for $i=1,...,n$ (or, if we want, we write $X \sim F$). 
+\end{definition}
+
+In this course, the data will be a realisation of the random sample $F$. The basic issue is that $F$ is unknown, so our task is to learn $\dist$ from the realisations $x_1, ..., x_n$. A \dfn{model} for $F$ is $\dist$, which is a collection of (certain) probability distributions such that $F \in \dist$. It is always an (artificial)  \dfn{approximation to reality}. 
+
+\begin{ex}[U.S. 2016 Election Poll]. $n=2,000$, and let $x_1, ..., x_n$ be the realisations of $X_1, ..., X_n$, which are iid. Then, assuming there are only two candidates: 
+\begin{align*}
+	F \in \dist = \{\ \text{Bernoulli}(p)\ |\ p \in ]0,1[\ \} 	
+\end{align*}
+	This is an example of a \dfn{parametric model}, since $p$, which is the probability of success, is an \emph{unknown} parameter. We know that for each $x_i$, we have $x_i \in \{ 0, 1 \}$. To estimate $p$, we have:
+	\begin{align*}
+		\hat{p} = \frac{1}{n}	\sum_{i=1}^n x_i 
+	\end{align*}
+	i.e., the sample mean. By the Weak Law of Large Numbers, which we can use thanks to the iid assumption, we can see how good the estimator is by observing that it will $\hat{p}$ will converge in probability to $p$ as $n \rightarrow \infty$: 
+	\begin{align}
+		\hat{p} = \frac{1}{n} \sum_{i=1}^{n} x_i \cvp p 
+	\end{align}
+\end{ex}
+
+\section{Part 1: Properties of Random Samples}
+
+We first remark that the assumption that the $X_1, ..., X_N$ are iid is also called \textbf{sampling from an infinite population.} To see why, consider that our population were finite, say $\{ x_1, ..., x_N \}$, and we sample the $X_1,..., X_N$ with replacement. Then, the probability of choosing a specific $x_k$ would be: 
+\begin{align*}
+		& \pr{ X_1 = x_k } = \frac{1}{N}\ \forall\ k\ \in \{ 1, ..., N \} \\
+		& \pr{ X_2 = x_k\ |\ X_1 = x_j } = \begin{cases}
+			0 & \text{ if } k = j \\
+			\frac{1}{N-1} & \text{ if } k \neq j 
+		\end{cases} 
+\end{align*}
+Using the law of total probability, we can obtain $\pr{X_2 = x_k}$: 
+\begin{align*}
+	\pr{X_2 = x_k } & = \sum_{j=1}^N \pr{x_2 = x_k\ |\ X_1 = x_j } \pr{X_1 = x_j} \\
+		& = \sum_{j=1, j \neq k}^N \frac{1}{N-1	} \frac{1}{N} = \frac{1}{N}
+\end{align*}
+These samples are identically distributed but not independent. When $N >> n $, the dependence between $X_1, ..., X_n$ plays \emph{essentially no role}. The following example illustrates this: 
+
+\begin{ex} 
+Let $N=2,000$ and $n=10$. If we assume that they are not independent: 
+\begin{align*}
+\pr{X_1 > 2,000 , ... , X_n > 2,000}  =	\frac{\binom{800}{10} \binom{200}{0}}{\binom{1000}{0}} \approx 0.106164 
+\end{align*}
+If do assume they are independent: 
+\begin{align*}
+\pr{X_1 > 2,000 , ... , X_n > 2,000} = [\pr{X_1 > 200}]^{10} =  \left( \frac{800}{1000} \right)^{10} \approx 0.107374 	
+\end{align*}
+\end{ex}
+
+\begin{definition}[Statistic]
+	Let $X_1, ..., X_n$ be a random sample from $F$, a distribution on $\R^d$. For a measurable function: 
+	\begin{align}
+		T: \underbrace{\R^d \times \cdots \times \R^d}_{\text{ $n$ times } } \rightarrow R^k 
+	\end{align}
+	the random variable $T(X_1, ..., X_n)$ is called a \dfn{statistic}. The distribution of the statistic, $T(X_1,...,X_n)$ is called a \dfn{sampling distribution} of the statistic $\stat$. 
+\end{definition}
+\textbf{CAUTION}: $\stat$ is a function of $X_1, ..., X_n$ ONLY. That is, $\stat$ must be a \emph{vector of numbers.} 
+
+\begin{ex} Let's go back to the opinion poll example. The estimator 
+\begin{align*}
+\hat{p} = \frac{1}{n} \sum_{i=1}^n x_i	
+\end{align*}
+	is a statistic. A realisation is $0.47 = \stat$. Note that the following is \emph{not} a statistic: 
+	\begin{align}
+		\left( \frac{1}{n} \sum_{i=1}^n x_i - p \right)^2
+	\end{align}
+	since there is a dependence on a parameter $p$. 
+\end{ex}
+
+\begin{definition}[Sample Mean, Sample Variance, Sample Standard Deviation] The average: 
+\begin{align}
+	\overline{X} := \frac{1}{n} \sum_{i=1}^n X_i 
+\end{align}
+is called the \dfn{sample mean}. The quantity: 
+\begin{align}
+	s^2 := \svar 
+\end{align}
+is called the \dfn{sample variation}. The statistic $s := \sqrt{s^2}$ is called the \dfn{sample standard deviation.} When these values are realised, they are denoted $\overline{x}, s^2,$ and $s$. $\overline{x}$ and $s^2$ are measures of central tendency and variability, respectively. 
+
+\begin{theorem}
+	Suppose that $x_1, ..., x_n \in \R$ and let $\overline{x} := \smean$. Then: 
+	\begin{enumerate}[noitemsep]
+		\item 
+		\begin{align}
+			\min_\alpha \sum_{i=1}^n (x_i - \alpha)^2 = \sum_{i=1}^\infty (x_i - \overline{x})^2 
+		\end{align}
+		\item 
+		\begin{align}
+			(n-1)s^2 = \sum_{i=1}^n (x_i - \overline{x})^2 = \sum_{i=1}^n x_i^2 - n \overline{x} 
+		\end{align}
+	\end{enumerate}
+\end{theorem}
+\end{definition}
+
+\begin{proof}
+	\begin{enumerate}[noitemsep]
+		\item 
+			\begin{align*}
+				\sum_{i=1}^n (x_i - \alpha)^2 & = \sum_{i=1}^n (x_i \pm \overline{x} - \alpha)^2 \\
+					& = \sum_{i=1}^n (x_i - \overline{x})^2 + (\overline{x} - a)n + 2(\overline{x}-\alpha) \underbrace{\sum_{i=1}^n (x_i - \overline{x})}_{:= n\overline{x} - n \overline{x} = 0} \\
+					& \geq \sum_{i=1}^n (x_i - \overline{x})^2
+			\end{align*}	
+		\item Set $\alpha=0$ in the preceding calculation. Then: 
+		\begin{align*}
+			\sum_{i=1}^n x_i^2 = \sum_{i=1}^n (x_i - \overline{x})^2 + n\overline{x}^2	
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{lemma}
+	Let $X_1, ..., X_n$ be iid from $F$ on $\R$, and let $g: \R \rightarrow \R$ be measurable, and $X \sim F$. Suppose that Var$[g(X)] < \infty$. Then: 
+	\begin{enumerate}[noitemsep]
+		\item 
+		\begin{align}
+			\mathbb{E} \left[ 	\sum_{i=1}^n g(X_i)		\right]  = n \mathbb{E} [ g(X) ] 
+		\end{align}
+		\item 
+		\begin{align}
+			\text{Var} \left[ 	\sum_{i=1}^n g(X_i ) 	\right] =  n \text{Var}[g(X)] 
+		\end{align}
+	\end{enumerate}
+\end{lemma}
+
+\begin{theorem}
+	Let $X_1, ..., X_n$ be a random sample from $F$, and assume that $X \sim F$. Suppose that Var$[X] = \sigma^2 < \infty$ and let $\mu := \EX{X}$. Then: 
+	\begin{enumerate}[noitemsep]
+		\item $\EX{\overline{X}} = \mu$
+		\item Var$[\overline{X}]$ = $\sigma^2 / n$. 
+		\item $\EX{s^2} = \sigma^2$. 
+	\end{enumerate}
+\end{theorem}
+\textbf{Remark.} The reason why we divided by $(n-1)$ and not $n$ in $s^2$ was because we wanted property (3) to be true. 
+
+\begin{proof}
+	\begin{enumerate}[noitemsep]
+		\item Obvious. 
+		\item 
+		\begin{align*}
+			\text{Var}[\overline{X}] = \text{Var} \left[ \frac{1}{n} \sum_{i=1}^n x_i \right] = \frac{1}{n^2} \text{Var} \left[ \sum_{i=1}^n x_i \right] = \frac{1}{n^2} n \sigma^2 = \sigma^2/n	
+		\end{align*}
+		\item 
+		\begin{align*}
+			\EX{\frac{1}{(n-1)} \sum_{i=1}^n (x_i - \overline{x}^2) } & \underbrace{=}_{\text{Thm 1.2}}  \EX{\frac{1}{(n-1)} \left[ 	\sum_{i=1}^n x_i^2 - n \overline{x} 	\right] }	 \\
+				& = \frac{1}{(n-1)} \left[ 	n \EX{X^2} - n \EX{\overline{X}}^2	\right] \\
+				& = \frac{1}{(n-1)} \left[ 		n ( \sigma^2	 + \mu^2) - n \left( 	\frac{\sigma^2}{n} - \mu^2	\right) \right]  \\
+				& = \sigma^2
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{ex}[Simon Newcomb trying to measure the speed of light, 1835-1909] In 1882, he attempted to carry out measurements to determine the speed of light. He collected 66 data points. \emph{Question: given the data, what would be the model for the distribution of the speed of light? How would you describe the stochastic mechanism?} 
+
+We have $n$ random variables, $X_1, ..., X_n$, where $n=66$. The paramteric statistical model is: 
+\begin{align*}
+	\dist = \{\ N(\mu, \sigma^2),\ \mu \in \R^2, \sigma^2 > 0 \} 	\\
+	T_i = (24800 + X_i) \cdot 10^{-9} 
+\end{align*}
+We think that a normal distribution is reasonable. That is, $X_i \sim N(\mu, \sigma^2)$. We will write each $X_i$ as the sum of the mean and an error term, $\varepsilon$: 
+\begin{align*}
+	X_i = \mu + \varepsilon_i 	
+\end{align*}
+where we assume $\varepsilon_i \sim N(0, \sigma^2)$. The $\varepsilon_i$ has some distribution function with CDF $F_0$ with $\EX{ \varepsilon_i } = 0$. We can express the distribution $\dist$ in an alternative way in terms of shifts: 
+\begin{align*}
+\dist = \{ F_0 ( \cdot - \mu),\ \mu \in \R,\ F_0 \text{ is a CDF with expectation zero } \} 	
+\end{align*}
+This gives us something that we call a \dfn{semi-parametric model}. We then obtain the $\overline{x}$, sample mean. We can use this to estimate $\mu$. 
+
+\emph{Question: How confident are we in the obtained sample mean?} In order to answer this question, we need to know something about the sampling distribution of the statistics. We can estimate the variance of the sample mean using the previous theorem and the assumption about the errors being normally distributed as follows. Recall that the sample variance is given by: 
+\begin{align*}	
+	\svar 
+\end{align*}
+So, the expected value of $s^2$ is: 
+\begin{align*}
+	\EX{s^2} = \text{Var}[X] = \sigma^2 \text{ (if the errors are normally distributed)} 
+\end{align*}
+and, 
+\begin{align*}
+	\text{Var}[\overline{X} ] = \sigma^2 / n 	
+\end{align*}
+This means that the uncertainty of $\overline{X}$ depends on the underlying distribution since the $\sigma^2$'s are the variances of the $X_i$'s. 
+\end{ex}
+
+\begin{theorem}
+	Suppose that $X_1, ..., X_n$ is a random sample from an underlying distribution $F$. Let $X \sim F$. Suppose also that $X$ has a moment generating function $M_X(t)$ for $t \in I$. Then, the moment generating function of $\overline{X}$ is: 
+	\begin{align}
+		M_{\overline{X}} (t) = \{ M_x(t/n) \}^n,\ t/n \in I 
+	\end{align}
+\end{theorem}
+
+\begin{proof} The proof follows from the IID property of the random variables $X_1, ..., X_n$. 
+	\begin{align*}
+	\text{MGF} = \EX{e^{t\overline{X}}} & =	\EX{e^{t/n (X_1 + ... + X_n)}} \\
+						& = \EX{\prod_{i=1}^n e^{t/n X_i}} \\
+						& = \prod_{i=1}^n \EX{ e^{t/n X_i }} \\
+						& = \{ M_X(t/n) \}^n 
+	\end{align*}
+\end{proof}
+
+The next example will give us some concrete examples of applying the previous theorem. 
+
+\begin{ex}
+	\begin{enumerate}[noitemsep]
+		\item Let $F = N(\mu, \sigma^2)$. So, we know that $X \sim N(\mu, \sigma^2)$. From Math 356 we know the moment generating function is: 
+		\begin{align*}
+			M_X(t) = e^{t\mu + \frac{1}{2} \sigma^2 t^2}\ t \in \R	
+		\end{align*}
+		Invoking the theorem and simplifying:  
+		\begin{align*}
+			M_{\overline{X}} (t) & = \left(e^{\frac{t}{n}\mu + \frac{1}{2} \sigma^2 \frac{t^2}{n^2}} \right)^n\ t \in \R	\\
+			& = e^{t\mu + \frac{1}{2} \sigma^2\frac{t^2}{n}} 
+		\end{align*}
+		since the MGF uniquely determines the underlying distribution, this gives us that: 
+		\begin{align*}
+			\overline{X} \sim N(\mu, \sigma^2/n) 	
+		\end{align*}
+		\item If $X \sim $ Binomial$	(m, p)$: 
+		\begin{align*}
+			& M_X(t) = (1-p+pe^t)^m \\	
+			& M_{\overline{X}}(t) = (1 - p + pe^{t/n})^{m \cdot n} 
+		\end{align*}
+
+		\begin{enumerate}[noitemsep]
+			\item A modification of the $\overline{X}$ will be distributed binomially. Namely, $n \times \overline{X}$ will get rid of the $n$ in the denominator: 
+			\begin{align*}
+				M_{n \times \overline{X}} (t) = \EX{ e^{nt\overline{X}} } = (1-p+pe^t)^{m \cdot n } 	
+			\end{align*}
+			$ \Rightarrow $ $n \times \overline{X} \sim $ binomial$(m \cdot n, p)$. 
+		\end{enumerate}
+		\item If $X \sim $ Gamma$(\alpha, \beta)$: 
+		\begin{align*}
+			& \Gamma (\alpha) = \idx{0}{\infty} 	x ^{\alpha - 1} e^{-x} dx \\
+			& M_X(t) = (1-t\beta)^{-\alpha},\ t < \frac{1}{\beta} \\
+			& M_{\overline{X}}(t) = \left( 	1 - \frac{t}{n} \beta		\right)^{-\alpha n },\ t < \frac{n}{\beta} \\
+			& \Rightarrow \overline{X} \sim \text{Gamma}\left( \alpha \cdot n, \frac{\beta}{n} \right) 
+		\end{align*}
+	\end{enumerate}
+\end{ex}
+
+\subsection{Sampling from the Normal Population}
+
+The setup for this section will be as follows: let $X_1, ..., X_n$ be iid from $N( \mu, \sigma^2)$. 
+
+\begin{theorem}
+	Let $X_1, ..., X_n$ be iid from N$(\mu, \sigma^2)$. Then: 
+	\begin{enumerate}[noitemsep]
+		\item $\overline{X} \sim N(\mu, \sigma^2)$. (Shown using the MGF). 
+		\item $\overline{X}$ and $s^2$ are independent. 
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	WLOG for $(a)$, we can assume that $\mu=0$ and $\sigma^2 = 1$, since we standardise random variables. Why? The standardisation of a random variable $X_i$, denoted by $X_i^*$, is an affine transformation given by: 
+	\begin{align*}
+		X_i^* = \frac{X_i - \mu}{\sigma}	
+	\end{align*}
+	$X_i^*$ is still normally distributed, which can be shown using an MGF argument. Thus: 
+	\begin{align*}
+		\overline{X}_i^* = \frac{\overline{X} - \mu}{\sigma}
+	\end{align*}
+	($\overline{X} = \sigma \overline{X}^* + \mu)$. Moreover, for $(s^*)^2$:  
+	\begin{align*}
+		(s^*)^2 = \frac{1}{(n-1)	} \sum_{i=1}^n (X_i^* - \overline{X}^*)^2  = \frac{1}{(n-1)} \sum_{i=1}^n \frac{(X_i - \overline{X})^2}{\sigma^2}	= \frac{s^2}{\sigma^2}
+	\end{align*}
+	This justifies why we can say WLOG. To show that (b) holds when $\mu = 0$ and $\sigma^2 = 1$, we will play with $s^2$: 
+	\begin{align*}
+		s^2 = \frac{1}{(n-1)} \left[ \sum_{i=2}^n (X_i - \overline{X})^2 + (X_1 - \overline{X})^2  \right] 
+	\end{align*}
+	because we also know that
+	\begin{align*}
+		\sum_{i=1}^n (X_i - \overline{X}) = 0 \Rightarrow (X_1 - \overline{X}) = - \sum_{i=2}^n (X_i - \overline{X}) 	
+	\end{align*}
+	This implies that we can re-write $s^2$ as: 
+	\begin{align*}
+		s^2 = \frac{1}{(n-1)	} \left[ 	\sum_{i=2}^n (X_i - \overline{X})^2 + \left( 	\sum_{i=2}^n (X_i - \overline{X})	\right)^2 			\right] 	 := h(X_2 - \overline{X}, ..., X_n- \overline{X} )
+	\end{align*}
+	$h$ is clearly measurable. We now have a function of only $n-1$ random variables, which is why we normalise $s^2$ by $(n-1)$. 
+	
+	\begin{lemma}[Core of the argument] If $X_1, ..., X_n$ are iid $N(0,1)$, then
+	\begin{align}
+		\overline{X} \perp (X_2 - \overline{X}, ..., X_n - \overline{X}) 
+	\end{align}
+	From this lemma 1.14, we can then immediately conclude that $\overline{X} \perp s^2$. 
+	\end{lemma}
+	\begin{proof} This is where we use the normality assumption. Define a one-to-one function $g: \R^n \rightarrow \R^n$: 
+	\begin{align*}
+		g(x_1, ..., x_n ) \mapsto (\overline{x}, x_2 - \overline{x}, ..., x_n - \overline{x})	
+	\end{align*}
+	Since $g$ is one-to-one, we can invert it: 
+	\begin{align*}
+	g^{-1}(y_1, ..., y_n) \mapsto \left(g_n - \sum_{i=2}^n y_i, y_n + y_1, ..., y_n + y_1  \right) 	
+	\end{align*}
+	Need to calculate the Jacobian  of the transformation: 
+	\begin{align*}
+		\text{Jac}(g) = \begin{bmatrix}
+			1 & -1 & \cdots & -1 \\
+			1 & 1  & \cdots & 0 \\
+			\vdots & \ddots & \ddots & 0 \\
+			1 & 0 & \cdots & 1 
+		\end{bmatrix}	
+	\end{align*}
+	det$($Jac$(g)) = n$. So, by the transformation laws: 
+	\begin{align*}
+		f_{Y_1, ..., Y_n} (y_1 , ..., y_n) 	= f_{(X_1, ..., X_n} (g^{-1}(y_1, ..., y_n ) ) |\text{Jac}(g)|
+	\end{align*}
+	Here, $Y_1 = \overline{X}, Y_2= X_2 - \overline{X}, ..., Y_n  = X_n - \overline{X}$, and so by the IID of the $X_i$: 
+	\begin{align*}
+		f_{(X_1, ..., X_n)} (x_1, ..., x_n) & = \prod_{i=1}^n \frac{1}{\sqrt{2 \pi}}	 \frac{1}{\sigma} e^{\frac{-(x_i - \mu)^2}{2 \sigma^2}} \\	
+		& = \prod_{i=1}^n \frac{1}{\sqrt{ 2 \pi}} e^{-x_i^2 / 2 } 		
+	\end{align*}
+	where the second inequality follows by the standard normal assumption. 
+	\begin{align*}
+		f_{(Y_1, ..., Y_n)}	(y_1, ..., y_n) & = \left( \frac{1}{\sqrt{2 \pi}}		\right)^n \text{exp} \left\{ 	-\frac{1}{2} \left(y_1 - \sum_{i=2}^n y_i \right)^2 + \left	( y_2 + y_1\right)^2 + ... + (y_n + y_1)^2 	\right\}  \\
+			& = \left( 	\frac{1}{\sqrt{2 \pi}}	\right)^n \text{exp} \left\{ 	\frac{-n y_1^2}{2}	\right\} \prod_{i=2}^n \text{exp} \left\{ 	-\frac{1}{2} \left( \sum_{i=2}^n y_i^2 - \left( 	\sum_{i=2}^n y_i \right)^2			\right) 	\right\} 
+	\end{align*}
+	(the cross terms will drop out). Thus, we have factored the densities of the $Y$'s into the product of two functions with difference dependencies ($y_1$ vs. $y_2, ..., y_n$). 
+	Thus, $Y_1 \perp (Y_2, ..., Y_n)$ 
+	\end{proof}
+	By the following theorem from Chapter 4 of the textbook, we obtain the desired result: 
+	\begin{theorem}[Generalisation of Theorem 4.3.2]
+			Let $X_1, ..., X_N$ be independent random vectors. Let $g_i(x_i)$ be only a factor of $x_i$, $i=1,..., n$. Then, the random variables $U_i := g_i(X_i)$, $i=1,..., n$ are mutually independent. 
+	\end{theorem}
+\end{proof}
+
+\begin{definition}[Chi Squared Distribution with $v$ degrees of freedom] 
+	\begin{align}
+		f_v(x) := \frac{1}{2^{v/2} \gamma (v/2) } x^{v/2 - 1} e^{-x/2} 
+	\end{align}
+	$x > 0$. 
+\end{definition}
+
+\textbf{Remark:} $\chi^2_v$ is a Gamma$(v/2, 2)$ distribution (special case of the gamma distribution). Recall from earlier that the MGF of $\chi_v^2$ is $(1-2t)^{-v/2}$ for $t < 1/2$. 
+
+\begin{lemma}[Facts about $\chi^2$]
+	\begin{enumerate}[noitemsep]
+		\item  If $X \sim \chi_v^2$, then $\EX{X} = v$ and Var$[X] = 2v$
+		\item If $X_1 \sim \chi^2_{v_1}$ and $X_2 \sim \chi^2_{v_2}$, $X_1 \perp X_2$, then $X_1 + X_2 \sim \chi^2_{(v_1 + v_2)}$ 
+		\item If $X \sim N(0,1)$ then $X^2 \sim \chi^2_1$. (Proof of this one is on assignment 1). 
+	\end{enumerate}
+\end{lemma}
+
+The following theorem is very important since it leads to the chi squared test. 
+
+\begin{theorem}
+	Let $X_1, ..., X_n$ be a random sample from $N(\mu, \sigma^2)$. Then: 
+	\begin{align} 
+		\frac{(n-1)s^2}{\sigma^2} \sim \chi^2_{(n-1)}	
+	\end{align} 
+\end{theorem}
+
+Reality check: \begin{align*}
+ 	\EX{ \frac{(n-1)s^2}{\sigma^2}} = (n-1) 
+ \end{align*}
+ which implies that: 
+ \begin{align*}
+ 	\frac{(n-1)}{\sigma^2} \EX{s^2} = (n-1) \Rightarrow \EX{s^2} = \sigma^2	
+ \end{align*}
+
+We can elegantly prove this using moment generating functions: 
+\begin{proof}
+	From the preceding Lemma and the first theorem of the section, we have that we can standardise: 
+	\begin{align*}
+		\frac{\overline{X} - \mu}{\sigma / \sqrt{n} }	\sim N(0,1) 
+	\end{align*}
+	Squaring this, we obtain: 
+	\begin{align*}
+		n \left( 	\frac{(\overline{X} - \mu)^2}{\sigma^2}		\right) \sim \chi^2_1 	
+	\end{align*}
+	So, summing the random variables gives: 
+	\begin{align*}
+		\sum_{i=1}^n \left( 		\frac{X_i - \mu}{\sigma}	\right)^2 	\sim \chi_n^2
+	\end{align*}
+	 Therefore, by adding and subtracting the sample mean and simplifying: 
+	 \begin{align*}
+	 \sum_{i=1}^n \left( 		\frac{X_i - \mu}{\sigma}	\right)^2 &  = \frac{\sum_{i=1}^n (X_i - \overline{X})^2}{\sigma^2	} + \frac{n (\overline{X} - \mu)^2}{\sigma^2}	\\
+	 	& = \frac{(n-1)s^2}{\sigma^2	} + \underbrace{\frac{n(\overline{X} - \mu)^2}{\sigma^2}}_{ \sim \chi_1^2} 
+	 \end{align*}
+		From the first theorem of the section, these are independent. We cannot subtract to solve for the quantity that we are interested in, so we will work with moment generating functions. The MGF of the left hand side is: 
+		\begin{align*}
+			(1 - 2t)^{n/2},\ t < 1/2	
+		\end{align*}
+		and the MGF of the right hand side is: 
+		\begin{align*}
+			M_{\frac{(n-1)s^2}{\sigma^2}} (t)  \cdot (1-2t)^{-1/2},\ t < 1/2 
+		\end{align*}
+		equating these, we obtain: 
+		\begin{align*}
+			M_{\frac{(n-1)s^2}{\sigma^2}} (t) 	= (1-2t)^{-(n-1)/2},\ t < 1/2
+		\end{align*}
+		However, this is the MGF of $\chi_{(n-1)}^2$, and since the MGF uniquely determines the distribution, we obtain that $\frac{(n-1)s^2}{\sigma^2} \sim \chi^2_{(n-1)}$, which is what we wanted to show. 
+\end{proof}
+\dfn{Observe:} this proof heavily relies on the normality of the distribution, independence, and the chi squared. 
+
+\subsection{Standardisation}
+\dfn{Motivation}: quality control problem. Let $\overline{X}$ be the random variable estimating the underlying mean. Say that we set a quality cutoff, $\mu_0$, and we want to answer the question: 
+\begin{align*}
+	\text{ does } \mu = \mu_0? 	
+\end{align*}
+What if we try to standardise: 
+\begin{align*}
+	\frac{\overline{X} - \mu_0}{\sigma^/n}	 \sim N(0,1)
+\end{align*}
+and then compare the quantities? The problem here is that this is not a statistic. We do not know what $\sigma$ is. However, if you don't know something, estimate it: 
+\begin{align*}
+	\sqrt{n} \frac{\overline{X} - \mu_0}{\sqrt{s^2} }	
+\end{align*}
+The problem with this approach is that it is not distributed $N(0,1)$. Especially when the sample is not too large. This motivates the following definition: 
+
+\begin{definition}[Student-t distribution with $v$ degrees of freedom] has the density: 
+\begin{align*}
+	f_v(x) := \frac{\Gamma \left( \frac{v+1}{2} \right) }{\sqrt{ v \pi} \Gamma \left( 	\frac{v}{2}	\right) }	\left(1+ \frac{x^2}{v}	\right)^{(v+1)/2}
+\end{align*}
+	where $x \in \R$ and $v > 0$. 
+	
+\end{definition}
+
+\dfn{Remark}: if you set $v=1$, you obtain the Cauchy Lorentz distribution. $\EX{X} = \infty$. Also observe that the student-t is a heavy-tailed distribution. 
+
+\begin{lemma} Let $X \sim t_v$. Then: 
+\begin{enumerate}[noitemsep]
+	\item $\EX{X} = 0$, provided that $v> 1$ (otherwise it does not exist). 
+	\item Var$[X] = v/(v-2)$ when $v > 2$ (otherwise, var$[X]$ does not exist). 
+	\item (Assignment): if $Z \sim N(0,1)$, $V \sim \chi_v^2$, $Z \perp V$, then: 
+	\begin{align}
+		\frac{Z}{\sqrt{v/v}} \sim T_v 
+	\end{align}
+\end{enumerate}
+	This is the \textbf{most important part of the distribution}. You can prove it using the transformation theorem for densities. 
+\end{lemma}
+
+\begin{theorem}
+	Let $X_1, ..., X_n$ be a random sample from $N(\mu, \sigma^2)$. Then: 
+	\begin{align*}
+		\frac{\overline{X} - \mu}{\sqrt{ s^2/n} } \sim t_{(n-1)} 	
+	\end{align*}
+\end{theorem}
+The proof is pretty obvious using the lemma: 
+\begin{proof}
+	We will express the ratio as a standard normal $Z$. We already have that: 
+	\begin{align*}
+		\sqrt{n} \frac{\overline{X} - \mu}{\sigma} \sim N(0,1) \perp \frac{s^2 (n-1)}{\sigma^2} \sim \chi^2_{(n-1)} 	
+	\end{align*}
+	So, taking the ratio in the form of what is given to us in the previous lemma gives: 
+	\begin{align*}
+		\frac{\sqrt{n} \frac{\overline{X} - \mu}{\sigma}}{\sqrt{\frac{s^2(n-1)}{\sigma^2 (n-1)}}} = \frac{\sqrt{n} (\overline{X} - \mu)}{\sqrt{s^2} } \sum t_{(n-1)} 
+	\end{align*}
+	where we obtain the distribution from the previous lemma. 
+\end{proof}
+The student-t model forms a nice statistical model for certain types of data. 
+
+\subsection{F-Test Basis}
+
+If we want to compare quality, we need to standardise by variance. The following section helps answer the question, \textbf{is the variance between two samples the same?}
+
+\begin{definition}[The Fischer-Snedecor's F Distribution with Two Parameters $v_1$ and $v_2$ degrees of freedom] This distribution is denoted by $F_{v_1, v_2} $. This is the distribution of the following: 
+\begin{align*}
+	\frac{V_1 / v_1}{V_2/v_2}	
+\end{align*}
+	where $V_1 \sim \chi_{v_1}^2$, $V_2 \sim \chi_{v_2}^2$, and $V_1 \perp V_2$. 
+\end{definition}
+
+This will lead to the $F$-test. 
+
+\begin{theorem}
+	If $X_1, ..., X_n$ is a random sample from $N(\mu_x, \sigma_x^2)$, and $Y_1, ..., Y_m$ is a random sample from $N(\mu_y, \sigma^2_y)$, and the two samples are \emph{independent}, $s_x^2$ and $s_y^2$ are the sample variances, then: 
+	\begin{align*}
+		\frac{s^2_x / \sigma^2_x}{s^2_y / \sigma^2_y }	 \sim F_{n-1, m-1} 
+	\end{align*}
+\end{theorem}
+
+\begin{proof}
+	From the previous result and independence, we have: 
+	\begin{align*} 
+		\frac{(n-1)s_x^2}{\sigma_x^2} \sim \chi_{(n-1)}^2  \\
+		\frac{(m-1)s_y^2}{\sigma_y^2} \sim \chi_{(m-1)}^2
+	\end{align*} 
+	are independent. If we divide by the degrees of freedom and invoke the definition of the F distribution, we obtain the desired result. 
+	\begin{align}
+		\frac{s_x^2 / \sigma_x^2}{s_y^2 / \sigma_y^2} \sim F_{(n-1), (m-1)} 
+	\end{align}
+\end{proof}
+	This forms the basis of the F-test. If we want them to have the same variances, then $s_y^2$ and $s_x^2$ had better be close. The way to assess this is to look at ratios, and then the $\sigma^2$'s will drop out and we can then test hypotheses. Moreover, if $\sigma_x^2 = \sigma_y^2$, then: 
+	\begin{align*}
+		\frac{s_x^2}{s_y^2} \sim F_{(n-1), (m-1)} 
+	\end{align*}
+	we will later use this to construct the so-called \textbf{F-test}. 
+	
+	\subsection{Limiting Sample Distributions (Asymptotics)}
+	
+\begin{center}
+	What happens as $n \rightarrow \infty$? These questions are answered by \dfn{Weak Law of Large Numbers} and \dfn{Convergence in Distribution.} 
+\end{center}
+
+More precisely, let $X_1, ..., X_n$ be iid from F. Then, define $T_n := \stat$ be a real-valued statistic. Then: 
+
+\begin{center}
+	\textbf{Q1:} Does $T_n$ converge in probability to an estimator $\theta \in \R$? 
+	\begin{align}
+			\forall \varepsilon > 0\ \pr{ | T_n - \theta | > \varepsilon } \rightarrow 0\ \text{ as } n \rightarrow \infty 
+	\end{align} 
+	\textbf{Q2:} What happens to the distribution as $n \rightarrow \infty$? In other words, if $(r_n)$ is a sequence of real numbers, typically such that $r_n \rightarrow \infty$ ad $n \rightarrow \infty$, does
+	\begin{align} 
+			r_n ( T_n - \theta) \xrightarrow[]{d} T
+	\end{align}
+	What the $(r_n)$ is doing is that it is ``zooming'' into $T_n \rightarrow \theta$.  
+	\textbf{Idea:}  when n is ``large enough'': 
+	\begin{align*} 
+		r_n(T_n \rightarrow \theta) \xrightarrow[]{d} T_n \frac{T}{r_n} + \theta 
+	\end{align*}
+\end{center}
+where the final term is called the \dfn{location and scale model}. This may have a nice distribution. The distribution of $\frac{T}{r_n} - \theta$ is often called the \dfn{large-sample} or \dfn{(asymptotic) distribution of} $T_n$ or the \dfn{limiting distribution} of $T_n$. This is fundamental for quantifying uncertainty and for hypothesis testing. 
+
+\subsubsection{Question 1}
+
+First we will have a refresher from Math 356. The prime tool for convergence in probability is the Weak Law of Large Numbers. 
+
+\begin{theorem}[Weak Law of Large Numbers] 
+	Let $X_1, X_2, ...$ be iid random variables with $\EX{X_i} = \mu$ and Var$[X_i] = \sigma^2 < \infty$. Define 
+	\begin{align}
+		\overline{X_n} :=  \frac{1}{n} \sum_{i=1}^n X_i
+	\end{align}
+	then, $\overline{X_n}$ converges in probability to the expected value of $X$. 
+\end{theorem}
+
+\begin{theorem}[Continuous Mapping Theorem]
+	If $T_n \xrightarrow[]{P} T$ and $g$ is continuous on the set $C$ such that $\pr{T \in X} =1$, then $g(T_n) \xrightarrow[]{P} g(T)$. 
+\end{theorem}
+	In particular, if $T_n \xrightarrow[]{P} \theta$ and if $g$ is continuous at $\theta$, then $g(T_n) \xrightarrow[]{P} g(\theta)$.
+	
+\begin{ex}[Another justification for the sample variance]
+	Let $X_1, ..., X_n$ be a random sample from $X$ (i.e., from $F$ with $X \sim F$), and assume that $\EX{X^2} < \infty$. Then, by the WLLN, $\overline{X} \xrightarrow[]{P} \EX{X}$. For the sample variance:
+	\begin{align*}
+	s^2 = \frac{1}{(n-1)	} \sum_{i=1}^n (X_i - \overline{X})^2 = \frac{1}{(n-1)} \sum_{i=1}^n X_i^2 - \frac{n}{(n-1)} (\overline{X})^2	
+	\end{align*}
+	Applying the weak law of large numbers to the first term and the continuous mapping theorem to the second term gives us that the difference will converge in probability to:
+	\begin{align*}
+		\EX{X^2} - (\EX{X})^2	= \text{Var}[X]
+	\end{align*}
+	since the square root is continuous: 
+	\begin{align*}
+		s = \sqrt{s^2} \xrightarrow[]{P} \sqrt{\text{Var}[X]} 	
+	\end{align*}
+\end{ex} 
+
+\begin{ex}
+	Let $X_1, ..., X_n$ be a random sample from $X$. Suppose that we are after $\pr{ X \in A}$. This can be estimated by the \textbf{empirical probability}, which counts how many $x$'s fall into $A$. Set $Z_i$ $:= \chi_{X_i \in A} $. Then, the $Z_i$ are iid Bernoulli random variables. Using the Weak Law of Large Numbers: 
+	\begin{align*}
+		\mathbb{P}_n \xrightarrow[]{P} \pr{X \in A} 	
+	\end{align*}
+	which is the expected value of a Bernoulli random variable. By the Strong Law of Large numbers: 
+	\begin{align*}
+		\mathbb{P}_n  \rightarrow \pr{X \in A} \text{  a.s. 	} 
+	\end{align*}
+	Since $F$ is the CDF of $X$, we can try to learn it from the data. For $x \in \R$, $F(x) = \pr{X \leq x} $. The \dfn{empirical distribution function} $F_n$ is given by: 
+	\begin{align}
+		F_n(x) := \frac{1}{n	} \sum_{i=1}^n \chi_{X_i \leq x} 
+	\end{align}
+	This is a central object in mathematical statistics. 
+\end{ex}
+
+Given an observed sample $x_1, ..., x_n$, a sample empirical CDF is given by: 
+\begin{align}
+	F_n(x) = \frac{1}{n	} \sum_{i=1}^n \chi_{x_i \leq x} 
+\end{align}
+
+This is a CDF itself. It is a CDF with a discrete distribution with support $\{ x_1, ..., x_n \}$ and $\pr{x_i} = 1/n$. By the Weak Law of Large Numbers: 
+\begin{align*}
+	F_n(x) = \frac{1}{n} \sum_{i=1}^n \chi_{X_i \leq x} \xrightarrow[]{P} F(x)	
+\end{align*}
+for $\forall x \in \R$. Actually, by the strong law of large numbers: 
+\begin{align*}
+	F_n(x) \rightarrow F(x)\ a.s. 	
+\end{align*}
+for any $x \in \R$. 
+
+\begin{theorem}[Glivenlco-Cantelli Theorem] 
+	We have uniform convergence: 
+	\begin{align}
+		\sup_{x \in \R} |F_n(x) - F(x) | \rightarrow 0 \text{ as } n \rightarrow \infty 
+	\end{align}
+\end{theorem}
+Notice that: 
+\begin{align}
+	\overline{X} = \frac{1}{n} \sum_{i=1}^n X_i = \idx{}{} x dF_n(x) 
+\end{align}
+
+
+\subsubsection{Question 2}
+We will need the following tools from probability: the Central Limit Theorem and Slutsky's theorem. 
+
+\begin{theorem}
+	Let $Z_1, ..., Z_n$ be iid with $\EX{Z_i} < \infty$, $\EX{X_1} = \mu$, var$[Z_1] < \infty$, and var$[Z_i] = \sigma^2$. Then, the \dfn{Central Limit Theorem} states: 
+	\begin{align}
+		\sqrt{n} \frac{\overline{Z} - \mu}{\sigma} \xrightarrow[CLT]{} N(0,1) 
+	\end{align}
+	or 
+	\begin{align}
+		\sqrt{n} ( \overline{Z} - \mu) \xrightarrow[CLT]{} N(0, \sigma^2) 
+	\end{align}
+\end{theorem}
+
+\begin{theorem}[Slutsky's Theorem]
+	Assume that $T_n \xrightarrow[]{d} T$, $Y_n \xrightarrow[]{p} c$ where $c \in \R$. Then: 
+	\begin{enumerate}[noitemsep]
+		\item $T_n + Y_n \xrightarrow[]{d} T + c $ 
+		\item $T_n \cdot Y_n \xrightarrow[]{d} T \cdot c$ 
+		\item $T_n / Y_n \xrightarrow[]{d} T/c$ if $c \neq 0$. 
+	\end{enumerate}
+\end{theorem}
+
+\dfn{Remarks}: If $T_n \xrightarrow[]{d} c$ where $c \in \R$, then $T_n \xrightarrow[]{p} c$. Moreover, we can say something with the CMT. If $T_n \xrightarrow[]{d} T$, $g$ is continuous on $C$ with $\pr{T \in C} = 1$. Then, $g(T_n) \xrightarrow[]{d} g(T)$. 
+
+\dfn{Important remark}: if $(r_n)$ is a sequence of numbers, $r_n \rightarrow \infty$ as $n \rightarrow \infty$. Then, if $r_n (T_n - \theta) \xrightarrow[]{d} T$, then we have: 
+\begin{align*} 
+	T_n - \theta = \underbrace{r_n(T_n - \theta)}_{\xrightarrow[]{d} T} \underbrace{ \frac{1}{r_n}	}_{\rightarrow 0} \xrightarrow[\text{slutskys's}]{d} 0 
+\end{align*}
+So, $T_n - \theta \xrightarrow[]{p} 0$, or $T_n \xrightarrow[]{d} \theta$. This means that the second statement implies the first statement. 
+
+\begin{ex}[Alternative proof of the CLT] 
+		Let $X_1,..., X_N$ be iid from $X$, $\EX{X} = \mu$, Var$[X] = \sigma^2 < \infty$ (this assumption is very important!) 
+		\begin{align}
+			\sqrt{n} \frac{\overline{X} - \mu}{\sqrt{s^2}} = \underbrace{\frac{\sqrt{n} (\overline{X} - \mu)}{\sigma}}_{\text{By vanilla CLT, this goes to} N(0,1)} \cdot \underbrace{\frac{\sigma}{\sqrt{s^2}}}_{\xrightarrow[]{p} 1}
+		\end{align}
+		and so by Slutsky's theorem 
+		\begin{align*} 
+			\xrightarrow[]{d} N(0,1) 	
+		\end{align*}
+\end{ex}
+
+\begin{corollary} Assume that each $T_n \sim t_n$ (student-t with $n$ degrees of freedom). Then $T_n \xrightarrow[]{d} N(0,1)$. 
+	
+\end{corollary}
+
+\begin{ex}
+	Suppose $X_1, ..., X_n$ are iid from Bernoulli$(p)$. Suppose that we want to estimate var$[X_1] = p(1-p)$. \textbf{Q:} could we estimate it by: 
+	\begin{align*}
+		\overline{X}(1- \overline{X} ) \xrightarrow[P]{CMT} p(1-p)	
+	\end{align*}
+	More precisely, can we find a sequence $(r_n)$ such that
+	\begin{align*}
+		(r_n) (\overline{X}(1-\overline{X}) - p(1-p) ) \xrightarrow[]{d} ?? 	
+	\end{align*}
+	This is not exactly the CMT; this example provides the motivation for developing the \dfn{delta method}. Suppose that we want $r_n(T_n - \theta) \xrightarrow[]{d} T$ but we are interested in $g(T_n) - g(\theta)$. What could we do? We could use the Taylor Expansion: 
+	\begin{align*}
+		& g(T_n) - g(\theta) \approx g'(\theta) (T_n - \theta) 	\\
+		& (r_n) (g (T_n) - g(\theta) ) \approx g'(\theta) \{ r_n (T_n - \theta) \} 
+	\end{align*}
+	By Slutsky's theorem, $r_n(T_n - \theta)$ converges in distribution to $T \cdot g'(\theta)$. 
+\end{ex}
+
+\begin{theorem}[Delta Method]
+	Suppose $(r_n)(T_n - \theta) \xrightarrow[]{d} T$, where $(r_n)$ is a real sequence with $r_n \rightarrow \infty$. Let $g$ be a function and $T_n$ takes values in the domain of $g$, and assume that $g$ is \emph{differentiable} at $\theta$. Then: 
+	\begin{align}
+		r_n ( g(T_n) - g(\theta)) \xrightarrow[]{d} T \cdot g'(\theta) 
+	\end{align}
+\end{theorem}
+Proof will be postponed. Back to the example. Here: 
+\begin{align*}
+	& g(x) = x(1-x) \\
+	& g'(x) = 1-2x 	
+\end{align*}
+By the central limit theorem
+\begin{align*}
+	(\overline{X} - p) \sqrt{n} \xrightarrow[]{d} N (0, p(1-p)) 	
+\end{align*}
+Let $\sqrt{n} := (r_n)$. Then, by the delta method
+\begin{align*}
+	\sqrt{n} (\overline{X} (1 - \overline{X} ) - p(1-p)) & \xrightarrow[]{d} N(0, p(1-p)) \cdot (1-2p) \\ 
+		& = N(0, (1-2p)^2p(1-p)) 
+\end{align*}
+When $p=1/2$, the statement is uninteresting since the derivative is zero. We will have both convergence in probability and distribution to zero, which doesn't give us any information really. 
+
+We are no ready to prove the delta method. 
+
+\begin{proof}
+	This proof uses several common arguments that you should learn for stats :-). Observe that by the continuous mapping theorem, $T_n \xrightarrow[]{p} \theta$, also $g(T_n) \xrightarrow[]{p} g(\theta)$. Define the following function: 
+	\begin{align*}
+		& f: \R \rightarrow \R \\
+		& h \mapsto \begin{cases}
+			\frac{g(\theta + h) - g (\theta)}{h} - g'(\theta) & \text{ if } h \neq 0 \\
+			0 	& \text{ if } h = 0 
+		\end{cases}	
+	\end{align*}
+	Here, the interesting domain is small and is about zero. Observe that $f$ is continuous at zero. Now we can use the continuous mapping theorem: 
+	\begin{align*}
+			f(T_n - \theta) \xrightarrow[]{p} f(0) = 0 
+	\end{align*}
+	since the first term is equal to 
+	\begin{align*}
+		\frac{g(T_n) - g(\theta)}{T_n - \theta} - g'(\theta) 		
+	\end{align*}
+	By Slutsky's theorem: 
+	\begin{align*} 
+		& r_n (g(T_n) - g(\theta)) - g'(\theta ) r_n [T_n - \theta ] \\ 
+		& = \underbrace{r_n [T_n - \theta]}_{\xrightarrow[]{d} T} \underbrace{f(T_n - \theta)}_{\xrightarrow[]{p} \theta} \xrightarrow[]{d} T \cdot 0 = 0 
+	\end{align*} 
+	where the last convergence follows from Slutsky's theorem. Therefore: 
+	\begin{align*}
+		r_n (g(T_n) - g(\theta)) - g'(\theta)r_n [T_n - \theta ] \xrightarrow[]{p} 0 	
+	\end{align*}
+	Now: 
+	\begin{align*}
+	r_n[g(T_n) - g(\theta)] = \underbrace{r_n [g(T_n) - g(\theta)] - g'(\theta)r_n(T_n - \theta)}_{\xrightarrow[]{p} 0} + \underbrace{g'(\theta)(T_n - \theta) \cdot r_n 	}_{\xrightarrow[]{d} g'(\theta)T\ (CMT)}
+	\end{align*}
+	and so by Slutsky's theorem, we obtain convergence in distribution to $g'(\theta)T$, which completes the proof.
+\end{proof}
+
+\subsection{Order Statistics}
+\begin{definition}[Order Statistics]
+	The \dfn{order statistics} of a random sample $X_1, ..., X_n$ are the sample values placed in ascending order. They are denoted by $X_{(1)}, ..., X_{(n)}$. In other words, they are random variables that satisfy $X_{(1)} \leq \cdots \leq X_{(n)}$. In particular: 
+	\begin{align*}
+		& X_{(1)} = \min_{1 \leq i \leq n} X_i \\
+		& X_{(2)} = \text{ second smallest } X_i \\
+		& \vdots 	\\
+		& X_{(n)} = \max_{1 \leq i \leq n } X_i 
+	\end{align*}
+\end{definition}
+
+
+\begin{definition}[Sample Range]
+	The \dfn{sample range} is defined as $R:= X_{(n)} - X_{(1)}$. 
+\end{definition}
+
+\begin{definition}[Sample Median]
+	The \dfn{sample median}, denoted by $M$, is the number such that approx one half of the observations are less than $M$ and one half sare greater. It can be defined in terms of the order statistics as: 
+	\begin{align*}
+		M := \begin{cases}
+			X_{(n+1)/2} & \text{ if $n$ is odd} \\
+			\frac{(X_{(n/2)} + X_{(n/2+1})}{2} & \text{ if $n$ is even}
+		\end{cases}	
+	\end{align*}
+\end{definition}
+
+\section{Point Estimation}
+
+\end{document}
+
+
+
+
+
+

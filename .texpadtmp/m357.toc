@@ -1,0 +1,10 @@
+\contentsline {section}{\numberline {1}Introduction}{1}% 
+\contentsline {section}{\numberline {2}Part 1: Properties of Random Samples}{2}% 
+\contentsline {subsection}{\numberline {2.1}Sampling from the Normal Population}{6}% 
+\contentsline {subsection}{\numberline {2.2}Standardisation}{9}% 
+\contentsline {subsection}{\numberline {2.3}F-Test Basis}{10}% 
+\contentsline {subsection}{\numberline {2.4}Limiting Sample Distributions (Asymptotics)}{10}% 
+\contentsline {subsubsection}{\numberline {2.4.1}Question 1}{11}% 
+\contentsline {subsubsection}{\numberline {2.4.2}Question 2}{12}% 
+\contentsline {subsection}{\numberline {2.5}Order Statistics}{14}% 
+\contentsline {section}{\numberline {3}Point Estimation}{14}% 
