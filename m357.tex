@@ -36,6 +36,7 @@
 
 % expected value 
 \newcommand{\EX}[1]{\mathbb{E}\left[#1 \right]}  
+\newcommand{\EXth}[1]{\mathbb{E}_\theta \left[ #1 \right]}
 
 % integral
 \newcommand{\idx}[2]{\int_{#1}^{#2}}
@@ -788,8 +789,281 @@ We are no ready to prove the delta method.
 \end{definition}
 
 \section{Point Estimation}
+Let $X_1, ..., X_n$ be a random sample from $F$, and we will \emph{assume}: 
+\begin{align*}
+F \in \dist = \{ F_\theta,\ \theta \in \Theta \} 
+\end{align*}
+This means that our distribution is known up to a parameter $\theta$. $\theta$ is an unknown vector of parameters. $\Theta$ is called the \dfn{parameter space}, $\Theta \subseteq \R^k$. \textbf{Question:} where does $\Theta$ come from? This is the ``art'' of statistical modelling. The objective in this section is to learn $\theta$ from the data. 
+
+
+\textbf{Notation}: $F_\theta$ is a CDF. $P_\theta$ is the corresponding probability measure. $F_\theta$ has a density / probability mass function, which we will denote by $f(x, \theta)$. This notation emphasises the dependence on $\theta$. 
+
+
+\begin{ex}
+Assume that we have the normal model. Then: 
+\begin{align*}
+	\dist = \{ N(\mu, \sigma^2),\ \mu \in \R, \sigma^2 > 0 \} 	
+\end{align*}
+	Here, $\theta = (\mu, \sigma^2)$ and the parameter space $\Theta = \R \times ]0, \infty[$. 
+\end{ex}
+
+\begin{definition}[Point Estimator]
+	A \dfn{point estimator} is any statistic $\stat$ (function of only the data) taking values in $\R^k$ that has been constructed with the aim of estimating $\theta$. The observed value $T(x_1, ..., x_n)$ is called an \dfn{estimate} of $\theta$, which is a concrete number. 
+\end{definition}
+
+This definition is vague since we do not want to eliminate important estimates a priori. Often, estimators are denoted with $\hat{\theta}, \tilde{\theta}, \theta_n,$ or $ \hat{\theta_n}$. 
+
+
+\subsection{Ways We Can Construct Estimators}
+We will explore two of these methods in depth in this class. The third we will briefly mention. The first two are frequentist methods and the final one is a bayesian method. 
+\begin{enumerate}[noitemsep]
+	\item Method of moments
+	\item Method of maximum likelihood 
+	\item Bayesian estimation method 
+\end{enumerate}
+
+\subsubsection{Method of moments}
+	This is the oldest method. It was developed in the 19th century by Karl Pearson. It has been what we heuristically have been doing all along. Suppose that $X \sim F_\theta$. Then, as an idea we could firth calculate the jth moment $\mu_j$ of $X$ for $j=1,..., k$, that is: 
+	\begin{align*}
+			\mu_j = \EXth{X^j} = \idx{}{} x^j dF_\theta (x) = \idx{}{} x^j dP_\theta = \idx{}{} x^j f(x; \theta) dx  
+	\end{align*}
+	\textbf{How would we estimate $\mu_j$ from the data?} By the weak law of large numbers, $\mu_j$ can be estimated by the jth sample moment: 
+	\begin{align*}
+		\mu_j = \frac{1}{n} \sum_{i=1}^n X_i^j 	
+	\end{align*}
+	observe that this $\mu_j$ is a function of $\theta$. Thus, the general idea of the method of moments is: 
+	\begin{center}
+		Compute the jth moment of the parametric model. Then, solve for $\theta$: 
+		\begin{enumerate}[noitemsep]
+			\item Calculate the population moments $\mu_j$, $j=1,..., k$ (the first $k$ moments), and observe that $\mu_j$ is a function of $\theta$. 
+			\item Set $\mu_j = m_j$ for $j=1,..., k$ and solve for $\theta$. Start with $j=1$ and see where it takes us. 
+		\end{enumerate}
+	\end{center}
+	Note that sometimes you may need more moments than the first $k$< since some moments may not actually depend on $\theta$ (they could be zero, for example). 
+	
+	\begin{ex}[Method of moments for the normal distribution] Let $\dist = \{ N(\mu, \sigma^2)\ |\ \mu \in \R, \sigma^2 > 0 \}$. Here, since we have two parameters to estimate, we need at least two moments. We have: 
+	\begin{align*}
+		\EX{X} = \mu \text{ 		} \EX{X^2} = \text{var}[X] + (\EX{X})^2	= \sigma^2 + \mu^2 
+	\end{align*}
+	Now equate the population moments and solve for $\theta$. That is, we need to solve: 
+	\begin{align*}
+		& m_1 = \frac{1}{n} \sum_{i=1}^n X_i = \mu \\
+		& m_2 = \frac{1}{n} \sum_{i=1}^n X_i^2 = \sigma^2 + \mu^2 	
+	\end{align*}
+	and this gives us
+	\begin{align*}
+		& \hat{\mu} = m_1 \\
+		& \hat{\sigma}^2 = m_2 - \hat{\mu}^2		
+	\end{align*}
+	Substituting in what all of this means gives us: 
+	\begin{align*}
+		& \hat{\sigma}^2 = \frac{1}{n}	\sum_{i=1}^n X_i^2 - \left( 	\sum_{i=1}^n X_i \right)^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^2 = \frac{(n-1)}{n} s^2  
+	\end{align*}
+	Hence, the estimator (\dfn{method of moments estimator}) for $(\mu, \sigma^2)$ is: 
+	\begin{align*}
+		(\hat{\mu}, \hat{\sigma}^2) = \left( \overline{X}, \frac{(n-1)}{n} s^2 \right) 	
+	\end{align*}
+	\end{ex}
+	
+\textbf{Q: What are some advantages and disadvantages of the method of moments?}
+	
+Some advantages include: 
+	\begin{enumerate}[noitemsep]
+		\item It is intuitive. 
+		\item Population moments are easy to estimate and we know how they behave asymptotically. 
+		\begin{enumerate}[noitemsep]
+			\item Weak law of large numbers and the CLT. 
+		\end{enumerate}
+		\item Asymptotic properties of $\hat{\theta}$ can often be derived using the CMT and the Delta Method. 
+	\end{enumerate}
+	
+Some disadvantages include (``the bitter reality''): 
+	\begin{enumerate}[noitemsep]
+		\item There is a systematic bias for $n$ small, which is encoded by the $(n-1)/n$ term. 
+		\item These estimators are often not optimal. 
+	\end{enumerate}
+	
+
+\begin{ex}[Method of moments for binomial] 
+	Let our model be $\dist = \{ B(N,p),\ p \in [0,1],\ N=\{ 1,... \} \} $. There are two cases: $N$ can either be known or known. If $N$ is known, then it is easy. In this case, $\theta = p$ and $\Theta = [0,1]$. In this case: 
+	\begin{align*}
+		& \mu_1 = Np \\
+		& m_1 = Np \Rightarrow \hat{p} = \frac{m_1}{N}	 = \frac{\overline{x}}{N}
+	\end{align*}
+	The not so easy case is when both $p$ and $N$ are unknown. We have the following system of equations: 
+	\begin{align*}
+		& \mu_1 = Np 	\\
+		& \mu_2 = Np(1-p) + (Np)^2 
+	\end{align*}
+	We thus have the following system of equations that we need to solve: 
+	\begin{align*}
+		& m_1 = Np \\	
+		& m_2 = Np - Np^2  + N^2p^2 
+	\end{align*}
+	Solving for $\hat{p}$ gives: 
+	\begin{align*}
+		\hat{p} = \frac{m_1}{N}	
+	\end{align*}
+	Substituting this estimation into the second equation and simplifying gives: 
+	\begin{align*}
+		& m_2 = m_1 - \frac{m_1^2}{N^2} N(n-1) \\
+		 \Rightarrow &  m_2 	= m_1 + \frac{m_1^2}{N} (N-1) \\
+		 \Rightarrow & Nm_2 = Nm_1 + m_1^2 (N-1) \\
+		 \Rightarrow & N(m_2 - m_1 - m_1^2) = -m_1^2 
+	\end{align*}
+	What if $X_1 = ... = X_n = 0$? This event has non-zero probability, and so we must account for it. In that case, there is nothing more we can do. Otherwise, we obtain: 
+	\begin{align*}
+		& \hat{N} = \begin{cases}
+				\frac{-m_1^2}{m_2 - m_1 - m_1^2} \\
+				\text{undefined if } X_1 = ... = X_n = 0 
+		\end{cases}	 \\
+		& \hat{p} = \frac{-m_2 - m_2 - m_1^2}{m_1} \text{ or undefined in the case } X_1 = ... = X_n = 0 
+	\end{align*}
+	So, our method of moments (MoM) estimator of $(p, N)$ is: 
+	\begin{align*}
+		\left( \frac{-m_2 + m_1 + m_1^2}{m_1} , \frac{m_1^2}{-m_2 + m_1 + m_1^2}  \right) = \left( \frac{\overline{X} - \frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^2}{\overline{X}} , \frac{(\overline{X})^2}{\overline{X} - \frac{1}{n} \sum_{i=1}^n (X_i - \overline{X})^2}  (*) \right) 	
+	\end{align*}
+\end{ex}
+	Observations from this example: 
+	\begin{itemize}[noitemsep]
+		\item Estimating $N$ was not very intuitive. 
+		\item There is no guarantee that the second component of (*) is an integer or non-negative. This is why we chose such a vague definition of an estimator; because we don't want to exclude this method. 
+		\item Estimating $N$ for the binomial is quite difficult. 
+	\end{itemize}
+	
+	Here is an example where $\theta$ determines the support of the random variable. 
+	
+\begin{ex} 
+	Let $\dist = \{ U (]-\theta, \theta[),\ \theta \in ]0, \infty[ \}$. 	Since the expected value is zero, we will need more moments. Recall the following from probability theory: if $X \sim U(]a,b[)$, then: 
+	\begin{align*}
+		\EX{X} = \frac{a+b}{2} 	\text{ and } \text{var}[X] = \frac{1}{2} (b-a)^2
+	\end{align*}
+	then the moments are: 
+	\begin{align*}
+		& \mu_1 = 0 \\
+		& \mu_2 = \frac{1}{2} (2 \sigma)^2 = 2 \sigma 	
+	\end{align*}
+	this is good since it is a genuine function of $\theta$. Set: 
+	\begin{align*}
+		\mu_2 = m_2	
+	\end{align*}
+	and solve the following to obtain the method of moment estimator: 
+	\begin{align*}
+		2 \sigma^2 = m_2 \Rightarrow \hat{\theta} = \sqrt{\frac{m_2}{2}} = \sqrt{\frac{\frac{1}{n} \sum_{i=1}^n X_i^2}{2}}	
+	\end{align*}
+	Observe that $\theta$ could theoretically be zero. But, since this is a continuous distribution, the probability of $\theta$ actually being zero is zero. 
+\end{ex}
+
+
+	
+
+\subsubsection{Method of Maximum Likelihood}
+This is more optimal, but it can be harder to obtain. Assume that $F_\theta$ has a PDF or PMF for any $\theta \in \Theta$. Recall that we denoted this PMF by $f(x; \theta)$ to emphasise the dependence on $\theta$. Before proceeding, a word of caution: 
+
+\begin{center}
+	\textbf{The likelihood function is NOT RANDOM}!!! 
+\end{center}
+
+\begin{definition}[Likelihood Function]
+	Given that $(X_1, ..., X_n) = (x_1, ..., x_n)$ have been observed, the function of $\theta$ defined by $L: \Theta \rightarrow [0, \infty[$,
+	\begin{align}
+		L(\theta) := \prod_{i=1}^n f(x_i; \theta) 
+	\end{align}
+	is called the \dfn{likelihood function} for a fixed $x = (x_1, ..., x_n)$ as a function of $\theta$. 
+\end{definition}
+
+\begin{ex} 
+	Suppose that $x_1 = 1$, $x_2 = 2$, $x_3 = 2$, and $x_4 =5$ and that we assume the Poisson model: 
+	\begin{align*}
+		\dist = \{ P(\lambda),\ \lambda \in ]0, \infty[ \} 	
+	\end{align*}
+	then, the likelihood function is: 
+	\begin{align*}
+		L(\lambda; x) = e^{-\lambda} \frac{\lambda^1}{1!}	+  e^{-\lambda} \frac{\lambda^2}{2!} +  e^{-\lambda} \frac{\lambda^3}{2!} +  e^{-\lambda} \frac{\lambda^4}{5!}
+	\end{align*}
+\end{ex}
+
+We can think of the Likelihood function as a sort of ``function summary'' whose domain is the parameter space. 
+
+
+\dfn{Interpretation of the Likelihood Function}: 
+\begin{enumerate}[noitemsep]
+	\item If $F_\theta$ is discrete, then: 
+	\begin{align*}
+		L(\theta; x) = \pr{X_1 = x_1, ..., X_n = x_n}	
+	\end{align*}
+	It is simply the product of the PMFs. It thus represents the probability of observing the sample that we actually observed. Moreover, if for some $\theta_1, \theta_2 \in \Theta$, if $L(\theta_1; x) > L(\theta_2; x)$, then it means that we were more likely to observe that data if the parameter is $\theta_1$ instead of $\theta_2$. Thus, \emph{information is encoded in the function}. 
+	\item If the distribution $F_\theta$ is continuous, then this interpretation will obviously not work. However, we can do the usual ``trick'': 
+	\begin{align*}
+		\mathbb{P}_\theta [ X \in ]x - \varepsilon, x + \varepsilon [ ]  = \idx{x - \varepsilon}{x + \varepsilon} f (t; \theta) dt \approx f(x; \sigma) \cdot 2 \varepsilon	
+	\end{align*}
+	It is thus proportional up to a constant depending on $\varepsilon$. Mathematically: 
+	\begin{align*}
+		L(\theta; x) \propto \pr{X_1 \in ]x_1 - \varepsilon, x_1 + \varepsilon[,\ ..., X_n \in ]x_n - \varepsilon, x_n + \varepsilon [} 	
+	\end{align*}
+	Similar to the discrete case, comparing $L(\theta_1; x)$ with $L(\theta_2; x)$ will give us a comparison of the probability of the actual observed sample. 
+\end{enumerate}
+So the aim is to find a way maximise the likelihood function in $\theta$. 
+
+\begin{definition}[Maximum Likelihood Estimate] 
+	For an observed sample $x = (x_1, ..., x_n)$, let $\hat{\theta}(x)$ be the value for which $L$ is maximised. In other words: 
+	\begin{align}
+		L(\hat{\theta}(x); x) := \sup_{\theta \in \Theta} L(\theta; x) 
+	\end{align}
+	Then, $\hat{\theta}$ is called the \dfn{maximum likelihood estimate}. (Grounding: it is a number, not an object). If $\hat{\theta}(x)$ exists for almost all samples, and as a function: 
+	\begin{align*}
+		\hat{\theta}: \R^n \rightarrow R^k,\ x \mapsto \hat{\theta}(x) 	
+	\end{align*}
+	is a measurable function, then the \emph{function} $\hat{\theta}(X)$ is called the \dfn{Maximum Likelihood Estimator (MLE)} of $\theta$. 
+\end{definition}
+
+\begin{ex}[Continued from the Poisson Case] Let $x_1, ..., x_n$ be a sample from the Poisson distribution. Then, the aim is to maximise: 
+	\begin{align*}
+		L(\theta, x ) = \prod_{i=1}^n e^{-\lambda} \frac{\lambda^{x_i}}{x_i!}	= e^{-n\lambda} \frac{\lambda^{\sum_{i=1}^n x_i}}{x_1! \cdots x_n!}
+	\end{align*}
+	You \emph{could} differentiate this monstrosity, but differentiating products is in general not fun. However, sums are not too bad to differentiate. So, observe that this function is:
+	\begin{enumerate}[noitemsep]
+		\item Positive
+		\item Wherever $\log(L)$ is maximised, $L$ is maximised. 
+	\end{enumerate}
+	So we can equivalently maximise $\log(L(\lambda; x))$. Thus: 
+	\begin{align*}
+		& \log L(\lambda; x)  = \ell(\lambda; x) = -n \lambda + \sum_{i=1}^n x_i \log(\lambda) - \log(x_1! \cdots x_n! ) 	\\
+		\Rightarrow & \frac{\partial \ell(\lambda; x)}{\partial \lambda} = -n + \left( \sum_{i=1}^n x_i \right) \frac{1}{\lambda} = 0 \iff n \lambda = \sum_{i=1}^n x_i \\
+		\Rightarrow & \hat{\lambda}(x) = \overline{x} 
+	\end{align*}
+	Take the second partial derivative to verify that this is indeed a maximum. 
+	\begin{align*}
+		\frac{\delta \ell^2}{\delta \lambda} = - \frac{1}{\lambda^2} \sum_{i=1}^n x_i < 0 	
+	\end{align*}
+	This, the MLE is $\overline{x}$. 
+\end{ex}
+Some observations for calculating maximum likelihood estimators: 
+\begin{enumerate}[noitemsep]
+	\item It is often simpler to maximise the \dfn{log likelihood function}, which is defined as: 
+	\begin{align}
+		\ell(\theta; x) := \log L(\theta; x) 
+	\end{align}
+	\item If $\ell$ is differentiable, we can look for the maximum by solving the so-called \dfn{likelihood equations}: 
+	\begin{align}
+		\frac{\partial \ell}{\partial \theta_j} = 0\ j=1,..., k
+	\end{align}
+\end{enumerate}
+
+\subsubsection{Bayesian Method}
+\subsection{Method of Evaluating Estimators}
+\subsection{Best Unbiased Estimators}
+
+
+\emph{Cutoff for Midterm Material} 
+\section{Sufficiency and Completeness} 
+
+
 
 \end{document}
+
+
+
 
 
 
