@@ -1,0 +1,268 @@
+\documentclass[11pt]{scrartcl}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{xcolor} 
+\usepackage{enumitem}
+\newcommand{\R}[0]{\mathbb{R}}
+\addtokomafont{section}{\rmfamily\centering\scshape}
+% math environments 
+\usepackage[utf8]{inputenc}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{prop}{Proposition}
+\newtheorem{ex}{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% definition
+\newcommand{\dfn}[1]{\textbf{\underline{#1}}}
+\newcommand{\dist}[0]{\mathcal{F}}
+\newcommand{\pr}[1]{\mathbb{P}[#1]} 
+\newcommand{\stat}[0]{T(X_1, ..., X_n )} 
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\N}[0]{\mathbb{N}}
+
+
+% matrix groups
+\newcommand{\mat}[1]{\text{MAT}(m \times n, \mathbb{#1})}
+\newcommand{\gl}[1]{\text{GL}(n, \mathbb{#1})}
+
+% converge in probability 
+\newcommand{\cvp}[0]{\overset{p}{\to}}
+
+% sample mean
+\newcommand{\smean}[0]{\frac{1}{n} \sum_{i=1}^n x_i} 
+
+% sample variance
+\newcommand{\svar}[0]{\frac{1}{(n-1)} \sum_{i=1}^n (x_i - \overline{x})^2}
+
+% expected value 
+\newcommand{\EX}[1]{\mathbb{E}\left[#1 \right]}  
+\newcommand{\EXth}[1]{\mathbb{E}_\theta \left[ #1 \right]}
+
+% integral
+\newcommand{\idx}[2]{\int_{#1}^{#2}}
+
+% vector
+\newcommand{\vect}[1]{\mathbf{#1}}
+
+
+\title{\textbf{Math 247: Applied Linear Algebra ft. Dual Spaces}}
+\author{Shereen Elaidi}
+\date{Winter 2018 Term}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+What is this class about? 
+\begin{enumerate}[noitemsep]
+	\item Review of linear algebra, but with full proofs. 
+	\item More abstract. We will move from $\R^n$ to abstract vector spaces. 
+	\item Many objects in maths behave similarly in the sense that they are actually instances of the same phenomenon. So, we want to generalise in order to...
+	\begin{enumerate}[noitemsep]
+		\item Be more efficient. 
+		\item Clarifies the essence of what's behind the object
+		\item Groups, rings, fields, and vector spaces are all such objects. 
+	\end{enumerate}
+\end{enumerate}
+
+\begin{definition}[Group]
+	Let $G$ be a set with a binary operation. A \dfn{binary operation} means that you can take two objects in the set, ``add'' them, and return another object in the set. A binary operation $G \times G \rightarrow G$ is a binary operation if it satisfies the following rules: 
+	\begin{enumerate}[noitemsep]
+		\item \dfn{Law of Associativity}: $\forall a,b,c \in G$: 
+		\begin{align*}
+			a + (b+c) = (a+b) + c	
+		\end{align*}
+		$\forall a,b,c \in G$. 
+		\item \dfn{Existence of an additive neutral element}: $\exists$ $0 \in G$ such that:
+		\begin{align*}
+			0 + a = a + 0 = a 
+		\end{align*}
+		$ \forall a \in G$. 
+		\item \dfn{Existence of an additive inverse}: $\forall a \in G$, there exists an element $-a \in G$ such that: 
+		\begin{align}
+			a + (-a) = (-a) + a = 0 
+		\end{align}
+	\end{enumerate}
+	Any structure with a binary operation satisfying the above rules is called a \dfn{group}. A group always consists of two parts: a set and the operation. For example, a group equipped with addition is denoted $(G, +)$. 
+\end{definition}
+	Sometimes, we would like to have a group whose binary operation is commutative. Not all groups are commutative! 
+\begin{definition}[Abelian Group]
+A group $(G, +)$ is called \dfn{abelian} if $\forall a, b \in G$, we have the law of commutativity: 
+	\begin{align*}
+		a + b = b + a 	
+	\end{align*}
+\end{definition}
+
+\begin{ex}[Examples of abelian groups] 
+	$\R$ with standard addition, $\mathbb{Z}$ with standard addition, $\mathbb{Q}$ with standard addition, $\mathbb{C}$ with standard addition. If we take $n$ copies of $\R$ and $\mathbb{C}$, denoted $\R^n$ and $\mathbb{C}^n$, equipped with component-wise addition, then we also get groups. 
+	
+	
+	
+	However, $\mathbb{N}$ with standard addition is not a group simply because there is $\emph{no}$ element with an additive inverse in $\mathbb{N}$ for any value. 
+\end{ex}
+
+\begin{ex}[More examples of groups]
+	\begin{enumerate}
+		\item Matrix groups equipped with matrix addition. The sets of all $m \times n$ matrices with coefficients in $\R$ and $\C$, respectively, are denoted as: 
+		\begin{align*}
+			& \mat{R} \\
+			& \mat{C} 	
+		\end{align*}
+		when equipped with component-wise addition they form a group. 
+	\item Let's look as functions. The set $F(\R)$ of all real-valued with domain $\R$, equipped with addition defined as: 
+	\begin{align*}
+		(f+g)(x) := f(x) + g(x)	
+	\end{align*}
+	form a group. These have uncountably many components. The neutral element is the zero function: 
+	\begin{align*}
+		0(x) := 0 	
+	\end{align*}
+	and the additive inverse is: 
+	\begin{align*}
+		(-f)(x) := -f(x)\ \forall x \in \R 	
+	\end{align*}
+	\end{enumerate}
+\end{ex}
+
+\begin{ex}[Non Abelian Group: General Linear]  $\gl{R}$ is called the \dfn{general linear group}. It is the set of all $n \times n$ \emph{invertible} matrices with real coefficients together with the operation of matrix multiplication. The neutral element is the $n \times n$ identity matrix, denoted by $I_n$: 
+		\begin{align*}
+			I_n A = A I_n = A\ \forall A \in \gl{R}	
+		\end{align*}
+		Since these matrices, the multiplicative inverse is $A^{-1}$, since $A A^{-1} = I_n$, which is the neutral element. Since associativity is clear, we have that $\gl{R}$ forms a group. 
+\end{ex}
+
+\begin{theorem}[Cancellation Law]
+	Let $(G, +)$ be a group, and let $a,b,c \in G$ be elements such that: 
+	\begin{enumerate}[noitemsep]
+		\item $a + b = a + c \Rightarrow b = c$ and 
+		\item $b + a = c + a \Rightarrow b = c$
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	We need to use the properties of a group as discussed. We will first prove (a). To that end, let's first use the existence of an additive inverse:
+	\begin{align*} 
+		& -a + (a+b ) = -a + (a+c) \\
+	 \Rightarrow & (-a + a ) + b = (-a + a) + c & \text{ (Law of Associativity) } \\
+	 \Rightarrow &  0 + b = 0 + c &  \text{ (By definition of neutral element) } \\
+	 \Rightarrow & b = c &  \text{ (By neutral element law)} 
+	\end{align*}
+	The proof for (b) is an exercise. 
+\end{proof}
+
+\section{Abstract Vector Spaces}
+\textbf{Motivation:} generalise $\R^n$. 
+
+\begin{definition}[Vector Space over a field] Let $V$ be a set, and let $K$ be an arbitrary field (in this class we will assume that $K$ is either $\R$ or $\C$) together with two operations: 
+\begin{align*}
+	& +: V \times V \rightarrow V  \text{ (``Addition'') } \\
+	& \cdot: K  \times V \rightarrow V 	 \text{ (``Scalar multiplication'') } 
+\end{align*}
+and assume that $(V, +)$ is an abelian group and that the $\cdot$ operation obeys the following rules: 
+\begin{enumerate}[noitemsep]
+	\item ``Associativity'': 
+	\begin{align*}
+		& (k \ell) v = k ( \ell v)  & \forall k, \ell \in K,  v \in V	
+	\end{align*}
+	\item ``Distributivity of scalars over vectors'': 
+	\begin{align*}
+		& ( k + \ell) v = k v + l v\ &  \forall k, \ell \in K, v \in V
+	\end{align*}
+	\item ``Distributivity of vectors over scalars'': 
+	\begin{align*}
+		& k (u + v ) = k u + kv\  & \forall k \in K, u, v \in V 	
+	\end{align*}
+	\item ``The existence of the neutral element of scalar multiplication'' 
+	\begin{align*}
+		& 1 \cdot v = v 	& \forall v \in V 
+	\end{align*}
+Then, the tuple $(V, +, \cdot)$ is called a \dfn{vector space over K}. 
+\end{enumerate}
+
+\textbf{Remark:} the final axiom is not self-evident. In fact, it is not provable from other axioms. For more details see Assignment 1. 
+\end{definition}
+
+
+\subsection{Many Examples of Vector Spaces}
+
+\begin{ex}[Examples of vector spaces]
+	$\R^n$ endowed with standard vector addition and scalar multiplication, denoted $(\R^n, +, \cdot)$ forms a vector space. Additionally, the set of all $n \times m$ matrices with component-wise addition and standard scalar multiplication, denoted by $( \mat{K}, +, \cdot)$ also forms a vector space over $K$. 
+\end{ex}
+
+\begin{ex}[Sequence Vector Spaces]
+	Let $S$ be the set of all real-valued sequences, i.e.: 
+	\begin{align*}
+		\{ (a_1, a_2, a_3, ...)\ |\ a_i \in \R \}	
+	\end{align*}
+	This can be considered a vector space. Addition is component-wise and multiplication is also component-wise. It is similar to $\R^n$, except for $\R^n$ we stop at some finite number $n$. Thus, this space of sequences is \emph{infinite-dimensional}. It is trivially a vector space over $\R$, since checking the axioms amounts to passing them down to the component-level, since all operations are component-wise, and those will trivially follow from the fact that the components are elements of the vector space $(\R, +, \cdot)$. 
+\end{ex}
+
+The following examples provide interesting vector spaces for the field of mathematics real analysis: 
+
+\begin{ex}[Spaces of convergent real-valued sequences]
+	Let $c$ be the set of all convergent real sequences together with component-wise addition and scalar multiplication. We need to be careful, since something can go wrong. In particular, the $+$ operation needs to be a binary operation, meaning that when you add two members of the set you obtain another member in the set. We will use and not prove the following result from real analysis: the sum of two convergent sequences converge and they converge to the limits of the individual sequences that we add. Thus, the only thing we need to check is that $c$ is closed under $\cdot$ and $+$. However, both of these results are proven in analysis. 
+\end{ex}
+
+\begin{ex}[The space of all real-valued sequences that converge to zero $c_0$]
+	This space is denoted by $c_0$ and is clearly closed under $+$ and $\cdot$. This forms a subspace of $c$ and is also infinite-dimensional but it is not countable. 
+\end{ex}
+
+\begin{ex}[The space $c_{00}$, the space of all real sequences that are eventually zero]. This space contains sequences where all but finitely many terms are different from zero. This is clearly closed under addition and multiplication, and it is a subspace of $c_0$. While this vector space is still infinite dimensional, it is countable. 
+\end{ex}
+
+\begin{ex} 
+Let $I \subseteq \R$ be an interval. Consider $F(I)$. This is the set of all real-valued functions on $I$ with $+$ and $\cdot $ defined by: 
+\begin{align*}
+	& (f+g)(x) = f(x) + g(x) \\
+	& (kf) (x) = kf(x)	
+\end{align*}
+	This example will be investigated in Assignment 1. It is a vector space. 
+\end{ex}
+
+There are a lot of functions that mathematicians care about: differentiable functions, continuous functions, those that have Taylor expansions on $I$, etc. These are all vector spaces. 
+
+\begin{ex} 
+(a) Let $F^c(I)$ be the set of all continuous functions on $I$. 	(b) Let $C^0(I)$ be the set of all continuously differentiable functions on $I$. (c) Let $C^n(I)$ be the set of all functions on $I$ with continuous derivatives up to order $n$. (d) Let $C^\infty (I)$ be all functions on $I$ with derivatives of all order. Define operations on (a) - (d) as was defined in the previous example. These are all vector spaces over $\R$. 
+\end{ex}
+
+
+Linear algebra is also useful for solving differential equations. For example, consider the set of all solutions of $y'' + y = 0$, or more generally, the set of all solution to any linear differential equation: 
+\begin{align*}
+	a_n y^{(n)} + a_{(n-1)}y^{(n-1)} + ... + a_ny' + a_0 y = 0 	
+\end{align*}
+where $a_0, ..., a_n \in \R$. This is an important set of functions. We really care about the closedness of the so-called solution space. So, we need to verify that solutions are closed under $+$ and $\cdot$. To that end, let $y_1, y_2$ be solutions of $y'' + y = 0$. Then we have: 
+\begin{align*}
+	& y_1'' + y_1 = 0 \text{ and } y_2'' + y_2 ' = 0 	
+\end{align*}
+Now let's study $(y_1 + y_2)'' + (y_1 + y_2)$. By the linearity of differentiation: 
+\begin{align*}
+	y_1 '' + y_2 '' + y_1 + y_2 = (y_1'' + y_1) + (y_2'' + y_2) = 0 + 0 = 0 	
+\end{align*}
+Hence, we have closure under addition. For scalars: 
+\begin{align*}
+	(ky_1)'' + ky_1 = ky_1'' +ky_1 + k(y_1'' + y_1) = 0 	
+\end{align*}
+which implies that $ky_1$ is also a solution, and we therefore have closure under scalar multiplication. 
+
+Once we determine that the solutions are a vector space, then all we need to do is obtain a basis and take all \emph{linear combinations} to obtain more solutions of DEs. 
+
+\subsection{Consequences of the Axioms}
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,4 @@
+\contentsline {section}{\numberline {1}Introduction}{1}% 
+\contentsline {subsection}{\numberline {1.1}Domains and Boundary Conditions}{2}% 
+\contentsline {subsubsection}{\numberline {1.1.1}What are the main boundary conditions?}{2}% 
+\contentsline {subsection}{\numberline {1.2}Classification of PDEs}{3}% 
