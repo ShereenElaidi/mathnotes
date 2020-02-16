@@ -1,0 +1,220 @@
+\documentclass[11pt]{scrartcl}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{xcolor} 
+\usepackage{enumitem}
+\newcommand{\R}[0]{\mathbb{R}}
+\addtokomafont{section}{\rmfamily\centering\scshape}
+% math environments 
+\usepackage[utf8]{inputenc}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{prop}{Proposition}
+\newtheorem{ex}{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\usepackage[ruled,vlined]{algorithm2e}
+% definition
+\newcommand{\dfn}[1]{\textbf{\underline{#1}}}
+\newcommand{\dist}[0]{\mathcal{F}}
+\newcommand{\pr}[1]{\mathbb{P}[#1]} 
+\newcommand{\stat}[0]{T(X_1, ..., X_n )} 
+
+% converge in probability 
+\newcommand{\cvp}[0]{\overset{p}{\to}}
+
+% sample mean
+\newcommand{\smean}[0]{\frac{1}{n} \sum_{i=1}^n x_i} 
+
+% sample variance
+\newcommand{\svar}[0]{\frac{1}{(n-1)} \sum_{i=1}^n (x_i - \overline{x})^2}
+
+% expected value 
+\newcommand{\EX}[1]{\mathbb{E}\left[#1 \right]}  
+\newcommand{\EXth}[1]{\mathbb{E}_\theta \left[ #1 \right]}
+
+% integral
+\newcommand{\idx}[2]{\int_{#1}^{#2}}
+
+% vector
+\newcommand{\vect}[1]{\mathbf{#1}}
+
+
+\title{\textbf{Comp 551: Applied Machine Learning}}
+\author{Shereen Elaidi}
+\date{Winter 2020 Term}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Week 1}
+\subsection{Learning Objectives}
+\section{Week 2}
+\subsection{Learning Objectives}
+\begin{enumerate}[noitemsep]
+	\item Linear Regression
+	\begin{enumerate}[noitemsep]
+		\item Linear model 
+		\item Evaluation Criteria 
+		\item How to find the best fit 
+		\item Geometric interpretation 
+	\end{enumerate}
+	\item Logistic Regression
+	\begin{enumerate}[noitemsep]
+		\item Linear Classifier 
+		\item Logistic regression -- model 
+		\item Logistic regression -- loss function
+		\item Maximum likelihood view 
+		\item Multi-class classification
+	\end{enumerate}
+\end{enumerate}
+
+
+\section{Week 3}
+
+\subsection{Learning Objectives}
+\begin{enumerate}
+	\item Naive Bayes Classifier 
+	\begin{enumerate}[noitemsep]
+		\item Generative vs. discriminative classifier 
+		\item Naive Bayes classifier -- assumption 
+		\item Naive Bayes classifier -- different design choices
+	\end{enumerate}
+\end{enumerate}
+
+\section{Week 4}
+
+\subsection{Learning Objects}
+\begin{enumerate}
+	\item Regularisation 
+	\begin{enumerate}[noitemsep]
+		\item Overfitting and underfitting
+		\item Regularisation (L1 and L2) 
+		\item MLE vs MAP estimator 
+		\item Bias and variance tradeoff 
+		\item Evaluation metrics and cross-validation
+	\end{enumerate}
+\end{enumerate}
+
+\section{Week 5}
+\subsection{Learning Objectives}
+\begin{enumerate}[noitemsep]
+	\item Gradient Descent Methods 
+	\begin{enumerate}[noitemsep]
+		\item Gradient Descent 
+		\item Stochastic Gradient Descent 
+		\item Method of momentum 
+		\item Sub-gradient 
+		\item Application to linear regression and classification 
+	\end{enumerate}
+	\item Evaluation
+	\begin{enumerate}[noitemsep]
+		\item Different types of error 
+		\item Common evaluation metrics
+		\item Cross validation
+	\end{enumerate}
+\end{enumerate}
+\section{Week 6}
+\dfn{Topics covered}: perceptron, max margin classifier, support vector machines, soft margin constraints, hinge loss, decision trees, greedy heuristic, entropy, mutual information, gini index, and overfitting. 
+
+\subsection{Learning Objectives}
+\begin{enumerate}[noitemsep]
+	\item Perceptron and Support Vector Machines 
+	\begin{enumerate}[noitemsep]
+		\item The geometry of linear classification
+		\item Perceptron learning algorithm
+		\item Margin maximisation and support vectors 
+		\item Hinge loss and relation to logistic regression 
+	\end{enumerate}
+	\item Decision Trees
+	\begin{enumerate}[noitemsep]
+		\item Decision Trees: model, cost function, and how it is optimised. 
+		\item How to grow a tree and why you should prune. 
+	\end{enumerate}
+\end{enumerate}
+
+\subsection{Perceptron}
+The \dfn{perceptron} is the first machine learning algorithm. The assumption made by the perceptron is that given the data, there must be a hyperplane that separates one class from another. It additionally assumes that the data is binary, however we can later extend this to multi-class predictions. That is, for a binary classifier, all the points of one class lie on one side of a hyperplane, and the other points lie on the other side of a hyperplane. In high dimensional spaces, this almost always holds. This doesn't really happen often in lower-dimensional spaces. You can actually prove that this always holds in \emph{infinite-dimensional} spaces. 
+
+In some sense, the perceptron is the opposite of the KNN. The KNN is very nice in low-dimensional spaces, because you don't need to deal with the ``curse of dimensionality'' and it's also much faster in lower-dimensional spaces. The perceptron is optimal for high-dimensional spaces. Moreover, KNN is not a linear classifier. For KNN, the decision boundaries are not necessarily linear (as we saw on the quiz); however, for the perceptron method it \emph{must} be linear. 
+
+Assuming that such a hyperplane exists, the perceptron tries to find it. To mathematically define a hyperplane, you need a normal vector $w$ and a bias term $b$: 
+\begin{align}
+	\mathcal{H}:= \{ x \in \R^n\ |\ w^t x + b = 0 \} 	
+\end{align}
+it has one less dimension than the ambient space. During test time, if you get an unknown point $x$, you classify it based on which side of the hyperplane it lies on. This is nice since  computing which side of the hyperplane that the point lies on is always the same; all you need to do is compute sgn($w^t x + b$). 
+
+\subsubsection{How can we find the hyperplane?}
+
+The way that we formalise that our label set is binary is by writing: 
+\begin{align*}
+	\mathcal{Y} = \{ -1, +1 \} 	
+\end{align*}
+We have to learn two things: $w$ and $b$. We want to learn only one thing, so assume that there is no offset. So, compute the following maps: 
+\begin{align*}
+	& x_i \mapsto \begin{bmatrix}
+		x_i \\
+		1 
+	\end{bmatrix}	\\
+	& w \mapsto \begin{bmatrix}
+		w \\
+		b
+	\end{bmatrix} 
+\end{align*}
+This is valid since 
+\begin{align*}
+ 	\left\langle 	\begin{bmatrix}
+		x_i \\
+		1 
+	\end{bmatrix} , \begin{bmatrix}
+		w \\
+		b
+	\end{bmatrix} \right\rangle = w^tx + b 
+\end{align*}
+This transformation just absorbs $b$ into the data. This is reflected in the new hyperplane: 
+\begin{align*}
+	\mathcal{H} := \{ x \in \R^{n+1}\ |\ w^tx = 0 \}
+\end{align*}
+Geometrically, what we are doing is insisting that our hyperplane now goes through the origin. It will still be the same solution, just in a higher dimension. 
+
+\subsubsection{The Algorithm}
+\dfn{High-level intuition}: Every time you get a point wrong, you adjust your hyperplane. Loop over the dataset. Once you make no more mistakes, you know you've found a hyperplane that separates the data, and then you stop. 
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwResult{Perceptron Algorithm}
+ $w=0$ (set weights to zero, this will get everything wrong)\;
+ \While{true}{
+  $m=0$ (the counter of how many pts mis-classified)\;
+ \For{$\forall$ $(x, y) \in \mathcal{D} $}{ 
+ 	(checks which side of the hyperplane you are on:)\; 
+ 	\If{$yw^tx \leq 0$} {
+ 		(this is the case if and only if the point is wrong, since you want the signs to align.)\; 
+ 		$w \leftarrow w^tyx$ \; 
+ 		(the above piece of code tries to reinforce the points if positive to make positive larger inner products, negative points have small inner products)\; 
+ 		$m \leftarrow m+1$ \; 
+ 	} 
+ 	\If{$m=0$}{
+ 		(do this until you make a full pass over the dataset without getting anything wrong)\; 
+ 		break\; 
+ 	} 
+ 	} 
+ }
+ \caption{Perceptron Algorithm}
+\end{algorithm}
+
+Some observations: the algorithm will take a long time if there is a lot of ``wiggle room'' between the data points (this is encoded by what is called the  \dfn{margin size}, which will be discussed later), since it's easy to continue to offshoot the ideal hyperplane. 
+
+The \dfn{Perceptron Convergence Theorem} asserts that the algorithm is guaranteed to converge in a finite number of steps if our data is linearly separable. For a given $x$, the amount of times at which we get $x$ incorrectly, encoded by $k$, is at most: 
+\begin{align}
+	k \leq \frac{w^tx}{x^t x}
+\end{align}
+
+\end{document}

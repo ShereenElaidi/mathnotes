@@ -360,4 +360,93 @@ prefoothook = \endmysolbar]{sol}
 	\end{align}
 \end{prop}
 
+
+\section{Countability and Separability}
+\begin{definition}[Converge, Limit]
+	A sequence $\{ x_n \}$ in a topological space $X$ is said to \textbf{converge} to the point $x \in X$ if for each neighbourhood $\hood$ of $x$, there exists an index $N \in \mathbb{N}$ such that if $n \geq N$, then $x_n$ belongs to $\hood$. This point is called a \textbf{limit} of the sequence. 
+\end{definition}
+
+\begin{definition}[First and Second Countable]
+	A topological space $X$ is \textbf{first countable} if there is a countable base at each point. A space $X$ is said to be \textbf{second countable} if there is a countable base for the topology.
+\end{definition}
+
+\begin{ex}
+Every metric space is first countable. 	
+\end{ex}
+
+\begin{prop}
+	Let $X$ be a first countable topological space. For a subset $E \subseteq X$, a point $x \in X$ is called a point of closure of $E$ $\iff$ it is a limit of a sequence in $E$. Thus, a subset $E$ of $X$ is closed $\iff$ whenever a sequence in $E$ converges to $x \in X$, we have that $x \in E$. 
+\end{prop}
+
+\begin{definition}[Dense/Separable]
+	A subset $E \subseteq X$ is \textbf{dense} in $X$ if every open set in $X$ contains a point of $E$. We call $X$ \textbf{separable} if it has a countable dense subset. 
+\end{definition}
+
+\begin{definition}[Metrisable]
+	A topological space $X$ is said to be \textbf{metrisable} if the topology is induced by the metric. 
+\end{definition}
+
+\begin{theorem}
+	Let $X$ be a second countable topological space. Then, $X$ is metrisable $\iff$ it is normal. 
+\end{theorem}
+
+
+\section{Continuous Mappings between Topological Spaces}
+\begin{definition}[Continuous]
+	For topological spaces $(X, \topo)$, $(Y, \mathcal{S})$, a mapping $f: X \rightarrow Y$ is said to be \textbf{continuous} at the point $x_0$ in $X$ if, for every neighbourhood $\open$ if $f(x_0)$, there is a neighbourhood $\hood$ of $x_0$ for which $f(\hood) \subseteq \open$. We say that $f$ is continuous provided it is continuous at each point in $X$.  
+\end{definition}
+
+\begin{prop}
+	A mapping $f: X \rightarrow Y$ between topological spaces $X$ and $Y$ is continuous $\iff$ for any open subset $\open$ in $Y$, its inverse image under $f$, $f^{-1}(\open)$, is an open subset of $X$. 
+\end{prop}
+
+\begin{prop}
+	The composition of continuous mappings between topological spaces, when defined, is continuous. 
+\end{prop}
+
+\begin{definition}[Stronger]
+	Given two topologies $\topo_1$ and $\topo_2$ for a set $X$, if $\topo_2 \subseteq \topo_1$, then we say that $\topo_2$ is \textbf{weaker} than $\topo_1$, and that $\topo_1$ is \textbf{stronger} than $\topo_2$. 
+\end{definition}
+
+\begin{prop}
+	Let $X$ be a non-empty set and let $\mathcal{S}$ be a collection of subsets of $X$ that covers $X$. The collection of subsets of $X$ consisting of intersections of finite collections of $\mathcal{S}$ is a base for a topology $\topo$ of $X$. It is the weakest topology containing $\mathcal{S}$ in the sense that if $\topo'$ is any other topology for $X$ containing $\mathcal{S}$, then $\topo \subseteq \topo'$. 
+\end{prop}
+
+\begin{definition}[Weak Topology]
+	Let $X$ be a non-empty set and $\mathcal{F} := \{ f_\alpha\ |\ X \rightarrow X_\alpha \}_{\alpha \in \Lambda }$ a collection of mappings, where each $X_\alpha$ is a topological space. The weakest topology for $X$ that contains the collection of sets
+	\begin{align}
+		\{ f_\alpha^{-1} ( \open_\alpha)\ |\ f_\alpha \in \mathcal{F},\ \open_\alpha \text{ open in } X_\alpha \} 
+	\end{align}
+	is called the \textbf{weak topology for $X$ induced by $\mathcal{F}$.}
+\end{definition}
+
+\begin{prop} Let $X$ be a non-empty set, $\mathcal{F} := \{ f_\lambda\ |\ X \rightarrow X_\lambda \}_{\lambda \in \Lambda } $ a collection of mappings where each $X_\lambda$ is a topological space. The weak topology for $X$ induced by $\mathcal{F}$ is the topology on $X$ that has the fewest number of sets covering the topologies on $X$ for which each mapping $f_\lambda: X \rightarrow X_\lambda$ is continuous. 
+\end{prop}
+
+\begin{definition}[Homeomorphism]
+	A mapping from a topological space $X \rightarrow Y$ is said to be a \textbf{homeomorphism} if it is bijective and has a continuous inverse $f^{-1}: Y \rightarrow X$. Two topological spaces are said to be \textbf{homeomorphic} if there exists a homeomorphism between them. The notion of homeomorphism induces a notion of an equivalence relation between spaces. 
+\end{definition}
+
+\section{Compact Topological Spaces}
+
+\begin{definition}[Cover]
+	A collection of sets $\{ E_\lambda \}_{\lambda \in \Lambda }$ is said to be a \textbf{cover} of a set $E$ if $E \subseteq \bigcup_{\lambda \in \Lambda } E_\lambda$. 
+\end{definition}
+
+\begin{definition}[Compact]
+	A topological space $X$ is said to be \textbf{compact} if every open cover of $X$ has a finite sub-cover. A subset $K \subseteq X$ is compact if $K$, considered as a topological space with the subspace topology inherited from $X$, is compact. 
+\end{definition}
+
+\begin{prop}
+	A topological space $X$ is compact $\iff$ every collection of closed subsets of $X$ that posesses the finite intersection property has non-empty intersection. 
+\end{prop}
+
+\begin{prop}
+	A closed subset $K$ of a compact topological space is compact. 
+\end{prop}
+
+\begin{prop}
+	A compact subspace $K$ of a Hausdorff topological space is a closed subset of $X$. 
+\end{prop}
+
 \end{document}

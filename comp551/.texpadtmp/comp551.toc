@@ -1,0 +1,15 @@
+\contentsline {section}{\numberline {1}Week 1}{1}% 
+\contentsline {subsection}{\numberline {1.1}Learning Objectives}{1}% 
+\contentsline {section}{\numberline {2}Week 2}{1}% 
+\contentsline {subsection}{\numberline {2.1}Learning Objectives}{1}% 
+\contentsline {section}{\numberline {3}Week 3}{2}% 
+\contentsline {subsection}{\numberline {3.1}Learning Objectives}{2}% 
+\contentsline {section}{\numberline {4}Week 4}{2}% 
+\contentsline {subsection}{\numberline {4.1}Learning Objects}{2}% 
+\contentsline {section}{\numberline {5}Week 5}{2}% 
+\contentsline {subsection}{\numberline {5.1}Learning Objectives}{2}% 
+\contentsline {section}{\numberline {6}Week 6}{2}% 
+\contentsline {subsection}{\numberline {6.1}Learning Objectives}{2}% 
+\contentsline {subsection}{\numberline {6.2}Perceptron}{3}% 
+\contentsline {subsubsection}{\numberline {6.2.1}How can we find the hyperplane?}{3}% 
+\contentsline {subsubsection}{\numberline {6.2.2}The Algorithm}{3}% 
