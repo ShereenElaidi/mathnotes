@@ -1213,7 +1213,209 @@ The next example will be a nice philosophical example.
 
 
 \subsubsection{Bayesian Method}
+In the \dfn{Bayesian philosophy}, we quantify the lack of knowledge of a parameter $\theta$ with a probability distribution or density $\pi(\theta)$. This is called a \dfn{prior}. A prior distribution is \emph{your} belief of what the probability is. Once the data has been collected-- say, $x_1, x_2, ..., x_n$, we can update the prior to incorporate this information, and this leads to the \dfn{posterior density}. 
+
+The \dfn{posterior density function} is given by: 
+\begin{align}
+	\pi (\theta\ |\ x_1, ..., x_n ) := \frac{f(\theta, x_1, ..., x_n)}{f(x_1,..., x_n)	} = \frac{f(x_1, ..., x_n; \theta) \pi(\theta)}{\idx{\Theta}{} f(x_1, ..., x_n; \theta) \pi(\theta) d \theta}
+\end{align}
+
+\begin{ex}
+	Consider $X_1, ..., X_n$ taken from a Bernoulli$(p)$ distribution with a prior from the Beta distribution. Recall that the \dfn{beta function} is given by: 
+	\begin{align*}
+		\idx{0}{1} x^{\alpha -1} (1-x)^{\beta -1} dx 	
+	\end{align*}
+	and so the \dfn{beta distribution} B($\alpha$, $\beta$) has the density: 
+	\begin{align}
+		f(x; \alpha, \beta) = x^{\alpha - 1} (1-x)^{(\beta -1)} \cdot \frac{\Gamma (\alpha + \beta)}{\Gamma (\alpha) \Gamma (\beta)} \chi_{x \in ]0,1[}
+	\end{align}
+	The set of beta distributions has a lot of different shapes as you vary the parameters, which makes it a nice distribution to choose priors from. For example, the uniform is a special case of a beta distribution. Given the data $x_1, ..., x_n$, we obtain: 
+	\begin{align*}
+		f(x_1, ..., x_n; p) & = \prod_{i=1}^n p^{x_i}(1-p)^{1-x_i} 	\\
+						    & = p^{n \overline{x}} (1-p)^{n - n \overline{x}} 
+	\end{align*}
+	We thus obtain the posterior: 
+	\begin{align*}
+		\pi (p | x ) & = \frac{p^{n \overline{x}} (1-p)^{n - n \overline{x}}  p^{\alpha -1} (1-p)^{\beta -1 } \frac{\Gamma (\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)}}{\idx{0}{1}p^{n \overline{x}} (1-p)^{n - n \overline{x}}  p^{\alpha -1} (1-p)^{\beta -1 }  \frac{\Gamma (\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)} dp }	\\
+			& \propto c (x_1, ..., x_n, \alpha, \beta) p^{n \overline{x} + \alpha - 1} (1-p)^{n - n \overline{x} + \beta -1 } 
+	\end{align*}
+	The posterior is a beta density: 
+	\begin{align*}
+		\pi (p | x_1, ..., x_n) \sim \text{Beta}(n \overline{x} + \alpha, n - n \overline{x} + \beta) 	
+	\end{align*}
+	here, the Bets is the so-called \dfn{conjugate prior}; that means, the posterior belongs to the same class of densities as the prior. Observe that we no longer have a point estimate of $p$; we have a distribution. To obtain a point estimate, we can take the expected value of the density: 
+	\begin{align*}
+		& \hat{p}_B = \text{ expected value of the posterior. } 	\\
+		& \Rightarrow \hat{p}_B := \EX{Y},\ Y \sim \text{Beta}(n \overline{x} + \alpha, n - n \overline{x} + \beta)
+	\end{align*}
+	Note that the expected value of $B(\alpha, \beta)$ is $\frac{\alpha}{\alpha + \beta}$ and: 
+	\begin{align*}
+		\hat{p}_B  = \frac{n\overline{x} + \alpha}{n + \alpha + \beta} = \frac{n}{n + \alpha + \beta} \underbrace{\overline{x}}_{\text{MLE}} + \frac{\alpha + \beta}{n + \alpha + \beta} \underbrace{\frac{\alpha}{\alpha + \beta}}_{\text{ expectation of prior}}	
+	\end{align*}
+	Notice the weights. The more data that you have, the more the weights favour the data. Thus, a small sample means that the prior has a larger effect. 
+\end{ex}
+
+\begin{ex}[Poisson Likelihood Example - Continued]
+	Consider the Poisson$(\lambda)$ model with parameter $\lambda > 0$ and data $x_1, ..., x_n$. In order to go Bayesian, we need to multiply the prior estimate of $\lambda$, and we want it to be a conjugate prior. \emph{What do we multiply it by?} $\pi(\lambda) \sim$ Gamma$(\alpha, \beta)$ works:. We obtain: 
+	\begin{align}
+		f(x_1, ..., x_n; \lambda) \pi(\lambda) = 
+		\frac{1}{\Gamma(\alpha)} \frac{\lambda^{n \overline{x}} e^{-n \lambda}}{x_1! \cdots x_n!} \underbrace{\lambda^{\alpha-1} e^{-\lambda \beta} \beta^\alpha}_{\pi(\lambda) \sim \text{Gamma}(\alpha, \beta)} \propto \alpha \lambda^{\alpha + n \overline{x} - 1} e^{-\lambda (n + \beta)}
+	\end{align}
+	The posterior is again a Gamma, so the Gamma prior is a conjugate prior. Thus: 
+	\begin{align*}
+		\pi(\lambda | x ) \sim \text{Gamma}(\alpha + n \overline{x}, n + \beta) 	
+	\end{align*}
+	which gives: 
+	\begin{align*}
+		\hat{\lambda}_B = \frac{\alpha + n \overline{x}}{n + \beta} = \frac{n}{n+\beta} \overline{x} + \frac{\beta}{n+ \beta} \frac{\alpha}{\beta}	
+	\end{align*}
+	where the final term comes from the fact that the expected value of Gamma$(\alpha, \beta)$ is $\alpha / \beta$. 
+
+\end{ex}
+
+
 \subsection{Method of Evaluating Estimators}
+
+\begin{definition}[Unbiased, Consistent, and MSE] Let $\dist = \{ F_\theta\ |\ \theta \in \Theta \}$ be our statistical model, let $\gamma: \Theta \rightarrow \R^n$, and also let $T(x_1, ..., x_n)$ be an estimator of $\gamma (\theta)$. Then: 
+\begin{enumerate}[noitemsep]
+	\item An estimator $T(X_1, ..., X_n)$ is called \dfn{unbiased} if: 
+	\begin{align}
+		\EXth{\stat} = \gamma(\theta)
+	\end{align}
+	\emph{On average, does it get the right thing?} 
+	\item $T$ is called \dfn{consistent} if 
+	\begin{align}
+		\stat \xrightarrow[]{P} \gamma(\theta) \text{ as } n \rightarrow \infty 
+	\end{align}
+	\emph{Some kind of limiting statement -- generally uses WLLN techniques} 
+	\item The \dfn{mean squared error (MSE)} of $\stat$ is: 
+	\begin{align}
+		\text{MSE}(T):= \EXth{\{ \stat - \gamma(\theta) \}}^2
+	\end{align}
+\end{enumerate}
+\end{definition}
+Before going on, need to make some important remarks: 
+\begin{enumerate}[noitemsep]
+	\item If $X_1$ has an expectation $\mu$ and variance $\sigma^2$, then we already had that the sample mean is an unbiased estimator of $\mu$ and $s^2$ is an unbiased estimator of $\sigma^2$ (Theorem 1.9). 
+	\item Sometimes the consistency as defined here is called \dfn{weak consistency} to differentiate it from \dfn{strong consistency}, which is the case when $\stat \rightarrow \gamma(\theta)$. In general, it is hard to prove strong consistency. It generally requires the use of the strong law of large numbers. 
+	\begin{enumerate}[noitemsep]
+		\item \emph{Caution!}: beware of asymptotics! You can have quite stupid examples. For example, consider N$(\mu, \sigma^2)$. Suppose that we want to estimate $\mu$. We can construct this silly unbiased estimator: 
+		\begin{align*}	
+			& T(X_1, ..., X_n) = X_1 
+		\end{align*}
+		And we can construct this silly consistent estimator: 
+		\begin{align*} 
+		 \stat = \begin{cases}
+				X_1 & \text{ if } n \leq 10^6 \\
+				\overline{X} & \text{ if } n > 10^k
+			\end{cases}	
+		\end{align*}
+	\item (Deriving bias variance decomposition of MSE). Write $T = \stat$. Then, for any $\theta$: 
+		\begin{align*}
+				\text{MSE}(T) &  = \EXth{\stat + \EXth{T} - \EXth{T} + \gamma(\theta) }^2 \\
+					& = \underbrace{\EXth{T - \EXth{T} }^2}_{\text{variance of T}} + \EXth{ \EXth{T} - \gamma(\theta) }^2 
+		\end{align*}
+		$T$ is the only random part. 
+		\begin{align*}
+			& = \text{var}_\theta[T] + (\EXth{T}- \gamma(\theta))^2 + 2(\EXth{T} - \gamma(\theta))\underbrace{\EX{T - \EXth{T}}}_{=0} \\
+			& = \text{var}_\theta[T] + [\EXth{T} - \gamma(\theta)]^2 
+		\end{align*}
+		We call $\EXth[T]-\gamma(\theta)$ the \dfn{bias} of $T$, and so: 
+		\begin{align}
+			\text{MSE}_\theta = \text{var}_\theta[T] + (\text{Bias}_\theta(T))^2 
+		\end{align}
+	\end{enumerate}
+\end{enumerate}
+
+\begin{ex} 
+	Let $X_1, ..., X_n$ be a random sample from $N(\mu, \sigma^2)$. Then: 
+	\begin{align*}
+		\text{MSE}(\overline{X}) = \text{var}_\theta[\overline{X}] = \sigma^2 / n 	
+	\end{align*}
+	this converges to zero as $ n \rightarrow \infty$. Moreover: 
+	\begin{align*}
+		\text{MSE}[s^2] = \text{var}[s^2] = \text{var}\left[ \underbrace{ \frac{n-1}{\sigma^2} s^2}_{\sim \chi_{n-1}^2} \cdot \frac{\sigma^2}{(n-1)}	\right] 	= \frac{\sigma^4}{(n-1)^2} \underbrace{2(n-1)}_{\text{variance of } \chi_{(n-1)}^2} = \frac{2\sigma^4}{(n-1)}
+	\end{align*}
+	This converges at the same rate as the sample mean. Recall the MLE of $\sigma^2$: 
+	\begin{align*}
+		\hat{\sigma}^2 = \frac{(n-1)}{n} s^2	
+	\end{align*}
+	and so the bias is: 
+	\begin{align*}
+		\text{Bias}(\hat{\sigma}^2) & = \EX{\frac{n-1}{n	} s^2}  - \sigma^2 \\
+			 & = \frac{n-1}{n} \sigma^2 - \sigma^2 \\
+			 & = \frac{-\sigma}{n} 	
+	\end{align*}
+	Thus, the bias is always negative and so it will systematically underestimate $\sigma^2$. Thus, the MSE($\hat{\sigma}^2$) is: 
+	\begin{align*}
+		\text{MSE}(\hat{\sigma}^2) & =  \EX{(\hat{\sigma}^2 - \hat{\sigma})^2}  	\\
+		 & = \text{var}[\hat{\sigma}^2] + [\text{Bias}(\hat{\sigma}^2)]^2 \\
+		 & = \left( \frac{n-1}{n} \right)^2 \text{var}[s^2] + \frac{\sigma^4}{n^2} \\
+		 & = \frac{(n-1)^2}{n^2} \frac{2 \sigma^4}{(n-1)} + \frac{\sigma^4}{n^2} \\
+		 & = \frac{\sigma^4(2(n-1)+1}{n^4} \\
+		 & = \frac{\sigma^4}{n^2} (2n-1) \\
+		 & = \frac{2 \sigma^4}{n-1} \cdot \underbrace{\frac{2n^2 - 3n +1}{2n^2}}_{< 1} \\
+		 & < \frac{2 \sigma^4}{n-1}
+	\end{align*}
+	So, $\hat{\sigma}^2$ is closer, on average, to the true value of $\theta$ than $s^2$ is. Thus, the MLE is preferable. This illustrates the idea of a tradeoff between bias and variability. 
+\end{ex}
+
+To do: insert figure
+
+\begin{ex}
+	Let $X_1, ..., X_n$ be taken from Bernoulli$(p)$. Recall that $\hat{p}_{\text{MLE}} = \overline{x}$ and MSE($\hat{p}_{\text{MLE}}) = \frac{p(1-p)}{n}$. In contrast, a Bayesian estimator with a Beta$(\alpha, \beta)$ prior, we have: 
+	\begin{align*}
+		\hat{p}_B = \frac{n}{n + \alpha + \beta} \overline{x} + \frac{\alpha}{n+ \alpha + \beta}	 = \frac{n \overline{x} - \alpha}{n + \alpha + \beta}	
+	\end{align*}
+	Calculating the MSE gives: 
+	\begin{align*}
+		\text{MSE}(\hat{p}_B) & = \text{var} \left[ 	\frac{n \overline{x} - \alpha}{n + \alpha + \beta}		\right] + \left( \text{Bias} \left[ \frac{n \overline{x} - \alpha}{n + \alpha + \beta}	 \right]  \right)^2 \\
+		& = \underbrace{\frac{np(1-p)}{(n+ \alpha + \beta)^2}}_{\text{variance}} + \left( 	\frac{np + \alpha}{n + \alpha + \beta} - p	\right)^2 \\
+		& = \frac{np(1-p)}{(n + \alpha + \beta)^2} + \frac{(\alpha - p \alpha - p \beta)^2}{(n + \alpha + \beta)^2}
+	\end{align*}
+	To compare, we need to choose $\alpha$ and $\beta$ to be independent of $p$. 
+	\begin{align*}
+		\text{MSE}(\hat{p}_B) = ... = \frac{\alpha^ 2 + p(n - 2 \alpha^2 - 2 \alpha \beta) + p^2(-n + \alpha^2 + \beta^2 + 2 \alpha \beta}{(n+ \alpha + \beta)^2}
+	\end{align*}
+	Thus, if we want the above equation to be independent of $p$, set the coefficients of $p$ and $p^2$ to equal zero. We thus must solve: 
+	\begin{align*}
+			& n - 2 \alpha^2 - 2 \alpha \beta = 0 \\
+			& -n + \alpha^2 + \beta^2 + 2 \alpha \beta = 0
+	\end{align*}
+	which gives: 
+	\begin{align*}
+		& \alpha = \sqrt{\frac{n}{4}} & \beta = \sqrt{\frac{n}{4}}
+	\end{align*}
+	and therefore: 
+	\begin{align*}
+		& \text{MSE}(\hat{p}_B) = \frac{n}{4(n+ \sqrt{n})^2 }	& \hat{p}_B = \frac{n \overline{x} + \sqrt{n / 4}}{n + \sqrt{n}}
+	\end{align*}
+	To do: include figures. 
+	Thus, for small sample sizes, $\text{MSE}(\hat{p}_B )<< $ MLE$(\hat{p}_{\text{MLE}})$. The advantage shrinks as sample size increases. 
+\end{ex}
+
+\begin{theorem}
+	Suppose $\EXth{\stat} \rightarrow \gamma(\theta)$ as $n \rightarrow \infty$ (that is, $\stat$ is asymptotically unbiased) and var$_\theta[T] \rightarrow 0$ as $n \rightarrow \infty$. Then, $T$ is a consistent estimator or $\gamma(\theta)$. 
+\end{theorem}
+
+\begin{proof} Application of the Markov Inequality. Fix $\varepsilon > 0$. Then: 
+\begin{align*}
+	\pr{ | \stat - \gamma(\theta) | > \varepsilon} \leq \frac{\EX{ (\stat - \gamma(\theta))^2}}{\varepsilon^2} = \frac{\text{var}_\theta [T] - (\text{Bias}_\theta[T])^2}{\varepsilon^2}	 \rightarrow 0 \text{ as } n \rightarrow 0 
+\end{align*}
+	
+\end{proof}
+
+\textbf{Q:} \emph{Does there exist a strategy of choosing the best estimator?} \textbf{A:} No! Consider the other ``stupid'' estimator: Suppose we want to estimate $\theta$ and 17 $\in \Theta$. Then the statistic: 
+\begin{align*}
+	\stat = 17	
+\end{align*}
+will always have
+\begin{align*}
+\text{MSE}_{17}(T) = 0 	
+\end{align*}
+
+ You can never beat that silly statistic. More generally, you can never \emph{systematically} minimise the MSE uniformly over all values of $\theta$. Thus, we need to restrict the class of estimators that we consider, which leads us to the next section. 
+
 \subsection{Best Unbiased Estimators}
 
 
