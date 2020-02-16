@@ -1050,6 +1050,168 @@ Some observations for calculating maximum likelihood estimators:
 	\end{align}
 \end{enumerate}
 
+\begin{ex}
+	Let $x_1, ..., x_n$ be a random sample from $B(N, p)$, where $N$ is \emph{known}. Then, $\Theta = [0,1]$ and 
+	\begin{align*}
+		L(p; x) = \prod_{i=1}^n \binom{N}{x_i} p^{x_i} (1-p)^{N-x_i} 	
+	\end{align*}
+	thus, the log likelihood function $\ell$ is: 
+	\begin{align*}
+		\ell(p;x)  = \sum_{i=1}^n \left[ x_i \log(p) + (N-x_i) \log(1-p) + \underbrace{\log \binom{N}{x_i}	}_{\text{if $N$ were unknown, this would be a big mess}}		\right] 
+	\end{align*}
+	We are searching for critical points. Let's first assume that $\overline{x} \notin \{0, N \}$. We obtain: 
+	\begin{align*}
+		\frac{\partial \ell}{\partial p}	 = \left( \sum_{i=1}^n x_i \right) \frac{1}{p} + \left( nN - \sum_{i=1}^n x_i \right) \left( \frac{-1}{1-p} \right) 
+	\end{align*}
+	setting the partial derivative equal to zero and solving, we obtain: 
+	\begin{align*}
+		& \frac{n\overline{x}}{p} - \frac{n(N-\overline{x})}{1-p} = 0 \\
+		\Rightarrow & \frac{\overline{x}(1-p)-(N-\overline{x})}{p(1-p)} = 0 \\
+		\Rightarrow & \overline{x}(1-p) - (N \overline{x})p = 0 \\
+		\Rightarrow & \overline{x} - \overline{x} p - N p + \overline{x} p = 0 \\
+		\Rightarrow & p  = \frac{\overline{x}}{N}	
+	\end{align*}
+
+\end{ex}
+Thus, $p = \overline{x} / N$ is the method of moments estimator. We now need to verify that this is indeed a maximum with the second derivative test: 
+\begin{align*}
+	\frac{\partial^2 \ell}{\partial^2 p}	 = -n \overline{x} \frac{1}{p^2} + \underbrace{(nN - n \overline{x})}_{\geq 0 } \frac{-1}{(1-p^2)} < 0  \text{ (concave in $p$) } 
+\end{align*}
+We now need to check the boundary cases. If $\overline{x} = 0$, then 
+\begin{align*}
+	\ell(p; x) = nN \log (1-p) 	
+\end{align*}
+This function is decreasing in $p$, which implies that it is maximised at $p=0 = \frac{\overline{x}}{N}$. If $\overline{x} = N$, then $x_i = N\ \forall\ i \in \{ 1, ..., N \}$. This is an increasing function in $p$, which implies that it is maximised at $p=1$, which implies that $\hat{p} = 1 = \overline{x}/N$ 
+
+For the past two examples, we've seen that the MLE estimator agrees with the method of moments examples. The following example will illustrate that this is not always the case. 
+\begin{ex} 
+	Let $x_1, ..., x_n$ be an observation of a random sample taken from the model: 
+	\begin{align*}
+		\dist = \{ \mathcal{U}]0, \theta [\ |\ \theta \geq 0 \} 	
+	\end{align*}
+	If $X \sim \mathcal{U}]0, \theta[$, then using the method of moments we have that: 
+	\begin{align*}
+		& \EX{X} = \theta/2 \\
+		& \frac{\theta}{2} = \smean \Rightarrow \hat{\theta} = 2 \overline{x}
+	\end{align*}
+	In contrast, using the method of maximum likelihood gives: 
+	\begin{align*}
+		L(\theta; x ) & = \prod_{i=1}^n \frac{1}{\theta} \chi_{x_i \in [0, \theta] } 	
+	\end{align*}
+	since $\chi$ depends on $\theta$, taking the log will not be a good idea. Instead, this becomes: 
+	\begin{align*}
+			& = \left( \frac{1}{\theta} \right)^n ( \chi_{\min_{1 \leq i \leq n} (x_i) \geq 0} )( \chi_{\max_{1 \leq i \leq n} (x_i) \leq \theta} )
+	\end{align*}
+	For almost all samples, we have: 
+	\begin{align*}
+		\min_{1 \leq i \leq n} x_i \geq 0	
+	\end{align*}
+	but for $\theta < \max (x_i)$ we have that $L=0$ but for $\theta \geq \max x_i$, $L$ is decreasing. Thus, the MLE is maximised at $\max_{1 \leq i \leq n} x_i$. Thus, 
+	\begin{align*}	
+		\hat{\theta(x)} = \max_{1 \leq i \leq n} X_i = X_{(n)}	
+	\end{align*}
+	is the MLE (to do: insert graph). 
+\end{ex}
+
+\begin{ex} 
+	Let $x_1, ..., x_n$ be a random sample from $N(\mu, \sigma^2)$ from the model
+	\begin{align*}
+		\dist = \{ N(\mu, \sigma^2)\ |\ \mu \in \R,\ \sigma^2 \in ]0, \infty[ \} 	
+	\end{align*}
+	Then: 
+	\begin{align*}
+		L(\mu, \sigma^2; x) = \prod_{i=1}^n \frac{1}{\sqrt{ 2 \sigma}} \frac{1}{\sqrt{\sigma^2} } \text{exp} \left\{ \frac{-(x_i - \mu)^2}{2 \sigma}		\right\} 	
+	\end{align*}
+	and so the log likelihood is: 
+	\begin{align*}
+		\ell(\mu, \sigma^2; x ) = \sum_{i=1}^N \left[ \log \frac{1}{\sqrt{2 \pi}} - \frac{1}{2} \log \sigma^2 - \frac{(x_i - \mu^2)}{2 \sigma^2}	\right] 
+	\end{align*}
+	taking the partials, we obtain: 
+	\begin{align*}
+		& \frac{\partial \ell}{\partial \mu} = - \sum_{i=1}^n \frac{2 (x_i -  \mu)^2 (-1)}{2 \sigma^2}	 = \frac{n \overline{x} - n \mu}{\sigma^2} \\
+		& \frac{\partial \ell}{\partial \sigma^2} = \sum_{i=1}^n \left[ 		-\frac{1}{2} \frac{1}{\sigma^2} + \frac{(x_i - \mu)^2}{2} \frac{1}{\sigma^4} \right] 
+	\end{align*}
+	setting $\frac{\partial \ell}{\partial \mu} =0$, we obtain that $\hat{\mu} = \overline{x}$. For the other one: 
+	\begin{align*}
+		& \frac{-n}{2} \frac{1}{\sigma^2} + \frac{1}{2 \sigma^4} \sum_{i=1}^n (x_i - \overline{x} )^2 = 0  \\
+		& n \sigma^2 = \sum_{i=1}^n (x_i - \overline{x})^2 \\
+		& \Rightarrow \hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^2		
+	\end{align*}
+	\textbf{How do we prove that our values $\hat{\mu}$ and $\hat{\sigma}^2$ are indeed maximums}? The trick is to use somethig called the \dfn{profile likelihood}. Define: 
+	\begin{align}
+		\ell^*(\sigma^2) := \sup_{\mu \in \R} \ell (\mu, \sigma^2) 
+	\end{align}
+	we observe that if we maximise $\ell^*$, then this amounts to maximising the whole thing, since $\overline{x}$ minimises the sum $\sum_{i=1}^n (x_i - \mu)^2$. So all we need to do is maximise this:
+	\begin{align*}
+			\ell^*(\sigma^2) = \sum_{i=1}^n \log \frac{1}{\sqrt{2 \pi}} - \frac{1}{2} \log \sigma^2 - \frac{1}{2 \sigma^2} (x_i - \overline{x})^2
+	\end{align*}
+ 	the above is called the \dfn{profile likelihood univariate problem}. Solving the above gives you the $\hat{\sigma}^2$ that is the solution. 
+\end{ex}
+
+\subsubsection{Invariance of the MLE Theorem}
+\textbf{Motivation:} suppose that $X_1, ..., X_n$ are iid taken from Bernoulli$(p)$. In this case, we have that the method of moments and MLE method agree: 
+\begin{align*}
+	\hat{p} = \overline{x} = \hat{p}_{MLE} 	
+\end{align*}
+The standard deviation of $X_1 = \sqrt{ p (1-p)}$. We can estimate this by $\sqrt{\hat{p}(1-\hat{p})}$. This is a non-bijective function of $p$. In this sense, this is the MLE of the standard deviation, which motivates the idea of an invariance principle. 
+
+\begin{theorem}[Invariance of the MLE]
+	Consider a statistical model $\{ F_\theta\ |\ \theta \in \Theta \}$ and suppose that $g: \Theta \rightarrow \R^m$ is an \emph{arbitrary} function. Set $\Gamma := g(\Theta)$ and $\gamma := g (\theta)$. Then, if $\hat{\theta}(x_1, ..., x_n)$ is the maximum likelihood estimate of $\theta$, then $g(\hat{\theta}(x_1,..., x_n ) $ is the ML estimate of $\gamma$ in the following sense: if 
+	\begin{align}
+		L^*(\gamma; x_1, ... , x_n ) = \sup_{\theta \in \Theta\ |\ g(\theta) = \gamma } \left\{ L(\theta; x_1, ..., x_n)	\right\} 
+	\end{align}
+	then: 
+	\begin{align}
+		L^*(g(\hat{\theta}(x_1,..., x_n)); x_1,..., x_n) = \sup_{\gamma \in \Gamma} L^*(\gamma; x_1, ..., x_n ) 	
+	\end{align}
+\end{theorem}
+
+\begin{proof}
+	\begin{align*}
+	L^*(g(\hat{\theta} (x_1, ..., x_n)); x_1, ..., x_n ) & = \sup_{\theta\ |\ g(\theta) = g (\hat{\theta}) } \left\{ 	L(\theta; x_1, ..., x_n )	\right\} 	\\
+		& = L(\hat{\theta}; x_1, ..., x_n ) \text{ (since $\hat{\theta}$ is the maximiser)} \\
+		& = \sup_{\theta \in \Theta} L(\theta; x_1, ..., x_n) 
+	\end{align*}
+	Sup over the range of $g$, and then through the pre-image (just running through the $\theta$'s in a systematic way):
+	\begin{align*}
+		& = \sup_{\gamma \in \Gamma} \underbrace{\sup_{\theta \in \Theta\ |\ g(\theta) = \gamma } L(\theta; x_1, ..., x_n ) }_{=L^*(\gamma; x_1, ..., x_n)}	
+	\end{align*}
+\end{proof}
+
+\begin{ex}
+	Let $X_1, ..., X_n$ be iid from Bernoulli($p$). If $\hat{p} = \overline{X} = p_{\text{MLE}}$, then $\sqrt{\hat{p}(1-\hat{p})}$ is the MLE of the standard deviation $\sqrt{p(1-p)}$. 
+\end{ex}
+
+The next example will be a nice philosophical example. 
+
+\begin{ex} 
+	Among 20 tosses, assume that there were 7 heads. Suppose that we want to estimate $p$ in two ways: 
+	\begin{itemize}[noitemsep]
+		\item Experiment \# 1: the coin was tossed 20 times and it had 7 heads. However, we don't know \emph{when} those 7 heads happened. In this case, think of likelihood as the probability of observing what you have observed: 
+		\begin{align*}
+			\binom{20}{7} p^7 (1-p)^{13} 	
+		\end{align*}
+		implies that the log likelihood is 
+		\begin{align*}
+			\log \binom{20}{7} + \underbrace{7 \log(p) + 13 \log(1-p)}_{\text{ this is called the \dfn{kernel} of the log-likelihood}}
+		\end{align*}
+		\item Experiment \# 2: suppose you waited until 7 heads were tossed, and you are told it took 20 tosses to get there. Therefore, the difference here is that \emph{you know that the 20th toss was a head}. This probability is modelled by the \dfn{negative binomial}: 
+		 \begin{align*}
+ 			\binom{19}{6} p^7 (1-p)^{13} 
+ 		\end{align*}
+		and so the log likelihood is: 
+		\begin{align*}
+			\log \binom{19}{6} + \underbrace{7 \log (p) + 13 \log (1-p)}_{\text{kernel}}	
+		\end{align*}
+	\end{itemize}	
+	Even though the likelihoods are not the same, the MLE between the two will be the same! We have: 
+	\begin{align}
+		L_1 \propto p^7(1-p)^{13} 
+	\end{align}
+	that is, $L_1(p) = c_1 \cdot p^{7}(1-p)^{13}$. Similarly, $L_2(p)  =c_2 \cdot p^{7}(1-p)^{13} \propto p^7 (1-p)^{13}$. Therefore, the MLE estimates are the same in the two experiments, since $L_1(p) = c L_2(p)$. This is called the \dfn{likelihood principle}: when two likelihood functions of two experiments are equal up to a multiplicative constant, they contain the same information about the unknown parameter.
+\end{ex}
+
+
 \subsubsection{Bayesian Method}
 \subsection{Method of Evaluating Estimators}
 \subsection{Best Unbiased Estimators}
