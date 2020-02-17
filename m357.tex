@@ -823,7 +823,7 @@ We will explore two of these methods in depth in this class. The third we will b
 \end{enumerate}
 
 \subsubsection{Method of moments}
-	This is the oldest method. It was developed in the 19th century by Karl Pearson. It has been what we heuristically have been doing all along. Suppose that $X \sim F_\theta$. Then, as an idea we could firth calculate the jth moment $\mu_j$ of $X$ for $j=1,..., k$, that is: 
+	This is the oldest method. It was developed in the 19th century by Karl Pearson. It has been what we heuristically have been doing all along. Suppose that $X \sim F_\theta$. Then, as an idea we could first calculate the jth moment $\mu_j$ of $X$ for $j=1,..., k$, that is: 
 	\begin{align*}
 			\mu_j = \EXth{X^j} = \idx{}{} x^j dF_\theta (x) = \idx{}{} x^j dP_\theta = \idx{}{} x^j f(x; \theta) dx  
 	\end{align*}
@@ -1019,7 +1019,7 @@ So the aim is to find a way maximise the likelihood function in $\theta$.
 
 \begin{ex}[Continued from the Poisson Case] Let $x_1, ..., x_n$ be a sample from the Poisson distribution. Then, the aim is to maximise: 
 	\begin{align*}
-		L(\theta, x ) = \prod_{i=1}^n e^{-\lambda} \frac{\lambda^{x_i}}{x_i!}	= e^{-n\lambda} \frac{\lambda^{\sum_{i=1}^n x_i}}{x_1! \cdots x_n!}
+		L(\theta; x ) = \prod_{i=1}^n e^{-\lambda} \frac{\lambda^{x_i}}{x_i!}	= e^{-n\lambda} \frac{\lambda^{\sum_{i=1}^n x_i}}{x_1! \cdots x_n!}
 	\end{align*}
 	You \emph{could} differentiate this monstrosity, but differentiating products is in general not fun. However, sums are not too bad to differentiate. So, observe that this function is:
 	\begin{enumerate}[noitemsep]
@@ -1243,7 +1243,7 @@ The \dfn{posterior density function} is given by:
 	\begin{align*}
 		\pi (p | x_1, ..., x_n) \sim \text{Beta}(n \overline{x} + \alpha, n - n \overline{x} + \beta) 	
 	\end{align*}
-	here, the Bets is the so-called \dfn{conjugate prior}; that means, the posterior belongs to the same class of densities as the prior. Observe that we no longer have a point estimate of $p$; we have a distribution. To obtain a point estimate, we can take the expected value of the density: 
+	here, the Beta is the so-called \dfn{conjugate prior}; that means, the posterior belongs to the same class of densities as the prior. Observe that we no longer have a point estimate of $p$; we have a distribution. To obtain a point estimate, we can take the expected value of the density: 
 	\begin{align*}
 		& \hat{p}_B = \text{ expected value of the posterior. } 	\\
 		& \Rightarrow \hat{p}_B := \EX{Y},\ Y \sim \text{Beta}(n \overline{x} + \alpha, n - n \overline{x} + \beta)
