@@ -1,5 +1,5 @@
 \documentclass[11pt]{scrartcl}
-\usepackage[margin=2cm]{geometry}
+\usepackage[margin=2.2cm]{geometry}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb,amsmath,amsthm}
@@ -40,6 +40,9 @@
 
 % integral
 \newcommand{\idx}[2]{\int_{#1}^{#2}}
+
+% L2 space
+\newcommand{\Ltwo}[0]{\mathcal{L}_2}
 
 
 \title{\textbf{Math 357: Statistics}}
@@ -941,7 +944,7 @@ Some disadvantages include (``the bitter reality''):
 	then the moments are: 
 	\begin{align*}
 		& \mu_1 = 0 \\
-		& \mu_2 = \frac{1}{2} (2 \sigma)^2 = 2 \sigma 	
+		& \mu_2 = \frac{1}{2} (2 \theta)^2 = 2 \theta 	
 	\end{align*}
 	this is good since it is a genuine function of $\theta$. Set: 
 	\begin{align*}
@@ -949,7 +952,7 @@ Some disadvantages include (``the bitter reality''):
 	\end{align*}
 	and solve the following to obtain the method of moment estimator: 
 	\begin{align*}
-		2 \sigma^2 = m_2 \Rightarrow \hat{\theta} = \sqrt{\frac{m_2}{2}} = \sqrt{\frac{\frac{1}{n} \sum_{i=1}^n X_i^2}{2}}	
+		2 \theta^2 = m_2 \Rightarrow \hat{\theta} = \sqrt{\frac{m_2}{2}} = \sqrt{\frac{\frac{1}{n} \sum_{i=1}^n X_i^2}{2}}	
 	\end{align*}
 	Observe that $\theta$ could theoretically be zero. But, since this is a continuous distribution, the probability of $\theta$ actually being zero is zero. 
 \end{ex}
@@ -1418,6 +1421,435 @@ will always have
 
 \subsection{Best Unbiased Estimators}
 
+
+\begin{definition}[Uniform Minimum Variance Unbiased Estimator]
+	An estimator $T^*(X_1, ..., X_n)$ is called a \dfn{uniform} \dfn{minimum} \dfn{variance} \dfn{unbiased} \dfn{estimator} (UMVUE) of $\gamma(\theta)$ if 
+	\begin{enumerate}[noitemsep]
+		\item For \emph{all} $\theta \in \Theta$, $\EXth{T^*} = \gamma (\theta)$. It must be unbiased for \emph{every} $\theta$. 
+		\item For every other unbiased estimator $T$: 
+		\begin{align*}
+			\text{var}_\theta [ T^*] \leq \text{var}_\theta [T]	
+		\end{align*}
+		\emph{for all} $\theta \in \Theta$. It beats it for \emph{any} $\theta$ $\Rightarrow$ uniform control. 
+	\end{enumerate}
+\end{definition}
+This is an estimator that systematically reduces the bias. 
+
+
+\begin{ex} 
+Assume that we have a random variable distributed as Poisson. Then, $\hat{\lambda} = \overline{x}$. Forget about trying to do a Bayesian estimate on this. However, for the variance we have: 
+	\begin{align*}
+		\text{Var}[\hat{\lambda}] = \lambda / n 
+	\end{align*}
+	This seems like it could be a sensible estimator. \textbf{Q:} \emph{Is it the UMVUE}? This question motivates the following theorem: 
+\end{ex}
+
+\begin{theorem}[Crammer-Rao Inequality]
+	Suppose $X_1, ..., X_n$ form a random sample. Let $F_\theta, \theta \in \Theta, \Theta = ]a,b[$ where $-\infty \leq a < b \leq \infty$ form the statistical model. Let $T(X_1, ..., X_n)$ be an \emph{unbiased} estimator of $\gamma(\theta)$. Assume: 
+	\begin{enumerate}[noitemsep]
+		\item $\forall\ \theta \in \Theta$, $F_\theta$ has a density/PMF $f(\cdot; \theta)$, and $\partial f(x; \theta) / \partial \theta$ exists for all $\theta \in \Theta$. 
+		\item You can differentiate the log: 
+		\begin{align*}
+			\EXth{\frac{\partial}{\partial \theta} \log f(x_1; \theta)} = 0\ \forall \theta \in \Theta 	
+		\end{align*}
+		and 
+		\begin{align*}
+			\EXth{\frac{\partial}{\partial \theta} \left(  \log f(x_1; \theta) \right)^2 } = I(\theta) < \infty 	
+		\end{align*}
+		\underline{Remark} the $I(\theta)$ is called the \dfn{Fisher information}
+		\item var$_\theta[T] < \infty$ and: 
+		\begin{align*}
+			\sum_{i=1}^n \EXth{T(X_1, ..., X_n) \frac{\partial}{\partial \theta} \log f(x_1, ..., X_n; \theta)} = \gamma'(\theta)  
+		\end{align*}
+		then: 
+		\begin{align*}	
+			\text{var}_\theta T(X_1, ..., X_n) \geq \frac{\{ \gamma'(\theta) \}^2}{nI(\theta)}	
+		\end{align*}
+		\emph{Remark}: this is called the \dfn{Crammer-Rao upper bound} 
+	\end{enumerate}
+\end{theorem}
+
+	\begin{proof}
+		The theorem follows from the Cauchy - Schwartz inequality. Recall from probability: 
+		\begin{align*}
+			\{ \text{cov}(W, Z) \}^2 \leq \text{var}[W] \text{var} [Z] 	
+		\end{align*}
+	We need to choose our quantities for Cauchy-Schwartz inequality: 
+	\begin{enumerate}[noitemsep]
+		\item $\text{var}[W]$ is: 
+		\begin{align*}
+				\text{var}[W] = \sum_{i=1}^n \text{var} \left[ 	\frac{\partial}{\partial \theta}	 \log f(x_i; \theta) \right] = nI(\theta) < \infty \text{ (by assumption 2) } 
+		\end{align*}
+		\item By assumption 3: 
+		\begin{align*}
+			\text{var}_\theta T < \infty 	
+		\end{align*}
+		\item Covariance: 
+		\begin{align*}
+			\text{cov}_\theta [W,Z] = \EXth{W \cdot Z} = \EXth{\sum_{i=1}^n T \frac{\partial}{\partial \theta} \log f(x_i; \theta)}  = \sum_{i=1}^n \EXth{T} \cdot \frac{\partial}{\partial \theta} \log f(x_i; \theta) = \gamma' (\theta) \text{ (assumption 3) }  	
+		\end{align*}
+	\end{enumerate}
+	Now it follows from Cauchy Schwartz: 
+	\begin{align*}
+		[ \gamma'(\theta) ]^2 \leq nI(\theta) \cdot \text{var}_\theta T 	
+	\end{align*}
+	which happens $\iff$:
+	\begin{align*}
+		\text{var}_\theta [T] \geq \frac{\{ \gamma'(\theta) \}^2}{nI(\theta)}	
+	\end{align*}
+	Which is what we wanted to show. 
+	\end{proof}
+Some remarks from the proof: 
+\begin{enumerate}[noitemsep]
+	\item There are a lot of versions of the Crammer-Rao inequality. 
+	\begin{enumerate}[noitemsep]
+		\item This version has the cleanest possible assumptions. 
+		\item We did not need to differentiate between the continuous and discrete cases. 
+	\end{enumerate}
+	\item Observe the set $\{ x\ |\ f(x; \theta) > 0 \}$. We define $N_\theta$ as the set such that $\pr{ x \in \{ x\ |\ f(x; \theta) > 0 \}} = 1$. On here, $X \sim F_\theta$. So, you can restrict your attention to this set which makes the log well-defined. Thus, on $N_\theta$, $\partial / \partial \theta \log f(x, \theta)$ exists. 
+	\item \textbf{Q:} \emph{ What do assumptions (ii) and (iii) mean? } 
+	\begin{enumerate}[noitemsep]
+		\item This means nothing more than interchanging differentiation and integration. In particular, if $\{ x\ |\ f(x; \theta) > 0 \}$ does NOT depend on $\theta$, then, assuming that the $X's$ have a density, then these assumptions amount to interchanging differentiation and integration. 
+		\item From Assumption 2, we have: 
+		\begin{align*}
+			\idx{\R}{} f(x; \theta)dx = 1 	
+		\end{align*}
+		and so differentiating both sides with respect to $\theta$ gives
+		\begin{align*}
+			\idx{\R}{} f(x; \theta) dx = 0 	
+		\end{align*}
+		multiplying and dividing by $f$ gives: 
+		\begin{align*}
+			\idx{\R}{} \left[ \frac{\partial}{\partial \theta} \log f(x;  \theta) 	 	\right] 	= 0 
+		\end{align*}
+			so, assumption 2.1 is saying that you can interchange the derivatives and integrals. 
+	\end{enumerate}
+\end{enumerate}	
+
+Also, 
+\begin{align*}
+	\gamma ( \theta ) = \EXth{T} = \idx{}{} \cdots \idx{}{} T(x_1, ..., x_n) \sum_{i=1}^n \frac{\partial}{\partial \theta} f(x_i; \theta) \prod_{i=1}^n f(x_i; \theta) dx_1 \cdots d x_n 	
+\end{align*}
+We will play the same game again: differentiating and swapping derivatives and integrals gives us: 
+\begin{align*}
+		\gamma' ( \theta ) & =  \idx{}{} \cdots \idx{}{} T(x_1, ..., x_n) \sum_{i=1}^n \frac{\partial}{\partial \theta} f(x_i; \theta) \prod_{j \neq i}^n f(x_i; \theta) dx_1 \cdots d x_n	
+\end{align*}
+artificially multiplying and dividing by $f(x_i; \theta)$ gives: 
+\begin{align*}
+	& = \idx{}{} \cdots \idx{}{} T(x_1, ..., x_n ) \sum_{i=1}^n \underbrace{\frac{\partial}{\partial \theta} \frac{ f(x_i; \theta) 	}{f(x_i; \theta)}}_{\frac{\partial}{\partial \theta} \log f(x_i; \theta)} \prod_{j=1}^n \underbrace{f(x_j; \theta)}_{\text{ expected value}} \\
+	& = \sum_{i=1}^n \EXth{T(x_1, ..., x_n) \frac{\partial}{\partial \theta} \log f(x_i; \theta) } 
+\end{align*}
+These are actually smoothness conditions. There is also a nice geometric interpretation. 
+
+\subsubsection{Geometric Interpretation}
+Define the following space: 
+\begin{align*} 
+	\mathcal{L}_2 := \{ g: \R^n \rightarrow \R, \text{ borel measurable }, \EXth{g^2(x_1,..., x_n)} < \infty  \} 
+\end{align*}
+On $\Ltwo$ space, we can define a scalar product: $g_1, g_2 \in \Ltwo$, then: 
+\begin{align*}
+	\langle g_1, g_2 \rangle = \EXth{g_1(x_1, ..., x_n) \cdot g_2 (x_1, ..., x_n) }	
+\end{align*}
+On $\Ltwo$, the norm for $g \in \Ltwo$
+\begin{align*}
+		||g||^2 = \langle g, g \rangle = \EXth{g^2} < \infty 
+\end{align*}
+$\Ltwo$ is a Hilbert space. In particular, it is a space of equivalence classes of functions. In this case: 
+\begin{align*}
+	g_1 \sim g_2 \text{ if } \mathbb{P}_\theta [ g_1(x_1, ..., x_n) = g_2(x_1,..., x_n)] = 1	
+\end{align*}
+We can consider projections since $\Ltwo$ is a Hilbert space. Let $T$ be an unbiased estimator of $\gamma (\theta)$. Then, $T \in \Ltwo$.  Define $\overline{T}:= T - \gamma(\theta)$. Then, $\overline{T} \in \Ltwo$ and $\langle \overline{T}, 1 \rangle =0$ (since it's unbiased), since $\langle \overline{T}, 1 \rangle = \EXth{T - \gamma(\theta)}$. Thus, $\overline{T}$ is orthogonal to the subspace of constant functions. Define the following function: 
+\begin{align}
+	k(x_1, ..., x_n) := \sum_{i=1}^n \frac{\partial}{\partial \theta} \log f(x_i; \theta) 
+\end{align}
+From assumption (ii) of the Crammer-Rao inequality, $||k||^2 = nI(\theta) \in ]0, \infty[$ which implies that $k \in \Ltwo$. Since the expected value again is zero, we have that $\langle k, 1 \rangle = 0$. Moreover, from assumption (iii) of the Crammer-Rao inequality:
+\begin{align*}
+	\langle k, T \rangle = \gamma ' (\theta) = \langle k, \overline{T} \rangle 	
+\end{align*}
+Therefore, we can re-frame the assumptions of the Crammer-Rao inequality in terms of assumptions on the norms and scalar products.  Now define $V:= $ span$(k) = \{ c \cdot  k\ |\ c \in \R \} $ and project $\overline{T}$ onto $V$. Then: 
+\begin{align*}
+	\mathbf{T}_V \overline{T} = \left\langle \overline{T}, \frac{k}{|| k||} \right\rangle \frac{k}{|| k ||}	 =  \left\langle \overline{T}, k \right\rangle \frac{k}{|| k ||^2} = \frac{\gamma ' (\theta) k}{n I(\theta)}
+\end{align*}
+Now, by the pythagorean theorem: 
+\begin{align*}
+	\underbrace{|| \overline{T} ||^2}_{\text{variance}}= || \mathcal{T}_V \overline{T} ||^2 + || \overline{T} - \mathcal{T}_V \overline{T} ||^2	
+\end{align*}
+However, this is precisely the inequality: 
+\begin{align*}
+	\text{var}_\theta [T] & = \frac{\{ \gamma'(\theta) \}^2}{n I (\theta)} + \underbrace{|| T - \mathcal{T}_V \overline{T} ||^2 }_{\geq 0} \\
+	& \geq \frac{\{ \gamma' (\theta) \}^2}{n I(\theta)}
+\end{align*}
+equality holds \emph{only} when $\overline{T} \in V$. So, the UMVUE must be in $V$. That is: 
+\begin{align*}	
+	T - \gamma (\theta)  = ck = a (\theta) k 	
+\end{align*}
+where $a(\theta)$ is a constant that depends on $\theta$. So, the UMVUE is of the form: 
+\begin{align}
+	T = a(\theta) k(x_1, ..., x_n) + \gamma (\theta ) 
+\end{align}
+We will see later that the only estimators of this form are members of the exponential family. 
+
+\begin{ex}
+	Consider the Poisson family. 
+	\begin{align*}
+		\{ \text{Poi}(\lambda), \lambda > 0 \} 
+	\end{align*}
+	then, the densities are given by: 
+	\begin{align*}
+		f(x; \lambda) = e^\lambda \frac{\lambda^x}{x!} \chi_{x \in N_\lambda} 	
+	\end{align*}
+	Again, we don't need to worry about the bad points. In this case, $N_\lambda = \mathbb{N}_0$, and so we can differentiate the density with respect to $\lambda$ and so we have no problems. We will now check the conditions of the Crammer-Rao inequality: 
+	\begin{align*}
+		\frac{\partial}{\partial \lambda} \log f(x, \lambda) = \frac{\partial}{\partial \lambda} \left[ 	-\lambda + x \log (\lambda) - \log x!		\right] 	 = -1 + \frac{x}{\lambda}
+	\end{align*}
+	and so the first condition is met. Now for the second assumption: 
+	\begin{align*}
+		\mathbb{E}_\lambda \left[ 	\frac{\partial}{\partial \lambda} \log f(x; \lambda) 	\right] \underbrace{=}_{x \sim \text{Pos}(\lambda)} \mathbb{E}_\lambda \left[ 	-1 + \frac{x}{\lambda}		\right]
+	\end{align*}
+	and for the variance
+	\begin{align*}
+		\text{var} \left[ \frac{\partial}{\partial \lambda } \log f(x; \lambda) \right] 	 = \mathbb{E}_\lambda \left[ 	\left( 	\frac{\partial}{\partial \lambda}	 \log f(x; \lambda) \right)^2		\right] = \text{var}_\lambda \left[ -1 + \frac{x}{\lambda} \right] = \frac{1}{\lambda^2} \text{var}_\lambda[x] = \frac{1}{\lambda} = I(\lambda) 
+	\end{align*}
+	so, by the Crammer-Rao inequality, the Crammer-Rao bound is: 
+	\begin{align*}
+		\frac{1}{I(\lambda) \cdot n} = \frac{\lambda}{n}	
+	\end{align*}
+	So, if $T^*(x_1, ..., x_n)  = \overline{x}$, then $\EX{T^*} = \lambda$ and var$[T^*] = \lambda / n$. So, the sample mean attains the Crammer-Rao upper bound. Is $\overline{x}$ the UMVUE, or is there something else to check? We need to check (iii). If $T$ is unbiased for $\lambda$, and var$_\lambda [T]< \infty$, can we have the validity of (iii)? 
+	\begin{align*}
+		1 = \sum_{i=1}^n \EXth{T} \frac{\partial}{\partial \lambda} \log f(x_i; \lambda) 	
+	\end{align*}
+	This comes down to interchanging summation and differentiation. We know that $T$ is unbiased: 
+	\begin{align*}
+		\lambda = \EXth{T} = \sum_{x_1 = 0 }^\infty \cdots \sum_{x_n = 0}^\infty T(x_1, ..., x_n) e^{-\lambda}	\frac{\lambda^{\sum x_i}}{\prod_{i=1}^n x_i !} 
+	\end{align*}
+	Trick: move the $e^{-n \lambda}$ out: 
+	\begin{align*}
+		= e^{- n \lambda} \sum_{k=1}^\infty \underbrace{ \left( 	\sum_{(x_1, ..., x_n) \in \mathbb{N}_0^n\ |\ \sum_{i=1}^n x_i = k } T(x_1, ..., x_n) \frac{1}{\prod_{i=1}^n} x_i!	\right) }_{:= a_k}	\lambda^k
+	\end{align*}
+	This is an absolutely convergent power series. The variance is finite. In the radius of convergence, we can interchange summation and differentiation: 
+	\begin{align*}
+		1 = \sum_{k=0}^\infty \frac{\partial }{\partial \lambda}	 \left[ e^{-n \lambda} a_k \lambda^k \right] 
+	\end{align*}
+	You can deduce that (iii) holds. So, Crammer-Rao is applicable and 
+	\begin{align*}
+		\text{var}_\theta [T] \geq \frac{\lambda}{n} = \text{var}_\lambda T^*	
+	\end{align*}
+	and so the sample mean is the UMVUE: $T^* = \overline{x}$ 
+\end{ex}
+
+\begin{ex} 
+	Consider the so-called \dfn{one-parameter exponential family}. This is an umbrella term for the following families of distributions with distribution functions of the form: 
+	\begin{align*}
+		f(x;	\lambda) = \chi_{x \in A} \cdot \text{exp} \left\{ x(\theta) \cdot T(x) + d(\theta) + s(x) \right\} 
+	\end{align*}
+	important: the support of the characteristic function does NOT depend on $\theta$! For example, the PMF of the Poisson$(\lambda)$ is: 
+	\begin{align*}
+		f(x; \lambda ) = \chi_{ x \in \mathbb{N}_0 } \text{exp} \{ - \lambda + x \log (\lambda) - \log (x!) \} 	
+	\end{align*}
+	here, 
+	\begin{align*}
+		& c(\lambda) = \text{log}(\lambda) \\
+		& d(\lambda) = - \lambda \\
+		& T(x) = x \\
+		& s(x) = - \log (x!) 	
+	\end{align*}
+	Or, the PDF of N$(\mu, \sigma^2)$ with KNOWN $\sigma^2$ is:
+	\begin{align*}
+		f(x, \mu) = \frac{1}{\sqrt{2 \pi \sigma^2}}	\text{exp} \cdot \left\{ 	\frac{x \mu}{\sigma^2} - \frac{-\mu^2}{2 \sigma^2} - \frac{x^2}{2 \sigma^2} - \frac{1}{2} \log(2 \pi \sigma^2) 	\right\} 
+	\end{align*}
+	can be written as: 
+	\begin{align*}	
+		= \chi_{x \in \R} 	\text{exp} \cdot \left\{ 	\frac{x \mu}{\sigma^2} - \frac{-\mu^2}{2 \sigma^2} - \frac{x^2}{2 \sigma^2} - \frac{1}{2} \log(2 \pi \sigma^2) 	\right\} 
+	\end{align*}
+	Which means that it is in the one parameter exponential from the set:
+	\begin{align*} 
+			& c(\mu) = \frac{\mu}{\sigma^2} \\
+			& d(\mu) = \frac{-\mu^2}{2 \sigma^2} \\
+			& T(x) = x \\
+			& S(x) = \frac{-x^2}{2 \sigma^2} - \frac{1}{2} \log (2 \pi \sigma^2) 
+	\end{align*}
+\end{ex}
+
+However, \emph{if} $\Theta = ]a, b[$, $a \geq - \infty, b \leq \infty$, and $x$ is continuously differentiable with derivative $c'(\theta) > 0$ for all $\theta \in \Theta$ (this is the regularity condition), then for any unbiased estimator $T^*$ for which the assumptions of the Crammer-Rao inequality are met (i.e., we can swap differentiation and integration), we have that the only densities for which the Crammer-Rao inequality is attained is if the density belongs to an exponential family. 
+
+If $\EX{T(x)} = \theta$, then: 
+\begin{align*}
+	I(\theta) = \frac{1}{\text{var}[T(x)]}	
+\end{align*}
+and
+\begin{align*}
+	\frac{1}{n} \sum_{i=1}^n T(x_i) 	
+\end{align*}
+is the UMVUE. 
+
+
+\begin{ex} 
+	$c(\theta)T(x) + d(\theta) + s(x) (:= (*)) $ Then: 
+	\begin{align*}
+		f(x; \theta) = \chi_{x \in A} e^{(*)} 	
+	\end{align*}
+	Then, the one-parameter exponential family is: 
+	\begin{align*}
+		\theta \in \Theta, \text{ where } \Theta \in ]a,b[ 	
+	\end{align*}
+	These are the kind of distributions for which the theory works nicely. Moreover: 
+	\begin{enumerate}[noitemsep]
+		\item If $c$ is continuously differentiable on $\Theta$, and $c' > 0$, and $w(x_1, ..., x_n)$ is an estimator with finite variance and unbiased, then the assumptions of the Crammer-Rao theorem holds. 
+		\item If $\EXth{T(x)} = \theta$, then $I(\theta) = \frac{1}{\text{var}_\theta T(x)}$ and $\frac{1}{n} \sum_{i=1}^n T(x_i)$ is the UMVUE of $\theta$. 
+	\end{enumerate}
+	Interestingly, if $n=1$, we know that the estimator that attains the Crammer-Rao lower bound must have the form: 
+	\begin{align*}
+		T(x) = a (\theta) \frac{\partial}{\partial \theta} \log f(x; \theta) + \theta 	
+	\end{align*}
+	for $x$ fixed, $\frac{\partial}{\partial \theta} \log f(x; \theta) = \frac{T(x) - \theta}{a(\theta)} = c'(\theta)T(x) + d'(\theta)$, which implies that $\log f(x; \theta) = c(\theta)T(x) + d(\theta) + s(x)$. 
+	
+	Other examples of one-parameter exponential families with $T(x) = x$ are Poisson$(\lambda)$ or $N(\mu, \sigma^2)$ with \emph{known} $\sigma^2$. In this case, $\overline{x}$ is the UMVUE for $\lambda, \mu$ respectively. 
+\end{ex}
+
+\begin{lemma}
+	If $f(x; \theta)$ is a PDF/PMF so that $f$ is differentiable with respect to $\theta$ $\forall \theta$, $x \in N_\theta$, and so that for $X$ with a PDF/PMF $f(x; \theta)$: 
+	\begin{enumerate}[noitemsep]
+		\item $\EXth{\frac{\partial}{\partial \theta} \text{log}f(x; \theta)} =0$ and 
+		\item $\frac{\partial}{\partial \theta} \EXth{\frac{\partial}{\partial \theta} \text{log}f(x; \theta) } = 0 = $ 
+		\begin{align*}
+			\begin{cases}
+				& \idx{}{} \frac{\partial}{\partial \theta} \left( \left[  \frac{\partial}{\partial \theta} \log f(x; \theta)   \right]	f(x; \theta) 	\right) dx \\
+				& \sum_{x} \frac{\partial}{\partial \theta} \left[ \frac{\partial}{\partial \theta} \log f(x[ \theta) \right] 
+			\end{cases}	
+		\end{align*}
+			depending on if $x$ is discrete or continuous, then: 
+			\begin{align*}
+				I(\theta) = \EXth{\frac{\partial}{\partial \theta} \log f(x; \theta)}^2	= - \EXth{\frac{\partial^2}{\partial \theta} \log f(x_i; \theta)}
+			\end{align*}
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	We will only prove this in the case that $X$ is continuous. All this is doing is carrying out differentiation. The LHS is zero. The RHS is: 
+	\begin{align*}
+		& \idx{}{} \frac{\partial}{\partial \theta} \left( 	\frac{\partial / \partial \theta f(x; \theta) }{f(x; \theta)}		\right) dx  	\\
+		& = \idx{}{} \left[ 	\frac{\partial^2}{\partial^2 \theta}	 \log f(x; \theta)	\right] \cdot f(x; \theta) dx + \idx{}{}  \left( \frac{\partial}{\partial \theta} \log f(x; \theta) \right) \frac{\partial}{\partial \theta} f(x; \theta) dx 
+	\end{align*}
+	Observe that the $f(x; \theta)$ term is simply: 
+	\begin{align*}
+		& = \frac{\partial / \partial \theta f(x; \theta)}{f(x; \theta)} \cdot f(x; \theta) \\
+		& = \frac{\partial}{\partial \theta} \log f(x; \theta) f(x; \theta) 
+	\end{align*}
+	which implies that: 
+	\begin{align*}
+		0 = \EXth{\frac{\partial^2}{\partial^2 \theta} \log f(x; \theta)} + \EXth{\frac{\partial}{\partial \theta} \log f(x; \theta)}^2 
+	\end{align*}
+	which proves what we wanted to show. 
+\end{proof}
+The next example highlights the limitations of the result: 
+
+\begin{ex} 
+	Let's consider $N(\mu, \sigma^2)$ with $\mu$ known. Suppose that we want to estimate $\sigma^2$. Then: 
+	\begin{align*}
+		\log f(x; \mu, \sigma^2) = - \frac{1}{2}	 \log (2 \pi) - \frac{1}{2} \log (\sigma^2) - \frac{1}{2} \frac{(x-\mu)^2}{\sigma^2}
+	\end{align*}
+	This is a one-parameter exponential family. The assumptions of CR hold here (can be checked). To calculate the CR lower bound, we need to calculate $I(\sigma^2)$: 
+	\begin{align*}
+			\frac{\partial}{\partial^2 \sigma^2} \log f(\mu, \sigma^2) = - \frac{1}{2} \frac{1}{\sigma^2} - \frac{1}{2} \frac{(x-\mu)^2}{\sigma^4}
+	\end{align*}
+	and
+	\begin{align*}
+		\EX{- \frac{1}{2} \frac{1}{\sigma^2} - \frac{1}{2} \frac{(x-\mu)^2}{\sigma^4}} = -\frac{1}{2} \frac{1}{\sigma^2} - \frac{1}{2} \frac{1}{\sigma^4} \sigma^2 = 0 
+	\end{align*}
+	By the Lemma: 
+	\begin{align*}
+		\frac{\partial}{\partial^2 \sigma^2}	 \log f(x; \mu, \sigma^2) = \frac{1}{2} \frac{1}{\sigma^4} + \frac{1}{2} (x-\mu)^2(-2)\frac{1}{\sigma^6}	
+	\end{align*}
+	and so
+	\begin{align*}
+		\EX{\frac{\partial}{\partial^2 \sigma^2}	 \log f(x; \mu, \sigma^2)} & = \frac{1}{2} \frac{1}{\sigma^4} - \frac{1}{\sigma^6} \EX{x-\mu}^2 \\
+			& = \frac{1}{2 \sigma^4} - \frac{1}{\sigma^4} \\
+			& = -\frac{1}{2}\frac{1}{\sigma^4}
+	\end{align*}
+	So: 
+	\begin{align*}
+		I(\sigma^2) = \frac{1}{2} \frac{1}{\sigma^4}
+	\end{align*}
+	So, the Crammer-Rao lower bound  for $\sigma^2$ is: 
+	\begin{align*}
+		\frac{2 \sigma^4}{n}
+	\end{align*}
+	\textbf{Q:} \emph{Can we find an unbiased estimator with this variance}? For the sample variance: 
+	\begin{align*}
+		\EX{s^2} = \sigma^2 	
+	\end{align*}
+	but
+	\begin{align*}
+		\text{var}[s^2] = \frac{2 \sigma^4}{(n-1)}
+	\end{align*}
+	where the variance was computed in Example 2.16. So, we have
+	\begin{align*}
+			\text{var}[s^2] > \frac{2\sigma^2}{n}
+	\end{align*}
+	:-(. AN UMVUE would be:
+	\begin{align*}
+			\frac{1}{n} \sum_{i=1}^n (x_i - \mu)^2 
+	\end{align*}
+	but this requires that we KNOW $\mu$. Note that
+	\begin{align*}
+	\sum_{i=1}^n \frac{(x_i- \mu)^2}{\sigma^2} \sim \chi_n^2
+	\end{align*}
+	But, if $\mu$ is unknown, then the above is not an estimator, since there is dependence on a parameter, and thus the CR lower bound cannot be attained. This shows a limitation of the CR method. 
+\end{ex}
+
+\begin{ex} 
+	Observe that the CR lower bound is: 
+	\begin{align*}
+		\frac{1}{nI(\theta)}
+	\end{align*}
+	if we want to estimate $\theta$, and if CR is applicable, then: 
+	\begin{align*}
+		\text{Var}_\theta T \geq \frac{1}{nI(\theta)}
+	\end{align*}	
+	which means that the maximum speed at which you could get var$[T]$ to go to zero is $1/n$. This means it's at best $O(1/n)$. Now consider the uniform model $U[0, \theta]$, $\theta > 0$. Then: 
+	\begin{align*}
+		f(x; \theta) = \frac{1}{\theta} \chi_{x \in ]0, \theta[} 
+	\end{align*}
+	We already have: 
+	\begin{align*}
+			& \hat{\theta}_{\text{MOM}} = 2 \overline{x} \\
+			& \hat{\theta}_{\text{MLE}} \max \{ x_1, ..., x_n \} 
+	\end{align*}
+	Here, $\hat{\theta}_{\text{MOM}}$ is unbiased and var$[\hat{\theta}_{\text{MOM}}] = \frac{4 \text{var}[x]}{n}$. The rate, $4/n$, is what's interesting. If $X_{(n)} = \max \{ X_1, ..., X_n \}$, then: 
+	\begin{align*}
+			f_{X_{(n)}}(x; \theta) = \frac{n}{\theta} x^{n-1} 
+	\end{align*}
+	and so 
+	\begin{align*}
+			\EX{X_{(n)}} = \idx{0}{\theta} \frac{x^n}{\theta^n} n dx = \theta \frac{n}{n+1}
+	\end{align*}
+	which means that the MLE is not unbiased. So, to make it unbiased, set: 
+	\begin{align*}
+			\widetilde{\theta} := \hat{\theta}_{\text{MLE}} \frac{(n+1)}{n}
+	\end{align*}
+	which means that 
+	\begin{align*}
+		\text{var}[\theta] = \left[ 	 \frac{(n+1)}{n}	 \right]^2 \idx{0}{\theta} \left[ x - \frac{\theta n}{n+1}	\right]^2 \frac{nx^{n-1}}{\theta^n} dx   = \cdots = \frac{\theta^2}{n(n+2)} << \frac{1}{nI(\theta)} = \frac{\theta^2}{n}
+	\end{align*}
+	Something is wrong. Let's check the conditions of the CR. Set $N_\theta := ]0, \theta[$. Then, $\partial / \partial \theta \log f(x; \theta)$ on $]0, \theta[$ is: 
+	\begin{align*}
+		& \frac{\partial}{\partial \theta} \left( 	\frac{1}{\theta}	\right) = - \frac{1}{\theta^2} \\
+		& \frac{\partial}{\partial \theta} \log f(x; \theta) = - \frac{1}{\theta} \\
+		& I(\theta) = \EX{ \left( 	\frac{\partial}{\partial \theta} \log f(x; \theta)	 \right)^2  } = \EX{\frac{1}{\theta^2}}  = \frac{1}{\theta^2}
+	\end{align*}
+	as we can see, the assumptions of CR are not fulfilled on SEVERAL accounts. Also: 
+	\begin{align*}
+		\EX{\frac{\partial}{\partial \theta} \log f(x; \theta)} = - \frac{1}{\theta} \neq 0 
+	\end{align*}
+	we have 
+	\begin{align*}
+		& \frac{\partial}{\partial \theta} \idx{0}{\theta} t(x) \underbrace{f(x; \theta)}_{1/ \theta} dx \\
+		& = \frac{t(\theta)}{\theta} + \idx{0}{\theta} t(x) \frac{\partial}{\partial \theta} \left( \frac{1}{\theta} \right) dx \neq \idx{0}{\theta} t(x) \frac{\partial}{\partial \theta} \left( \frac{1}{\theta} \right) dx 
+	\end{align*}
+	unless $t(\theta) = 0$ $\forall$ $\theta$. 
+\end{ex}
+
+So, we need to temporarily suspend our UMVUE search and do more theory.
 
 \emph{Cutoff for Midterm Material} 
 \section{Sufficiency and Completeness} 

@@ -4,15 +4,16 @@
 \contentsline {subsection}{\numberline {2.2}Standardisation}{9}% 
 \contentsline {subsection}{\numberline {2.3}F-Test Basis}{10}% 
 \contentsline {subsection}{\numberline {2.4}Limiting Sample Distributions (Asymptotics)}{11}% 
-\contentsline {subsubsection}{\numberline {2.4.1}Question 1}{11}% 
+\contentsline {subsubsection}{\numberline {2.4.1}Question 1}{12}% 
 \contentsline {subsubsection}{\numberline {2.4.2}Question 2}{13}% 
 \contentsline {subsection}{\numberline {2.5}Order Statistics}{15}% 
 \contentsline {section}{\numberline {3}Point Estimation}{15}% 
-\contentsline {subsection}{\numberline {3.1}Ways We Can Construct Estimators}{15}% 
+\contentsline {subsection}{\numberline {3.1}Ways We Can Construct Estimators}{16}% 
 \contentsline {subsubsection}{\numberline {3.1.1}Method of moments}{16}% 
 \contentsline {subsubsection}{\numberline {3.1.2}Method of Maximum Likelihood}{18}% 
 \contentsline {subsubsection}{\numberline {3.1.3}Invariance of the MLE Theorem}{22}% 
-\contentsline {subsubsection}{\numberline {3.1.4}Bayesian Method}{23}% 
+\contentsline {subsubsection}{\numberline {3.1.4}Bayesian Method}{24}% 
 \contentsline {subsection}{\numberline {3.2}Method of Evaluating Estimators}{25}% 
-\contentsline {subsection}{\numberline {3.3}Best Unbiased Estimators}{27}% 
-\contentsline {section}{\numberline {4}Sufficiency and Completeness}{27}% 
+\contentsline {subsection}{\numberline {3.3}Best Unbiased Estimators}{28}% 
+\contentsline {subsubsection}{\numberline {3.3.1}Geometric Interpretation}{30}% 
+\contentsline {section}{\numberline {4}Sufficiency and Completeness}{37}% 
