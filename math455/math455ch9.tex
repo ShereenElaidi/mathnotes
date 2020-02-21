@@ -363,7 +363,7 @@ prefoothook = \endmysolbar]{sol}
 
 \section{Complete Metric Spaces} 
 
-\begin{definition}[Cauchy] A sequence $\{ x_n \}$ in a metric space $(X, \rho)$ is said to be a \textbf{Cauchy sequence} if $\forall \varepsilon > 0$, there exists a $N \in \mathbb{N}$ such that if $m, n \geq N$, then $\rho(x_n, x) < \varepsilon$. 
+\begin{definition}[Cauchy] A sequence $\{ x_n \}$ in a metric space $(X, \rho)$ is said to be a \textbf{Cauchy sequence} if $\forall \varepsilon > 0$, there exists a $N \in \mathbb{N}$ such that if $m, n \geq N$, then $\rho(x_n, x_m) < \varepsilon$. 
 \end{definition}
 
 \begin{definition}[Complete]
@@ -454,7 +454,7 @@ prefoothook = \endmysolbar]{sol}
 \end{prop}
 
 \begin{definition}[Sequentially Compact]
-	A metric space $X$ is \textbf{sequentially compact} if every sequence $X$ has a subsequence that converges to a point in $X$. 
+	A metric space $X$ is \textbf{sequentially compact} if every sequence in $X$ has a subsequence that converges to a point in $X$. 
 \end{definition}
 
 \begin{theorem}[Characterisation of Compactness for a metric space]. Let $X$ be a metric space. Then, TFAE: 

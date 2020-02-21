@@ -502,7 +502,7 @@ The proof is pretty obvious using the lemma:
 	\end{align*}
 	So, taking the ratio in the form of what is given to us in the previous lemma gives: 
 	\begin{align*}
-		\frac{\sqrt{n} \frac{\overline{X} - \mu}{\sigma}}{\sqrt{\frac{s^2(n-1)}{\sigma^2 (n-1)}}} = \frac{\sqrt{n} (\overline{X} - \mu)}{\sqrt{s^2} } \sum t_{(n-1)} 
+		\frac{\sqrt{n} \frac{\overline{X} - \mu}{\sigma}}{\sqrt{\frac{s^2(n-1)}{\sigma^2 (n-1)}}} = \frac{\sqrt{n} (\overline{X} - \mu)}{\sqrt{s^2} } \sim t_{(n-1)} 
 	\end{align*}
 	where we obtain the distribution from the previous lemma. 
 \end{proof}
@@ -782,11 +782,11 @@ We are no ready to prove the delta method.
 \end{definition}
 
 \begin{definition}[Sample Median]
-	The \dfn{sample median}, denoted by $M$, is the number such that approx one half of the observations are less than $M$ and one half sare greater. It can be defined in terms of the order statistics as: 
+	The \dfn{sample median}, denoted by $M$, is the number such that approx one half of the observations are less than $M$ and one half are greater. It can be defined in terms of the order statistics as: 
 	\begin{align*}
 		M := \begin{cases}
 			X_{(n+1)/2} & \text{ if $n$ is odd} \\
-			\frac{(X_{(n/2)} + X_{(n/2+1})}{2} & \text{ if $n$ is even}
+			\frac{X_{(n/2)} + X_{(n/2+1)}}{2} & \text{ if $n$ is even}
 		\end{cases}	
 	\end{align*}
 \end{definition}
@@ -1323,7 +1323,7 @@ Before going on, need to make some important remarks:
 			& = \text{var}_\theta[T] + (\EXth{T}- \gamma(\theta))^2 + 2(\EXth{T} - \gamma(\theta))\underbrace{\EX{T - \EXth{T}}}_{=0} \\
 			& = \text{var}_\theta[T] + [\EXth{T} - \gamma(\theta)]^2 
 		\end{align*}
-		We call $\EXth[T]-\gamma(\theta)$ the \dfn{bias} of $T$, and so: 
+		We call $\EXth{T}-\gamma(\theta)$ the \dfn{bias} of $T$, and so: 
 		\begin{align}
 			\text{MSE}_\theta = \text{var}_\theta[T] + (\text{Bias}_\theta(T))^2 
 		\end{align}
@@ -1459,7 +1459,7 @@ Assume that we have a random variable distributed as Poisson. Then, $\hat{\lambd
 		\underline{Remark} the $I(\theta)$ is called the \dfn{Fisher information}
 		\item var$_\theta[T] < \infty$ and: 
 		\begin{align*}
-			\sum_{i=1}^n \EXth{T(X_1, ..., X_n) \frac{\partial}{\partial \theta} \log f(x_1, ..., X_n; \theta)} = \gamma'(\theta)  
+			\sum_{i=1}^n \EXth{T(X_1, ..., X_n) \frac{\partial}{\partial \theta} \log f(x_1, ..., x_n; \theta)} = \gamma'(\theta)  
 		\end{align*}
 		then: 
 		\begin{align*}	
@@ -1714,12 +1714,12 @@ is the UMVUE.
 		\begin{align*}
 			\begin{cases}
 				& \idx{}{} \frac{\partial}{\partial \theta} \left( \left[  \frac{\partial}{\partial \theta} \log f(x; \theta)   \right]	f(x; \theta) 	\right) dx \\
-				& \sum_{x} \frac{\partial}{\partial \theta} \left[ \frac{\partial}{\partial \theta} \log f(x[ \theta) \right] 
+				& \sum_{x} \frac{\partial}{\partial \theta} \left[ \frac{\partial}{\partial \theta} \log f(x; \theta) \right] 
 			\end{cases}	
 		\end{align*}
 			depending on if $x$ is discrete or continuous, then: 
 			\begin{align*}
-				I(\theta) = \EXth{\frac{\partial}{\partial \theta} \log f(x; \theta)}^2	= - \EXth{\frac{\partial^2}{\partial \theta} \log f(x_i; \theta)}
+				I(\theta) = \EXth{\frac{\partial}{\partial \theta} \log f(x; \theta)}^2	= - \EXth{\frac{\partial^2}{\partial \theta} \log f(x; \theta)}
 			\end{align*}
 	\end{enumerate}
 \end{lemma}
