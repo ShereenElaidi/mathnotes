@@ -5,6 +5,7 @@
 \usepackage{amssymb,amsmath,amsthm}
 \usepackage{xcolor} 
 \usepackage{enumitem}
+\usepackage{fancyhdr}
 \newcommand{\R}[0]{\mathbb{R}}
 \addtokomafont{section}{\rmfamily\centering\scshape}
 % math environments 
@@ -45,10 +46,9 @@
 \newcommand{\Ltwo}[0]{\mathcal{L}_2}
 
 
-\title{\textbf{Math 357: Statistics}}
-\author{Shereen Elaidi}
-\date{Winter 2020 Term}
-
+\title{\textbf{Math 375: Statistics} \vspace{-2ex}}
+\author{Winter 2020 Lecture Notes \vspace{-2ex}}
+\date{Shereen Elaidi}
 \begin{document}
 
 \maketitle
@@ -56,6 +56,17 @@
 
 
 
+\pagestyle{fancy}
+\lhead{Math 357: Statistics}
+\chead{Winter 2020}
+\rhead{Page \thepage}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+{\renewcommand{\arraystretch}{1.2}% for the vertical padding
 
 \section{Introduction}
 Data consists of observations $x_1, ..., x_n$. These are regarded as realisations of random phenomena modelled by the random variables $X_1, ... , X_n$. In this course, the $X_i$'s will be random variables in $\R^d$, usually with $d=1$. 
@@ -1640,7 +1651,7 @@ We will see later that the only estimators of this form are members of the expon
 \begin{ex} 
 	Consider the so-called \dfn{one-parameter exponential family}. This is an umbrella term for the following families of distributions with distribution functions of the form: 
 	\begin{align*}
-		f(x;	\lambda) = \chi_{x \in A} \cdot \text{exp} \left\{ x(\theta) \cdot T(x) + d(\theta) + s(x) \right\} 
+		f(x;	\lambda) = \chi_{x \in A} \cdot \text{exp} \left\{ c(\theta) \cdot T(x) + d(\theta) + s(x) \right\} 
 	\end{align*}
 	important: the support of the characteristic function does NOT depend on $\theta$! For example, the PMF of the Poisson$(\lambda)$ is: 
 	\begin{align*}
@@ -1670,7 +1681,7 @@ We will see later that the only estimators of this form are members of the expon
 	\end{align*}
 \end{ex}
 
-However, \emph{if} $\Theta = ]a, b[$, $a \geq - \infty, b \leq \infty$, and $x$ is continuously differentiable with derivative $c'(\theta) > 0$ for all $\theta \in \Theta$ (this is the regularity condition), then for any unbiased estimator $T^*$ for which the assumptions of the Crammer-Rao inequality are met (i.e., we can swap differentiation and integration), we have that the only densities for which the Crammer-Rao inequality is attained is if the density belongs to an exponential family. 
+However, \emph{if} $\Theta = ]a, b[$, $-\infty \leq a < b \leq \infty$, and $c$ is continuously differentiable with derivative $c'(\theta) > 0$ for all $\theta \in \Theta$ (this is the regularity condition), then for any unbiased estimator $T^*$ for which the assumptions of the Crammer-Rao inequality are met (i.e., we can swap differentiation and integration), we have that the only densities for which the Crammer-Rao inequality is attained is if the density belongs to an exponential family. 
 
 If $\EX{T(x)} = \theta$, then: 
 \begin{align*}
