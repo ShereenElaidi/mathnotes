@@ -1459,13 +1459,13 @@ Assume that we have a random variable distributed as Poisson. Then, $\hat{\lambd
 		\underline{Remark} the $I(\theta)$ is called the \dfn{Fisher information}
 		\item var$_\theta[T] < \infty$ and: 
 		\begin{align*}
-			\sum_{i=1}^n \EXth{T(X_1, ..., X_n) \frac{\partial}{\partial \theta} \log f(x_1, ..., x_n; \theta)} = \gamma'(\theta)  
+			\sum_{i=1}^n \EXth{T(X_1, ..., X_n) \frac{\partial}{\partial \theta} \log f(X_i; \theta)} = \gamma'(\theta)  
 		\end{align*}
 		then: 
 		\begin{align*}	
 			\text{var}_\theta T(X_1, ..., X_n) \geq \frac{\{ \gamma'(\theta) \}^2}{nI(\theta)}	
 		\end{align*}
-		\emph{Remark}: this is called the \dfn{Crammer-Rao upper bound} 
+		\emph{Remark}: this is called the \dfn{Crammer-Rao lower bound} 
 	\end{enumerate}
 \end{theorem}
 
