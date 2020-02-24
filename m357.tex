@@ -594,7 +594,7 @@ First we will have a refresher from Math 356. The prime tool for convergence in 
 \end{theorem}
 
 \begin{theorem}[Continuous Mapping Theorem]
-	If $T_n \xrightarrow[]{P} T$ and $g$ is continuous on the set $C$ such that $\pr{T \in X} =1$, then $g(T_n) \xrightarrow[]{P} g(T)$. 
+	If $T_n \xrightarrow[]{P} T$ and $g$ is continuous on the set $C$ such that $\pr{T \in C} =1$, then $g(T_n) \xrightarrow[]{P} g(T)$. 
 \end{theorem}
 	In particular, if $T_n \xrightarrow[]{P} \theta$ and if $g$ is continuous at $\theta$, then $g(T_n) \xrightarrow[]{P} g(\theta)$.
 	
@@ -688,7 +688,7 @@ We will need the following tools from probability: the Central Limit Theorem and
 So, $T_n - \theta \xrightarrow[]{p} 0$, or $T_n \xrightarrow[]{d} \theta$. This means that the second statement implies the first statement. 
 
 \begin{ex}[Alternative proof of the CLT] 
-		Let $X_1,..., X_N$ be iid from $X$, $\EX{X} = \mu$, Var$[X] = \sigma^2 < \infty$ (this assumption is very important!) 
+		Let $X_1,..., X_N$ be iid from $F$, $\EX{X} = \mu$, Var$[X] = \sigma^2 < \infty$ (this assumption is very important!) 
 		\begin{align}
 			\sqrt{n} \frac{\overline{X} - \mu}{\sqrt{s^2}} = \underbrace{\frac{\sqrt{n} (\overline{X} - \mu)}{\sigma}}_{\text{By vanilla CLT, this goes to} N(0,1)} \cdot \underbrace{\frac{\sigma}{\sqrt{s^2}}}_{\xrightarrow[]{p} 1}
 		\end{align}
@@ -711,7 +711,7 @@ So, $T_n - \theta \xrightarrow[]{p} 0$, or $T_n \xrightarrow[]{d} \theta$. This 
 	\begin{align*}
 		(r_n) (\overline{X}(1-\overline{X}) - p(1-p) ) \xrightarrow[]{d} ?? 	
 	\end{align*}
-	This is not exactly the CMT; this example provides the motivation for developing the \dfn{delta method}. Suppose that we want $r_n(T_n - \theta) \xrightarrow[]{d} T$ but we are interested in $g(T_n) - g(\theta)$. What could we do? We could use the Taylor Expansion: 
+	This is not exactly the CMT; this example provides the motivation for developing the \dfn{delta method}. Suppose that we know that $r_n(T_n - \theta) \xrightarrow[]{d} T$ and we are interested in $g(T_n) - g(\theta)$. What could we do? We could use the Taylor Expansion: 
 	\begin{align*}
 		& g(T_n) - g(\theta) \approx g'(\theta) (T_n - \theta) 	\\
 		& (r_n) (g (T_n) - g(\theta) ) \approx g'(\theta) \{ r_n (T_n - \theta) \} 
@@ -741,7 +741,7 @@ Let $\sqrt{n} := (r_n)$. Then, by the delta method
 \end{align*}
 When $p=1/2$, the statement is uninteresting since the derivative is zero. We will have both convergence in probability and distribution to zero, which doesn't give us any information really. 
 
-We are no ready to prove the delta method. 
+We are now ready to prove the delta method. 
 
 \begin{proof}
 	This proof uses several common arguments that you should learn for stats :-). Observe that by the continuous mapping theorem, $T_n \xrightarrow[]{p} \theta$, also $g(T_n) \xrightarrow[]{p} g(\theta)$. Define the following function: 
@@ -1461,11 +1461,11 @@ Assume that we have a random variable distributed as Poisson. Then, $\hat{\lambd
 		\item $\forall\ \theta \in \Theta$, $F_\theta$ has a density/PMF $f(\cdot; \theta)$, and $\partial f(x; \theta) / \partial \theta$ exists for all $\theta \in \Theta$. 
 		\item You can differentiate the log: 
 		\begin{align*}
-			\EXth{\frac{\partial}{\partial \theta} \log f(x_1; \theta)} = 0\ \forall \theta \in \Theta 	
+			\EXth{\frac{\partial}{\partial \theta} \log f(x; \theta)} = 0\ \forall \theta \in \Theta 	
 		\end{align*}
 		and 
 		\begin{align*}
-			\EXth{\frac{\partial}{\partial \theta} \left(  \log f(x_1; \theta) \right)^2 } = I(\theta) < \infty 	
+			\EXth{\frac{\partial}{\partial \theta} \left(  \log f(x; \theta) \right)^2 } = I(\theta) < \infty 	
 		\end{align*}
 		\underline{Remark} the $I(\theta)$ is called the \dfn{Fisher information}
 		\item var$_\theta[T] < \infty$ and: 
