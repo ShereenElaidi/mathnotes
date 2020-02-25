@@ -449,4 +449,78 @@ Every metric space is first countable.
 	A compact subspace $K$ of a Hausdorff topological space is a closed subset of $X$. 
 \end{prop}
 
+\begin{definition}[Sequentially Compact] 
+	A topological space $X$ is said to be \textbf{sequentially compact} if every sequence in $X$ has a subsequence that converges to a point in $X$. 
+\end{definition}
+
+\begin{prop}
+	Let $X$ be a second countable topological space. Then, $X$ is compact $\iff$ it is sequentially compact. 
+\end{prop}
+
+\begin{theorem}
+	A compact Hausdorff space is normal. 
+\end{theorem}
+
+\begin{prop}
+	A continuous one-to-one mapping $f$ of a compact space $X$ onto a Hausdorff space $Y$ is a homeomorphism. 
+\end{prop}
+
+\begin{prop}
+	The continuous image of a compact topological space is compact. 
+\end{prop}
+
+\begin{corollary}
+	A continuous real-valued function on a compact topological space takes on a minimum and maximum functional value. 
+\end{corollary}
+
+\begin{definition}[Countably Compact] 
+	A topological space is \textbf{countably compact} if every countable open cover has a finite subcover.
+\end{definition}
+
+\section{Connected Topological Space}
+
+\begin{definition}[Separated]
+	Two non-empty subsets of a topological space \textbf{separate} $X$ if they are disjoint and their union is $X$. 
+\end{definition}
+
+\begin{definition}[Connected]
+	A topological space which cannot be separated by open sets is said to be \textbf{connected}. A subset $E \subseteq X$ is \textbf{connected} if there do NOT exist open subsets $\open_1$, $\open_2$ of $X$ for which: 
+	\begin{align*}
+		& \open_1 \cap E \neq \emptyset \\
+		& \open_2 \cap E \neq \emptyset \\
+		& E \subseteq \open_1 \cup \open_2, \\
+		& E \cap \open_1 \cap \open_2 = \emptyset 	
+	\end{align*}
+\end{definition}
+
+\begin{prop}
+	Let $f$ be a continuous mapping of a connected space $X$ to a topological space $Y$. Then, its image $f(X)$ is connected. 
+\end{prop}
+
+\begin{prop}
+	For A set $C \in \R$, the following are equivalent. 
+	\begin{enumerate}[noitemsep]
+		\item $C$ is an interval. 
+		\item $C$ is convex. 
+		\item $C$ is connected. 
+	\end{enumerate}
+\end{prop}
+
+\begin{definition}[Intermediate Value Property]
+	A topological space $X$ has the \textbf{intermediate value property} if the image of any continuous real-valued function on $X$ is an interval. 
+\end{definition}
+
+\begin{prop}
+	A topological space has the intermediate value property $\iff$ it is connected. 
+\end{prop}
+
+\begin{definition}[Arcwise connected]
+	A topological space $X$ is \textbf{arcwise connected} if, for each pair $u, v \in X$, there exists a continuous map $f: [0,1] \rightarrow X$ for which $f(0) = u$ and $f(1) = v$. Note: 
+	\begin{enumerate}[noitemsep]
+		\item Connected $\iff$ arcwise connected in $\R^n$. 
+		\item Arcwise connected $\Rightarrow$ connected (in general) 
+		\item There exist connected but non-arcwise connected spaces (in general). 
+	\end{enumerate}
+\end{definition}
+
 \end{document}

@@ -1026,9 +1026,9 @@ So the aim is to find a way maximise the likelihood function in $\theta$.
 	\end{align}
 	Then, $\hat{\theta}$ is called the \dfn{maximum likelihood estimate}. (Grounding: it is a number, not an object). If $\hat{\theta}(x)$ exists for almost all samples, and as a function: 
 	\begin{align*}
-		\hat{\theta}: \R^n \rightarrow R^k,\ x \mapsto \hat{\theta}(x) 	
+		\hat{\theta}: \R^n \rightarrow \R^k,\ x \mapsto \hat{\theta}(x) 	
 	\end{align*}
-	is a measurable function, then the \emph{function} $\hat{\theta}(X)$ is called the \dfn{Maximum Likelihood Estimator (MLE)} of $\theta$. 
+	is a measurable, then the \emph{function} $\hat{\theta}(X)$ is called the \dfn{Maximum Likelihood Estimator (MLE)} of $\theta$. 
 \end{definition}
 
 \begin{ex}[Continued from the Poisson Case] Let $x_1, ..., x_n$ be a sample from the Poisson distribution. Then, the aim is to maximise: 
@@ -1151,7 +1151,7 @@ For the past two examples, we've seen that the MLE estimator agrees with the met
 		& n \sigma^2 = \sum_{i=1}^n (x_i - \overline{x})^2 \\
 		& \Rightarrow \hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^2		
 	\end{align*}
-	\textbf{How do we prove that our values $\hat{\mu}$ and $\hat{\sigma}^2$ are indeed maximums}? The trick is to use somethig called the \dfn{profile likelihood}. Define: 
+	\textbf{How do we prove that our values $\hat{\mu}$ and $\hat{\sigma}^2$ are indeed maximums}? The trick is to use something called the \dfn{profile likelihood}. Define: 
 	\begin{align}
 		\ell^*(\sigma^2) := \sup_{\mu \in \R} \ell (\mu, \sigma^2) 
 	\end{align}
@@ -1304,7 +1304,7 @@ The \dfn{posterior density function} is given by:
 	\emph{Some kind of limiting statement -- generally uses WLLN techniques} 
 	\item The \dfn{mean squared error (MSE)} of $\stat$ is: 
 	\begin{align}
-		\text{MSE}(T):= \EXth{\{ \stat - \gamma(\theta) \}}^2
+		\text{MSE}(T):= \EXth{\{ \stat - \gamma(\theta) \}^2}
 	\end{align}
 \end{enumerate}
 \end{definition}
@@ -1389,7 +1389,7 @@ To do: insert figure
 	\end{align*}
 	To compare, we need to choose $\alpha$ and $\beta$ to be independent of $p$. 
 	\begin{align*}
-		\text{MSE}(\hat{p}_B) = ... = \frac{\alpha^ 2 + p(n - 2 \alpha^2 - 2 \alpha \beta) + p^2(-n + \alpha^2 + \beta^2 + 2 \alpha \beta}{(n+ \alpha + \beta)^2}
+		\text{MSE}(\hat{p}_B) = ... = \frac{\alpha^ 2 + p(n - 2 \alpha^2 - 2 \alpha \beta) + p^2(-n + \alpha^2 + \beta^2 + 2 \alpha \beta)}{(n+ \alpha + \beta)^2}
 	\end{align*}
 	Thus, if we want the above equation to be independent of $p$, set the coefficients of $p$ and $p^2$ to equal zero. We thus must solve: 
 	\begin{align*}
@@ -1465,7 +1465,7 @@ Assume that we have a random variable distributed as Poisson. Then, $\hat{\lambd
 		\end{align*}
 		and 
 		\begin{align*}
-			\EXth{\frac{\partial}{\partial \theta} \left(  \log f(x; \theta) \right)^2 } = I(\theta) < \infty 	
+			\EXth{ \left(  \frac{\partial}{\partial \theta} \log f(x; \theta) \right)^2 } = I(\theta) < \infty 	
 		\end{align*}
 		\underline{Remark} the $I(\theta)$ is called the \dfn{Fisher information}
 		\item var$_\theta[T] < \infty$ and: 
