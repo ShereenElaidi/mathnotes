@@ -4,6 +4,9 @@ This repository contains:
 * Math 454 (Analysis 3, Fall 2019) final summary, which I made to review for the final
 * Math 357 (Statistics, Winter 2020) full class notes, will be delayed since I tex them after lectures
 * Math 458 (Differential Geometry, Winter 2020) 
+* Math 133 (Linear Algebra and Geometry, Fall 2017) I lost the .tex file so I cannot fix any typos. 
+* Math 141 (Calculus II, Fall 2017) I lost the .tex file so I cannot fix any typos. 
+* Math 222 (Calculus III, Winter 2018) I lost the .tex file so I cannot fix any typos.  
 
 The following are long-term projects since they are not classes that are actively happening (roughly in order of priority): 
 * Math 248 (Advanced Calculus, Fall 2018) full class notes. 
