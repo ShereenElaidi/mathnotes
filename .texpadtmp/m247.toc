@@ -2,3 +2,5 @@
 \contentsline {section}{\numberline {2}Abstract Vector Spaces}{3}% 
 \contentsline {subsection}{\numberline {2.1}Many Examples of Vector Spaces}{3}% 
 \contentsline {subsection}{\numberline {2.2}Consequences of the Axioms}{4}% 
+\contentsline {subsection}{\numberline {2.3}Subspaces}{6}% 
+\contentsline {subsection}{\numberline {2.4}Linear Combination and Span}{8}% 

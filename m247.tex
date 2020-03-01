@@ -29,6 +29,11 @@
 \newcommand{\Q}[0]{\mathbb{Q}}
 \newcommand{\N}[0]{\mathbb{N}}
 
+% Let V be a vs over k...
+\newcommand{\vsok}[0]{Let $(V, +, \cdot)$ be a vector space over $K$}
+
+% span 
+\newcommand{\vecspan}[1]{\text{span}\{ #1 \}}
 
 % matrix groups
 \newcommand{\mat}[1]{\text{MAT}(m \times n, \mathbb{#1})}
@@ -258,11 +263,260 @@ which implies that $ky_1$ is also a solution, and we therefore have closure unde
 Once we determine that the solutions are a vector space, then all we need to do is obtain a basis and take all \emph{linear combinations} to obtain more solutions of DEs. 
 
 \subsection{Consequences of the Axioms}
+This section has some immediate consequences from the axioms of a vector space. 
+
+\begin{theorem}
+	Let $(V, +, \cdot)$ be a vector space over $K$. Then: 
+	\begin{enumerate}[noitemsep]
+		\item $k \cdot 0 = 0$ $\forall$ $k \in K$. 
+		\item $0 \cdot v = 0$ $\forall$ $v \in V$. 
+		\item $k \cdot v = 0$ $\iff$ $k =0 $ or $v=0$. 
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}[noitemsep]
+		\item We need to show that $k \cdot 0 =0$. This is a ``fun trick proof.'' 
+		\begin{align*}
+			& k \cdot 0 = k \cdot (0 + 0) & \text{ ($0$ is the neutral element of $+$ ) } \\
+			& k \cdot 0 = k \cdot 0 + k \cdot 0  & \text{ (distributivity of scalars over vectors) } \\
+			& 0 + k \cdot 0 = k \cdot 0 + k \cdot 0  & \text{ (by the neutral element law) } \\
+			& 0  = k \cdot 0 & \text{ (by the cancellation law) } 
+		\end{align*}
+		\item 
+		\begin{align*}
+			 & 0 \cdot v = (0 + 0) v & \text{ ($0$ is neutral element of addition in $K$)} \\
+			 & 0 \cdot v = 0 v + 0 v & \text{ (distributivity of scalars over vectors)} \\
+			 & 0 + 0 \cdot v = 0 \cdot v + 0 \cdot v & \text{ (neutral element law) } \\
+			 & 0 = 0 \cdot v & \text{ (cancellation law)}
+		\end{align*}
+		\item There are two directions to show here.
+		\newline 
+	``$\Leftarrow $'': if $k$ = 0 or $v =0$, then it follows from (a) + (b), respectively, that $kv =0$.   \\
+	``$\Rightarrow$'': there are two cases to consider. If $k=0$, then we are done. If $k \neq 0$, then we need to prove that $v=0$. Take $kv =0$. It has a multiplicative inverse: 
+		\begin{align*}
+			kv = 0\ \Rightarrow \left( \frac{1}{k} \right) (kv) = \frac{1}{k} 0 = 0 
+		\end{align*}
+		Apply associativity to the $\left( \frac{1}{k} \right) (kv)$ term: 
+		\begin{align*}
+			\left( \frac{1}{k} k \right) v \underbrace{=}_{\text{axiom}} 1v = v  
+		\end{align*}
+		This implies that $v=0$, and so we are done. 
+	\end{enumerate}
+\end{proof}
+
+\begin{theorem}
+	Let $(V, +, \cdot)$ be a vector space over $K$. Then: 
+	\begin{enumerate}[noitemsep]
+		\item $n \cdot v = \underbrace{v + ... + v}_{\text{$n$ times}}$ for all $n \in \mathbb{N}$. 
+		\item $0 \cdot v =0$. 
+		\item $(-1)v = -v$ (the additive inverse) for all $v \in V$. 
+	\end{enumerate}
+\end{theorem}
 
 
+\begin{proof}
+	\begin{enumerate}[noitemsep]
+		\item We will prove this one by induction. The base case is obvious since it is an axiom of a vector space ($1v = v$). Now for the inductive step assume that 
+		\begin{align*}
+			nv = \underbrace{v + ... + v}_{\text{ $n$ times}}
+		\end{align*}
+		for some $n$ in $\mathbb{N}$. Applying distributivity: 
+		\begin{align*}
+			(n+1) v = nv + 1v = \underbrace{v + ... + v}_{n \text{ times, by IH}} + \underbrace{v}_{\text{by axiom}} = \underbrace{v + ... + v}_{n+1 \text{ times}} 
+		\end{align*}
+		where the final equality follows from the fact that we are in an abelian group. 
+		\item We get this from (1); we have $v$, zero times. 
+		\item We want to prove that $(-1)v$ is the additive inverse. We can simply add this candidate and prove that the sum is zero: 
+		\begin{align*}
+			& v + (-1)v & \text{ (use the axiom) } \\
+			& (1)v + (-1)v & \text{ (use the other axiom) } \\
+			& (1 + (-1)) v & \text{ (distributivity) } \\
+			& 0 v 
+		\end{align*}
+		and we know that $0v =0$ by (2). We thus have that $(-1)v$ is the additive inverse of $v$, which is what we wanted to show. 
+	\end{enumerate}
+\end{proof}
+
+\textbf{Exercise:} prove that $(-n)v = \underbrace{(-v) + ... + (-v)}_{n \text{ times}}$. 
 
 
+\subsection{Subspaces}
 
+\begin{definition}[Subspaces]
+	Let $(V, +, \cdot)$ be a vector space over $K$. Let $W \subseteq V$. Then, we say that $W$ is a \dfn{subspace} of $V$, in symbols $W \leq V$, if $(W, +, \cdot)$ is a vector space over $K$ in its own right. 
+\end{definition}
 
+\textbf{\underline{Q}}: How can we determine if something is a subspace? This question motivates the next theorem. 
+
+\begin{theorem}
+	Let $(V, +, \cdot)$ be a vector space over $K$, $W \subseteq V$. Then, $W \leq V$ if and only if: 
+	\begin{enumerate}[noitemsep]
+		\item $W$ is closed under addition and multiplication. 
+		\item $0 \in W$.
+	\end{enumerate}
+\end{theorem}
+
+Note that the final requirement in the theorem is actually a proxy for requiring that $W$ is not the empty set. 
+
+\begin{proof}
+	``$\Rightarrow$'': Since $W$ is a vector space over $K$, $W$ is closed under $+$ and $\cdot$. Furthermore, $0 \in W$ since $(W, +)$ is an abelian group and thus contains the neutral element. 
+	\newline
+	\newline
+	``$\Leftarrow$'': This is a straightforward verification of the axioms of a vector space. Most of the axioms will simply follow, since as a subset of $V$ $W$ will inherit a lot of rules. 
+	\begin{itemize}[noitemsep]
+		\item $W$ will inherit associativity from $V$. 
+		\item $W$ will inherit commutativity from $V$. 
+		\item $W$ contains the neutral element by condition. 
+		\item Let $u$ be an arbitrary vector. Since $U$ is closed under scalar multiplication, we have that $(-1)u = -u \in U$. This proves the existence of an additive inverse. 
+		\item All of the scalar multiplication axioms will hold since they hold $\forall$ $v \in V$. 
+	\end{itemize}
+	This implies that $W$ is a vector space with respect to $+$ and $\cdot$, which gives us that $W \leq V$, which is what we wanted to show. 
+\end{proof}
+Here are some examples of subspaces of vector spaces. 
+\begin{ex}
+	The following are the \emph{only} subspaces of $\R^2$: 
+	\begin{enumerate}[noitemsep]
+		\item $\{ 0 \}$
+		\item All lines through the origin. 
+		\item The whole of $\R^2$. 
+	\end{enumerate}
+\end{ex}
+
+\begin{ex}
+Let $V:= \mat{K}$. Let $U:=$ the set of all \dfn{upper triangular} matrices i.e.: 
+\begin{align*}
+	U := \{\ A = (a_{ij}) \in \mat{K}\ |\ a_{ij} = 0\ \forall i > k,\ 1 \leq i,j \leq n \} 
+\end{align*}	
+This is a subspace. 
+\end{ex}
+
+\begin{ex} 
+	Recall sequence spaces. We have the following chain of subspaces: $C_{00} \leq C_0 \leq C \leq S$, where $S$ denotes a sequence space.	
+\end{ex}
+
+\begin{ex} 
+	Let $P_n(K)$ be the set of polynomials of degree at most $n$. Let $P(K)$ be the set of all polynomials, and equip it with standard addition of polynomials. Then: 
+	\begin{align*}
+			P_0(K) \leq P_1(K) \leq P_2(K) \leq \cdots \leq P_n(K) \leq \cdots \leq P 
+	\end{align*}	
+	The dimension of each $P_n$ is $n+1$. 
+\end{ex}
+
+\begin{theorem} 
+Let $(V, +, \cdot)$ be a vector space over $K$. 
+	\begin{enumerate}
+		\item Let $U$ be a subspace of $V$ and let $W$ be a vector space. Then: $U \cap W \leq V$. 
+		\item Let $U_1, ..., U_n \leq V$. Then: $U_1 \cap \cdots \cap U_n = \bigcap_{i=1}^n U_i \leq V$. 
+		\item Let $I$ be an arbitrary index set, and let $U_i \leq V$ $\forall i \in I$. Then: $\bigcap_{i \in I} V_I \leq V$. 
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}[noitemsep]
+		\item Another straightforward verification of the axioms. 
+		\begin{enumerate}[noitemsep]
+			\item $0 \in U$, and $0 \in W$ since $W$ is a vector space. Thus $0 \in W \cap U$. 
+			\item Now we check closure under addition and scalar multiplication.  
+			\begin{enumerate}[noitemsep]
+				\item Let $v_1, v_2 \in U \cap W$. We thus especially have that $v_1 \in U$ and $v_2 \in U$, and so $v_1 + v_2 \in U$ since $U$ is closed under addition. Similarly, $v_1 + v_2 \in W$. Since the sum is in both sets, it is in the intersection of the sets. Hence, it is closed under addition. 
+				\item Since $u_1 \in U$, $K u_1 \in V$ for all $k \in K$, since $U$ is a vector space. Similarly, if $u_2 \in W$, then $k u_2 \in W$ for all $k \in K$. Thus, the product is in the intersection. 
+			\end{enumerate}
+		\end{enumerate}
+		So, by the subspace criteria, $U \cap W \leq V$. 
+		\item Exercise. 
+		\item Exercise. 
+	\end{enumerate}
+\end{proof}
+
+So, intersections are generally not a problem. However, unions are a more difficult case. For example let $V = \R^2$, and define $U$ to be the $x$-axis and $W$ to be the $y$-axis. Consider $U \cup W$. It is not a line or plane, so it is not a subspace. While this union of subspaces will always contain zero and while it will always be closed under scalar multiplications, it is \underline{not closed under addition}. Unions in general are not subspaces, which motivates the following theorem. The proof is in assignment two. 
+
+\begin{theorem}
+	\vsok. Then, $U \cup V \leq V$ if and only if $U \subseteq W$ or $W \subseteq U$ (i.e., the trivial cases). 
+\end{theorem} 
+\begin{proof}
+	Homework. 
+\end{proof}
+
+\begin{definition}[Sum of Vector Spaces]
+	\vsok. Let $U, W \leq V$. Then: 
+	\begin{align*}
+		U + W := \{ w + w\ |\ u \in U,\ w \in W \} 
+	\end{align*}
+	which is called the \dfn{sum} of $U$ and $W$, is defined as follows: all the possible sums with one vector from $U$ and one vector from $W$. 
+\end{definition}
+
+\textbf{\underline{Q}}: Why do we bother defining the sum? 
+\begin{enumerate}[noitemsep]
+	\item It is a subspace of $V$. 
+	\item It is the \emph{smallest} subspace of $V$ that contains the union of $U$ and $W$ (``generator''). 
+\end{enumerate}
+
+\begin{theorem}
+	\vsok. Let $U, W \leq V$. Then: 
+	\begin{enumerate}[noitemsep]
+		\item $U + W \leq V$. 
+		\item $U+W$ is the \emph{smallest} subspace of $V$ that contains \underline{both} $U$ and $V$ and thus their \underline{union}. This means that if $\widetilde{V}$ is any subspace of $V$ with $U \cup W \subseteq \widetilde{V}$, then the sum $U + W \subseteq \widetilde{V}$. 
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}[noitemsep]
+		\item Another straightforward verification of the axioms. 
+		\begin{enumerate}[noitemsep]
+			\item We have that $0 \in W$ and $0 \in W$, and so $0 = 0 + 0 \in U +W$. 
+			\item Let $v_1, v_2 \in U + W$. Then, $\exists$ $u_1, u_2 \in U$, $w_1, w_2 \in W$, such that: 
+			\begin{align*}
+				& v_1 = u_1 + w_1 \\
+				& v_2 = u_2 + w_2 
+			\end{align*}
+			Adding these together we obtain: 
+			\begin{align*}
+					v_1 + v_2 = \underbrace{(u_1 + u_2)}_{\in U} + \underbrace{(w_1 + w_2)}_{\in W} \in U + W 
+			\end{align*}
+			\item Now for scalar multiplication. Write 
+			\begin{align*}
+				kv_1 & = k(u_1 + w_1) & \\
+					& = k u_1 + k w_1 & \text{ (distributivity) } 
+			\end{align*}
+			$ku_1 \in U$ and $k w_1 \in W$, which means that $kv_1 \in U+W$, which is what we wanted to show. 
+			Therefore, $U+W \leq V$.
+		\end{enumerate}
+		\item Let $\widetilde{V}$ be any subspace of $V$ that contains both $U$ and $W$. Let $u \in U$ and $w \in W$ be arbitrary. THen, by definition, $u+w \in U+W$. Every element bust thus be in $\widetilde{V}$, which implies that $U+W$ must be contained in $\widetilde{V}$, which proves that $U+W$ is the smallest subspace of $V$ containing $U \cup W$. 
+	\end{enumerate}
+\end{proof}
+
+In a similar fashion we can define $U_1 + ... + U_n$, where $U_1, ..., U_n$ are all subspaces of $V$ as: 
+\begin{align*}
+		\{ u_1 + ... + u_n\ |\ u_k \in U_k\ \forall\ 1 \leq k \leq n \} 
+\end{align*}
+Then it's easy to verify that $U_1 + ... + U_n \leq V$. 
+
+\subsection{Linear Combination and Span}
+
+\begin{definition}[Linear Combination]
+	\vsok. Let $v_1, ..., v_n \in V$ and let $k_1, ..., k_n \in K$. Then, an expression of the form
+	\begin{align}
+		k_1 v_1 + ... + k_n v_n 	
+	\end{align}	
+	is called a \dfn{linear combination} of $v_1, ..., v_n$. 
+\end{definition}
+Note that it is possible to extend this to infinitely many vectors: 
+\begin{align*}
+	k_1 v_1 + k_2 v_2 + ...
+\end{align*}
+but this is \emph{completely meaningless}. This is a bad thing since we do not know what it means to add infinitely many vectors. We have not developed a notion of convergence or distance on a vector space in this class, so we will not discuss this. What we an do is write $k_1 v_1 + k_2 v_2 + ...$ where all but \emph{finitely many} of the $k_i =0$, but this can be viewed as an abuse of notation, since the sum is actually finite. 
+
+\begin{definition}[Span]
+	\vsok. Let $v_1, ..., v_n \in V$. Then: 
+	\begin{align}
+		\vecspan{v_1, ...v_n} := \{ k_1 v_1 + ... + k_n v_n\ |\ 1 \leq i \leq n\ k_i \in K \} 
+	\end{align}
+	is called the \dfn{span} of $v_1, ..., v_n$. It is the set of all possible linear combinations. We can extend this to infinitely many vectors $v_1, v_2, ... \in V$ as: 
+	\begin{align*}
+		\vecspan{v_1, ..., v_n } := \{ k_1 v_1 + k_2 v_2 + ...\ |\ k_i \in K, \text{ all but finitely many $k_i$ are zero } \} 	
+	\end{align*}
+
+\end{definition}
 
 \end{document}
