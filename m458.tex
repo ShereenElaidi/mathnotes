@@ -92,6 +92,23 @@ The aim of this part of the course is to build up to integration on manifolds an
 
 \subsection{Definitions}
 
+\textbf{Motivation:} we want to define a regular surface to be something that is nice enough for us to extend the usual notions of calculus to. 
+
+
+\begin{definition}[Regular Surface]
+	A subset $S \subseteq \R^3$ is called a \dfn{regular surface} if, $\forall$ $p \in S$, there exists a neighbourhood $V \subseteq \R^3$ and a map $\mathbb{X}: U \rightarrow V \cap S$ of an open set $V \subseteq \R^2$ onto $V \cap S \subseteq \R^3$ for which the following conditions hold: 
+	\begin{enumerate}[noitemsep]
+		\item $\mathbb{X}$ is differentiable; that is, if we write 
+		\begin{align*}
+			\mathbb{X}(u,v) = (x(u,v), y(u,v), z(u,v)) 
+		\end{align*} 
+		for $(u,v) \in U$, then the functions $x(u,v)$, $y(u,v)$ and $z(u,v)$ have continuous partial derivatives of all orders in $U$. 
+		\item $\mathbb{X}$ is a \dfn{homeomorphism}: there exists an inverse $\mathbb{X}^{-1}: V \cap S \rightarrow U$, which is continuous. 
+		\item (Regularity Condition): $\forall q \in U$, the differential $d$x$_q: \R^2 \rightarrow \R^3$ is bijective. 
+	\end{enumerate}
+	Then, the mapping $\mathbb{X}$ is called a \dfn{parameterisation}  or a \dfn{system of local coordinates} in a neighbourhood of $p$. The neighbourhood $V \cap S$ of $p$ is called a \dfn{coordinate neighbourhood}. 
+\end{definition}
+
 \subsection{Differentiable Functions on Surfaces}
 
 \subsection{Tangent Plane}
