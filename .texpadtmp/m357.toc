@@ -1,19 +1,21 @@
-\contentsline {section}{\numberline {1}Introduction}{1}% 
-\contentsline {section}{\numberline {2}Part 1: Properties of Random Samples}{2}% 
-\contentsline {subsection}{\numberline {2.1}Sampling from the Normal Population}{6}% 
-\contentsline {subsection}{\numberline {2.2}Standardisation}{9}% 
-\contentsline {subsection}{\numberline {2.3}F-Test Basis}{10}% 
-\contentsline {subsection}{\numberline {2.4}Limiting Sample Distributions (Asymptotics)}{11}% 
-\contentsline {subsubsection}{\numberline {2.4.1}Question 1}{12}% 
-\contentsline {subsubsection}{\numberline {2.4.2}Question 2}{13}% 
-\contentsline {subsection}{\numberline {2.5}Order Statistics}{15}% 
-\contentsline {section}{\numberline {3}Point Estimation}{15}% 
-\contentsline {subsection}{\numberline {3.1}Ways We Can Construct Estimators}{16}% 
-\contentsline {subsubsection}{\numberline {3.1.1}Method of moments}{16}% 
-\contentsline {subsubsection}{\numberline {3.1.2}Method of Maximum Likelihood}{18}% 
-\contentsline {subsubsection}{\numberline {3.1.3}Invariance of the MLE Theorem}{22}% 
-\contentsline {subsubsection}{\numberline {3.1.4}Bayesian Method}{24}% 
-\contentsline {subsection}{\numberline {3.2}Method of Evaluating Estimators}{25}% 
-\contentsline {subsection}{\numberline {3.3}Best Unbiased Estimators}{28}% 
-\contentsline {subsubsection}{\numberline {3.3.1}Geometric Interpretation}{30}% 
-\contentsline {section}{\numberline {4}Sufficiency and Completeness}{37}% 
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}% 
+\contentsline {section}{\numberline {2}Part 1: Properties of Random Samples}{2}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}Sampling from the Normal Population}{6}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.2}Standardisation}{9}{subsection.2.2}% 
+\contentsline {subsection}{\numberline {2.3}F-Test Basis}{10}{subsection.2.3}% 
+\contentsline {subsection}{\numberline {2.4}Limiting Sample Distributions (Asymptotics)}{11}{subsection.2.4}% 
+\contentsline {subsubsection}{\numberline {2.4.1}Question 1}{12}{subsubsection.2.4.1}% 
+\contentsline {subsubsection}{\numberline {2.4.2}Question 2}{13}{subsubsection.2.4.2}% 
+\contentsline {subsection}{\numberline {2.5}Order Statistics}{15}{subsection.2.5}% 
+\contentsline {section}{\numberline {3}Point Estimation}{16}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Ways We Can Construct Estimators}{16}{subsection.3.1}% 
+\contentsline {subsubsection}{\numberline {3.1.1}Method of moments}{16}{subsubsection.3.1.1}% 
+\contentsline {subsubsection}{\numberline {3.1.2}Method of Maximum Likelihood}{19}{subsubsection.3.1.2}% 
+\contentsline {subsubsection}{\numberline {3.1.3}Invariance of the MLE Theorem}{22}{subsubsection.3.1.3}% 
+\contentsline {subsubsection}{\numberline {3.1.4}Bayesian Method}{24}{subsubsection.3.1.4}% 
+\contentsline {subsection}{\numberline {3.2}Method of Evaluating Estimators}{25}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}Best Unbiased Estimators}{28}{subsection.3.3}% 
+\contentsline {subsubsection}{\numberline {3.3.1}Geometric Interpretation}{30}{subsubsection.3.3.1}% 
+\contentsline {section}{\numberline {4}Sufficiency and Completeness}{37}{section.4}% 
+\contentsline {subsection}{\numberline {4.1}Proving the Sufficiency of Statistics}{38}{subsection.4.1}% 
+\contentsline {subsection}{\numberline {4.2}Sufficient Statistics}{40}{subsection.4.2}% 

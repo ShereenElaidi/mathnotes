@@ -19,11 +19,19 @@
 \newtheorem{ex}{Example}
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
 
 % definition
 \newcommand{\dfn}[1]{\textbf{\underline{#1}}}
 \newcommand{\dist}[0]{\mathcal{F}}
-\newcommand{\pr}[1]{\mathbb{P}[#1]} 
+\newcommand{\pr}[1]{\mathbb{P}\left[#1 \right]} 
 \newcommand{\stat}[0]{T(X_1, ..., X_n )} 
 
 % converge in probability 
@@ -38,6 +46,8 @@
 % expected value 
 \newcommand{\EX}[1]{\mathbb{E}\left[#1 \right]}  
 \newcommand{\EXth}[1]{\mathbb{E}_\theta \left[ #1 \right]}
+\newcommand{\prth}[1]{\mathbb{P}_\theta \left[#1 \right]} 
+
 
 % integral
 \newcommand{\idx}[2]{\int_{#1}^{#2}}
@@ -1864,10 +1874,258 @@ So, we need to temporarily suspend our UMVUE search and do more theory.
 
 \emph{Cutoff for Midterm Material} 
 \section{Sufficiency and Completeness} 
+Let $X_1, ..., X_n$ be taken from $F_\theta$, $\theta \in \Theta \subseteq \R^k$. \textbf{\underline{Q}:} How can we summarise the sample without losing information about $\theta$? This question is closely related to UMVUEs, since statistics are summaries of data. They will be optimal if we do not lose a lot of information about data when making statistics. For example, imagine the Bernoulli experiment:
+\begin{align*}
+	\{ \text{ Bernoulli Distributions }, \text{ Bernoulli}(p),\ p \in [0,1] \} 
+\end{align*}
+If $X_1, ..., X_n$ is a random sample from Bernoulli$(p)$, then let $\mathbb{X}$ denote the tuple $(X_1, ..., X_n)$. Then, the sample space consists of sequences of length $n$ consisting of 0's and 1s. It is denoted by: 
+\begin{align*}
+	\mathcal{X} = \{ 0, 1 \}^n 
+\end{align*}
+To make things more concrete, we can recall the U.S. election example. We can think about it as follows: 
+\begin{align*}
+	\pr{ \mathbb{X} = (x_1, ..., x_n) } = p^{\sum_{i=1}^n x_i} (1-p)^{1- \sum_{i=1}^n x_i} 
+\end{align*}
+Here we have a function of p (the likelihood, $L(p)$), and it only depends on the $x_i$'s through their sum. In other words, the probability depends on $(x_1, ..., x_n)$ only through the sum of the $x_i$'s (or equivalently, through their mean). \emph{Perhaps the sum} $\sum_{i=1}^n x_i$ \emph{contains all the relevant information?} To check this guess, we will calculate the conditional distribution: 
+\begin{align*}
+	\pr{X_1 = x_1, ..., X_n = x_n\ |\ \sum_{i=1}^n x_i = t} & = \begin{cases}
+			0 & \text{ if } \sum_{i=1}^n x_i \neq t \\
+			1 & \text{ if } \sum_{i=1}^n x_i = t 
+		\end{cases} \\
+		& = \frac{\pr{X_1 = x_1, ..., X_n = x_n,\ \sum_{i=1}^n x_i = t}}{\pr{\sum_{i=1}^n x_i = t}} \\
+		& = \frac{p^{\sum_{i=1}^n x_i} (1-p)^{\sum_{i=1}^n x_i}}{\binom{n}{\sum_{i=1}^n x_i} p^{\sum_{i=1}^n} (1-p)^{n-\sum_{i=1}^n x_i}} \\
+		& = \frac{1}{\binom{n}{\sum_{i=1}^n x_i}}
+\end{align*}
+Which does not depend on $p$! Now consider a statistic $\stat$. Denote by $\mathcal{X}$ the sample space of the $(X_1, ..., X_n)$ and by $\mathcal{T}$ the range of the statistic $\stat$: 
+\begin{align*}
+	\mathcal{T} := \{\ t \in \R^k\ |\ \exists\ (x_1, ..., x_n) \in \mathcal{X} \text{ so that } T(x_1, ..., x_n) = t \}  
+\end{align*}
+We want to look at a statistic as something that partitions the sample space $\mathcal{X}$. $\forall$ $t \in \mathcal{T}$, define: 
+\begin{align*}
+	A_t := \{ (x_1, ..., x_n) \in \mathcal{X}\ |\ T(x_1, ..., x_n) = t \} 
+\end{align*}
+Concretely, for the Bernoulli experiment, we have that $\mathcal{T} = \{ 0, ..., n \}$ and the partitions are: 
+\begin{align*}
+	A_t := \left\{ (x_1, ..., x_n) \in \{ 0,1 \}^n\ |\ \sum_{i=1}^n x_i = t \right\} 
+\end{align*}
+Now, $\{ A_t\ |\ t \in \mathcal{T} \}$ is a partition of $\mathcal{X}$. The $A_t$'s are disjoint and $\mathcal{X} = \bigcup_{t \in \mathcal{T}} A_t$. 
 
+Insert graphic here
 
+\begin{definition}[Sufficient]
+	Let $X_1, ..., X_n$ be a random sample from $F_\theta$, $\theta \in \Theta$. A statistic $T= \stat$ is called \dfn{sufficient} for $\theta$ if the conditional distribution of $(X_1, ..., X_n)$ given $T$ doesn't depend on $\theta$, and this holds for all $ t \in N$ so that $\mathbb{P}_\theta [ t \in N ] =1$ $\forall$ $\theta \in \Theta$. 
+\end{definition}
 
+\textbf{Remark:} Sufficiency means that the distribution of the random vector, given $(x_1, ..., x_n) \in A_t$, does not depend on $\theta$.
+
+\begin{ex}[Bernoulli]
+	Let $X_1, ..., X_n \sim$ bernoulli$(p)$. Then we have that $\sum_{i=1}^n x_i$ is sufficient for $p$. So is $\overline{x}$. 
+\end{ex}
+
+In general, a random vector is a statistic. Thus, $(X_1, ..., X_N)$ is always sufficient for $\theta$. We also have that the order statistics ($X_{(1)}, ..., X_{(n)}$) is sufficient for $\theta$ (this will be proven in Assignment 3). 
+
+\subsection{Proving the Sufficiency of Statistics}
+\textbf{Motivation}: Suppose a statistic $T$ is sufficient for $\theta$. Assume that there are two experimenters. Experimenter \# 1 has access to the full sample $(x_1, ..., x_n)$. Experimenter \# 2 only has access to the statistic $T(x_1, ..., x_n)$. Because $(X_1, ..., X_n)\ |\ T = t$ does not depend on $\theta$, let's call it $P_t^*$. So, Experimenter \# 2 can draw a sample $(y_1, ..., y_n)$ from $P^*_{t = T(x_1, ..., x_n)}$. So, $(y_1, ..., y_n)$ is a realisation of $(X_1, ..., X_n)$. We can show that Experimenter \# 2 has lost \emph{no} information: 
+\begin{align*}
+	\pr{Y_1 = y_1, ..., Y_n = y_n } & = \sum_{t \in \mathcal{T}} \pr{Y_1 = y_1, ..., Y_n = y_n, T(y_1, ..., y_n) = t} \\
+	& = \pr{Y_1 = y_1, ..., Y_n = y_n, T(Y_1, ..., Y_n) = T(y_1, ..., y_n)} \\
+	& = \underbrace{\pr{Y_1 = y_1, ..., Y_n = y_n\ |\ T = T(y_1, ..., y_n) }}_{P^*_{T(y_1, ..., y_n)}} \cdot \pr{T = T(y_1, ..., y_n)} \\
+	& = \pr{X_1 = y_1, ..., X_n = y_n\ |\ T = T(y_1, ..., y_n) } \cdot \pr{T = T(y_1, ..., y_n)} \\
+	& = \pr{X_1 = y_1, ..., X_n = y_n } 
+\end{align*}
+ Which shows that Experimenter \# 2 has lost \underline{no} information. Thus, \emph{sufficiency is a useful concept when wanting to reduce data to statistics}. However, in general it is very hard to prove that a statistic is sufficient :(. So, we want a criteria to prove that a statistic is sufficient. This motivates the following ``very handy'' theorem. 
+ 
+ \begin{theorem}[Neymen-Fisher Criterion] 
+ 	Let $f(x_1, ..., x_n; \theta)$ denote the joint PMF/PDF of $(x_1, ... x_n)$, a random sample from $F_\theta$, $\theta \in \Theta$. A statistic $T=T(x_1, ..., x_n)$ is sufficient for $\theta$ if and only if $\forall$ $\theta \in \Theta$, there exist measurable functions $g_\theta$ and $h$ so that $h$ does \emph{NOT} depend on $\theta$ for all $(x_1, ..., x_n) \in \mathcal{X}$. That is, it can be decomposed in the form: 
+ 	\begin{align}
+ 		f(x_1, ..., x_n; \theta) = h(x_1, ..., x_n) g_\theta (T(x_1, ..., x_n)) 	
+ 	\end{align}
+ \end{theorem} 
+ 
+ \begin{proof}
+ 	We will only do the proof in the discrete case. ``$\Rightarrow$'': first assume that $T$ is sufficient. Set 
+ 	\begin{align*}
+ 		& g_\theta(t) := \prth{T(X_1, ..., X_n) = t},\ t \in \mathcal{T} \\
+ 		& h(x_1, ..., x_n) := \begin{cases}
+ 			\pr{X_1 = x_1, ..., X_n = x_n\ |\ T = T(x_1, ..., x_n) } & \text{ if } \pr{T = T(x_1, ..., x_n)} > 0 \\
+ 			0 & \text{ otherwise.} 
+ 		\end{cases} 
+ 	\end{align*}
+ 	Now apply the law of Total Probability and the definition of conditional probability: 
+ 	\begin{align*}
+ 		\pr{X_1 = x_1, ..., X_n = x_n} & = \pr{X_1 = x_1, ..., X_n = x_n,\ T = T(x_1, ..., x_n) } \\ 
+ 			& = h(x_1, ..., x_n) \cdot g_\theta(T(x_1, ..., x_n)) 
+ 	\end{align*}
+ 	where $h$ is $\pr{x\ |\ T = T(x_1,...x_n)}$ and $g_\theta$ is $\pr{T=T(x_1, ..., x_n)}$. 
+ 	\newline
+ 	\newline
+ 	``$\Leftarrow$'': Now assume that the PMF factors. Then: 
+ 	\begin{align*}
+ 		\pr{X_1 = x_1, ..., X_n = x_n\ |\ T=t} & = \frac{\pr{X_1 =x_1, ..., X_n = x_n, T=t}}{\pr{T=t}} \\
+ 		& = \begin{cases}
+ 			0 & \text{ if } t \neq T(x_1, ..., x_n ) \\
+ 			\frac{\pr{X_1 = x_1, ..., X_n = x_n, T = T(x_1, ..., x_n)}}{\pr{T=T(x_1, ..., x_n)}} & \text{ otherwise } 
+ 		\end{cases} \\
+ 		 & = \frac{\pr{X_1 = x_1, ..., X_n = x_n}}{\pr{(x_1, ..., x_n) \in A_{T(x_1, ..., x_n)}}} \\
+ 		 & = \frac{\pr{X_1 = x, ..., X_n = x_n}}{\pr{(X_1, ..., X_n) \in A_{T(x_1, ..., x_n)}}} \\
+ 		 & = \frac{h(x_1, ..., x_n) g_\theta(T(x_1, ..., x_n))}{\sum_{(y_1, ..., y_n) \in A_{T(x_1, ..., x_n)}} h(y_1, ..., y_n) g_\theta (T(y_1, ...y_n))} \\
+ 		 & = T(x_1, ..., x_n) \\
+ 		 & = \frac{h(x_1, ..., x_n)}{\sum_{(y_1, ..., y_n) \in A_{T(x_1, ..., x_n)}} h(y_1, ..., y_n)}
+ 	\end{align*}
+ 	which doesn't depend on $\theta$. This thus proves sufficiency. 
+ \end{proof}
+ 
+ \begin{ex} 
+ 	Let $X_1, ..., X_n$ be a random sample from $\mathcal{U} ]0, \theta[$, where $\theta > 0$. Then, the PMF is of the form: 
+ 	\begin{align*}
+ 		f(x; \theta) = \begin{cases}
+ 			\frac{1}{\theta} & x \in ]0, \theta [ \\
+ 			0 & \text{ else}
+ 		\end{cases}
+ 	\end{align*}
+ 	To write the joint PMF of the whole random sample, we need to account for the dependence of the interval on $\theta$ (we need to write it out in terms of characteristic functions): 
+ 	\begin{align*}
+ 		f(x_1, ..., x_n; \theta) & = \prod_{i=1}^n \frac{1}{\theta} \chi_{x_i \in ]0, \theta[}  \\
+ 			& = \chi_{\min x_i > 0 } \chi_{\max x_i < \theta} \left( \frac{1}{\theta} \right)^n 
+ 	\end{align*}
+ 	Observe that we can set the first term to be $h(x_1, ..., x_n)$, since there is no dependence on $\theta$, and that w can set the second term to be $g_\theta (\max_{1 \leq i \leq n} x_i)$. Since this is the likelihood function, we can conclude that the maximum order statistic, $X_{(n)}$, is sufficient for $\theta$. 	
+ \end{ex}
+
+ \begin{ex}
+ Let $X_1, ..., X_n$ be a random sample from $\mathcal{N}(\mu, \sigma^2)$.  Then, the joint PDF is given by: 
+ \begin{align*}
+ 		f(x_1, ..., x_n; \mu, \sigma^2) = \left( \frac{1}{\sqrt{2 \pi}} \right)^2 \left( \frac{1}{\sigma} \right)^n \text{exp} \left\{ \left( \frac{-\sum_{i=1}^n (x_i - \mu)^2}{2 \sigma^2} \right) \right\}
+ \end{align*}	
+ From the proof of Theorem 1.7, we know that: 
+ \begin{align*}
+ 	\sum_{i=1}^n (x_i - \mu)^2 = (n-1)s^2 + n(\overline{x} - \mu)^2
+ \end{align*}
+ and so we can re-write the above as: 
+ \begin{align*}
+  		f(x_1, ..., x_n; \mu, \sigma^2) = \left( \frac{1}{\sqrt{2 \pi}} \right)^2 \left( \frac{1}{\sigma} \right)^n \text{exp} \left\{ \left( \frac{-(n-1)}{2 \sigma^2} s^2 - \frac{n(\overline{x}-\mu)^2}{2 \sigma^2} \right) \right\}	
+ \end{align*}
+ Here, we may choose: 
+ \begin{align*}
+ 		& h := \left( 	\frac{1}{\sqrt{2 \pi}}	\right)^n  \\
+ 		& g_\theta (\overline{x}, s^2) = \left(  \frac{1}{\sigma}		\right)^n \text{exp} \left\{ \left( \frac{-(n-1)}{2 \sigma^2} s^2 - \frac{n(\overline{x}-\mu)^2}{2 \sigma^2} \right) \right\}	
+ \end{align*}
+ So, $(\overline{x}, s^2)$ is sufficient for $(\mu, \sigma^2)$. Now suppose that $\sigma^2$ is \underline{known}. Then we can set: 
+	\begin{enumerate}[noitemsep]
+		\item $h$, $g$ as before, and obtain that $(\overline{x}, s^2)$ is sufficient for $\mu$. 
+		\item Or we set: 
+		\begin{align*}
+			& h(x_1, ..., x_n) = \left( \frac{1}{\sqrt{2 \pi}} \right)^n \left( \frac{1}{\sigma} \right)^n \text{ exp} \left\{ \frac{-(n-1)s^2}{2 \sigma^2} \right\} 
+		\end{align*}
+		which has no dependence on $\mu$, and so
+		\begin{align*}
+			g_\mu( \overline{x}) = \text{ exp} \left( 	\frac{-n(\overline{x} - \mu)^2}{2 \sigma^2}	\right) 
+		\end{align*}
+		and so $\overline{x}$ is sufficient for $\mu$. 
+	\end{enumerate}
+ \end{ex}
+ 
+Note: there are some statistics that lead to greater data reduction than others, and this leads into an idea called ``minimal sufficiency.'' Also note that: 
+\begin{enumerate}[noitemsep] 
+	\item In (1), if we use $(\overline{x}, s^2)$ and set $\mathcal{X} = \R^n$, then: 
+	\begin{align*}
+		A_{(a,b)} = \{\ (x_1, ..., x_n) \in \R^n\ |\ \overline{x} = a,\ s^2 = b \} 
+	\end{align*}
+	In this case, $a \in \R$ and $b > 0$. 
+	\item In (2), if we only use $\overline{x}$, then $\mathcal{T} = \R$ and: 
+	\begin{align*}
+		A_a = \{\ (x_1, ..., x_n) \in \R^n\ | \overline{x} = a \} 
+	\end{align*}
+	If you compare these, observe that $A_{(a,b)} \subseteq A_a$. In a way, $A_a$ is a projection, and forms a \emph{coarser} partition than $(\overline{x}, s^2)$ does. 
+\end{enumerate}
+
+\subsection{Sufficient Statistics}
+To summarise what we have so far, we have that $\stat$ is a statistic taking values in $\mathcal{T}$. Then, $\{ A_t,\ t \in \mathcal{T} \}$ is a partition of the sample space $\mathcal{X}$, where
+\begin{align*}
+	A_t = \{\ (x_1, ..., x_n) \in \mathcal{X}\ |\ T(x_1, ..., x_n) = t \}
+\end{align*}
+ This means that the statistics induce a partition on $\mathcal{X}$. 
+ 
+ Insert graphic here. 
+ 
+ \begin{definition}[Sufficient Statistic]
+ 	A sufficient statistic $T$ is called \dfn{minimally sufficient} if for any other sufficient statistic $T^*$, we have the following: 
+ 	\begin{align*}
+ 		& \forall\ (x_1, ..., x_n),\ (y_1, ..., y_n) \in \mathcal{X} \\
+ 		& T^*(x_1, ..., x_n) = T^*(y_1, ..., y_n)\ \Rightarrow T(x_1, ..., x_n) = T(y_1, ..., y_n)
+ 	\end{align*}
+ \end{definition}
+ Note that if $T$ is minimally sufficient, and if $T^*$ is sufficient, then $\{ A_t\ |\ t \in \mathcal{T} \}$ (the partition of $\mathcal{X}$ corresponding to $T$) is coarser than the partition $\{ A_{t^*}^*,\ t^* \in \mathcal{T}^* \}$ corresponding to $T^*$. Mathematically: 
+ \begin{align*}
+ 	\forall t^* \in \mathcal{T},\ \exists\ t \in \mathcal{T} \text{ s.t. } A_{t^*}^* \subseteq A_t 
+ \end{align*}
+ Here,  $A_{t^*}^* = \{ (x_1, ..., x_n ) \in \mathcal{X}\ |\ T^*(x_1, ..., x_n) = t^* \}$. 
+ 
+ The next theorem applies to statistical models where $F_\theta$ has a density: 
+ \begin{theorem}[Lehmann-Schafte Criteriea] 
+ 	Suppose that $(X_1, ..., X_n)$ has a PDF/PMF $f(x_1, ..., x_n; \theta)$, $\theta \in \Theta$. Suppose that $T$ is a statistic such that for any $(x_1, ..., x_n)$ and $(y_1, ... , y_n) \in \mathcal{X}$ such that the ratio: 
+ 	\begin{align*}
+ 		\frac{f(x_1, ..., x_n; \theta)}{f(y_1, ..., y_n; \theta)}
+ 	\end{align*}
+ 	is constant as a function of $\theta$ $\iff$ $T(x_1, ..., x_n) = T(y_1, ..., y_n)$. This property gives us that $T$ is minimally sufficient. 
+ \end{theorem}
+ 
+ \begin{ex}
+ 	Let $X_1, ..., X_n$ be a random sample from $\mathcal{N}(\mu, \sigma^2)$, where $\mu \in \R$ and $\sigma^2 > 0$. From last class, the density can be broken down as: 
+ 	\begin{align*}
+ 		f(x_1, ..., x_n; \mu, \sigma^2) & = \left( \frac{1}{\sqrt{2 \pi}} \right)^n \left( \frac{1}{ \sigma} \right)^n \text{ exp} \left\{ \frac{- \sum_{i=1}^n (x_i - \mu)^2}{2 \sigma^2} \right\}  \\
+ 		& = \left( \frac{1}{\sqrt{ 2 \pi}} \right)^n \left(  \frac{1}{\sigma^2} \right)^n \text{ exp} \left\{ \frac{-(n-1)s^2}{2 \sigma^2} - \frac{n(\overline{x} - \mu)^2}{2 \sigma^2} \right\} 
+ 	\end{align*}	
+ 	\textbf{\underline{Q}}: is it minimally sufficient? By the previous theorem: 
+ 	\begin{align*}
+ 		\frac{f(x_1, ..., x_n; \mu, \sigma^2)}{f(y_1, ..., y_n; \mu, \sigma^2)} = \text{ exp} \left\{  - \frac{(n-1)}{2 \sigma^2} (s_x^2 - s_y^2) - \frac{n}{2 \sigma^2} \left[  (\overline{x} - \mu^2 ) - (\overline{y} - \mu^2)	\right]			\right\}
+ 	\end{align*}
+ 	where
+ 	\begin{align*}
+ 		& s_x^2 = \frac{1}{(n-1)} \sum_{i=1}^n (x_i - \overline{x})^2 \\
+ 		& s_y^2 = \frac{1}{(n-1)} \sum_{i=1}^n (y_i - \overline{y})^2
+ 	\end{align*}
+ 	This ratio does not depend on $\mu$ and $\sigma^2$ if and only if $\overline{x} = \overline{y}$ and $s_x^2 = s_y^2$, which implies that $(\overline{x}, s^2)$ is minimally sufficient for $(\mu, \sigma^2)$. 
+ \end{ex}
+ 
+ \begin{proof}
+ 	Proof of the Theorem. We need to prove that $T$ is sufficient and minimally sufficient. 
+ 	\begin{enumerate}[noitemsep]
+ 		\item ($T$ is sufficient for $\theta$): We will show this using the Neymann-Fischer criteria. 
+ 		As before, consider $\{ A_t,\ t \in \mathcal{T} \}$. For any $A_t$, choose a point $x_t \in A_t$. Now, fix an arbitrary $(x_1, ..., x_n) \in \mathcal{X}$. Then we have that $(x_1, ..., x_n) \in A_{T(x_1, ..., x_n)}$. Let $x_{T(x_1, ..., x_n)}$ be a fixed point in $A_{T(x_1,..., x_n)}$. This is the representative. We thus have that $(x_1 ..., x_n) \in A_{T(x_1,...,x_n)}$. So, we have that 
+ 		\begin{align*}
+ 			\frac{f(x_1, ..., x_n; \theta)}{f(x_{T(x_1, ..., x_n)}; \theta)}
+ 		\end{align*}
+ 		does not depend on $\theta$ by assumption. Now set: 
+ 		\begin{align*}
+ 				& \frac{ f(x_1, ..., x_n; \theta)}{f(x_{T(x_1, ..., x_n)}; \theta)} = h(x_1, ..., x_n) \\
+ 				& f(x_{T(x_1, ..., x_n)}; \theta) = g_\theta (T(x_1, ..., x_n)) 
+ 		\end{align*}
+ 		So, we have thus written
+ 		\begin{align*}
+ 			f(x_1, ..., x_n; \theta) = h(x_1, ..., x_n) g_\theta (T(x_1, ..., x_n)) 
+ 		\end{align*}
+ 		and so by the Neymann Fischer Criteria, $T$ is sufficient. 
+ 		\item ($T$ is minimally sufficient). 
+ 		Let $T^*$ be another sufficient statistic. Then, from the Neymann Fischer criteria, we know that $\exists$ $h^*, g_\theta^*$ for which $\forall$ $(x_1, ..., x_n) \in \mathcal{X}$: 
+ 		\begin{align*}
+ 			f(x_1, ..., x_n; \theta) = h^*(x_1, ..., x_n) \cdot g_\theta^* (T^*(x_1, ..., x_n)) 
+ 		\end{align*}
+ 		Now pick an arbitrary $(x_1, ..., x_n)$, $(y_1, ..., y_n) \in \mathcal{X}$ so that $T^*(x_1, ..., x_n) = T^*(y_1, ..., y_n)$. We need to prove that then also $T(x_1, ..., x_n) = T(y_1, ... y_n)$. But: 
+ 		\begin{align*}
+ 			\frac{f(x_1, ..., x_n; \theta)}{f(y_1, ..., y_n; \theta)} & = \frac{h^*(x_1, ..., x_n) \cdot g_\theta^* (T^*(x_1, ...,x_n))}{h^*(y_1, ..., y_n) \cdot g_\theta^* (y_1, ..., y_n)}
+ 		\end{align*}
+ 		But we assumed that the $g^*$ are the same and so those drop out and we obtain: 
+ 		\begin{align*}
+ 			& = \frac{h^*(x_1, ..., x_n)}{h^*(y_1, ..., y_n)}
+ 		\end{align*}
+ 		which does not depend on $\theta$. This implies that $T(x_1, ..., x_n) = T(y_1, ..., y_n)$. 
+ 	\end{enumerate}
+ \end{proof}
+	
 \end{document}
+
+
+
 
 
 
