@@ -44,6 +44,16 @@
 % vector
 \newcommand{\vect}[1]{\mathbf{#1}}
 
+% hyperlink toc
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
 
 \title{\textbf{Comp 551: Applied Machine Learning}}
 \author{Shereen Elaidi}
@@ -56,6 +66,78 @@
 
 \section{Week 1}
 \subsection{Learning Objectives}
+\begin{enumerate}[noitemsep]
+	\item Learning as Representation, Evaluation, and Optimisation. 
+	\item K-nearest neighbours for classification
+	\item Curse of dimensionality 
+	\item Manifold Hypothesis 
+	\item Overfitting and Regularisation
+	\item Cross-Validation
+	\item No Free Lunch Theorem
+	\item Inductive Bias
+\end{enumerate}
+
+\subsection{What is Machine Learning?}
+
+\begin{center}
+\dfn{Machine Learning} is a set of ``algorithms and statistical models that computer systems use to perform a specific task without using explicit instructions.'' 
+\end{center} 
+\subsubsection{Placing ML: Overlapping Fields}
+\begin{enumerate}[noitemsep]
+	\item \dfn{Artificial Intelligence}: a broader domain that includes search, planning, multi-agent systems, robotics, etc. 
+	\item \dfn{Statistics}: this historically came before ML. ML is more algorithmic than statistics and is built around AI. 
+	\item \dfn{Vision and NLP}: uses many ML ideas. 
+	\item \dfn{Data mining}: scalability and performance comes before strong theoretical foundations here. 
+	\begin{enumerate}[noitemsep]
+		\item More space for heuristics. 
+		\item Expository analysis. 
+		\item Unsupervised algorithms. 
+	\end{enumerate}
+	\item \dfn{Data science}: umbrella term where knowledge and information is used for decision-making. 
+\end{enumerate}
+There are two broad types of ML: supervised learning and unsupervised learning. 
+\begin{enumerate}[noitemsep]
+	\item \dfn{Supervised Learning}: in this setup we have labelled data. This will be the focus of most of this course. The sub-types of supervised learning include: 
+	\begin{enumerate}[noitemsep]
+		\item \dfn{Classification}: categorical / discrete output. 
+		\item \dfn{Regression}: continuous output. 
+		\item Structured prediction. 
+	\end{enumerate}
+	Some concrete examples of supervised learning include: determining the location of images, machine translation, image captioning, and object detection. 
+	\item \dfn{Unsupervised Learning}: in this setup we only have unlabelled data. It helps here to explore the data; this branch of ML is closer to data mining. There are much more challenges with this type of ML, and closely resembles reality where there is more unlabelled data. 
+	\begin{enumerate}[noitemsep]
+		\item \dfn{Clustering}: similar to classification except the labels/classes must be inferred; they are not given to the algorithm. 
+		\item \dfn{Generative modelling/density estimation}: the model is to learn the underlying data \dfn{distribution}. 
+	\end{enumerate}
+	\item \dfn{Semi-supervised learning}: in this setup, we only have a \emph{few} labelled examples. This can include structured problems such as: 
+	\begin{enumerate}[noitemsep]
+		\item Matrix competition. 
+		\item Link prediction. 
+	\end{enumerate}
+	\item \dfn{Reinforcement Learning}: in this setup, we have weak supervision through a reward signal. It is a biologically-motivated branch of ML which entails sequential decision-making. 
+	\begin{enumerate}[noitemsep]
+		\item A sub-class of RL is \dfn{Imitation learning}: here, we. have learning from demonstrations. Features of this include behaviour cloning (which is a form of supervised learning) and inverse reinforcement learning (where the reward function is learned). 
+		\item Decision theory is the basis of RL. 
+	\end{enumerate}
+\end{enumerate}
+
+\subsection{A Useful Perspective on ML}
+\begin{center}
+	Learning = Representation + Evaluation + Optimisation
+\end{center}
+\begin{enumerate}[noitemsep]
+	\item \dfn{Representation} $\rightarrow$ this determines the model hypothesis space, which is the space of functions that we can choose from to model the data. It is determined by how we define the learner. 
+	\item \dfn{Evaluation} $\rightarrow$ this includes things such as the objective function, cost function, or score function. It is the criteria for picking the best model. 
+	\item \dfn{Optimisation} $\rightarrow$ this includes the objective cost or loss. It encodes the procedure for finding the best model. 
+\end{enumerate}
+The first algorithm that we will do is the K nearest neighbour algorithm. In terms of the above break-down, KNN is: 
+\begin{center}
+	KNN + Precision and Recall + Greedy Search
+\end{center}
+
+\subsection{K-Nearest Neighbour}
+
+
 \section{Week 2}
 \subsection{Learning Objectives}
 \begin{enumerate}[noitemsep]
@@ -102,7 +184,7 @@ The \dfn{least-squared closed form solution} is what we obtain when we take the 
 	\item The run time to compute $\hat{W}$ using the closed-form solution (\ref{reg:closed}) is polynomial, which is quite reasonable.  
 	\item There are two primary failure modes of this way: 
 	\begin{enumerate}[noitemsep]
-		\item $(X^tx)$ is a singular matrix (i.e., not invertible). 
+		\item $(X^tX)$ is a singular matrix (i.e., not invertible). 
 		\item A linear function is not the right fit. 
 	\end{enumerate}
 \end{itemize}
