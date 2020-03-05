@@ -21,8 +21,8 @@
 \contentsline {subsection}{\numberline {4.2}Regular Surfaces}{6}{subsection.4.2}% 
 \contentsline {subsection}{\numberline {4.3}Differentiable Functions on Surfaces}{6}{subsection.4.3}% 
 \contentsline {subsection}{\numberline {4.4}Tangent Plane}{6}{subsection.4.4}% 
-\contentsline {subsection}{\numberline {4.5}First Fundamental Form: Area}{6}{subsection.4.5}% 
-\contentsline {section}{\numberline {5}The Gauss Map}{6}{section.5}% 
-\contentsline {subsection}{\numberline {5.1}Ruled Surfaces and Minimal Surfaces}{6}{subsection.5.1}% 
-\contentsline {section}{\numberline {6}The Intrinsic Geometry of Surfaces}{6}{section.6}% 
-\contentsline {subsection}{\numberline {6.1}Isometries and Conformal Maps}{6}{subsection.6.1}% 
+\contentsline {subsection}{\numberline {4.5}First Fundamental Form: Area}{7}{subsection.4.5}% 
+\contentsline {section}{\numberline {5}The Gauss Map}{7}{section.5}% 
+\contentsline {subsection}{\numberline {5.1}Ruled Surfaces and Minimal Surfaces}{7}{subsection.5.1}% 
+\contentsline {section}{\numberline {6}The Intrinsic Geometry of Surfaces}{7}{section.6}% 
+\contentsline {subsection}{\numberline {6.1}Isometries and Conformal Maps}{7}{subsection.6.1}% 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.26)  4 MAR 2020 09:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.26)  5 MAR 2020 10:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -576,34 +576,38 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 142.
 
-[3] [4] [5]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 382.
- [6]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 382.
+[3] [4] [5] [6]
+Overfull \hbox (7.5279pt too wide) in paragraph at lines 389--390
+[][]\OT1/cmr/bx/n/10.95 Definition 17 \OT1/cmr/m/n/10.95 (Lo-cal Dif-feo-mor-phism)\OT1/cmr/bx/n/10.95 . []\OT1/cmr/m/n/10.95 A map-ping $\OML/cmm/m/it/10.95 ' \OT1/cmr/m/n/10.95 : \OML/cmm/m/it/10.95 U \OMS/cmsy/m/n/10.95 ^^R \OML/cmm/m/it/10.95 S[] \OMS/cmsy/m/n/10.95 ! \OML/cmm/m/it/10.95 S[]$ \OT1/cmr/m/n/10.95 is called a $[]$
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 409.
+[7]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 409.
  (/Users/shereenelaidi/Desktop/mathnotes/.texpadtmp/m458.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 382.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 382.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 409.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 409.
 Package rerunfilecheck Info: File `m458.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 382.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 409.
  ) 
 Here is how much of TeX's memory you used:
- 9356 strings out of 492616
- 147867 string characters out of 6129481
+ 9361 strings out of 492616
+ 147910 string characters out of 6129481
  372582 words of memory out of 5000000
  13118 multiletter control sequences out of 15000+600000
  14874 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,15n,51p,9116b,427s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/shereenelaidi/Desktop/mathnotes/.texpadtmp/m458.pdf (6 pages, 190967 bytes).
+Output written on /Users/shereenelaidi/Desktop/mathnotes/.texpadtmp/m458.pdf (7 pages, 195242 bytes).
 PDF statistics:
- 297 PDF objects out of 1000 (max. 8388607)
- 271 compressed objects within 3 object streams
- 79 named destinations out of 1000 (max. 500000)
+ 307 PDF objects out of 1000 (max. 8388607)
+ 280 compressed objects within 3 object streams
+ 84 named destinations out of 1000 (max. 500000)
  225 words of extra memory for PDF output out of 10000 (max. 10000000)
 

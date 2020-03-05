@@ -363,6 +363,33 @@ The next proposition is a very useful property that follows from the intermediat
 
 \subsection{Tangent Plane}
 
+The third condition of a regular surface guarantees that for any fixed point $p \in S$, the set of tangent vectors to the parameterised curves of $S$ passing through $p$ constitutes a plane. 
+
+\begin{prop}
+	Let $\mathbb{X}: U \subseteq \R^2 \rightarrow S$ be a parameterisation of a regular surface $S$ and let $q \in U$. The vector subspace of dimension 2: 
+	\begin{align}
+		\text{d}x_q (\R^2) \subseteq \R^3 	
+	\end{align}
+	coincides with the set of tangent vectors to $S$ at $\mathbb{X}(q)$. 
+\end{prop}
+This plane does not depend on the parameterisation $\mathbb{X}$ and it is called the \dfn{tangent plane} to $S$ at $p$ and is denoted by $T_p(S)$. A choice of parameterisation $\mathbb{X}$ induces a basis on $T_p(S)$: 
+\begin{align*}
+	\{ (\partial \mathbb{X}/ \partial u)(q), ( \partial \mathbb{X}/ \partial v)(q) \} 
+\end{align*}
+
+
+The next proposition states that a map between two regular surfaces induces a map between the tangent planes, which we can think of as the differential of the map. 
+
+\begin{prop}
+	Let $S_1$, $S_2$ be regular surfaces and let $\varphi: V \subseteq S_1 \rightarrow S_2$ be a differentiable mapping of an open set $V$ of $S_1$ into $S_2$. Then, tangent vectors $w \in T_p(S_1)$ are the velocity vectors $\alpha'(0)$ of a differentiable parameterised curve $\alpha: ]-\varepsilon, \varepsilon[ \rightarrow V$ with $\alpha(0) = p$. If we define $\beta:= \varphi \circ \alpha$, then $\beta '(0)$ is a vector of $T_{\varphi(p)}(S_2)$. Given a $w$, the vector $\beta'(0)$ does not depend on the choice of $\alpha$ and the map d$\varphi_p: T_p(S_1) \rightarrow T_{\varphi(p)}(S_2)$  defined by d$\varphi_p(w) = \beta'(0)$ is linear. 
+\end{prop}
+Before moving onto the next proposition, we first need to define what a local diffeomorphism is. The aim is to build up to a generalisation of the standard inverse function theorem from calculus. 
+
+\begin{definition}[Local Diffeomorphism] 
+	A mapping $\varphi: U \subseteq S_1 \rightarrow S_2$ is called a \dfn{local diffeomorphism} at $p \in U$ if there is a neighbourhood $V \subseteq U$ of $p$ such that $\varphi|_U$ is a diffeomorphism onto an open set $\varphi(V) \subseteq S_2$. 
+\end{definition}
+
+
 \subsection{First Fundamental Form: Area}
 
 
