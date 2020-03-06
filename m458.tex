@@ -1,6 +1,7 @@
 \documentclass[11pt]{scrartcl}
 \usepackage[margin=2cm]{geometry}
 \usepackage{amsmath}
+\usepackage{fancyhdr}
 \usepackage{amsfonts}
 \usepackage{amssymb,amsmath,amsthm}
 \usepackage{xcolor} 
@@ -61,6 +62,17 @@
 
 \maketitle
 \tableofcontents
+\pagestyle{fancy}
+\lhead{Math 458: Differential Geometry}
+\chead{Winter 2020 -- Summary}
+\rhead{Page \thepage}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+{\renewcommand{\arraystretch}{1.2}% for the vertical padding
 
 \section{Introduction}
 \subsection{Implicit and Inverse Function Theorems}
@@ -389,11 +401,118 @@ Before moving onto the next proposition, we first need to define what a local di
 	A mapping $\varphi: U \subseteq S_1 \rightarrow S_2$ is called a \dfn{local diffeomorphism} at $p \in U$ if there is a neighbourhood $V \subseteq U$ of $p$ such that $\varphi|_U$ is a diffeomorphism onto an open set $\varphi(V) \subseteq S_2$. 
 \end{definition}
 
+\begin{prop}
+	If $S_1$ and $S_2$ are regular surfaces and $\varphi: U \subseteq S_1 \rightarrow S_2$ is a differentiable mapping of an open set $U \subseteq S_1$ such that the differential d$\varphi_p$ of $\varphi$ at $p \in U$ is an isomorphism, then $\varphi$ is a local diffeomorphism at $p$. 
+\end{prop}
+
+For any point on a regular surface, we can find two unit normal vectors. By fixing a parameterisation $\mathbb{X}: U \subseteq \R^2 \rightarrow S$ for $p \in S$, we can make a definite choice of a unit normal at each point $q \in \mathbb{X}(U)$ by the following rule: 
+\begin{align}
+	N(q) := \frac{\mathbb{X}_u \wedge x_v}{|| x_u \wedge x_v ||} (q) 	
+\end{align}
+This gives us a differentiable map $N: \mathbb{X}(U) \rightarrow \R^3$. 
+
+
 
 \subsection{First Fundamental Form: Area}
+\textbf{Motivation:} the natural inner product on $\R^3$ induces on each regular surface $S \subseteq \R^3$'s tangent plane $T_p(S)$ an inner product, $\langle \cdot, \cdot \rangle_p$. The aim of the First Fundamental Form is to express how a surface inherits the natural inner product of $\R^3$. This allows us to make metric measurements of the surface, such as lengths of curves, angles of tangent vectors, and areas of regions without referring to the ambient space in which they reside.  
 
+
+\begin{definition}[First Fundamental Form]
+	Let $w_1$, $w_2 \in T_p(S) \subseteq \R^3$. Then, the quadratic form given by $I_p: T_p(S) \rightarrow \R$: 
+	\begin{align}
+		I_p(w) := \langle w, w \rangle_p = || w ||^2 > 0 	
+	\end{align}
+	is called the \dfn{First Fundamental Form} of the regular surface $S \subseteq \R^3$ at $p \in S$. 
+\end{definition}
+
+\subsubsection{Deriving the First Fundamental Form Given a Basis and a Parameterisation}
+
+Let $\mathbb{X}(u,v)$ be a parametrisation. We will now express the first fundamental form in the basis $\{ \mathbb{X}_u, \mathbb{X}_v \}$ associated to a parameterisation $\mathbb{X}(u,v)$ at $p$. Recall that a tangent vector $w \in T_p(S)$ is equivalent to a tangent vector to a parameterised curve $\alpha(t) = \mathbb{X}(u(t), v(t) ) $ for $t \in ]-\varepsilon, + \varepsilon[$ for which $p = \alpha(0) = \mathbb{X}(u_0, v_0)$. 
+
+From the definition of the first fundamental form, we have:
+\begin{align*}
+	 I_p(\alpha'(0)) & = \langle \alpha'(0), \alpha'(0) \rangle_p \\
+	 				 & = \langle \mathbb{X}_u u' + \mathbb{X}_v v', \mathbb{X}_u u' + \mathbb{X}_v v' \rangle_p \\
+	 				 & = \langle \mathbb{X}_u, \mathbb{X}_u \rangle_p (u')^2 + 2 \langle \mathbb{X}_u, \mathbb{X}_v \rangle u' v' + \langle \mathbb{X}_v, \mathbb{X}_v \rangle_p (v')^2
+\end{align*}
+If we define 
+\begin{align*}
+	& E(u_0, v_0) := \langle \mathbb{X}_u, \mathbb{X}_u \rangle_p  \\
+	& F(u_0, v_0) := \langle \mathbb{X}_u, \mathbb{X}_v \rangle_p  \\
+	& G(u_0, v_0) := \langle \mathbb{X}_v, \mathbb{X}_v \rangle_p 
+\end{align*}
+then the first fundamental form can be expressed as: 
+\begin{align*}
+	I_p = E (u')^2 + 2 F u' v' + G(v')^2
+\end{align*}
+
+\subsubsection{Examples of First Fundamental Forms}
+
+\begin{enumerate}[noitemsep]
+	\item Recall that the \dfn{plane} going through $p_0 = (x_0, y_0, z_0)$ containing the orthonormal vectors $w_1 = (a_1, a_2, a_3)$ and $w_2 = (b_1, b_2, b_3)$ is given by: 
+	 \begin{align*}
+		\mathbb{X}(u,v)  = p_0 + uw_1 + vw_2 
+	\end{align*}
+	for $(u,v) \in \R^2$. Then, $E = 1$, $F=0$, and $G=1$. 
+	\item The \dfn{cylinder} over the circle $x^2 + y^2 = 1$ parameterised by $\mathbb{X} (u,v) = (\cos (u) , \sin(v), v) $ where $u \in ]0, 2 \pi[$ and $v \in \R$. Then: $E = \sin^2 (u) + \cos^2(u) =1$, $F =0$, and $G=1$. 
+	\item The \dfn{Helicoid} is given by: $\mathbb{X}(u,v) := (v \cos (u), v \sin(u) au)$. $ u \in ]0, 2 \pi[$, $v \in \R$. The first fundamental form is given by: $ E = v^2 + a^2$, $F(u,v) = 0$, and $G(u,v) = 1$. 
+\end{enumerate}
+We can express arclength in terms of the terms of the functions of the first fundamental form. Let $s$ be an arclength-parameterised curve $\alpha: I \rightarrow s$. Then, the arc-length is: 
+\begin{align*}
+	s(t) = \idx{0}{t} | \alpha'(t) | dt = \idx{0}{t} \sqrt{I(\alpha'(t))} dt
+\end{align*}
+Substituting in the derivation gives us: 
+\begin{align*}
+	s(t) = \idx{0}{t} \sqrt{E(u')^2  + 2Fu' v' + G(v')^2} dt 
+\end{align*}
+We can also represent angles of intersections of parameterised curves using the coefficients of the first fundamental form. Let $\alpha: I \rightarrow S$ and $\beta: I \rightarrow S$ be two parameterised curves. The angle $\theta$ at which they intersect at $t=t_0$ is given by: 
+\begin{align} 
+\cos(\theta) = \frac{\langle a'(t_0), \beta'(t_0) \rangle}{|| \alpha'(t_0) || || \beta'(t_0) ||}
+\end{align} 
+In terms of the coefficients of the first fundamental form, we have: 
+\begin{align*}
+	\cos(\theta) = \frac{\langle x_u, x_v \rangle}{||x_u|| ||x_v || } = \frac{F}{\sqrt{EG}}
+\end{align*}
+A special type of parameterisation is called an \dfn{orthogonal parameterisation}, which is a parameterisation where the coordinate curves of a parameterisation are orthogonal. By the above, this happens if and only if $F(u,v) = 0$ for all $u,v \in S$. Moreover, from the arc length formula, an \dfn{element of arclength} is given by: 
+\begin{align*}
+	ds^2 = E du^2 + 2F du dv + G dv^2 
+\end{align*}
+One final classic example of computing first fundamental forms is that of a sphere. If we parameterise a sphere as: 
+\begin{align*}
+	\mathbb{X}(\theta, \varphi) = ( \sin \theta \cos \varphi, \sin \theta, \sin \varphi, - \sin \theta ) 
+\end{align*}
+Then, the coefficients of the first fundamental form become: 
+\begin{align*}
+	& E(\theta, \varphi) = 1 \\
+	& F(\theta, \varphi) = 0 \\
+	& G(\theta, \varphi) = \sin^2 (\theta) 
+\end{align*}
+Then, for a vector $w \in T_p(S)$ at the point $p$ with the coordinates based on the basis associated to the parametrisation $\mathbb{X}( \theta, \varphi)$, we write: 
+\begin{align*}
+	w = a \mathbb{X}_\theta + b \mathbb{X}_\varphi 
+\end{align*}
+and so
+\begin{align*}
+	||w||^2 = I(w) = Ea^2 + 2Fab + Gb^2 = a^2 + b^2 \sin^2 \theta 
+\end{align*}
+We can use the first fundamental form to compute areas. 
+\begin{definition}[Area]
+	Let $R \subseteq S$ be a bounded region of a regular surface contained in the coordinate neighbourhood of the parameterisation $\mathbb{X}: U \subseteq \R^2 \rightarrow S$. Then, the positive number: 
+	\begin{align*}
+		A(R) := \iint_Q || \mathbb{X}_u \wedge \mathbb{X}_v || du dv 
+	\end{align*}
+	where $Q = \mathbb{X}^{-1}(R)$ is called the \dfn{area} of $R$. This is equivalent to, in terms of the first fundamental form: 
+	\begin{align*}
+		& = \iint_Q \sqrt{EG - F^2} du dv 
+	\end{align*}
+\end{definition}
 
 \section{The Gauss Map}
+\textbf{Motivation:} try to measure how rapidly a surface $S$ pulls away from the tangent plane $T_p(S)$ in a neighbourhood of a point $p \in S \leftrightarrow$ measuring the rate of change at $p$ of a unit normal vector field $N$ on a neighbourhood of $p$. This gives rise to a linear map on $T_p(S)$ that is self-adjoint. This map happens to give us a lot of information about local properties of the surface $S$ at $p$. 
+
+\subsection{The Definition of the Gauss Map and its Fundamental Properties}
+
+
 
 \subsection{Ruled Surfaces and Minimal Surfaces}
 
