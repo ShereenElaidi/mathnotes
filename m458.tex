@@ -75,13 +75,234 @@
 {\renewcommand{\arraystretch}{1.2}% for the vertical padding
 
 \section{Introduction}
-\subsection{Implicit and Inverse Function Theorems}
+This course is about differential geometry of curves, surfaces, and manifolds in $\R^3$ + integration with differential forms. 
+\subsection{Dual Spaces}
+I am including this since I did not learn about dual spaces in my linear algebra class.
+
+\begin{definition}[Linear Functional]
+	Let $V$ be a vector space over $K$. A map $\phi: V \rightarrow K$ is a \dfn{linear functional} if $\forall$ $v , u \in V$, $a, b \in K$: 
+	\begin{align}
+		\phi(au+ bv) = a \phi(u) + b \phi(v) 	
+	\end{align}
+\end{definition}
+Examples of linear functionals: 
+\begin{enumerate}[noitemsep]
+	\item Let $V$ be the vector space of polynomials in $t$ over $\R$. Define the definite integral operator $J(p(t)):= \idx{0}{1} p(t)dt$. By the linearity of integration, this is a linear functional on $V$. 
+	\item Let $V$ be the vector space of $n \times n$ matrices with real coefficients. Then, define the trace map: $T: V \rightarrow \R$ as the trace of a matrix $A$. This is a linear functional on $V$. 
+\end{enumerate}
+
+\begin{definition}[Dual Space]
+	Let $V$ be a vector space over a field $K$. Then, the set of all linear functionals on $V$ over $K$ is a vector space over $K$ with addition and scalar multiplication defined by: 
+	\begin{align*}
+		& (\phi + \sigma)(v) := \phi(v) + \sigma(v)  \\
+		& (k \phi)(v) = k \phi(v) 
+	\end{align*}
+	This vector space is called the \dfn{dual space} of $V$, denoted by $V^*$. 
+\end{definition}
+
+\begin{ex} 
+Consider $V = K^n$. This is the vector space of all $n$-tuples, written as column vectors. Then, $V^*$ can be thought of as the space of all row vectors. We can represent any linear functional $\phi = (a_1, ..., a_n) \in V^*$ as a \dfn{linear form}: 
+\begin{align*}
+	\phi(x_1, ..., x_n) = \begin{bmatrix}
+ 	a_1 & a_2 & \cdots & a_n 	
+ \end{bmatrix} \begin{bmatrix}
+ 	x_1 & x_2  & \cdots & x_n
+ \end{bmatrix}^t = a_1 x_1 + ... + a_n x_n
+\end{align*}	
+\end{ex}
+
+When you choose a basis for a vector space $V$, you obtain an induced basis on the dual $V^*$: 
+\begin{theorem}
+	Suppose $\{ v_1, ..., v_n \}$ is a basis of $V$ over $K$. Let $\phi_1 , .., \phi_n \in V^*$ be linear functionals defined by: 
+	\begin{align}
+		\phi_i(v_j) := \delta_{ij}	
+	\end{align}
+	Then, $\{ \phi_1, ..., \phi_n \}$ is a basis of $V^*$. This basis is called the \dfn{dual basis}. 
+\end{theorem}
+
+Theorems giving the relationships between bases and their dual bases: 
+\begin{theorem}
+	Let $\{ v_1, ..., v_n \}$ be a basis of $V$; let $\{ \phi_1 , ..., \phi_n \}$ be the dual basis in $V^*$. Then: 
+	\begin{enumerate}[noitemsep]
+		\item $\forall u \in V$, $u  = \phi_1(u)v_1 + ... + \phi_n(u) v_n$ 
+		\item For any linear functional $\sigma \in V^*$, $\sigma = \sigma(v_1) \phi_1 + ... + \sigma(v_n) \phi_n$. 
+	\end{enumerate}
+\end{theorem}
+	The change of basis on a vector space induces a change of basis on its dual. This is the point of the following theorem: 
+\begin{theorem}
+	Let $\{ v_1, ..., v_n \}$ and $\{ w_1, ..., w_n \}$ be bases of $V$ and let $\{ \phi_1, ... , \phi_n \}$ and $\{ \sigma_1, ..., \sigma_n \}$ be bases of $V^*$, dual to $\{ v_i \}$ and $\{ w_i \}$, respectively. If $P$ is the change of basis matrix from $\{ v_i \}$ to $\{w_i \}$, then $(P^{-1})^t$ is the change of basis matrix from $\{ \phi_i \}$ to $\{\ \sigma_i \}$. 
+\end{theorem}
+
+\begin{theorem}
+	If $V$ is a \emph{finite-dimensional} vector space, then $V \cong V^{**}$. 
+\end{theorem}
+
+The following definition-theorem would have been very useful for the first homework :-) 
+
+\begin{definition}[Transpose of a Linear Mapping] 
+	Let $U$, $V$ be vector spaces over $K$. Let $T: V \rightarrow U$ be an arbitrary linear mapping. Let $\phi \in U^*$ be a linear functional. Since linearity is stable under compositions, the composition map $\phi \circ T$ is a linear map $V \rightarrow K$, and this $(\phi \circ T) \in V^*$. Define the following map from $U^* \rightarrow V^*$: 
+	\begin{align*}
+		\phi \mapsto \phi \circ T 
+	\end{align*}
+	This map as defined is called the \dfn{transpose of T}. Formally: for each $v \in V$, the transpose map gives us: 
+	\begin{align}
+		(T^t(\phi))(v) = \phi(T(v)) 	
+	\end{align}
+\end{definition}
+
+
+\begin{theorem}
+	The transpose mapping $T^t$ is linear. 
+\end{theorem}
+\begin{theorem}
+	Let $T: V \rightarrow U$ be linear. Let $A$ be the matrix representation of $T$ with respect to the bases $\{v_i \}$ of $V$ and $\{ u_i \}$ of $U$. Then, the transpose matrix $A^t$ is the matrix representation of $T^t : U^* \rightarrow V^*$ relative to the bases dual to $\{ u_i \}$ and $\{ v_i \}$. 
+\end{theorem}
+
+
+\subsection{Notions from Multivariable Cal}
+\begin{definition}[Differential]
+	The \dfn{differential} of a map $f: \R^m \rightarrow \R^n$ it the point $\phi \in \R^m$ is the best linear approximation of the map at the point $\phi$: 
+	\begin{align}
+		f(q) = f(p) + Df(p) \cdot (q-p) + O(||q-p||) 	
+	\end{align}
+	Here, $Df(p)$ is the differential, which is an $n \times m$ matrix. 
+\end{definition}
+
+\begin{theorem}[Inverse Function Theorem]
+	Let $f: \R^n \rightarrow \R^n$ be continuously differentiable in an open set containing $a$ and det$f'(a) \neq 0$. Then, there is an open set $V$ containing $a$ and an open set $W$  containing $f(a)$ such that $f: V \rightarrow W$ has a continuous inverse $f{-1}: W \rightarrow V$ which is differentiable and $\forall y \in W$ satisfies: 
+	\begin{align}
+		(f^{-1})'(y) = [ f'(f^{-1}(y))]^{-1} 	
+	\end{align}
+\end{theorem}
+
+\begin{theorem}[Implicit Function Theorem]
+	Let $f: \R^n \times \R^m \rightarrow \R^m$ be a continuously differentiable function in an open set containing $(a,b)$ and $f(a,b) =0$. Let $M$ be the $m \times m$ matrix: 
+	\begin{align*}
+		(D_{n+j}f^i (a,b)) 
+	\end{align*}
+	with $1 \leq i, i \leq m$. If det$(M) \neq 0 $, then there exists an open set $A \subseteq \R^n$ containing $a$ and an open set $B \subseteq \R^m$ containing $b$ with the following property: $\forall$ $ x \in A$, $\exists_1$ $g(x) \in B$ such that $f(g, g(x) ) =0$. Moreover, the function $g$ is differentiable. 
+\end{theorem} 	
+
+
+\begin{definition}[Line Integral]
+	Let $\Omega \subseteq \R^n$ be open. Let $F$ be a smooth vector field. Let $\gamma: [a,b] \rightarrow \Omega$ be an oriented curve. Then, the \dfn{line integral} of $F$ over $\gamma$ is defined as: 
+	\begin{align*}
+		\idx{\gamma}{} F \cdot d\gamma := \idx{a}{b} F(\gamma(t)) \cdot g'(t) dt 
+	\end{align*}
+\end{definition}
+
+\begin{definition}[Two-Dimensional Curl]
+	Let $F$ be a smooth vector field. Then, the two-dimensional \dfn{curl} is defined as: 
+	\begin{align*}
+		\text{curl} (F) := \partial_x F_y - \partial_y F_x 
+	\end{align*}
+\end{definition}
+
+
+\begin{definition}[Unit Normal Vector of a Parameterised Surface] 
+	Let $\mathbb{X}: K \subseteq \R^2 \rightarrow \R^3$ be a parameterisation. Then, the \dfn{unit normal vectors} are: 
+	\begin{align*}
+		n := \pm \frac{\partial_u \mathbb{X} \times \partial_v \mathbb{X}}{|| \partial_u \mathbb{X} \times \partial_v \mathbb{X} ||}
+	\end{align*}
+\end{definition}
+
+We will state some basic (and important) results from vector calculus: the divergence theorem, green's theorem, and stokes' theorem. 
+\subsubsection{Divergence}
+\begin{theorem}[Divergence Theorem]
+Let $F$ be a smooth vector field and let $\Omega$ be a bounded domain with outer normal $n$. Then: 
+\begin{align}
+	\iiint_{\Omega} \text{div}F d \Omega = \iint_{\partial \Omega} F \cdot n dS	
+\end{align}
+Where the \dfn{divergence} of a smooth vector field $F$ is given by: 
+\begin{align*}
+	\text{div} F := \frac{\partial F_1}{\partial x} + \frac{\partial F_2}{\partial y} + \frac{\partial F_3}{\partial z}
+\end{align*}
+\end{theorem}
+We can write the divergence of a vector field as a dot product with the del operator: 
+\begin{align*}
+	\text{div} F = \nabla \cdot F 
+\end{align*}
+
+\subsubsection{Green's Theorem}
+From the divergence theorem, we can deduce Green's theorem. It is given by: 
+\begin{theorem}[Green's Theorem]
+	Let $P(x,y)$ and $Q(x,y)$ be smooth functions $\R^2 \rightarrow \R$. Let $\Omega \subseteq \R^2$ be bounded. Then: 
+	\begin{align}
+		\iint_\Omega \left[ 	\frac{\partial Q(x,y)}{\partial x} - \frac{\partial P(x,y)}{\partial y}	\right] dx dy = \idx{\mathcal{C}}{} P(x,y)dx + Q(x,y)dy	
+	\end{align}
+	where $\mathcal{C} = \partial \Omega$. 
+\end{theorem}
+
+There is also a formulation for Green's theorem in terms of the curl of a vector field. 
+
+\begin{theorem}[Green's Theorem II]
+	Let $K$ be a region bounded by a closed, oriented curve $\gamma$. Then, for a smooth vector field $F$ in $K$, we have: 
+	\begin{align}
+		\idx{\gamma}{} F \cdot d \gamma = \idx{K}{} \text{curl}(F) 	
+	\end{align}
+\end{theorem}
+
+Finally, we have Stokes' Theorem. 
+
+\begin{theorem}
+	Let $\Omega$ be a smooth, oriented surface bounded by a closed, smooth boundary curve $\partial \Omega$ which is positively oriented. Let $F$ be a smooth vector field. Then: 
+	\begin{align}
+		\idx{\partial \Omega}{} F \cdot dr = \iint_{\Omega} \text{curl} F \cdot dS 	
+	\end{align}
+
+\end{theorem}
 
 \section{Manifolds in $\R^3$}
 The aim of this part of the course is to build up to integration on manifolds and the invariant Stokes' theorem. The main purpose of this sections is to develop \emph{coordinate-free} calculus, which clarifies the essence of what is happening (sometimes coordinates can be noisy). 
 \subsection{Definitions}
 
+\begin{definition}[K-Dimensional Manifold]
+	A subset $M \subseteq \R^n$ is called a \dfn{k-dimensional manifold} in $\R^n$ if $\forall x \in M$, the following condition is satisfied: $\exists$ an open set $U$ containing $x$ and open set $V \subseteq \R^n$, and a diffeomorphism $h: U \rightarrow V$ such that 
+	\begin{align*}
+		h (U \cap M) & = V \cap (\R^k \times \{ 0 \} ) \\
+					& = \{ y \in V\ |\ y^{k+1} = ... = y^n = 0 \} 
+	\end{align*}
+	In other words, we require that $U \cap M$ is, up to diffeomorphism, $\R^k \times \{ 0 \}$. 
+\end{definition}
+
+\begin{definition}[$C^\infty$-function] There are two definitions. 
+	\begin{enumerate}[noitemsep] 
+		\item $f: M \rightarrow \R$ is $C^\infty$ if it is $C^\infty$ in each parameterisation. 
+		\item $f: M \rightarrow \R$ is $C^\infty$ if it is locally the restriction of a smooth function of the ambient space: $\forall p \in M$, $\exists V \subseteq \R^n$, $V$ open, $ p \in V$, and $F: V \rightarrow \R$ with $F|_{M \cap V} = f$. 
+	\end{enumerate}
+\end{definition}
+
+Before we can do calculus, we need to define vector fields in a \emph{coordinate-free} way on a manifold $M$. 
+
+\begin{definition}[Vector Field $V$ on $M$]
+	The \dfn{vector field} $V$ on $M$ is defined as a function $C^\infty(M) \rightarrow C^\infty(M)$ satisfying three properties: 
+	\begin{enumerate}[noitemsep]
+		\item $v(f+g) = v(f) + v(g) $ (Linearity I) 
+		\item $v (\alpha f) = \alpha v(f) $ (Linearity II) 
+		\item $v(fg) = fv(g) + gv(f)$ (Leibniz Law; captures the essence of differentiation)
+	\end{enumerate}
+\end{definition}
+
+Using this, we can define a \dfn{derivation} at $x \in \R^n$. First take a derivation $v \in \R^n$, and set: 
+\begin{align}
+	v(f) := \frac{d}{dt} \left[ f(x+tv) \right]_{t =v} 	
+\end{align}
+This is a \dfn{directional derivative} in the direction $v$. 
+
+\begin{definition}[Tangent Bundle]
+	Given a manifold $M^n$, you can package together all the tangent spaces together into a $2n$-dimensional manifold. You'd then obtain a vector bundle called the \dfn{tangent bundle}: 
+	\begin{align*}
+		T(M) := \bigsqcup_{p \in M} T_p(M) 
+	\end{align*}
+\end{definition}
+
 \subsection{Smooth Maps from $M^m \rightarrow N^n$}
+Let $M^m$ and $N^n$ be two manifolds. Consider a smooth map $g$ between them. Fix a point $p \in M^m$. The map $g$ induces a map on the tangent spaces. This map, denoted: 
+\begin{align*}
+	 D_{g_p}(v): T_p(M) \rightarrow T_{g(p)}(N)
+\end{align*}
+	is called the \dfn{differential} or \dfn{push-forward}. Here, $v$ is a derivation at $p \in M$ and $f$ is a function on $N$. 
+
 
 \subsection{Change of Coordinates}
 
