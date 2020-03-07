@@ -512,6 +512,36 @@ We can use the first fundamental form to compute areas.
 
 \subsection{The Definition of the Gauss Map and its Fundamental Properties}
 
+\begin{itemize}[noitemsep]
+	\item $N$ is said to be a \dfn{differentiable field of unit normal vectors on} an open set $V \subseteq S$ if $N: V \rightarrow \R^3$ is a differentiable map which associates to each $q \in V$ a unit normal vector at $q$. 
+	\item A regular surface $V$ is called \dfn{orientable} if it admits a differentiable field of unit normal vectors defined on the whole surface. 
+	\begin{itemize}[noitemsep]
+		\item The Möbius strip is an example of a non-orientable surface. 
+		\item The choice of such a field $N$ is called an \dfn{orientation} of $S$. 
+		\item Every surface is locally orientable. 
+		\item Orientation is a global property in the sense that it involves the \emph{whole} surface. 
+	\end{itemize}
+\end{itemize}
+
+The Gauss map is the map which assigns unit normals to points on surfaces. We derived this map in homework 1. 
+
+\begin{definition}[Gauss Map] 
+	Let $S \subseteq \R^3$ be a surface with orientation $N$. The map $N: S \rightarrow \R^3$ takes its values in the unit sphere: 
+	\begin{align}
+		S^2 := \{ (x,y,z) \in \R^3\ |\ x^2 + y^2 + z^2 = 1 \} 	
+	\end{align}
+	This map $N: S \rightarrow S^2$ as defined is called the \dfn{Gauss Map} of $S$. 
+\end{definition}
+The differential induced by the Gauss Map, d$N_p: T_p(S) \rightarrow T_{N(p)}(S)$ , is a linear map. Restricting the map to a parameterised curve $\alpha(t)$ in $S$ provides for us a measure of how $N$ pulls away from $N(p)$ in a neighbourhood of $p$. For curves, this information is encoded in the curvature, a scalar. For surfaces, the ``notion'' of curvature is encoded as a linear map. 
+
+Here are several examples of what $dN$ would be for some surfaces. 
+\begin{enumerate}[noitemsep]
+	\item The \dfn{plane} has zero ``curvature.'' Parameterise this plane by $ax + by + cz + d =0$. Then, the unit normal vector is given by: 
+	\begin{align*}
+		N = \frac{(a,b,c)}{\sqrt{a^2 + b^2 + c^2}}
+	\end{align*}
+\end{enumerate}
+
 
 
 \subsection{Ruled Surfaces and Minimal Surfaces}
