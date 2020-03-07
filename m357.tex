@@ -101,7 +101,7 @@ In this course, the data will be a realisation of the random sample $F$. The bas
 	\end{align}
 \end{ex}
 
-\section{Part 1: Properties of Random Samples}
+\section{ Properties of Random Samples}
 
 We first remark that the assumption that the $X_1, ..., X_N$ are iid is also called \textbf{sampling from an infinite population.} To see why, consider that our population were finite, say $\{ x_1, ..., x_N \}$, and we sample the $X_1,..., X_N$ with replacement. Then, the probability of choosing a specific $x_k$ would be: 
 \begin{align*}
@@ -2121,7 +2121,118 @@ To summarise what we have so far, we have that $\stat$ is a statistic taking val
  		which does not depend on $\theta$. This implies that $T(x_1, ..., x_n) = T(y_1, ..., y_n)$. 
  	\end{enumerate}
  \end{proof}
-	
+ 
+ \begin{ex}
+ 	Let $X_1, ..., X_n$ be a random sample taken from $\mathcal{U} ] \theta, \theta + 1 [$ where $\theta \in \R$. Then, the probability density of the sample is: 
+ 	\begin{align*}
+ 		f(x_1, ..., x_n; \theta) & = \begin{cases}
+ 			1 & \text{ if } x_i \in ] \theta, \theta + 1 [\ \forall i \in \{ 1, ..., n \} \\
+ 			0 & \text{ otherwise } 
+ 		\end{cases} \\
+ 		& = \chi_{ \min_{1 \leq i \leq n} x_i > \theta} \chi_{\max_{1 \leq i \leq n } x_i < \theta + 1 }
+ 	\end{align*}
+ 	for $(x_1, ..., x_n)$ and $(y_1, ..., y_n)$. Thus, 
+ 	\begin{align*}
+ 		\frac{f(x_1, ..., x_n; \theta)}{f(y_1, ..., y_n; \theta)}
+ 	\end{align*}
+ 	does not depend on $\theta$ if $\min_{1 \leq i \leq n} x_i = \min_{1 \leq i \leq n} y_i$ and $\max_{1 \leq i \leq n} x_i = \max_{1 \leq i \leq n} y_i$. So, $(\min_{ 1 \leq i \leq n} (x_i)$, $\max_{1 \leq i \leq n} (x_i))$ is minimally sufficient for $\theta$. 
+ \end{ex}
+ 
+ \subsection{Applications of Sufficiency in Point Estimation}
+ Let $X_1, ..., X_n$ be a random sample from $F_\theta$, $\theta \in \Theta$. Our goal is to find the uniformly minimum variance unbiased estimator of $\gamma(\theta)$ (the UMVUE). We will nwo denote our estimators by $W$. We want to find $W$ so that
+ \begin{align*}
+ 	\EXth{W} = \gamma(\theta) \text{ 		} \forall \theta \in \Theta 
+ \end{align*}
+and for any other unbiased estimator $W^*$ of $\gamma(\theta)$, we have: 
+\begin{align*}
+	\text{Var}_\theta[W] \leq \text{Var}_\theta [W^*]\ \forall \theta \in \Theta 
+\end{align*}
+First recall three important facts from Math 356. For any two random variables $Y$, $Z$: 
+\begin{enumerate}
+	\item $\EX{Y} = \EX{\EX{Y|Z}}$ (Iterative expectation) 
+	\item $\EX{Y|Z} = h(Z)$ for some measurable function $h$. That is, this is a function of $Z$. 
+	\item Var$[Y] =$ Var$[\EX{Y|Z}] + \EX{\text{Var}[Y|Z]} \geq 0$. 
+\end{enumerate}
+
+\begin{theorem}[Rao-Blackwell]
+	Let $W$ be an unbiased estimator of $\gamma(\theta)$ with finite variance and let $T$ be a sufficient statistic for $\theta$. Then, if $W^* := \EX{W|T}$, then: 
+	\begin{enumerate}[noitemsep]
+		\item $W^*$ is an unbiased estimator of $\gamma(\theta)$. 
+		\item Var$_\theta[W^*] \leq$ Var$_\theta[W]$ for all $ \theta \in \Theta$. 
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}[noitemsep]
+		\item $\EXth{W^*} = \EXth{\EXth{W|T}} = \EXth{W} = \gamma(\theta)$ for all $\theta \in \Theta$. 
+		\item Var$_\theta [W] = \text{Var}_\theta [\EXth{W|T}] + \EXth{\text{Var}_\theta [W|T]} = \text{Var}_\theta [W^*] + \EXth{\text{Var}_\theta [W|T]}$. Since the $\EXth{\text{Var}_\theta [W|T]}$ term is positive, this implies that Var$_\theta [W] \geq $ Var$_\theta [W^*]$ for $\theta \in \Theta$. 
+	\end{enumerate}
+	We need to use the sufficiency -- finally, since $T$ is sufficient, the distribution of $(X_1, ..., X_n)$ given $T$ does not depend on $\theta$, which means that $W^*$ does not depend on $\theta$, which gives us the fact that $W^*$ is an estimator. 
+\end{proof}
+
+\begin{ex}
+	Assume that $X_1, X_2 \sim \mathcal{N}( \theta, 1)$. Let's investigate the sample mean, $\overline{x} = (1/2)(x_1 + x_2)$. Computing the quantities: 
+	\begin{align*}
+		& \EX{\overline{x}} = \theta \\
+		& \text{Var}[\overline{x}] = 1/2 \\
+		& \EX{\overline{x} | x_1 } = \EX{\frac{1}{2} (x_1 + x_2) | x_1} = \frac{1}{2} \EX{x_1 | x_2} + \EX{x_2 | x_1}  = \frac{1}{2} (x_1 + \theta) \equiv W^*
+	\end{align*}
+	Note that this is not an estimator, since it involves the unknown parameter. So, we need to repair it. 
+	\begin{align*}
+		\EX{W^*} = \frac{1}{2} \left( \EX{X_1} + \theta \right) = \frac{1}{2} (\theta + \theta) = \theta 
+	\end{align*}
+	and 
+	\begin{align*}
+		\text{Var}[W^*] = \frac{1}{4} \text{Var}[X_1] = \frac{1}{4} < \frac{1}{2}
+	\end{align*}
+	because $X_1$ is not sufficient. 
+\end{ex}
+
+\begin{corollary}
+	Let $W$ be any estimator of $\gamma ( \theta)$, not necessarily unbiased. Then, $W^* = \EX{W|T}$ where $T$ is a sufficient estimator of $\gamma (\theta)$ so that, $\forall \theta \in \Theta$: 
+	\begin{align*}
+		\text{MSE}_\theta [W^*] \leq \text{MSE}_\theta [W]
+	\end{align*}
+\end{corollary}
+
+Note: if $W$, $Z$ are arbitrary random variables. Then: 
+\begin{align*}
+	\EX{W|Z} = h(Z)
+\end{align*}
+for some measurable function $Z$. We have: 
+\begin{align*}
+	\EX{ h(Z) | Z} = h(Z) 
+\end{align*}
+
+\textbf{Intuition from Rao Blackwell:} we should condition on a minimally sufficient statistic to achieve the greatest reduction of the variance possible. \textbf{\underline{Q}:} if we condition on a minimally sufficient statistic, will we get the UMVUE/an UMVUE? Unfortunately, no. 
+
+\begin{ex}(Nasty Way of Improving an Estimator): 
+	Suppose that $W$ is some estimator of $\gamma (\theta)$, unbiased, and has finite variance. Suppose that $U$ is a statistic, $U(X_1, ..., X_n)$ so that $\EXth{U} = 0$ for all $\theta \in \Theta$ (i.e., $U$ is an estimator of $0$, which means that it is unbiased). Now let: 
+	\begin{align*}
+		W_a^* := W + aU
+	\end{align*}
+	where $a \in \R$. We get that $\EX{W_a^*} = \gamma (\theta)$ and Var$[W_a^*] = \text{Var}_\theta [W] + a^2 \text{Var}_\theta [U] + 2 a \text{Cov}_\theta [W, U] $. We have problems when cov$_{\theta_0}[W, U] \neq 0$ for some $\theta_0$. If cov$_{\theta_0}[W, U] < 0$, then for $ a \in$ \newline $ ]0, ( (-2 \text{cov}_{\theta_0} [W,U]) / \text{var}_\theta [U] ) [ $, we have that var$_{\theta_0} [W_a^*] < $ var$_{\theta_0} [W]$. This means that $W$ is not an UMVUE since we found an improvement. We will prevent this from happening. 
+\end{ex}
+
+\begin{definition}
+	A family $\{ F_\theta\ |\ \theta \in \Theta \}$ of distributions is called \dfn{complete} if for any measurable function $g$ and $X \sim F_\theta$ such that
+	\begin{align*}
+		\EXth{g(X)} = 0\ \forall \theta \in \Theta
+	\end{align*}
+	it holds that $g(X)$ is almost surely zero, i.e.: 
+	\begin{align*}
+		\pr{g(X) = 0 } = 1\ \forall \theta \in \Theta 
+	\end{align*}
+	A statistic $T$ is called \dfn{complete} if for any measurable function $g: \mathcal{T} \rightarrow \R$, 
+	\begin{align*}
+		( \forall \theta \in \Theta,\ \EXth{g(T)} = 0 ) \Rightarrow ( \prth{g(\mathcal{T}) = 0} = 1\ \forall \theta \in \Theta )
+	\end{align*}
+\end{definition}
+
+\begin{theorem}[Lehmann Scheffe Theorem]
+	Consider a random variable $X_1, ..., X_n$ from $F_\theta$, $\theta \in \Theta$. Let $\gamma (\theta)$ be a real-valued parameter of interest and $W$ an unbiased estimator for $\gamma (\theta)$. If $T$ is a complete and sufficient statistic, then $W^* = \EX{W|T}$ is THE UMVUE of $\gamma (\theta)$. 
+\end{theorem}
+
 \end{document}
 
 

@@ -1,5 +1,5 @@
 \contentsline {section}{\numberline {1}Introduction}{1}{section.1}% 
-\contentsline {section}{\numberline {2}Part 1: Properties of Random Samples}{2}{section.2}% 
+\contentsline {section}{\numberline {2}Properties of Random Samples}{2}{section.2}% 
 \contentsline {subsection}{\numberline {2.1}Sampling from the Normal Population}{6}{subsection.2.1}% 
 \contentsline {subsection}{\numberline {2.2}Standardisation}{9}{subsection.2.2}% 
 \contentsline {subsection}{\numberline {2.3}F-Test Basis}{10}{subsection.2.3}% 
@@ -19,3 +19,4 @@
 \contentsline {section}{\numberline {4}Sufficiency and Completeness}{37}{section.4}% 
 \contentsline {subsection}{\numberline {4.1}Proving the Sufficiency of Statistics}{38}{subsection.4.1}% 
 \contentsline {subsection}{\numberline {4.2}Sufficient Statistics}{40}{subsection.4.2}% 
+\contentsline {subsection}{\numberline {4.3}Applications of Sufficiency in Point Estimation}{42}{subsection.4.3}% 
