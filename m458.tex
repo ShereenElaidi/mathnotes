@@ -540,8 +540,147 @@ Here are several examples of what $dN$ would be for some surfaces.
 	\begin{align*}
 		N = \frac{(a,b,c)}{\sqrt{a^2 + b^2 + c^2}}
 	\end{align*}
+	and is thus a constant. This means that d$N =0$. 
+	\item The \dfn{unit sphere} is parameterised by: 
+	\begin{align*}
+		S^2 = \{ (x,y,z) \in \R^3\ |\ x^2 + y^2 + z^2 = 1 \}
+	\end{align*}
+	Fix an orientation on $S^2$ by choosing $N= (-x, -y, -z)$. Then, d$N_p(v) = -v$ for $p \in S^2$, $v \in T_p(S^2)$. 
+	\item The \dfn{cylinder over the unit circle} is parameterised by:  
+	\begin{align*}
+		C = \{ (x,y,z) \in \R^3\ |\ x^2 + y^2 = 1 \} 
+	\end{align*}
+	Fix an orientation by choosing $N= (-x, -y, 0)$. For a $v \in T_p(C)$, there are two cases: 
+	\begin{enumerate}[noitemsep]
+		\item If $v$ is tangent to the cylinder and parallel to the z-axis, then d$N(v) = 0 = 0v$. 
+		\item If $v$ is tangent to the cylinder and parallel to the $xy$-plane, then $dN(w) = -w$. 
+	\end{enumerate}
+	$v$ and $w$ are eigenvectors of $dN$ with eigenvalues 0 and -1, respectively. 
+	\item \dfn{Hyperbolic Paraboloid}: analyse the point $p=(0,0,0)$ of the hyperbolic paraboloid. Parameterise it by: 
+	\begin{align*}
+		\mathbb{X}(u,v) = ( u, v, v^2 - u^2) 
+	\end{align*}
+	The normal vector is given by: 
+	\begin{align*}
+		N = \left( 	\frac{u}{\sqrt{u^2 + v^2 + 1/4}}, \frac{-v}{\sqrt{u^2 + v^2 + 1/4}}	, \frac{1}{2 \sqrt{u^2 + v^2 + 1/4}}		\right) 
+	\end{align*}
+	and so at $p$, d$N_p (u'(0), v'(0), 0) = (2u'(0), -2v'(0), 0)$ meaning that $(1,0,0)$ and $(0,1,0)$ are eigenvectors of $dN_p$ with eigenvalues 2 and -2 respectively. 
+\end{enumerate}
+Before introducing the second fundamental form, we need to first define an self-adjoint map. 
+
+\begin{definition}[Self-Adjoint]
+	We say that a linear map $A: V \rightarrow V$ is \dfn{self-adjoint} if $\langle Av, w \rangle = \langle v, Aw \rangle$ $\forall$ $v, w \in V$. 
+\end{definition}
+
+The following proposition is useful since it allows us to associate d$N_p$ to a quadratic form $Q$ in $T_p(S)$, which will be important for the second fundamental form. The quadratic form will be given by: 
+\begin{align*}
+	W(v) = \langle dN_p(v), v \rangle 
+\end{align*}
+for $v \in T_p(S)$. 
+
+
+\begin{prop}
+	The differential of the Gauss Map, d$N_p: T_p(S) \rightarrow T_p(S)$, is a self-adjoint linear map. 
+\end{prop}
+
+\begin{definition}[The Second Fundamental Form]
+	The quadratic form $II_p$ defined in $T_p(S)$ given by $II_p(v) = - \langle dN_p(V), v \rangle$ is called the \dfn{second fundamental form} of $S$ at $p$. 
+\end{definition}
+
+\begin{definition}[Normal Curvature]
+	Let $C$ be a regular surface in $S$ passing through $p \in S$, $\kappa$ the curvature of $C$ at $p$, and $\cos \theta = \langle n, N \rangle$ where $n$ is the normal vector to $C$ and $N$ is the normal vector to $S$ at $p$. Then, the number $k_n := k \cos \theta$ is called the \dfn{normal curvature} of $C \subseteq S$ at $p$. 
+\end{definition}
+Thus, $k_n$ represents the length of the projection of the vector $kn$ over the normal to the surface at the point $p \in C$. 
+
+\begin{prop}[Meusnier] \label{curve} 
+	All of the curves lying on a surface $S$ with the same tangent line at a given point $p \in S$ have the same normal curvatures. 
+\end{prop}
+\begin{itemize}[noitemsep]
+	\item Gives meaning to the notion of ``normal curvature along a given direction at $p$''. 
+	\item \dfn{Normal section of $S$ at $p$}: given a unit vector $v \in T_p(S)$, the intersection of $S$ with the plane containing $v$ and $N(p)$ is called the \dfn{normal section of $S$ at $p$} along $v$. 
+	\item The curvature of a curve is equal to the absolute value of the normal curvature along $v$ at $p$, where $v$ is the tangent vector of the curve at $p$. 
+	\item So, Prop. \ref{curve} is saying that the absolute value of the normal curvature at $p$ of a curve $\alpha(s)$ is equal to the curvature of the normal section of $S$ at $p$ along $\alpha'(0)$. 
+\end{itemize}
+Examples of second fundamental forms for surfaces: 
+\begin{enumerate}[noitemsep]
+	\item \dfn{Plane}: all normal sections are straight lines. So, all normal curvatures are zero. Thus, the second fundamental form is identically equal to zero at all points $\leftrightarrow$ d$N \equiv 0$. 
+	\item \dfn{Sphere $S^2$}: Choose an orientation $N$. The normal sections through a point $p \in S^2$ are circles with radius $1$. Thus, all normal curvatures are equal to $1$, and so the second fundamental form is $II_p(v) = 1$ $\forall p \in  S^2$, $v \in T_p(S)$, $|v| =1$. 
+	\item \dfn{Cylinder}: normal sections vary from a circle perpendicular to the cylinder's axis to straight lines parallel to the axis, which means that normal curvature varies from 1 to 0. 
 \end{enumerate}
 
+\begin{definition}[Maximum Normal Curvature and Minimum Normal Curvature]
+	The \dfn{maximum} \dfn{normal} \dfn{curvature} $k_1$ and the \dfn{minimum normal curvature} $k_2$ are called the principle curvatures at $p$; the corresponding directions, that is, the directions given by the eigenvectors $\{ \hat{e_1}, \hat{e_2} \}$, are called the \dfn{principal directions} at $p$. 
+\end{definition}
+
+\begin{definition}[Lines of Curvature]
+	If a regular connected curve $C$ in $S$ is such that $\forall p \in C$, the tangent line of $C$ is a principal direction at $p$, then $C$ is said to be a \dfn{line of curvature} of $S$. 
+\end{definition}
+
+The following proposition gives us a necessary and sufficient condition for a connected regular curve to be a line of curvature. 
+
+\begin{prop}
+	A necessary and sufficient condition for a connected regular curve $C$ on $S$ to be a line of curvature is that: 
+	\begin{align*}
+		N'(t) = \lambda(t) \alpha'(t)
+	\end{align*}
+	for any parameterisation $\alpha(t)$ of $C$, where $N(t) = N \circ \alpha(t)$ and $\lambda(t)$ is a differentiable function of $t$. In this case, $-\lambda(t)$ is called the \dfn{principle curvature along} $\alpha'(t)$. 
+\end{prop}
+
+This proposition can be used to easily compute the normal curvatures along a given direction in $T_p(S)$. 
+
+\begin{definition}[Gaussian Curvature, Mean Curvature]
+	Let $p \in S$ and let d$N_p T_p(S) \rightarrow T_p(S)$ be the differential of the Gauss map. The determinant det$(dN_p)$ is the \dfn{Gaussian Curvature} $\kappa$ of $S$ at $p$. The value $ 1/2 \text{trace}(dN_p)$ is called the \dfn{mean curvature $H$ of $S$ at $p$}. In terms of principal curvatures, these quantities are: 
+	\begin{align*}
+		& \kappa = k_1 \cdot k_2 \\
+		& H = \frac{1}{2} ( k_1 + k_2) 
+	\end{align*}
+	since $k_1$ and $k_2$ are the eigenvalues. 
+\end{definition}
+
+\begin{definition}[Elliptic, Hyperbolic, Parabolic, Planar]
+	A point $p \in S$ is called: 
+	\begin{itemize}[noitemsep]
+		\item \dfn{Elliptic} if det$(dN_p) > 0$ 
+		\item \dfn{Hyperbolic} if det$(dN_p) < 0$ 
+		\item \dfn{Parabolic} if det$(dN_p) = 0$ and $dN_p \neq 0$
+		\item \dfn{Planar} if $dN_p \equiv 0$. 
+	\end{itemize}
+\end{definition}
+Examples of using this classification: 
+\begin{itemize}[noitemsep]
+	\item Elliptic points: all points on a sphere, the point $(0,0,0)$ of the paraboloid $z = x^2 + ky^2$, $k  > 0$. 
+	\item Hyperbolic points: the point $(0,0,0)$ of a hyperbolic paraboloid $z = y^2 - x^2$. 
+	\item Parabolic points: the points of a cylinder. 
+\end{itemize}
+
+\begin{definition}[Umbilical Points]
+	If at $p \in S$, $k_1 = k_2$, then $p$ is called an \dfn{umbilical point} of $S$. The planar points $k_1 = k_2 = 0$ are called umbilical points. The points of a sphere are also umbilical points. 
+\end{definition}
+
+\begin{prop}
+	If all the points of a connected surface $S$ are umbilical points, then $S$ is either (a) contained in a sphere or (b) contained in a plane. 
+\end{prop}
+
+\begin{definition}[Asymptotic Direction or Curve]
+	Let $p \in S$. 
+	\begin{enumerate}[noitemsep]
+		\item An \dfn{asymptotic direction} of $S$ at $p$ is a direction of $T_p(S)$ for which the normal curvature is zero. 
+		\item An \dfn{asymptotic curve} of $S$ is a regular connected curve $C \subseteq S$ such that $\forall$ $p \in S$, the tangent line of $C$ at $p$ is an asymptotic direction. 
+	\end{enumerate}
+\end{definition}
+
+\begin{enumerate}[noitemsep]
+	\item At an elliptic point, there are no asymptotic directions. 
+	\item The Dupin indicatrix provides a useful geometric interpretation of the asymptotic directions. 
+\end{enumerate}
+
+\begin{definition}[Dupin Indicatrix] 
+	Let $p \in S$. Then, the \dfn{Dupin Indicatrix} at $p$ is the set of vectors $w$ of $T_p(S)$ such that $II_p(w) = \pm 1$. 
+\end{definition}
+
+\begin{definition}[Conjugate Point]
+	Let $p \in S$ be a point. Two non-zero vectors $w_1, w_2 \in T_p(S)$ are \dfn{conjugate} if $\langle dN_p(w_1), w_2 \rangle = \langle w_2, dN_p(w_2) \rangle = 0$. Two directions $r_1$, $r_2$ at $p$ are \dfn{conjugate} if a pair of non-zero vectors $w_1$, $w_2$, are parallel to $r_1$, $r_2$, respectively, are conjugate. 
+\end{definition}
 
 
 \subsection{Ruled Surfaces and Minimal Surfaces}
