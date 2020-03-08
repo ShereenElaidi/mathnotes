@@ -724,6 +724,84 @@ Carrying out the integration:
 \end{ex}
 
 \subsubsection{Surface Integrals}
+Now the objective is to compute the following surface integral: 
+\begin{align*}
+	\iint_\sigma \omega 
+\end{align*}
+of a two-form $\omega$ over a parameterised surface $\sigma \subseteq \R^3$. 
+
+\begin{definition}[Surface Integral -- Differential Forms]
+	Let $\omega$ be a two form. Let $\sigma$ be parameterised as: 
+	\begin{align*}
+		x = x(u,v) = (x_1(u,v), x_2(u,v), x_3(u,v)) 
+	\end{align*}
+	where $(u,v)$ runs through the rectangle $[a,b] \times [c,d]$. Then, the \dfn{surface integral} is defined as: 
+	\begin{align}
+		\iint_\sigma \omega = \iint_R \sigma^* \omega = \iint_R f(u,v) du dv = \idx{a}{b} du \idx{c}{d} f(u,v) dv 	
+	\end{align}
+\end{definition}
+
+This is best explained through an example. 
+
+\begin{ex}
+	Let $\omega := x dy \wedge dz + y dz \wedge dz + z dx \wedge dy$ be the two-form. Suppose we want to integrate this over the parameterised surface $\sigma: R \rightarrow \R^3$, $R:= [0, 2 \pi] \times [- \pi /2, \pi /2 ]$ given by: 
+	\begin{align*}
+		\sigma (\theta, \varphi) = ( \cos \theta \cos \phi, \sin \theta \cos \phi, \sin \phi ) 
+	\end{align*}
+	Compute the surface integral $\idx{\sigma}{} \omega$. 
+	\newline
+	\textbf{Solution:} By definition, we have $\iint_\sigma \omega = \iint_R \sigma^* \omega$, so we first need to compute the pull back of $\omega$ under $\sigma$. Analogously to the line integral case, we have: 
+	\begin{align*}
+		\sigma^* \omega = x_1(\theta, \varphi) \sigma^* (dy \wedge dz ) + x_2( \theta, \varphi) \sigma^*(dz \wedge dx) + x_3(\theta, \varphi) \sigma^*(dx \wedge dy)
+	\end{align*}
+	By the properties of the push-back and wedge products, we can re-write this as: 
+	\begin{align*}
+		\sigma^* \omega = x_1(\theta, \varphi) \sigma^* dy \wedge  \sigma^* dz  + x_2( \theta, \varphi) \sigma^*dz \wedge \sigma^* dx + x_3(\theta, \varphi) \sigma^* dx \wedge   \sigma^* dy		
+	\end{align*}
+	Applying the properties once more: 
+	\begin{align*}
+		\sigma^* dx & = d \sigma^* x = d( \cos \theta \cos \varphi) = - \sin \theta \cos \varphi d \theta - \cos \theta \sin \varphi d \varphi \\
+		\sigma^* d y & = d \sigma^* y = d( \sin \theta \cos \varphi ) = \cos \theta \cos \varphi d \theta -  \sin \theta \sin \varphi d \varphi \\
+		\sigma^* d z & = d \sigma^* z = d( \sin \varphi ) = \cos \varphi d \varphi 
+	\end{align*}
+	and so the wedge products are: 
+	\begin{align*}
+		\color{red} \sigma^* dy \wedge \sigma^* dz \color{black} & = ( \cos \theta \cos \varphi d \theta - \sin \theta \sin \varphi d \varphi ) \wedge \cos \varphi d \varphi  \\
+		& = \cos \theta \cos \varphi \cos \varphi d \theta \wedge d \varphi \\
+		& = \color{red} \cos \theta \cos^2 \varphi d \theta \wedge d \varphi \\
+		\color{red} \sigma^* dz \wedge \sigma^* dx \color{black} & = \cos \varphi d \varphi \wedge ( - \sin \theta \cos \varphi d \theta - \cos \theta \sin \varphi d \varphi ) \\
+		& = - \cos^2 \varphi \sin \theta d \varphi \wedge d \theta \\
+		& = \color{red} \cos^2 \varphi \sin \theta d \theta \wedge d \varphi  \\
+		\color{red} \sigma^* dx \wedge \sigma^* dy  \color{black} & = (- \sin \theta \cos \varphi d \theta - \cos \theta \sin \varphi d \varphi ) \wedge ( \cos \theta \cos \varphi d \theta - \sin \theta \sin \varphi d \varphi) \\
+		& = ( - \sin \theta \cos \varphi d \theta ) \wedge ( \cos \theta \cos \varphi d \theta - \sin \theta \sin \varphi d \varphi) - ( \cos \theta \sin \varphi d \varphi) \wedge ( \cos \theta \cos \varphi d \theta - \sin \theta \sin \varphi d \varphi) \\
+		& = \color{red} \cos \varphi \sin \varphi d \theta \wedge d \varphi 
+	\end{align*}
+	Substitute these values into
+	\begin{align}
+		\sigma^* \omega = \color{blue} x_1(\theta, \varphi) \color{red} \sigma^* dy \wedge  \sigma^* dz  \color{black} +  \color{blue} x_2( \theta, \varphi) \color{red} \sigma^*dz \wedge \sigma^* dx \color{black} + \color{blue} x_3(\theta, \varphi) \color{red} \sigma^* dx \wedge   \sigma^* dy		
+	\end{align}
+	and we obtain: 
+	\begin{align*}
+		\sigma^* \omega & = \color{blue} \cos \theta \cos \varphi \color{red} d y \wedge dz \color{black} + \color{blue} \sin \theta \cos \varphi \color{red} dz \wedge dx \color{black} + \color{blue} \sin \varphi \color{red} dx \wedge dy \color{black} \\
+		& = \color{blue} \cos \theta \cos \varphi \color{red} \cos \theta \cos^2 \varphi d \theta \wedge d \varphi \color{black} + \color{blue} \sin \theta \cos \varphi \color{red} \cos^2 \varphi \sin \theta d \theta \wedge d \varphi \color{black} + \color{blue} \sin \varphi \color{red} \cos \varphi \sin \varphi  d \theta \wedge d \varphi 
+	\end{align*}
+	After re-grouping and simplifying, we obtain: 
+	\begin{align*}
+		\sigma^* \omega = \cos \varphi d \theta \wedge d \varphi 
+	\end{align*}
+	And so the surface integral becomes: 
+	\begin{align*}
+		\iint_\sigma \omega & = \iint_R \cos \varphi d \theta \wedge d \varphi \\
+		& = \idx{0}{2 \pi} d \theta \idx{-\pi /2}{\pi /2} \cos \varphi d \varphi \\
+		& = \idx{0}{2 \pi} [ \sin \varphi ]_{\varphi = -\pi / 2}^{\varphi = \pi / 2} d \theta \\
+		& = \idx{0}{2 \pi}  2 d \theta \\
+		& = 4 \pi 
+	\end{align*}
+\end{ex}
+
+
+
+
 \subsubsection{Generalised Stokes' Theorem}
 
 \section{Curves}
