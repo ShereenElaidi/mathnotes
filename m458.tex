@@ -58,6 +58,7 @@
 \author{Shereen Elaidi}
 \date{Winter 2020 Term}
 
+
 \begin{document}
 
 \maketitle
@@ -161,7 +162,7 @@ The following definition-theorem would have been very useful for the first homew
 
 \subsection{Notions from Multivariable Cal}
 \begin{definition}[Differential]
-	The \dfn{differential} of a map $f: \R^m \rightarrow \R^n$ it the point $\phi \in \R^m$ is the best linear approximation of the map at the point $\phi$: 
+	The \dfn{differential} of a map $f: \R^m \rightarrow \R^n$ at the point $\phi \in \R^m$ is the best linear approximation of the map at the point $\phi$: 
 	\begin{align}
 		f(q) = f(p) + Df(p) \cdot (q-p) + O(||q-p||) 	
 	\end{align}
@@ -304,11 +305,173 @@ Let $M^m$ and $N^n$ be two manifolds. Consider a smooth map $g$ between them. Fi
 	is called the \dfn{differential} or \dfn{push-forward}. Here, $v$ is a derivation at $p \in M$ and $f$ is a function on $N$. 
 
 
+\begin{definition}[Cotangent Space]
+	The \dfn{cotangent space} is denoted by $T^*_p(M)$. It is the dual space of $T_p(M)$. Functions on $M$ give elements of $T_p^*(M)$ in the following way: 
+	\begin{align*}
+		df(v) := v(f) 
+	\end{align*}
+	where $v \in T_p(M)$. $v(f)$ is a derivation of $f$ in the direction $v$. 
+\end{definition}
 \subsection{Change of Coordinates}
 
 \subsection{Multi-Linear Algebra}
+\begin{definition}[$k$-linear map]
+	Let $V^k := V \times \cdots \times V$ ($k$ times). A function $f:V^k \rightarrow \R$ is called \dfn{k-linear} if it is linear in each of its $k$ arguments. 
+\end{definition}
+A $k$-linear function on $V$ is also called a \dfn{k-tensor} on $V$. 
+
+\begin{definition}[Symmetric/Alternating]
+	A $k$-linear function $f: V^k \rightarrow \R$ is \dfn{symmetric} if: 
+	\begin{align*}
+		f(v_{\sigma(1)}, ..., v_{\sigma(k)}) = f(v_1, ..., v_k)
+	\end{align*}
+	for all permutations $\sigma \in S_k$ (symmetric group on $k$ letters); it is said to be \dfn{alternating} if
+	\begin{align*}
+		f(v_{\sigma(1)}, ..., v_{\sigma(k)} ) = (\text{sgn}(\sigma)) f(v_1, ..., v_n) 
+	\end{align*}
+\end{definition}
+Examples of symmetric functions: 
+\begin{itemize}[noitemsep]
+	\item the dot product, $f(v,w) := v \cdot w$ on $\R^n$. 
+\end{itemize}
+Examples of alternating functions: 
+\begin{itemize}[noitemsep]
+	\item $f(v_1, ..., v_n) := \det [v_1, ..., v_n]$
+	\item Cross product $v \times w$ on $\R^3$. 
+	\item Generalisation of a cross product: let $f, g: V \rightarrow \R$ on a vector space $V$. Define $f \wedge g: V \times V \rightarrow \R$ by: 
+	\begin{align*}
+		( f \wedge g ) (u,v) := f(u) g(v) - f(v) g(u) 
+	\end{align*}
+	(special case of the wedge product). 
+\end{itemize}
+The space of all alternating $k$-linear functions on a vector space $V$ is denoted by $A_k(V)$. When $k=0$, a $0$-covector is a constant $\Rightarrow$ $A_0(V)$ is the vector space $\R$. A 1-covector is a covector. 
+
+\begin{definition}[Tensor Product]
+	Let $f$ be a $k$-linear function and $g$ an $l$-linear function on a vector space $V$. The \dfn{tensor product} is a $(k+l)-$linear function $f \otimes g$ defined as: 
+	\begin{align}
+		(f \otimes g)(v_1, ..., v_{k+l}) := f(v_1, ..., v_k) g(v_{k+1}, ..., v_{k+1}) 	
+	\end{align}
+
+\end{definition}
+
+In order to motivate the next definition, assume that we have two multilinear functions $f$, $g$ on a vector space $V$. We would like to have a product that is alternating. This is why we define the wedge product: 
+
+\begin{definition}[Wedge Product]
+	Let $f \in A_k(V)$ and $g \in A_l(V)$. Then, the \dfn{wedge product} or \dfn{exterior product} is defined as:
+	\begin{align*}
+		f \wedge g := \frac{1}{k!l!} A(f \otimes g) 
+	\end{align*}
+	This can be written out explicitly as: 
+	\begin{align*}
+		(f \wedge g)(v_1, ..., v_{(k+l)}) = \frac{1}{k!l!} \sum_{ \sigma \in S_{k+l}} f(v_{\sigma(1)}, ..., v_{\sigma(k)} ) g(v_{\sigma(k+1)}, ..., v_{\sigma(k+l)}) 
+	\end{align*}
+\end{definition}
+Remarks: 
+\begin{itemize}[noitemsep]
+	\item When $k=0$, this corresponds to scalar multiplication. 
+	\item The coefficient $1/l!k!$ compensates for repetitions in the sum. 
+\end{itemize}
+
+\begin{prop}
+	The wedge product is anti-commutative: if $f \in A_k(V)$ and $g \in A_l (V)$, then: 
+	\begin{align*}
+		f \wedge g = (-1)^{kl} g \wedge f
+	\end{align*} 
+\end{prop}
 
 \subsection{Differential Forms in $M^n$}
+Differential $k$-forms assign $k$-covectors on the tangent space to each point of an open set $\Omega$. There is a notion of differentiation for differential forms -- the exterior derivative. This is something that turns out to be intrinsic to the manifold. 
+
+\begin{definition}[Differential One Form]
+	A \dfn{covector field} or \dfn{differential 1-form} on an open subset $\Omega \subseteq \R^n$ is a function $\omega$ that assigns to each point $p \in \Omega$ a covector $\omega_p \in T_p^*(\R^n)$. 
+\end{definition}
+Given a $C^\infty$ function $f: \Omega \rightarrow \R$, we can construct the one-form called the \dfn{differential of $f$}, denoted $df$ as follows: let $p \in \Omega$ and let $X_p \in T_p(\Omega)$. Then, define: 
+\begin{align*}
+	(df)_p (X_p) := X_p 
+\end{align*}
+
+\begin{prop}
+	Let $x^1, ..., x^n$ be the standard coordinates on $\R^n$. Then, at each point $p \in \R^n$, $\{ (dx^1)_p, ..., (dx^n)_p \}$ is the basis of the cotangent space $T_p^*(\R^n)$ dual to the basis $\{ [\partial/\partial x^1]_p, ..., [\partial / \partial x^n]_p \}$ for the tangent space $T_p(\R^n)$. 
+\end{prop}
+
+\begin{prop}[Differential in terms of coordinates]
+	If $f: \Omega \rightarrow \R^n$ is $C^\infty$ on $\Omega \subseteq \R^n$ open, then: 
+	\begin{align*}
+		df = \sum \frac{\partial f}{\partial x^i} dx^i
+	\end{align*}
+\end{prop}
+
+\begin{definition}[Differential form of degree $k$]
+	A \dfn{differential k-form} on $\Omega \subseteq \R^n$ is a function that assigns to each point $p \in \Omega$ an alternating $k$-linear function on the tangent space $T_p(\R^n)$; i.e., $\omega_p \in A_k(T_p(\R^n))$. 
+\end{definition}
+\begin{itemize}[noitemsep]
+	\item Basis for $A_k(T_p (\R^n))$: 
+	\begin{align*}
+		dx_p^I = dx_p^{i_1} \wedge \cdots \wedge dx_p^{i_k},\ 1 \leq i_1 < \cdots < i_k \leq n
+	\end{align*}
+	\item For each point $p \in \Omega$, $\omega_p$ can be expressed as a linear combination: 
+	\begin{align*}
+		\omega_p = \sum a_I(p) dx_p^I,\ 1 \leq i_1 < \cdots < i_k \leq n
+	\end{align*}
+	\item General $k$-form on $\Omega$: 
+	\begin{align*}
+		\omega = \sum a_I dx^I 
+	\end{align*}
+	\item $\Omega^k(U)$ is the vector space of $C^\infty$ $k$-forms on $U$. 
+	\begin{itemize}[noitemsep]
+		\item $0$-form on $U$ is a smooth function on $U$. 
+	\end{itemize}
+\end{itemize}
+The wedge product of two $k$-forms: 
+\begin{align*}
+	\omega \wedge \tau := \sum_{I,J \text{ disjoint}} (a_I b_J) dx^I \wedge dx^J 
+\end{align*}
+To make this concrete: let $x,y,z$ be the coordinates on $\R^3$. Then:
+\begin{itemize}[noitemsep]
+	\item $C^\infty$ 1-forms are: 
+	\begin{align*}
+		fdx + gdy + hdxz 
+	\end{align*}
+	where $h,y,h$ range over all smooth functions on $\R^3$.
+	\item $C^\infty$ 2-forms are: 
+	\begin{align*}
+		f dy \wedge dz + g dx \wedge dz + h dx \wedge dy 
+	\end{align*}
+	\item $C^\infty$ 3-forms are: 
+	\begin{align*}
+		f dx \wedge dy \wedge dz 
+	\end{align*}
+\end{itemize}
+
+\begin{definition}[Exterior Derivative]
+	We will define the exterior derivative in two steps: first for $0$-forms; then, we will generalise to $k$-forms. The \dfn{exterior derivative} of a smooth function $f$ is the differential $df \in \Omega^1 (U)$. With coordinates: 
+	\begin{align*}
+		df := \sum \frac{\partial f}{\partial x^i} dx^i
+	\end{align*}
+	Now let $k \geq 1$. Set $\omega = \sum_{I} a_I dx^I \in \Omega^k(U)$. Then the \dfn{exterior derivative} is defined as: 
+	\begin{align*}
+		d \omega & := \sum_{I} da_I \wedge dx^I \\
+				 & = \sum_{I} \left( \sum_{J} \frac{\partial a_I}{\partial x^j } dx^j \right) \wedge dx^I \in \Omega^{k+1}(U)
+	\end{align*}
+\end{definition}
+To make this clearer, let's do an example. Let $\omega$ be the 1-form $f dx + g dy$ on $\R^2$. Then: 
+\begin{align*}
+	d \omega & = df \wedge dx + df \wedge dy \\
+				&  = (f_x dx + f_y dy ) \wedge dx + (g_x dx + g_y dy ) \wedge dy  \text{ (by definition)} \\
+				& = (g_x - f_x) dx \wedge dy \text{ (by properties of wedge product) } 
+\end{align*}
+Here are two useful properties of the exterior derivative: 
+\begin{prop}
+	\begin{enumerate}[noitemsep]
+		\item $d^2 = 0$. 
+		\item Let $f \in C^\infty (U)$ and let $X \in \mathcal{X}(U)$. Then, $(df)(X) = Xf$. 
+	\end{enumerate}
+\end{prop}
+
+\begin{definition}[Closed and Exact Forms]
+	Let $\omega$ be a $k$-form on $U$. We say that $\omega$ is \dfn{closed} if $d\omega =0$. We say that $\omega$ is \dfn{exact} if $\exists$ a $(k-1)$-form $\tau$ such that $\omega = d \tau$. Every exact form is closed. 
+\end{definition}
+
 
 \subsection{Change of Variables for Integrals in $\R^n$}
 
