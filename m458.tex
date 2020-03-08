@@ -379,6 +379,7 @@ Remarks:
 	\end{align*} 
 \end{prop}
 
+
 \subsection{Differential Forms in $M^n$}
 Differential $k$-forms assign $k$-covectors on the tangent space to each point of an open set $\Omega$. There is a notion of differentiation for differential forms -- the exterior derivative. This is something that turns out to be intrinsic to the manifold. 
 
@@ -442,6 +443,88 @@ To make this concrete: let $x,y,z$ be the coordinates on $\R^3$. Then:
 		f dx \wedge dy \wedge dz 
 	\end{align*}
 \end{itemize}
+Here are some worked examples of taking the wedge products between differential forms. 
+
+\begin{ex}
+	Consider the 2-form $dx \wedge dy$. Express this in polar coordinates. 
+	\newline
+	\textbf{Solution:} We have: $r = r \cos \theta$ and $y = r \sin \theta$. By the total derivative rule we have: 
+	\begin{align*}
+		& dx = \frac{\partial x}{\partial r} dr + \frac{\partial x}{\partial \theta} d \theta  \\
+		& dy = \frac{\partial y}{\partial r} dr + \frac{\partial y}{\partial \theta} d \theta 
+	\end{align*}
+	and so: 
+	\begin{align*}
+		& dx = \cos \theta dr - r \sin \theta d \theta \\
+		& dy = \sin \theta d r + r \cos \theta d \theta 
+	\end{align*}
+	and so from the properties of wedge products: 
+	\begin{align*}
+		dx \wedge dy & = \cos \theta r \cos \theta dr \wedge d \theta - r \sin \theta \sin \theta d \theta \wedge dr \\
+			& = r \cos^2 \theta dr \wedge d \theta - r \sin ^2 \theta d \theta \wedge d r \\
+			& = r \cos^2 \theta dr \wedge d \theta + r \sin ^2 \theta  d r \wedge d \theta \\
+			& = r ( \cos^2 \theta + \sin ^2 \theta) dr \wedge d \theta \\
+			& = r dr \wedge d \theta 
+	\end{align*}
+	Which is what we would expect from standard cal 2. 
+\end{ex}
+
+In general, if we have a system of equations: 
+\begin{align*}
+	& y_1 = a_{11} x_1 + a_{12} x_2 \\
+	& y_2 = a_{21} x_1 + a_{22} x_2 
+\end{align*}
+and we collect the coefficients $a_{ij}$ into a matrix: 
+\begin{align*}
+	A := \begin{bmatrix}
+		a_{11} & a_{12} \\
+		a_{21} & a_{22}
+	\end{bmatrix}
+\end{align*}
+then we have: 
+\begin{align*}
+	d y_1 \wedge d y_2 = \det (A) dx_1 \wedge d x_2
+\end{align*}
+Which is also not very surprising. 
+
+\begin{ex}
+	Let $f: \R^2 \rightarrow \R^2$, $(x,y) \mapsto (u,v)$ according to: 
+	\begin{align*}
+		 u & = x^2 - y^2 \\
+		v & = 2xy 
+	\end{align*}
+	Express $du \wedge dv$ in terms of $dx \wedge dy$. 
+	\newline
+	\textbf{Solution:} By the total derivative rule: 
+	\begin{align*}
+		& du = 2x dx - 2y dy \\
+		& dv = dx dy + dy dx 
+	\end{align*}
+	and so, by the properties: 
+	\begin{align*}
+		du \wedge dv & = (2x dx - 2ydy ) \wedge (dx dy + dy dx) \\
+					 & = dx dx \wedge (dx dy + dy dx) - dy dy \wedge (dx dy + 2ydx) \\
+					 & = 4x^2 dx \wedge dy - 4y^2 dy \wedge dx \\
+					 & = 4x^2 dx \wedge dy + 4y^2 dy \wedge dy \\
+					 & = 4(x^2 + y^2) dx \wedge dy 
+	\end{align*}
+	Note that the quantity $ 4(x^2 + y^2) dx \wedge dy $ depends on how $f$ is defined, so the proper way to refer to this quantity is to say that $ 4(x^2 + y^2) dx \wedge dy $ is the \dfn{pull back} of $du \wedge dv$ via $f$. Mathematically, we would write: 
+	\begin{align*}
+		f^*(du \wedge dv) = 4(x^2 + y^2) dx \wedge dy 
+	\end{align*}
+\end{ex}
+
+This example motivates the following rules for pull backs and wedge products. 
+
+\begin{prop}
+	Let $g$ be a function and let $\alpha$, $\omega$, and $\beta$ be differential forms. Then: 
+	\begin{enumerate}[noitemsep]
+		\item $g^*(\alpha \wedge \beta) = g^* \alpha \wedge g^* \beta$ 
+		\item $g^*(f \omega) = (g^* f) (g^* \omega) $
+	\end{enumerate}
+\end{prop}
+
+
 
 \begin{definition}[Exterior Derivative]
 	We will define the exterior derivative in two steps: first for $0$-forms; then, we will generalise to $k$-forms. The \dfn{exterior derivative} of a smooth function $f$ is the differential $df \in \Omega^1 (U)$. With coordinates: 
@@ -461,13 +544,81 @@ To make this clearer, let's do an example. Let $\omega$ be the 1-form $f dx + g 
 				& = (g_x - f_x) dx \wedge dy \text{ (by properties of wedge product) } 
 \end{align*}
 Here are two useful properties of the exterior derivative: 
-\begin{prop}
+\begin{prop}[Properties of the Exterior Derivative]
+	Let $\alpha \in \Lambda^k(M)$, $\beta \in \Lambda^l(M)$. Let $a, b \in \R$. Then: 
 	\begin{enumerate}[noitemsep]
-		\item $d^2 = 0$. 
-		\item Let $f \in C^\infty (U)$ and let $X \in \mathcal{X}(U)$. Then, $(df)(X) = Xf$. 
+		\item $d(a \alpha + \beta b) = a d \alpha + b d \beta$ (Linearity) 
+		\item $d(\alpha \wedge \beta) = ( d \alpha) \wedge \beta + (-1)^k \alpha \wedge d \beta$ (Product rule) 
+		\item $d(d \alpha) = 0$ 
 	\end{enumerate}
 \end{prop}
 
+Here are some concrete examples of computing exterior derivatives.
+\begin{ex}
+	Let $\omega = ydx - z dy$. Compute the exterior derivative $d \omega$. \textbf{Solution:} 
+	\begin{align*}
+		d \omega = dy \wedge dx - dz \wedge dy 
+	\end{align*}
+\end{ex}
+
+\begin{ex}
+	Let $\omega = (x^2+y^2+z^2)(dx \wedge dy + dy \wedge dz)$. Compute the exterior derivative $d \omega$: 
+	\begin{align*}
+		d \omega & = (2x dx + 2y dy + dz dz) \wedge (dx \wedge dy + dy \wedge dz) \\
+		& = 2x dx \wedge dy \wedge dz + 2z dz \wedge dx \wedge dy \\
+		& = (2x + 2y) (dx \wedge dy \wedge dz) 
+	\end{align*}
+\end{ex}
+
+\begin{ex}
+	Let $\omega = \frac{xdy - ydx}{x^2 + y^2}$ be the angular form. Find the exterior derivative $d \omega$. 
+	\newline
+	\textbf{Solution:} Re-write the form as: 
+	\begin{align*}
+		(x^2 + y^2) \omega = xdy - ydx 
+	\end{align*}
+	Now take the exterior derivative of both sides: 
+	\begin{align*}
+		d ( (x^2 + y^2) \omega ) = d (xdy - ydx)
+	\end{align*}
+	Let's first simplify $d ( (x^2 + y^2) \omega )$: 
+	\begin{align*}
+		d ( (x^2 + y^2) \omega ) & = d(x^2 + y^2) \wedge \omega + (x^2 + y^2) d \omega \text{ (by the product rule) } \\
+		& = (2x dx + 2y dy ) \wedge w + (x^2 + y^2) d \omega \\
+		& = (2x dx + 2y dy ) \wedge \frac{x dy - y dx}{x^2 + y^2} - (x^2 + y^2) d \omega 
+	\end{align*}
+	Now expand out $(dx dx + 2y dy ) \wedge \frac{x dy - y dx}{x^2 + y^2}$: 
+	\begin{align*}
+		(2x dx + 2y dy ) \wedge \frac{x dy - y dx}{x^2 + y^2} & = 2x dx \wedge \left( \frac{xdy - ydx}{x^2 + y^2} \right) + 2y dy \wedge \left( \frac{x dy - y dx}{x^2 + y^2} \right) \\
+		& = \frac{1}{(x^2+y^2)} \left[ 	2x^2 dx \wedge dy - 2xy dx \wedge dx + 2yx dy \wedge dy  - 2y^2 dy \wedge dx			\right ] \\
+		& = \frac{1}{(x^2+y^2)} \left[ (2x^2 + 2y^2) dx \wedge dy \right] \\
+		& = 2 (dx \wedge dy) 
+	\end{align*} 
+	And so we get: 
+	\begin{align*}
+		d( (x^2 + y^2) \omega ) = 2 dx \wedge dy + (x^2 + y^2) d \omega 
+	\end{align*}
+	Now we compute the exterior derivative $d(xdy - ydx)$: 
+	\begin{align*}
+		d(xdy - ydx)  = dx \wedge dy - dy \wedge dx = 2dx \wedge dy 
+	\end{align*}
+	And so: 
+	\begin{align*}
+		(x^2 + y^2) d \omega = 0 \iff d \omega = 0
+	\end{align*}
+	Since we are in the punctured disc and so $x^2 + y^2  > 0$. 
+\end{ex}
+
+There is a connection between the exterior derivative and the curl operation from advanced calculus. Precisely: let $\alpha$ be a general one-form of three variables be written as: 
+\begin{align*}
+	\alpha = Pdx + Q dy + R dz 
+\end{align*}
+Then, when taking the exterior derivative $d \alpha$ we recover the curl: 
+\begin{align*}
+	d \alpha & = d P \wedge dx + dQ \wedge dy + d R \wedge dz \\
+	& = (R_y - Q_z) dy \wedge dz + (P_z - R_x) dz \wedge dx + (Q_x - P_y) dx \wedge dy \\
+	& = \nabla \times F 
+\end{align*}
 \begin{definition}[Closed and Exact Forms]
 	Let $\omega$ be a $k$-form on $U$. We say that $\omega$ is \dfn{closed} if $d\omega =0$. We say that $\omega$ is \dfn{exact} if $\exists$ a $(k-1)$-form $\tau$ such that $\omega = d \tau$. Every exact form is closed. 
 \end{definition}
@@ -476,6 +627,104 @@ Here are two useful properties of the exterior derivative:
 \subsection{Change of Variables for Integrals in $\R^n$}
 
 \subsection{Integrating a $n$-Form on $M^n$ ($\idx{M}{} \omega$)} 
+In this section, we will build up to the invariant Stokes' theorem. We will first start with line integrals, and how they can be written in terms of forms. 
+
+\subsubsection{Line Integrals}
+The objective is to compute the following object: 
+\begin{align}
+	\idx{\gamma}{} \omega	
+\end{align}
+where $\omega$ is a one-form and $\gamma$ is a path or curve. The general setup is as follows: 
+\begin{enumerate}[noitemsep]
+	\item Suppose that the variables in the differential one-form are $x_1, ..., x_n$. We will collect these into a vector $x:= (x_1, ..., x_n)$ and write the one-form $\omega$ as: 
+	\begin{align*}
+		\omega = \sum_{i=1}^n F_k dx_k 
+	\end{align*}
+	where $F_k$ is: 
+	\begin{align*}
+		F_k = F_k(x) = F_k(x_1, ..., x_n)
+	\end{align*}
+	\item There are two ways to describe $\gamma$: 
+	\begin{enumerate}[noitemsep]	
+		\item A system of parametric equations: $x_k := x_k(t)$ 
+		\item In vector form: $x=x(t)$ where $t \in [a,b]$. 
+	\end{enumerate}
+\end{enumerate}
+When $\gamma$ is just a standard path in $[a,b]$ (i.e., one that corresponds to standard Cal 2 integration), then we just have the standard definite integral when taking the \dfn{pull back} of $\omega$: 
+\begin{align*}
+	\idx{\gamma}{} \omega = \idx{a}{b} F(t) dt 
+\end{align*}
+You can think of the pull back as ``substituting'' $t$ into $F$. For the more general case, we \dfn{pull back} a differential form $\omega$ in $n$ variables $x_j$'s via $\gamma$ to get a differential form on \emph{one} variable $t$. This is denoted by $\gamma^* \omega$. You obtain it by the substitution: 
+\begin{align*}
+	x_j = x_j(t) 
+\end{align*}
+into $\omega$. So: 
+\begin{align*}
+	\omega = \sum_{k=1}^n F_k dx_k \text{ --PULL BACK: } \rightarrow \gamma^*(\omega) = \sum_{k=1}^n F_k(x(t)) dx_k (t) = \sum_{k=1}^n F_k(x(t))x'_k(t) dt  
+\end{align*}
+So, we can formally define a line integral in the general case. 
+
+\begin{definition}[Line Integral -- Differential Forms]
+	Let $\omega$ be a one-form given by $\omega = \sum_{k=1}^n F_k(x) dx_k$ and let $\gamma$ be a curve. Then, the \dfn{line integral} is defined as: 
+	\begin{align}
+		\idx{\gamma}{}\omega := \idx{a}{b} \gamma^* \omega 	
+	\end{align}
+	where $\gamma^* \omega = \sum_{k=1}^n F_k(x(t)) \frac{dx_k}{dt} dt$. 
+\end{definition}
+I find that all of this stuff is super confusing without clear examples, so here are some worked examples of line integrals of one-forms: 
+
+\begin{ex}
+	Compute the line integral: 
+	\begin{align*}
+		\idx{\gamma}{} xdy + y dz + zdx 
+	\end{align*}
+For the following three paths connecting the point $(0,0,0)$ to $(1,1,1)$: 
+\begin{enumerate}[noitemsep]
+	\item $\gamma = \alpha$: $(x,y,z) = (t,t,t)$ where $t \in [0,1]$. 
+	\item $\gamma = \beta$: $(x,y,z) = (t,t^2, t^3)$ where $t \in [0,1]$. 
+	\item $\gamma = \zeta$: $(x,y,z) = (t^2, t^4, t^6)$ where $t \in [0,1]$. 
+\end{enumerate}
+Computing the pullbacks gives us: 
+\begin{enumerate}[noitemsep]
+	\item $\alpha^* \omega = tdt + dtd + tdt = 3tdt$ 
+	\item $\beta^* \omega = td(t^2) + t^2 d(t^3) + t^3 dt = (2t^2 + 3t^4 + t^3) dt $
+	\item $\zeta^* \omega = (4t^5 + 6t^9 + 2t^7)dt$. 
+\end{enumerate}
+Carrying out the integration: 
+\begin{align*}
+	& \idx{\alpha}{} \omega = \idx{0}{1} 3tdt = 3/2 \\
+	& \idx{\beta}{} \omega = \idx{0}{1} (2t^2 + 3t^4 + t^3)dt = 91/60 \\
+	& \idx{\zeta}{} \omega = \idx{0}{1} (4t^5 + 6t^9 + 2t^7) = 91/60 
+\end{align*}
+\end{ex}
+
+\begin{ex}
+	Compute the line integral: 
+	\begin{align*}
+		\idx{\gamma}{} \omega := \idx{\gamma}{} \frac{xdy - ydx}{x^2 + y^2}
+	\end{align*}
+	where $\gamma$ is the path around the unit circle once in the anti-clockwise direction parameterised by $x = \cos t$ and $ y = \sin t$, $t \in [0, 2 \pi ]$. 
+	\newline
+	\newline
+	\textbf{Solution:} Set: 
+	\begin{align*}
+		\omega := \frac{xdy - ydx}{x^2 + y^2}
+	\end{align*}
+	Compute the pullback: 
+	\begin{align*}
+		\gamma^* \omega & = \frac{x(t) dy(t) - y(t) dx(t)}{(x(t))^2 + (y(t))^2} \\
+		& = \frac{\cos (t) d ( \sin(t)) - \sin (t) d ( \cos(t)) }{( \cos(t))^2 + ( \sin(t))^2} \\
+		& = \frac{\cos^2(t) + \sin^2(t)}{\cos^2(t) + \sin^2(t)} \\
+		& = 1
+	\end{align*}
+	and so the integral becomes: 
+	\begin{align*}
+		\idx{\gamma}{} \omega = \idx{0}{2 \pi} dt = 2 \pi 
+	\end{align*}
+\end{ex}
+
+\subsubsection{Surface Integrals}
+\subsubsection{Generalised Stokes' Theorem}
 
 \section{Curves}
 There are two subsets of differential geometry: classical differential geometry and global differential geometry. The objective of \dfn{classical differential geometry} is to study the local properties of curves and surfaces. The objective of \dfn{global differential geometry} is to study the influence of local properties on global behaviour. 
