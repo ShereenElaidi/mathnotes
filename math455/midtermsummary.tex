@@ -13,7 +13,7 @@
 \usepackage{enumitem} 
 \setlist[enumerate]{itemsep=0mm}
 \usepackage{xcolor}
-\setenumerate{label=(\roman*)}
+\setenumerate{label=(\arabic*)}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{babel}
@@ -42,7 +42,7 @@
 %rd 
 \newcommand{\rd}[0]{\mathbb{R}^d}
 \newcommand{\R}[0]{\mathbb{R}}
-
+\newcommand{\N}[0]{\mathbb{N}} 
 % let E in R be measurable 
 \newcommand{\EinR}[0]{Let $E \subseteq \R$ be measurable}
 
@@ -104,8 +104,8 @@ prefoothook = \endmysolbar]{sol}
 \fancyhf{}
 \fancyhead[LE,RO]{Page \thepage}
 \fancyhead[RE,LO]{Math 455: Analysis 4}
-\fancyfoot[CE,CO]{}
-\fancyfoot[LE,RO]{\thepage}
+\fancyhead[CE,CO]{Winter 2020 -- Midterm Summary}
+\fancyfoot[LE,RO]{}
 
 % Definitions
 \newcommand{\dfn}[1]{\textbf{\textcolor{blue}{#1}}}
@@ -435,6 +435,32 @@ The conjugate of 1 is defined to be $\infty$ and the conjugate of $\infty$ is de
 	Suppose $E$ is measurable and let $1 \leq p < \infty$. Then, $C_c(E)$ (the set of all continuous functions with compact support on $E$) is dense in $L^p(E)$. 
 \end{theorem}
 
+\subsection{Results from the Homework}
+\begin{enumerate}[noitemsep]
+	\item (When Hölder's inequality $\rightarrow$ equality):  There is equality in Hölder's Inequality $\iff$ there exists constants $\alpha$, $\beta$, both of which non-zero, for which: 
+	\begin{align*}
+		\alpha |f|^p = \beta |g|^q 
+	\end{align*}
+	a.e. on $E$. 
+	\item (Extension of Hölder's Inequality for 3 functions): Let $E \subseteq \R$ be measurable, let $1 \leq p < \infty$, $1 \leq q < \infty$, $1 \leq r < \infty$ such that: 
+	\begin{align*}
+		\frac{1}{p} + \frac{1}{q} + \frac{1}{r} = 1
+	\end{align*}
+	If $f \in L^p(E)$, $q \in L^q(E)$, and $h \in L^r(E)$, then $fgh \in L^(E)$ and: 
+	\begin{align*}
+		\idx{E}{}  |f g h | \leq ||f||_p ||g||_q ||h||_r 
+	\end{align*}
+	\item For $1 \leq p \leq \infty$, $q$ conjugate of $p$, $f \in L^p(E)$: 
+	\begin{align*}
+		||f||_p = \max_{g \in L^q(E), ||g||_q \leq 1} \idx{E}{} f g 
+	\end{align*}
+	\item ($L^p$ dominated convergence theorem): Let $\{ f_n \}$ be a sequence of measurable functions that converge pointwise a.e. on $E$ to $f$. For $1 \leq p < \infty$, suppose $\exists$ a function $g \in L^p(E)$ such that $\forall$ $n \in \N$, $|f_n| \leq g$ a.e. on $E$. Then, $\{ f_n \} \rightarrow f$ in $L^p(E)$. 
+	\item Assume $1 \leq p < \infty$, if $E \subseteq \R$ has finite measure, $1 \leq p < \infty$, and $\{ f_n \}$ is a sequence of measurable functions which converge pointwise a.e. on $E$ to $f$, then $\{ f_n \} \rightarrow f$ in $L^p(E)$ if $\exists$ a $\theta > 0$ such that $\{ f_n \}$ belongs to and is \underline{bounded} as a subset of $L^{p+ \theta} (E)$. 
+	\item The space $c$ of all convergent sequences of real numbers and the space $c_0$ of all sequences which converge to zero are Banach spaces with respect to the $\ell^\infty$ norm. 
+	\item Let $E \subseteq \R$ be measurable, $1 \leq p \leq \infty$, $q$ the conjugate of $p$, and $\mathcal{S}$ a dense subset of $L^q(E)$. If $g \in L^p(E)$ and $\idx{E}{} g \cdot g =0$ for all $g \in \mathcal{S}$, then $g = 0$. 
+	\item (Separability of $\ell^p$): For $1 \leq p < \infty$, $\ell^p$ is separable. $\ell^\infty$ is \underline{not} separable. 
+\end{enumerate}
+
 \section{$L^p$ Spaces: Duality and Weak Convergence}
 
 \subsection{Riesz Representation Theorem for the Dual of $L^p$, $1 \leq p < \infty$}
@@ -617,6 +643,35 @@ $B_1$ is weakly sequentially compact in $L^p(E)$.
 
 	
 \end{theorem}
+
+\subsection{Results from the Homework}
+\begin{enumerate}
+	\item (Reisz-Representation Theorem for the Dual of $\ell^p$): Let $1 \leq p < \infty$, $q$ the conjugate of $p$. Then for all $\{ g_n \} \in \ell^q$, define the bounded linear functional $\mathcal{R}_g$ on $\ell^p$ by: 
+	\begin{align}
+		\mathcal{R}_g := T ( \{ f_n \}) = \sum_{n=1}^\infty g_n f_n 	
+	\end{align}
+ 	$\forall$ $\{ f_n \} \in \ell^p$. Then, for each bounded linear functional $T$ on $\ell^p$, there exists a unique $\{ g_n \} \in \ell^q$ for which: 
+ 	\begin{enumerate}[noitemsep]
+ 		\item $\mathcal{R}_g = T$
+ 		\item $||T||_* = || \{ g_n \} ||_q$ 
+ 	\end{enumerate}
+ 	\item Let $c$ be the vector space of all real sequences that converge to a real number and let $c_0$ be the subspace of $c$ comprising of all sequences that converge to zero. Norm each vector space with the $\ell^\infty$ norm. Then, $c^* = \ell^1$ and $c_0^* = \ell^1$. 
+ 	\item Assume that $h$ is a continuous function defined on all of $\R$ that is periodic with period $T$ and $\idx{0}{T}h =0$. Let $[a,b]$ be a closed + bounded interval. For each $n \in \N$, define $f_n(x) := h(nx)$. Define $f \equiv 0$ on $[a,b]$. Then, $\{ f_n \} $ converges weakly to $f$ in $L^p[a,b]$. 
+ 	\item Let $1 < p < \infty$, assume $f_0 \in L^p( \R)$. For each $n \in \N$, define $f_n(x) := f_0 (x-n)$. Define $f \equiv 0$ on $\R$. Then, $\{ f_n \}$ converges weakly to $f$ in $L^p(\R)$. Not true for $p=1$!
+ 	\item For $1 \leq p < \infty$, for each $n \in \N$, let $e_n \in \ell^p$ be the standard basis sequence. If $p > 1$, then $\{ e_n \}$ converges weakly to zero in $\ell^p$, but no subsequence converges strongly to zero. $\{ e_n \}$ does not converge at all in $\ell^1$. 
+ 	\item (Uniform Boundedness Principle): Let $E \subseteq \R$ be measurable, $1 \leq p < \infty$, and $q$ the conjugate of $p$. Suppose that $\{ f_n \}$ is a sequence in $L^p(E)$ for which for each $g \in L^q(E)$, the sequence $\{ \idx{E}{} g f_n \}$ is bounded. Show that $\{ f_n \}$ is bounded in $L^p(E)$. 
+ 	\item $\{ x^n \}$ in $C[0,1]$ fails to have a strongly convergent subsequence. Suitably modify this to work in any $C[a,b]$ by: 
+ 	\begin{align*}
+ 		f_n := \left( \frac{x-a}{b-a} \right)^n 
+ 	\end{align*}
+ 	\item In $\ell^p$, $1 < p < \infty$, every bounded sequence in $\ell^p$ has a weakly convergent subsequence. 
+ 	\item Let $X$ be a normed vector space, and let $\{ T_n \}$ be a sequence in $X^*$ for which there exists an $M \geq 0$ such that $||T_n ||_* \leq M$ for all $n \in \N$. Let $\mathcal{S} \subseteq X$ be a dense subset such that $\{ T_n (g) \}$ is Cauchy for all $g \in \mathcal{S}$. Then: 
+ 	\begin{enumerate}[noitemsep]
+ 		\item $\{ T_n (g) \}$ is Cauchy for all $g \in X$. 
+ 		\item The limiting functional is linear and bounded. 
+ 	\end{enumerate}
+ 	\item Helly's theorem fails when $X = L^\infty [0,1]$. To see why, consider  a sequence of linear functionals induced by the Rademacher functions. 
+\end{enumerate}
 
 \section{Metric Spaces}
 \textbf{This section was not covered in class, but since we have homework on this chapter I figured having this as a review from analysis 2 might be helpful. Also, there are a few terms/results that I don't think we covered in analysis 2.}
@@ -873,7 +928,7 @@ $B_1$ is weakly sequentially compact in $L^p(E)$.
 \end{definition}
 
 \begin{lemma}
-	Let $\{ \open_\lambda \}_{\lambda in \Lambda}$ be an open cover of a compact metric space $X$. Then, there is a number $\varepsilon > 0$ such that for each $x \in X$, the open ball $B(x, \varepsilon) $ is contained in some member of the cover. 
+	Let $\{ \open_\lambda \}_{\lambda \in \Lambda}$ be an open cover of a compact metric space $X$. Then, there is a number $\varepsilon > 0$ such that for each $x \in X$, the open ball $B(x, \varepsilon) $ is contained in some member of the cover. 
 \end{lemma}
 
 \begin{prop}
@@ -909,7 +964,25 @@ The \textbf{Weierstrass Approximation Theorem} states that polynomials are dense
 \end{theorem}
 
 
+\subsection{Results from the Homework}
 
+\begin{enumerate}[noitemsep]
+	\item $\{ (X_n, \rho_n) \}_{n=1}^\infty$ a countable collection of metric spaces. Then, the following is a metric on the Cartesian product: 
+	\begin{align*}
+		\rho_*(x,y) = \sum_{n=1}^\infty \frac{1}{2^n} \cdot \frac{\rho_n(x_n, y_n)}{1 + \rho_n(x_n + y_n)}
+	\end{align*}
+	\item A continuous mapping between metric spaces remains continuous if an equivalent metric is imposed on the domain and an equivalent metric is imposed on the domain. 
+	\item The distance function (from a point to a set) is continuous. 
+	\item $\{ x \in X\ |\ \text{dist}(x,E) = 0 \} = \overline{E}$. 
+	\item (Sequential Definition of Uniform Continuity): For a mapping $f$ of a metric space $(X, \rho)$ to the metric space $(Y, \sigma)$, $f$ is uniformly continuous $\iff$ for all sequences $\{ u_n \}$ and $\{ v_n \}$ in $X$: 
+	\begin{align*}
+		\text{ if } \lim_{n \rightarrow \infty} \rho(u_n, v_n) = 0 \text{ then } \lim_{n \rightarrow \infty} \sigma (f(u_n), f(v_n)) = 0 
+	\end{align*}
+	\item If $X$ and $Y$ are metric spaces, with $Y$ complete, and $f$ a uniformly continuous mapping from $E \subseteq X \rightarrow Y$, then $f$ has a uniquely uniformly continuous extension mapping $\overline{f}$ of $\overline{E}$ to $Y$. 
+	\item Let $E \subseteq X$, $X$ a compact metric space. Then, the metric subspace $E$ is compact $\iff$ $E$ is a closed subset of $X$. 
+	\item $E \subseteq X$, $X$ complete. Then, $E$ is totally bounded $\iff$ $\overline{E}$ is totally bounded. 
+	\item The closed unit ball in $\ell^2$ is not compact. 
+\end{enumerate}
 
 
 \section{Topological Spaces}
@@ -1192,5 +1265,17 @@ Every metric space is first countable.
 		\item There exist connected but non-arcwise connected spaces (in general). 
 	\end{enumerate}
 \end{definition}
+
+\subsection{Results from Homework}
+\begin{enumerate}[noitemsep]
+	\item Let $X$ be a topological space. Then, $X$ is Hausdorff $\iff$ the diagonal $D:= \{ (x_1, x_2) \in X \times X\ |\ x_1 = x_2 \}$ is closed as a subset of $X \times X$. 
+	\item The Moore plane is separable. The subspace $\R \times \{ 0 \}$ is not separable. Thus, the Moore plane is not metrisable and not second countable. 
+	\item Let $X$ and $Y$ be topological spaces. Then, you can construct a continuous map from a Hausdorff space to a non-Hausdorff space, and you can do the same for a normal space to a non-normal space.
+	\item If $\rho_1$ and $\rho_2$ are metrics on a set $X$ that induce topologies $\topo_1$ and $\topo_2$, respectively, then if they generate the same topology $\topo_1 = \topo_2$, then they are \underline{NOT} necessarily equivalent. A counter example would be: 
+	\begin{align*}
+		& \rho_1 := |x-y| \\
+		& \rho_2 := \frac{|x-y|}{1 + |x-y|}
+	\end{align*} 
+\end{enumerate}
 
 \end{document}
