@@ -881,7 +881,85 @@ Observe tha this is Green's theorem. When $n=3$, then a general one-form can be 
 \begin{align}
 	\iint_S \text{curl}(F) \cdot dS = \idx{\partial S}{} F \cdot dr	
 \end{align}
-Observe that this is the classical stokes' theorem. 
+Observe that this is the classical Stokes' theorem. Applications of Stokes' theorem are best explained by examples. 
+
+\begin{ex} 
+	Verify that the area of a planar region surrounded by a loop is given by $\frac{1}{2} \idx{\gamma}{} x dy - y dx$. Use this to find the area $A_e$ of the region surrounded by the ellipse $(x^2/a^2) + (y^2 / b^2) =1$, where $a, b \in ]0, \infty[$. 
+	\newline
+	\newline
+	\textbf{Solution:} Recall that the area of a region $D \subseteq \R^2$ is given by: 
+	\begin{align}	
+		A(D) = \iint_D dx \wedge dy 	
+	\end{align}
+	We have: 
+	\begin{align*}
+		\frac{1}{2} \idx{\gamma}{} x dy - y dz = \idx{\partial S}{} \omega 
+	\end{align*}
+	So, set $\omega := x dy - y dx$. Then, the exterior derivative becomes: 
+	\begin{align*}
+		d(xdy - ydx) & = d(xdy) - d(ydx) \\
+					& = dx \wedge dy - dy \wedge dx \\
+					& = 2 dx \wedge dy 
+	\end{align*}
+	And so, by (\ref{stokes}) (Stokes'), we have: 
+	\begin{align}
+		\frac{1}{2} \idx{\gamma}{} x dy - y dx = \frac{1}{2} \iint_D d \omega = \frac{1}{2} \iint_D 2 dx \wedge dy = \iint_D dx \wedge dy 	
+	\end{align}
+	which verifies the first statement. We can now use this to compute the area of the ellipsoid. The parametrisation is $x = a \cos (t)$ $y = b \sin (t)$, $t \in [0, 2 \pi ]$. Plugging this into the formula verified above, we obtain: 
+	\begin{align*}
+		A_e & = \frac{1}{2} \idx{\gamma}{} x dy - y dx \\
+		&  = \frac{1}{2} \idx{0}{2 \pi} a \cos ( t ) d (b \sin (t) ) - b \sin (t) d ( a \cos (t) ) \\
+		& = \frac{1}{2} \idx{0}{2 \pi} a \cos (t) b \cos(t) + b \sin (t) a \sin (t) \\
+		& = \frac{1}{2} \idx{0}{ 2 \pi} ab (\cos^2 (t) + \sin ^2 (t) ) \\
+		& = \frac{1}{2} \idx{0}{ 2 \pi} ab \\
+		& = ab \pi 
+	\end{align*}
+\end{ex}
+
+\begin{ex}
+	Find the line integral $\idx{\gamma}{} \omega$, where $\omega = xy dy + ydz$, and $\gamma$ is a path running along the boundary of the parallelogram, starting from its vertex $A = (1,1,0)$, passing vertices $B = (2,3,1)$, $C 	= (2,5,2)$, $D = (1,3,1)$, and back to $A$. 
+	\newline
+	\newline
+	\textbf{Solution:} We will apply Stokes' theorem. We can parameterise this by: 
+	\begin{align*}
+		\sigma(u,v) & = OA + u AB + v AD \\
+					& = (1,1,0) + u(1,2,1) + v(0,2,1) \\
+					& = (1+u, 1+2u + 2v, u+v) 
+	\end{align*}
+	where $u,v \in [0,1]$. This defines a parameterisation. By construction, $\gamma = \partial P$. By Stokes' theorem: 
+	\begin{align*}
+		\idx{\gamma}{} \omega = \idx{\partial P}{} \omega = \idx{P}{} d \omega 
+	\end{align*}
+	Set $\omega = xy dy + y dz$. Then: 
+	\begin{align*}
+		d \omega & = d (xy dy ) + d(ydz) \\
+				& = d(xy) \wedge dy + dy \wedge dz \\
+				& = (ydx + xdy ) \wedge dy + dy \wedge dz \\
+				& = y dx \wedge dy + x dy \wedge dy + dy \wedge dz \\
+				& = y dx \wedge dy + dy \wedge dz 
+	\end{align*}
+	Now, by the definition of a surface integral: 
+	\begin{align*}
+		\iint_P d \omega = \iint_{[0, 1] \times [0,1]} \sigma^* d \omega 
+	\end{align*}
+	\begin{align*}
+		\sigma^* d \omega & = (1+2u+2v) d (1+u) \wedge d(1+du + 2v) + d(1 + 2u + 2v) \wedge d(u+v ) 
+	\end{align*}
+	The constants in the $d( \cdot )$ drop out: 
+	\begin{align*}
+		\sigma^* d \omega & = (1+2u+2v) du \wedge d(2u + 2v) + d (2u + 2v) \wedge d(u+v) \\
+		& = (1+2u+2v) du \wedge (d(2u) + d(2v)) + (d(2u) + d(2v)) \wedge d(u+v) \\
+		& = 2 (1+2u+2v) du \wedge dv + (2du + 2dv) \wedge du + (2 du + 2 dv) \wedge dv \\
+		& = 2 (1+2u+2v) du \wedge dv + 2 dv \wedge du + 2 du \wedge dv \\
+		& = (2+4u + 4v) du \wedge dv
+	\end{align*}
+	Plugging this into the integral gives: 
+	\begin{align*}
+		\iint_P d \omega = \idx{0}{1} \idx{0}{1} [2 + 4u + 4v] du dv = 6
+	\end{align*}
+\end{ex}
+
+
 
 \section{Curves}
 There are two subsets of differential geometry: classical differential geometry and global differential geometry. The objective of \dfn{classical differential geometry} is to study the local properties of curves and surfaces. The objective of \dfn{global differential geometry} is to study the influence of local properties on global behaviour. 
@@ -1474,11 +1552,26 @@ Examples of using this classification:
 
 
 \subsection{Ruled Surfaces and Minimal Surfaces}
+\subsubsection{Ruled Surfaces}
+\begin{definition}[One-Parameter Family of (Straight) Lines]
+	A \dfn{differentiable} \dfn{one-parameter} \dfn{family} \dfn{of} \dfn{(straight) lines} $\{ \alpha(t), w(t) \}$ is a correspondence that assigns to each $t \in I$ a point $\alpha(t) \in \R^3$ and a vector $w(t) \in \R^3$ so that both $\alpha(t)$ and $w(t)$ depend differentiably on $t$.
+\end{definition}
 
-
-\section{The Intrinsic Geometry of Surfaces}
-
-\subsection{Isometries and Conformal Maps}
+\begin{definition}[Ruled Surface]
+	Given a one-parameter family of lines $\{ \alpha(t), w(t) \}$, the parametrised surface: 
+	\begin{align}
+		x(t,v) = \alpha (t) + v w(t),\ t \in I,\ v \in \R 	
+	\end{align}
+	is called the \dfn{ruled surface} generated by the family $\{ \alpha(t), w(t) \}$. 
+	\begin{enumerate}[noitemsep]
+		\item The lines $L_t$ are called the \dfn{rulings}: for each $t \in I$, the line $L_t$ which passes through $\alpha(t)$ and is parallel to $w(t)$. 
+		\item The curve $\alpha(t)$ is called a \dfn{directrix} 
+	\end{enumerate}
+\end{definition}
+\subsubsection{Minimal Surface}
+\begin{definition}[Minimal Surface]
+	A regular parameterised surface is called \dfn{minimal} if its mean curvature vanishes everywhere. A regular surface $S \subseteq \R^3$ is called \dfn{minimal} if each of its parameterisations is minimal. 
+\end{definition}
 
 
 

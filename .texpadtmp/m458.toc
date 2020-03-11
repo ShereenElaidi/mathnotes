@@ -14,24 +14,24 @@
 \contentsline {subsubsection}{\numberline {2.7.1}Line Integrals}{11}{subsubsection.2.7.1}% 
 \contentsline {subsubsection}{\numberline {2.7.2}Surface Integrals}{12}{subsubsection.2.7.2}% 
 \contentsline {subsubsection}{\numberline {2.7.3}Generalised Stokes' Theorem}{15}{subsubsection.2.7.3}% 
-\contentsline {section}{\numberline {3}Curves}{15}{section.3}% 
-\contentsline {subsection}{\numberline {3.1}Definitions}{15}{subsection.3.1}% 
-\contentsline {subsubsection}{\numberline {3.1.1}Regular Curves and Arclength}{16}{subsubsection.3.1.1}% 
-\contentsline {subsubsection}{\numberline {3.1.2}The Vector Product in $\mathbb {R}^3$}{16}{subsubsection.3.1.2}% 
-\contentsline {subsection}{\numberline {3.2}Frenet-Serret Frame}{17}{subsection.3.2}% 
-\contentsline {subsection}{\numberline {3.3}Global Properties of Curves}{18}{subsection.3.3}% 
-\contentsline {subsubsection}{\numberline {3.3.1}The Isoparametric Inequality}{18}{subsubsection.3.3.1}% 
-\contentsline {subsubsection}{\numberline {3.3.2}Cauchy Crofton Formula}{18}{subsubsection.3.3.2}% 
-\contentsline {section}{\numberline {4}Surfaces}{19}{section.4}% 
-\contentsline {subsection}{\numberline {4.1}Definitions}{19}{subsection.4.1}% 
-\contentsline {subsection}{\numberline {4.2}Regular Surfaces}{19}{subsection.4.2}% 
-\contentsline {subsection}{\numberline {4.3}Differentiable Functions on Surfaces}{20}{subsection.4.3}% 
-\contentsline {subsection}{\numberline {4.4}Tangent Plane}{20}{subsection.4.4}% 
-\contentsline {subsection}{\numberline {4.5}First Fundamental Form: Area}{20}{subsection.4.5}% 
-\contentsline {subsubsection}{\numberline {4.5.1}Deriving the First Fundamental Form Given a Basis and a Parameterisation}{21}{subsubsection.4.5.1}% 
-\contentsline {subsubsection}{\numberline {4.5.2}Examples of First Fundamental Forms}{21}{subsubsection.4.5.2}% 
-\contentsline {section}{\numberline {5}The Gauss Map}{22}{section.5}% 
-\contentsline {subsection}{\numberline {5.1}The Definition of the Gauss Map and its Fundamental Properties}{22}{subsection.5.1}% 
-\contentsline {subsection}{\numberline {5.2}Ruled Surfaces and Minimal Surfaces}{25}{subsection.5.2}% 
-\contentsline {section}{\numberline {6}The Intrinsic Geometry of Surfaces}{25}{section.6}% 
-\contentsline {subsection}{\numberline {6.1}Isometries and Conformal Maps}{25}{subsection.6.1}% 
+\contentsline {section}{\numberline {3}Curves}{17}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Definitions}{17}{subsection.3.1}% 
+\contentsline {subsubsection}{\numberline {3.1.1}Regular Curves and Arclength}{18}{subsubsection.3.1.1}% 
+\contentsline {subsubsection}{\numberline {3.1.2}The Vector Product in $\mathbb {R}^3$}{18}{subsubsection.3.1.2}% 
+\contentsline {subsection}{\numberline {3.2}Frenet-Serret Frame}{18}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}Global Properties of Curves}{19}{subsection.3.3}% 
+\contentsline {subsubsection}{\numberline {3.3.1}The Isoparametric Inequality}{19}{subsubsection.3.3.1}% 
+\contentsline {subsubsection}{\numberline {3.3.2}Cauchy Crofton Formula}{20}{subsubsection.3.3.2}% 
+\contentsline {section}{\numberline {4}Surfaces}{20}{section.4}% 
+\contentsline {subsection}{\numberline {4.1}Definitions}{20}{subsection.4.1}% 
+\contentsline {subsection}{\numberline {4.2}Regular Surfaces}{21}{subsection.4.2}% 
+\contentsline {subsection}{\numberline {4.3}Differentiable Functions on Surfaces}{21}{subsection.4.3}% 
+\contentsline {subsection}{\numberline {4.4}Tangent Plane}{21}{subsection.4.4}% 
+\contentsline {subsection}{\numberline {4.5}First Fundamental Form: Area}{22}{subsection.4.5}% 
+\contentsline {subsubsection}{\numberline {4.5.1}Deriving the First Fundamental Form Given a Basis and a Parameterisation}{22}{subsubsection.4.5.1}% 
+\contentsline {subsubsection}{\numberline {4.5.2}Examples of First Fundamental Forms}{23}{subsubsection.4.5.2}% 
+\contentsline {section}{\numberline {5}The Gauss Map}{24}{section.5}% 
+\contentsline {subsection}{\numberline {5.1}The Definition of the Gauss Map and its Fundamental Properties}{24}{subsection.5.1}% 
+\contentsline {subsection}{\numberline {5.2}Ruled Surfaces and Minimal Surfaces}{27}{subsection.5.2}% 
+\contentsline {subsubsection}{\numberline {5.2.1}Ruled Surfaces}{27}{subsubsection.5.2.1}% 
+\contentsline {subsubsection}{\numberline {5.2.2}Minimal Surface}{27}{subsubsection.5.2.2}% 
