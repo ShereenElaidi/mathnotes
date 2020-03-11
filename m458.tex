@@ -799,10 +799,89 @@ This is best explained through an example.
 	\end{align*}
 \end{ex}
 
+In order to properly get to the Generalised Stokes' theorem, we need some notation / review from Ad Cal: Let $\hat{i} = (1,0,0)$, $\hat{j} = (0,1,0)$ and $\hat{k} = (0,0,1)$ denote the standard basis vectors in $\R^3$, and let the following be the radial vector: 
+\begin{align*}
+	r  := (x,y,z)  = x \hat{i} + y \hat{j} + z \hat{k} 
+\end{align*}
+Then, the differential $dr$ is given by: 
+\begin{align}
+	dr = (dx, dy , dz) = dx \hat{i} + dy \hat{j} + dz \hat{k} 	
+\end{align}
+Now let $F := (P,Q,R)$ be a vector field. This justifies the following expression that we had for line integrals:
+\begin{align*}
+	\idx{\gamma}{} F \cdot dr = \idx{\gamma}{} P dx + Q dy + R dz = \idx{\gamma}{} \omega 
+\end{align*}
+We have the following identity for the ``surface area'' element of a surface integral, $dS$: 
+\begin{align}
+	dS = \frac{1}{2} (dr \times dr) 	
+\end{align}
+We will use this identity to compute the pull-back of a parameterisation. Let $\sigma$ be a bounded parametric surface. Then, we have the following identity: 
+\begin{align} 
+	\sigma^* dS = (r_u \times r_v) du \wedge dv 
+\end{align} 
+Which gives us the following definition of the surface integral in terms of differential forms: 
+\begin{align}
+	I = \iint_\sigma F \cdot dS \iint_D \sigma^* \alpha_F 	
+\end{align}
+where $\alpha_F = F \cdot dS$. This is best explained with an example: 
 
+\begin{ex}
+	Let $\omega := x dy dz + y dz dx + z dx dy$. In terms of vector fields, this can be written as $F \cdot dS$, where $F = (P, Q, R) = (x,y,z)$. Parameterise the sphere as: 
+	\begin{align*}
+		& x = \cos \theta \cos \varphi \\
+		& y = \sin \theta \cos \varphi \\
+		& z = \sin \varphi 
+	\end{align*}
+	Then, $\sigma^* (F \cdot dS) = F \cdot (r_u \times r_v) du dv$, which is equal to: 
+	\begin{align}
+		\det \begin{bmatrix} 
+ 	P & Q & R \\
+ 	x_u & y_u & z_u \\
+ 	x_v & y_v & z_v 	
+ 	\end{bmatrix}
+	\end{align}
+	So, carrying out this calculation gives: 
+	\begin{align*}
+		\sigma^*(F \cdot dS) &  = \det \begin{bmatrix}
+			\cos \theta \cos \varphi & \sin \theta \cos \varphi & \sin \varphi \\
+			- \sin \theta \cos \varphi & \cos \theta \cos \varphi & 0 \\
+			- \cos \theta \sin \varphi & - \sin \theta \sin \varphi & \cos \varphi 
+		\end{bmatrix} \\
+		& = \cos \theta d \theta \wedge d \varphi 
+	\end{align*}
+\end{ex}
 
+We can write the surface element, in general, as: 
+\begin{align}
+	dS := \sqrt{(dy \wedge dz)^2 + (dz \wedge dx)^2 + (dx \wedge dy)^2}	
+\end{align}
+and the area of a parameterised region $\sigma$ is given by:
+\begin{align}
+	\iint_\sigma dS := \iint_D \sigma^* dS 
+\end{align}
+where $D$ is the region of parameterisation. 
 
 \subsubsection{Generalised Stokes' Theorem}
+Green's Theorem and the classical Stokes' theorem are really the same theorem for 1-forms, just in different dimensions ($\R^2$ vs $\R^3$). The theorem is given by: 
+
+\begin{theorem}
+	Let $M$ be an oriented $n$-dimensional manifold with boundary $\partial M$, where $\partial M$ is $(n-1)$-dimensional. Let $\omega$ be an $(n-1)$-form defined on $M$. Then we have: 
+	\begin{align}\label{stokes} 
+		\idx{M}{} d \omega = \idx{\partial M}{} \omega 	
+	\end{align}
+\end{theorem}
+
+The cases of $n=2$ and $n=3$ correspond to Greens' theorem and the classical stokes' theorem, respectively: 
+
+When $n=2$, a general one-form can be written as $\omega = Pdx + Qdy$. Then, (\ref{stokes}) becomes: 
+\begin{align}
+	\iint_S \left[ \frac{\partial{Q}}{\partial x } - \frac{\partial P}{\partial y} \right] dx \wedge dy = \idx{\partial S}{} P dx + Q dy
+\end{align}
+Observe tha this is Green's theorem. When $n=3$, then a general one-form can be written as $\omega = P dx + Q dy + R dz$. Then, (\ref{stokes}) becomes: 
+\begin{align}
+	\iint_S \text{curl}(F) \cdot dS = \idx{\partial S}{} F \cdot dr	
+\end{align}
+Observe that this is the classical stokes' theorem. 
 
 \section{Curves}
 There are two subsets of differential geometry: classical differential geometry and global differential geometry. The objective of \dfn{classical differential geometry} is to study the local properties of curves and surfaces. The objective of \dfn{global differential geometry} is to study the influence of local properties on global behaviour. 
