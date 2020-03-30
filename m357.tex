@@ -8,6 +8,7 @@
 \usepackage{fancyhdr}
 \newcommand{\R}[0]{\mathbb{R}}
 \addtokomafont{section}{\rmfamily\centering\scshape}
+\usepackage{float} 
 % math environments 
 \usepackage[utf8]{inputenc}
 \theoremstyle{definition}
@@ -2404,11 +2405,141 @@ We will use one example to explain all the concepts.
 		x = 1 \text{ take } H_1 
 	\end{align*}
 \end{itemize}
+\textbf{\underline{Q:}} How do we choose $c$? 
+\begin{align*}
+	B(p) & = \mathbb{P}_p (\psi (X_1, ..., X_n) = 1 ) \\
+		 & = \mathbb{P}_p (\overline{x} \geq c ) \\
+		 & = \mathbb{P}_P (X_1 + ... + X_n \geq n \cdot c ) \\
+		 & = \sum_{k = nc}^n \binom{n}{k} p^k (1-p)^{(n-k)} 
+\end{align*}
+
+
+\begin{table}[H]
+\centering 
+\begin{tabular}{|l|l|l|}
+\hline
+       & $H_0$ & $H_1$   \\ \hline
+$H_0$  & correct  & type 1 error  \\ \hline
+$H_1$ & type 2 error & correct  \\ \hline
+
+\end{tabular}
+\end{table}
+
+The horizontal axis is the decision that we make and the vertical axis is the truth. By a smart choice of $c$, we can control the Type I error, but not the type I and type II error at the same time. Rejecting the $H_0$ is safe while accepting the $H_0$ is not safe. This is why, if possible, $H_0$ is the scientific hypothesis that you want to reject (null = no change). If that leads to ``acceptance of $H_0$'' instead of saying that we accept $H_0$, then we may say that the data provides no evidence to reject the $H_0$. 
+
+
+\begin{definition}[Power Function]
+	A \dfn{power function} of a test $\psi$ is 
+	\begin{align*}
+		& B_\psi: \Theta \rightarrow [0,1] \\
+		& \theta \mapsto  \underbrace{\varepsilon_\theta \psi (X_1, ..., X_n)}_{\text{expected probability of rejecting $H_0$}}
+	\end{align*}
+	Hence, 
+	\begin{align*}
+		B_\psi(\theta) = \begin{cases}
+			\text{ Probability of Type 1 error if $\theta \in \Theta_0$} \\
+			1 - \text{ Prob of Type II error if $\theta \notin \Theta_0$ }
+		\end{cases}
+	\end{align*}
+	For a given $\alpha \in [0,1]$, a test $\psi$ is called a \dfn{Level $ \alpha$ }test if 
+	\begin{align*}
+		\sup_{\theta \in \Theta_0} B_\psi (\theta) \leq \alpha 
+	\end{align*}
+	The quantity $\sup_{\theta \in \Theta_0} B_\psi(\theta)$ is called the \dfn{size} of the test $\psi$. The set of all level $\alpha$ tests for a given hypothesis testing problem is $C_\alpha := \{ \psi\ |\ \sup_{\theta \in \Theta_0 } B_\psi (\theta) \leq \alpha \}$. 
+\end{definition}
+
+\begin{ex}[Example -- continued] 
+	Here
+	\begin{align*}
+		B(p) = \sum){k=nc}^n \binom{n}{k}p^k (1-p)^{n-k} 
+	\end{align*}
+	is increasing in $p$, so the size of the test is $B(1/100)$. To determine $c$, we pick $\alpha$, say, $\alpha = 5 \% (0.05)$ and solve $B(p_0) \leq 0.05$ for $c$. This means pick the smallest $c$ so that $B(p_0) \leq 0.05$. Suppose that $n=10$, $p_0 = 1/100$. Then: 
+\begin{table}[H]
+\centering 
+\begin{tabular}{|l|l|}
+\hline
+          &  $B(p_0)$  \\ \hline
+$c=0$   &  1 \\ \hline
+$c=1/10$ &   0.0956 \\ \hline
+$c=2/10$ &  0.0043 \\ \hline 
+$c=3/10$ & 0.0012 \\ \hline 
+\end{tabular}
+\end{table}
+\end{ex}
+
+Here, we want to choose $c=2/10$ so that we have a level $\alpha$ test and minimise the type II error. Here, the size of the test is
+\begin{align*}
+	0.0043 < 0.05 
+\end{align*}
+If we want the size to be exactly $\alpha = 0.05$, then we need a randomised test: 
+\begin{align*}
+	\psi(X_1, ..., X_n) = \begin{cases}
+		1 & \text{ if } \overline{x} \geq 2/10 \\
+		\gamma & \text{ if } \overline{x} = 1/10 \\
+		0 & \text{ if } \overline{x} = 0 
+	\end{cases}
+\end{align*}
+Calculating the expected value: 
+\begin{align*}
+	\mathbb{E}_{p_0} [ \psi (X_1, ..., X_n) ] & = 1 \cdot \mathbb{P}_{p_0} [X_1 + ... + X_n \geq 2 ] + \gamma \cdot \mathbb{P}_{p_0} [X_1 + ... + X_n = 1] = \alpha 
+\end{align*}
+So, if we choose 
+\begin{align*}
+	\gamma & = \frac{\alpha - \mathbb{P}_{p_0} [X_1 + ... + X_n \geq 2]}{\mathbb{P}_{p_0} [X_1 + ... + X_n =1] } \\
+		& \approx 0.05006 
+\end{align*}
+Suppose that the true $p$ is $0.2$. Then, the probability of a Type II error is: 
+\begin{align*}
+	\mathbb{P}_{p=0.2} \left( \sum_{i=1}^{10} X_i < 2 \right) = 1- B(0.2) = 0.376 
+\end{align*}
+We can lower this probability by increasing $n$. If $n=30$: 
+\begin{align*}
+	& P_{1/100} \left( \sum_{i=1}^{30} X_i \geq 2 \right) = 0.036 \\
+	& P_{0.2} \left( \sum_{i=1}^{30} X_i < 2 \right) = 0.01 
+\end{align*}
+
+
+\subsection{Likelihood Ratio Tests}
+General strategy to construct tests: 
+\begin{enumerate}[noitemsep]
+	\item Find a test statistic $W(X_1, ..., X_n)$. Needs to have preferably a tractable sampling distribution under $H_0$. 
+	\item Construct the rejection region $\mathcal{R}$ as the set of $(x_1, ..., x_n)$ so that $W(X_1, ..., X_n)$ is unlikely to occur under $H_0$. 
+	\item The test is then: 
+	\begin{align*}
+		\psi (X_1, ..., X_n) = \chi_{(x_1, ..., x_n) \in \mathcal{R} } 
+	\end{align*}
+\end{enumerate}
+	
+\begin{definition}[Likelihood Ratio Statistic]
+	The \dfn{likelihood ratio statistic} for testing $H_0: \theta \in \Theta_0$ vs $H_1 : \theta \notin \Theta_0$ is given by $\lambda (X_1 ..., X_n)$ where for $(x_1, ..., X_n) \in \chi$: 
+	\begin{align}
+		\lambda (x_1, ..., x_n) = \frac{\sup_{\theta \in \Theta_0} L(\theta; x_1, ..., x_n)}{\sup_{\theta \in \Theta} L(\theta; x_1, ..., x_n) }	\in [0,1] 
+	\end{align}
+	A \dfn{likelihood ratio test} (LRT) has the rejection region 
+	\begin{align*}
+		\mathcal{R} = \{ (x_1, ..., x_n)\ |\ \lambda (x_1, ..., x_n) \leq c \} 
+	\end{align*}
+	Here, $c$ is typically chosen so that the LRT is a lower level $\alpha$  test  for some given $\alpha$. 
+\end{definition}
+
+\textbf{Remark:} 
+\begin{enumerate}[noitemsep]
+	\item If $\hat{\theta}$ is the MLE of $\theta$, then: 
+	\item \begin{align*}
+		\sup_{\theta \in \Theta} L(\theta; x_1, ..., x_n) = L(\hat{\theta}; x_1, ..., x_n) 
+	\end{align*}
+	\item To calculate $\sup_{\theta \in \Theta} L(\theta; x_1, ..., x_n)$, we are doing a constrained optimisation: 
+	\begin{align*}
+		\hat{\theta_0} = \arg \max_{\theta \in \Theta_0} L( \theta; x_1, ..., x_n ) 
+	\end{align*}
+	so
+	\begin{align*}
+		\lambda(x_1, ..., x_n) = \frac{L(\hat{\theta_0}; x_1, ..., x_n)}{L(\hat{\theta}; x_1, ..., x_n)}
+	\end{align*}
+\end{enumerate}
+
+
 \end{document}
-
-
-
-
 
 
 
