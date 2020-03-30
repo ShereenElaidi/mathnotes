@@ -1,4 +1,4 @@
-\contentsline {section}{\numberline {1}Introduction}{2}{section.1}% 
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}% 
 \contentsline {subsection}{\numberline {1.1}Dual Spaces}{2}{subsection.1.1}% 
 \contentsline {subsection}{\numberline {1.2}Notions from Multivariable Cal}{3}{subsection.1.2}% 
 \contentsline {subsubsection}{\numberline {1.2.1}Divergence}{4}{subsubsection.1.2.1}% 

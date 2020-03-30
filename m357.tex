@@ -2233,6 +2233,177 @@ for some measurable function $Z$. We have:
 	Consider a random variable $X_1, ..., X_n$ from $F_\theta$, $\theta \in \Theta$. Let $\gamma (\theta)$ be a real-valued parameter of interest and $W$ an unbiased estimator for $\gamma (\theta)$. If $T$ is a complete and sufficient statistic, then $W^* = \EX{W|T}$ is THE UMVUE of $\gamma (\theta)$. 
 \end{theorem}
 
+\begin{proof}
+	This is not a very difficult proof but it is very insightful. From the Rao-Blackwell theorem, we already know: 
+	\begin{enumerate}[noitemsep]
+		\item $W^*$ is an unbiased estimator of $\gamma ( \theta ) $
+		\item $\forall \theta \in \Theta$, Var$_\theta [W^*] \leq $ Var$_\theta [W]$ for all $\theta \in \Theta$. 
+	\end{enumerate}
+	Now let $\widetilde{W}$ be another unbiased estimator of $\gamma ( \theta)$. We need to show that for all $\theta \in \Theta$, Var$_\theta [ W^*] \leq$ Var$_\theta [\widetilde{W} ]$. To do this, first Rao-Blackwelize $\widetilde{W}$, i.e., set $\widetilde{W}^* := \EX{ \widetilde{W} | T } $. Then, $\widetilde{W}^*$ is unbiased for $\gamma (\theta)$ with: 
+	\begin{align*}
+		\forall \theta \in \Theta\ \text{Var}_\theta [ \widetilde{W}^* ] \leq \text{Var}_\theta [ \widetilde{W} ]
+	\end{align*}
+	and we will show that: 
+	\begin{align*}
+		\forall \theta \in \Theta\ \text{Var}_\theta [ \widetilde{W}^*] =  \text{Var}_\theta [ \widetilde{W} ] 
+	\end{align*}
+	This is where completeness comes in. Because $W^* = \EX{W|T}$ and $\widetilde{W}^* = \EX{\widetilde{W} | T} $, we know that: 
+	\begin{align*} 
+		W^* = h(T),\ \widetilde{W}^* = \widetilde{h}(T) 
+	\end{align*}
+	for some measurable functions $h$ and $\widetilde{h}$. Moreover, for all $\theta \in \Theta$: 
+	\begin{align*}
+		\gamma(\theta) = \EXth{h(T)} = \EXth{\widetilde{h}(T)} 
+	\end{align*}
+	and so $\forall \theta \in \Theta$: 
+	\begin{align*}
+		\EXth{h(T) - \widetilde{h}(T)} = 0 
+	\end{align*}
+	So, set $g := h - \widetilde{h}$. Then, $\forall \theta \in \Theta$, $\EXth{g(T)} = 0$. This is where completeness comes in: since $T$ is a complete statistic, $g(T) = 0$ almost surely. This gives us: 
+	\begin{align*}
+		& \mathbb{P}_\theta [ g(T) = 0] = 1\ \forall \theta \in \Theta \\
+		& \forall \theta \in \Theta, \mathbb{P}_\theta [ W^* = \widetilde{W}^*] = 1 & \text{ (*) UMVUE is unique } \\
+		& \text{Var}[W^*] = Var[\widetilde{W}^*] 
+	\end{align*}
+\end{proof}
+This is a very powerful result that we can use in different ways. 
+
+\textbf{Remarks:}
+\begin{enumerate}[noitemsep]
+	\item From the proof, we see that the UMVUE is a function of a complete and sufficient statistic and that is \underline{almost surely} unique. 
+	\item If an estimator is unbiased and a function of a complete and sufficient statistic, then it must be an UMVUE. 
+	\begin{enumerate}[noitemsep]
+		\item This means that this is how we prove that things are an UMVUE. 
+		\item ``The crowning of all our efforts.''
+	\end{enumerate}
+	\item The sufficiency is generally not so hard to prove. 
+\end{enumerate}
+
+\begin{ex} 
+	Let $X_1, ..., X_n$ be a random sample from $\mathcal{U} ]0, \theta [$ $\theta > 0$ (this is a notorious counter example for a lot of things). Set: 
+	\begin{align*}
+		W := \max \{ X_1, ..., X_n\} \frac{n+1}{n}\ (*) 
+	\end{align*}	
+	Then, $W$ is an unbiased estimator of $\theta$. The variance $\rightarrow 0$ as $\mathcal{O}(1/n^2)$ (much faster than the Crammer-Rao lower bound). Is this the UMVUE? Or can we find a better one? Lehmann-Scheffe will give us our answer. Why?
+	\begin{enumerate}[noitemsep]
+		\item We already know that $X_{(n)}$ is sufficient. 
+		\item We can now show that $X_{(n)}$ is complete.
+	\end{enumerate}
+	We need to show that 
+	\begin{align*}
+		( \forall \theta \in \Theta, \EXth{g(X_{(n)}} = 0) \Rightarrow \mathbb{P}_\theta [g(X_{(n)}) =0 ] =1\ \forall \theta \in \Theta 
+	\end{align*}
+	First step: what is the distribution of the max? 
+	\begin{align*}
+		\pr{X_{(n)} \leq t} = \prod_{i=1}^n \pr{X_i \leq t} = \left( \frac{t}{\theta} \right)^n 
+	\end{align*} 
+	where $t \in ]0, \theta[$. Thus, this tends to $0$ if $ t \leq \theta$ and $1$ if $t \geq \theta$. So, the density of $T := X_{(n)}$ is differentiable: 
+	\begin{align*}
+		f_T(t) = \frac{nt^{n-1}}{\theta^n} \chi_{t \in ]0, \theta[} 
+	\end{align*}
+	Now suppose that $g$ is such that $\forall \theta \in \Theta$: 
+	\begin{align*}
+		\EXth{g(X_{(n)}) } = 0 = \idx{0}{\theta} g(t) \frac{nt^{n-1}}{\theta^n} dt 
+	\end{align*}
+	Assume that $g$ is Riemann-Integrable: 
+	\begin{align*}
+			\frac{\partial}{\partial \theta} \EXth{g(X_{(n)})} & = 0 \\
+			& = \underbrace{\left[ 	\frac{\partial}{\partial \theta} (\theta^{-n}) 		\right]}_{= 0} \cdot \idx{0}{\theta} g(t) \frac{nt^{n-1}}{\theta^n} dt \theta^n + \theta^{-n} \frac{\partial}{\partial \theta} \idx{0}{\theta} g(t) n t^{n-1} dt  \text{ (Leibnitz Rule)} \\
+			& = 0 + \theta^{-n} \cdot g(\theta)n \theta^{n-1} 
+	\end{align*}
+	So, $\forall \theta \in \Theta$: 
+	\begin{align*}
+		0 = \frac{n g(\theta)}{\theta}
+	\end{align*}
+	Since $n > 0$, $\theta > 0$ $\iff$ $g(\theta) = 0$ $\forall \theta \in \Theta$. Thus: 
+	\begin{align*}
+		& \forall \theta \in \Theta, g(\theta) = 0 \\
+		& g(t) = 0 \forall t \geq 0
+	\end{align*}
+	which is what we wanted to show. This only works because $\Theta = ]0, \infty[$. If it were smaller, we would not be able to conclude this. So, the maximum is sufficient and it is complete. So, by Lehmann-Scheffe, it is the UMVUE. 
+\end{ex}
+
+Another easy example is to estimate $p$ by the sample mean for Bernoulli random variables. $\overline{x}$ is sufficient and complete. 
+
+
+\section{Hypothesis Testing}
+\subsection{Basic Terminology}
+We will use one example to explain all the concepts. 
+
+\begin{ex} 
+	Let $X_1, ..., X_n$ be coffee beans. Quality control example. Let: 
+	\begin{align*}
+		X_i = \begin{cases}
+			0 & \text{ if quality is good} \\
+			1 & \text{ if bean is spoiled} 
+		\end{cases}
+	\end{align*}	
+	This is a random sample from Bernoulli$(p)$. We accept the shipment if $p \leq \frac{1}{100}$. Based on $X_1, ..., X_n$ we need to come up with a decision rule that allows us to decide whether $p \leq 1/100$ or not ($p > 1/100$). This is a statistical hypothesis testing problem. 
+\end{ex}
+
+\begin{definition}[Hypothesis]
+	A \dfn{hypothesis} is a statement about the population parameter $\theta$. It does not involve the $X_i$'s. Formally: given a statistical model $\{ F_\theta\ |\ \theta \in \Theta \}$ and $\Theta_0 \subseteq \Theta$, the \dfn{null hypothesis} is denoted by: 
+	\begin{align*}
+		H_0:\ \theta \in \Theta_0 
+	\end{align*}
+	It can also just be called the \dfn{null}. In this example, $\Theta \in [0, 1/100[$. The \dfn{alternative hypothesis} is 
+	\begin{align*}
+		H_1: \theta \notin \Theta_0\ \iff \theta \in \Theta_0^c 
+	\end{align*}
+	These form a partition of the parameter space. If $| \Theta_0 | =1$ (i.e. $\Theta_0 = \{ \theta_0 \}$, then $H_0$ is called \dfn{simple}; otherwise, it is called \dfn{composite} (Similar definitions for $H_1$). We will illustrate these ideas by going back to our example: 
+\end{definition}
+
+\begin{ex}[Coffee beans cont'd] 
+	\begin{align*}
+		H_0: p < 1/100 \text{ vs. } H_1: p > 1/100 	
+	\end{align*}
+	Idea: estimate $p$ from $X_1, ..., X_n$: 
+	\begin{align*}
+		\hat{p} = \overline{x} 
+	\end{align*}
+	A decision rule might be: 
+	\begin{align*}
+		\overline{x} \leq c^*  \rightarrow \text{ choose $H_0$ } \\
+		\overline{x} > c^* \rightarrow \text{ choose $H_1$ } 
+	\end{align*}
+	Or, equivalently, for 
+	\begin{align*}
+		s_n := X_1 + ... + X_n = \text{ number of spoiled beans } 
+	\end{align*}
+	\begin{align*}
+		& s_n \leq c \rightarrow H_1 \text{ (do not reject shipment) } \\
+		& s_n > c \rightarrow H_0 \text{ (reject shipment) } 
+	\end{align*}
+	The uncertainty about $\hat{p}$ comes into play when determining $c^*$. 
+\end{ex}
+
+\begin{definition}[Hypothesis Test]
+	A \dfn{hypothesis test} is a decision rule that specifies for which sample values $H_0$ is accepted and for which sample values $H_1$ is accepted. Formally, a \dfn{hypothesis test} is a Borel-measurable function: 
+	\begin{align*}
+		& \psi: \chi \rightarrow [0,1] \\
+		& (x_1, ..., x_n) \mapsto \psi(x_1, ..., x_n) \in [0,1] 
+	\end{align*}
+	The \dfn{decision rule} is the $\psi$ (i.e., $\psi(x_1, ..., x_n) $ is a statistic which means that it must not depend on unknown parameters). 
+	\begin{enumerate}[noitemsep]
+		\item $\psi(x_1, ..., x_n)$ is the probability of accepting the alternative hypothesis $H_1$. 
+		\item $\mathcal{R} := \{ (x_1, ..., x_n) \in \chi\ |\ \psi(x_1, ..., x_n) = 1 \}$ is called the \dfn{rejection region} (for $(x_1, ..., x_n) \in \mathcal{R}$, we reject $H_0$). 
+		\item $\mathcal{A} := \{ (x_1, ..., x_n) \in \chi\ |\ \psi(x_1, ..., x_n) = 0 \}$ is called the \dfn{acceptance region} (for $(x_1, ..., x_n) \in \mathcal{A}$, we accept $H_0$). 
+		\item The set $\{ (x_1, ..., x_n) \in \chi\ |\ \psi(x_1, ..., x_n) \in ]0,1[ \}$ is called the \dfn{randomisation region}. 
+	\end{enumerate}
+\end{definition}
+
+\textbf{Remark:} most of the time in this course: 
+\begin{align*}
+	\psi: \chi \rightarrow \{ 0,1 \} 
+\end{align*}
+\begin{itemize}[noitemsep]
+	\item When the randomisation region is non-empty, then $\psi$ is called a \dfn{randomised test} and is mostly of theoretical interest. 
+	\item If $\psi(x_1, ..., x_n) \in ]0,1[$, you decide by drawing $z \sim $ Bernoulli($\psi (x_1, ...x_n)$) and if
+	\begin{align*}
+		z = 0 \text{ take } H_0 \\
+		x = 1 \text{ take } H_1 
+	\end{align*}
+\end{itemize}
 \end{document}
 
 

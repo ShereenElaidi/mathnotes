@@ -60,8 +60,15 @@
 
 
 \begin{document}
+\begin{center}
+	\textbf{Math 458: Differential Geometry} \\
+	\textbf{Midterm Date: 13 March 2020 11.30 - 13.00} \\
+	\textbf{Key Results, Theorems, Definitions, etc.} \\
+	\textbf{Shereen Elaidi}
+\end{center}
 
-\maketitle
+
+
 \tableofcontents
 \pagestyle{fancy}
 \lhead{Math 458: Differential Geometry}
@@ -189,7 +196,8 @@ The following definition-theorem would have been very useful for the first homew
 	Let $\Omega \subseteq \R^n$ be open. Let $F$ be a smooth vector field. Let $\gamma: [a,b] \rightarrow \Omega$ be an oriented curve. Then, the \dfn{line integral} of $F$ over $\gamma$ is defined as: 
 	\begin{align*}
 		\idx{\gamma}{} F \cdot d\gamma := \idx{a}{b} F(\gamma(t)) \cdot \gamma'(t) dt 
-	\end{align*}
+	\end{align*}?
+	 
 \end{definition}
 
 \begin{definition}[Two-Dimensional Curl]
@@ -498,12 +506,12 @@ Which is also not very surprising.
 	\textbf{Solution:} By the total derivative rule: 
 	\begin{align*}
 		& du = 2x dx - 2y dy \\
-		& dv = dx dy + dy dx 
+		& dv = 2x dy + 2y dx 
 	\end{align*}
 	and so, by the properties: 
 	\begin{align*}
-		du \wedge dv & = (2x dx - 2ydy ) \wedge (dx dy + dy dx) \\
-					 & = dx dx \wedge (dx dy + dy dx) - dy dy \wedge (dx dy + 2ydx) \\
+		du \wedge dv & = (2x dx - 2ydy ) \wedge (2x dy + 2y dx) \\
+					 & = 2x dx \wedge (2x dy + 2y dx) - 2y dy \wedge (2x dy + 2ydx) \\
 					 & = 4x^2 dx \wedge dy - 4y^2 dy \wedge dx \\
 					 & = 4x^2 dx \wedge dy + 4y^2 dy \wedge dy \\
 					 & = 4(x^2 + y^2) dx \wedge dy 

@@ -19,6 +19,15 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
 % definition
 \newcommand{\dfn}[1]{\textbf{\underline{#1}}}
 \newcommand{\dist}[0]{\mathcal{F}}
@@ -516,7 +525,148 @@ but this is \emph{completely meaningless}. This is a bad thing since we do not k
 	\begin{align*}
 		\vecspan{v_1, ..., v_n } := \{ k_1 v_1 + k_2 v_2 + ...\ |\ k_i \in K, \text{ all but finitely many $k_i$ are zero } \} 	
 	\end{align*}
-
 \end{definition}
+
+Note that
+\begin{align*}
+	\text{span} \{ v_1, ..., v_n \} = \span \{ v_1 \} + ... + \span \{ v_n \} 
+\end{align*}
+Which means that the span of $v_1, ..., v_n$ can be written as:
+\begin{align*}
+	\text{span} \{ v_1, ..., v_n \} = \{ k_1 v_1 + ... + k_n v_n\ |\ k_i \in K \} 
+\end{align*}
+From this, we also obtain that the span of the vectors $v_1, ..., v_n$ is the \emph{smallest} subspace of $V$ containing the vectors $v_1, ..., v_n$. 
+
+\begin{ex}
+	Let $V = \R^n$. Then, the standard basis vectors: $e_1 = (1, 0, 0, ...), e_2 = (0,1,0, ...), ..., e_n = (0, 0, ..., 1)$ spans $\R^n$. 	
+\end{ex}
+
+\begin{ex}
+Consider the vector space $P_n(K)$. The building blocks of this vector space are: 
+\begin{align*}
+	P_n(K) = \{ 1, x, x^2, x^3, ..., x^n \} 
+\end{align*}
+We thus have: 
+\begin{align*}
+	\text{span} \{ 1, x, x^2, ..., x^n \} & = \{ k_0 1 + k_1 x + ... + k_n x^n\ |\ k_i \in K, 0 \leq i \leq n \} \\
+		& = P_n(K) 
+\end{align*}	
+\end{ex}
+
+
+\begin{ex} 
+	Consider the vector space $S$ of all sequences with coefficients in $\R$. Define: 
+	\begin{align*}
+		s_1 &= (1,0,0,....) \\
+		s_2 &= (0,1,0,....) \\
+		s_3 & = (0,0,1,0,...) \\
+		\vdots 
+	\end{align*}	
+	This is similar to the previous example where we had the standard basis of $\R^n$. However, $\{ s_1, s_2, ... \}$ does NOT span $s$ since liner combinations only involve finitely many terms. Every linear combination of $s$ results in a sequence that is eventually \emph{constantly equal to zero}, i.e, the subspace $c_{00}$. 
+\end{ex}
+
+\subsection{Linear Independence and Dependence}
+
+\begin{definition}[Linear Independence and Dependence]
+	\vsok, $v_1, ..., v_n \in V$. We say that $v_1, ..., v_n$ are \dfn{linearly independent} if 
+	\begin{align*}
+		k_1 v_1 + ... + k_n v_n =0 
+	\end{align*}
+	implies that $k_1 = k_2 = ... = k_n = 0 $. $v_1, ..., v_n$ are called \dfn{linearly dependent} if they're not linearly independent. 
+\end{definition}
+
+\begin{theorem}
+	\vsok. Then: 
+	\begin{enumerate}[noitemsep]
+		\item Any (finite) subset of $V$ that contains the zero vector is linearly dependent. 
+		\item If $v_1, ..., v_n$ are linearly dependent, then at least one of them, say $v_j$, can be written as a linear combination of the remaining vectors. In that case, consider span$\{ v_1, ..., v_n\}$. Then we can kick $v_j$ out and still have the same span: 
+		\begin{align*}
+			\text{span} \{ v_1, ..., v_n \} = \text{span} \{ v_1, ... \hat{v_j}, ..., v_n \} 
+		\end{align*}
+	\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}[noitemsep]
+		\item Consider $0, v_1, ..., v_n$. This is a linearly dependent set and we can prove it by providing a non-trivial combination that produces zero: 
+		\begin{align*}
+			1 \cdot 0 + 0 v_1 + ... + 0 v_n = 0 
+		\end{align*}
+		since the coefficient of the zero vector is non-zero. \textbf{Remark:} even just the set with the zero vector, $\{ 0 \}$, is linearly dependent. This is because $1 \cdot 0 = 0$, which is a non-trivial combination of one vector resulting in the zero vector. 
+		\item Let $v_1, ..., v_n$ be linearly dependent. By definition, there exists scalars $k_1, ..., k_n \in K$, not all of them zero, such that: 
+		\begin{align*}
+			k_1 v_1 + ... + k_j v_j + .... + k_n v_n = 0 
+		\end{align*}
+		Assume that $k_i \neq 0$. Then, we can solve the equation: 
+		\begin{align*}
+			k_j v_j = -k_1 v_1 - ... - k_{j-1} v_{j-1} - ... - k_{j+1} v_{j+1} - ... k_n v_n 
+		\end{align*}
+		Since $k_j \neq 0$, we can divide by $k_j$: 
+		\begin{align*}
+			v_j = \frac{-k_1}{k_j} v_1 - ... - \frac{-k_n}{k_j} v_n 
+		\end{align*}
+		Which is a linear combination of the remaining vectors that results in $v_j$. We now want to show that the spans with and without $v_j$ are the same. Obviously, span$\{ v_1, ..., v_{j-1}, v_{j+1}, ..., v_n \}$ is a subset of span$\{ v_1, ..., v_n \}$. We need to prove the opposite inclusion: 
+		\begin{align*}
+			\text{span} \{ v_1, ..., v_n \} \subseteq \text{span} \{ v_1, ..., \hat{v_j}, ..., v_n \} 
+		\end{align*}
+	\end{enumerate}
+	To that end, take an arbitrary element of the space of $v_1, ..., v_n$: 
+	\begin{align*}
+		v = a_1 v_1 + ... + a_j v_j + ... + a_n v_n \in \text{span} \{ v_1, ..., v_n \} 
+	\end{align*}
+	Then, we can write this without $v_j$ by what we did in the above when we solved for $v_j$; 
+	\begin{align*}
+		v = a_1 v_1 + ... + a_j \left( \frac{-k_1}{k_j} v_1 - ... - \frac{-k_n}{k_j} v_n 	\right) + ... + a_n v_n 
+	\end{align*}
+	Collecting the coefficients: 
+	\begin{align*}
+		v = \left( a_1 - \frac{k_1}{k_j} a_j \right) v_1 + ... + \left( a_{j-1}  - \frac{k+{j-1}}{k_j} a_j \right) v_{j-1} + \left(a_{j+1} - \frac{k_{j+1}}{k_j} a_j \right)v_{j+1} + ... + \left(a_n - \frac{k_n}{k_j}a_j \right)v_n 
+	\end{align*}
+	Which is a linear combination of $v_1, ..., v_{j-1}, v_{j+1}, ..., v_n$. 
+\end{proof}
+
+\begin{theorem}
+	Let $v_1, ..., v_n \in V$, $v_1, ..., v_n$ be linearly independent. Let $v_{n+1} \notin \text{span} \{ v_1, ..., v_n \}$. Then, $v_1, ..., v_n , v_{n+1}$ are linearly independent. 
+\end{theorem}
+
+\begin{proof}
+	To show this, we will take an arbitrary linear combination that results in zero, and show that this means that the coefficients must be zero. To that end, let 
+	\begin{align*}
+		k_1 v_1 + .... + k_n v_n + k_{n+1} v_{n+1} = 0 
+	\end{align*}
+	be an arbitrary linear combination. We will use the linear independence of $v_1, ..., v_n$ to show that $k_1, ..., k_n = 0$. For $k_{n+1}$, for a contradiction, assume that $k_{n+1} \neq 0$. Then, solve for $v_{n+1}$: 
+	\begin{align*}
+		k_{n+1} v_{n+1} & = - k_1 v_1 - ... - k_n v_n \\
+		\Rightarrow v_{n+1} & = - \frac{k_1}{k_{n+1}} v_1 - \frac{k_n}{k_{n+1}}v_n
+	\end{align*}
+	Which is impossible, since we assumed that $v_{n+1} \notin$ span$\{ v_1, ..., v_n \}$. This proves that $k_1, ..., k_n , k_{n+1} = 0$, which shows that $v_1, ..., v_n$ must be linearly independent. 
+\end{proof}
+
+\begin{definition}[Finite Dimensional] 
+	Let $V$ be a vector space over $K$. $V$ is called \dfn{finite-dimensional} if $V$ has a finite spanning set i..e, there are finitely many $v_1, ..., v_n \in V$ such that they all span $V$: 
+	\begin{align*}
+		V = \text{span} \{ v_1 , ..., v_n \} 
+	\end{align*}
+\end{definition}
+
+\textbf{Remark:} \vsok. Assume $W \leq V$. Assume that $V$ is finite-dimensional. It is tempting to assume that $W$ is finite-dimensional; this is true, but we do not have any tools to prove it at the moment. This will be proven later. 
+
+\begin{definition}[Infinite-Dimensional]
+	$V$ is called \dfn{infinite-dimensional} if it is not finite dimensional. 
+\end{definition}
+Methods of showing that a vector space is infinite dimensional are very different from methods of showing that a vector space is finite-dimensional; for finite-dimensional, all we need to do is construct one example of a finite spanning set. However, to prove a vector space is infinite dimensional requires showing that no finite spanning set can possibly exist. 
+
+\begin{ex}
+	$\R^n$ is finite-dimensional. This is trivial; write out the following finite spanning set: 
+	\begin{align*}
+		\R^n = \text{span} \{ e_1, ..., e_n \} 
+	\end{align*}	
+\end{ex}
+
+
+\begin{ex}
+	$c_{00}$ is infinite-dimensional. We will do a proof by contradiction. Assume that $c_{00}$ is finite-dimensional. Let $s_1, ..., s_n$ be sequences in $c_{00}$ such that $c_{00} =$ span$\{ s_1, ..., s_n \}$. 
+\end{ex}
+
 
 \end{document}
