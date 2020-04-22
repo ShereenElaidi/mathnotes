@@ -28,3 +28,6 @@
 \contentsline {subsection}{\numberline {4.7}Results from Homework}{18}{subsection.4.7}% 
 \contentsline {section}{\numberline {5}Metric Spaces: Three Fundamental Theorems}{19}{section.5}% 
 \contentsline {subsection}{\numberline {5.1}The Arzela-Ascoli Theorem}{19}{subsection.5.1}% 
+\contentsline {subsection}{\numberline {5.2}Baire Category Theorem}{19}{subsection.5.2}% 
+\contentsline {subsection}{\numberline {5.3}The Banach Contraction Principle}{21}{subsection.5.3}% 
+\contentsline {section}{\numberline {6}Topological Spaces: Three Fundamental Properties}{21}{section.6}% 

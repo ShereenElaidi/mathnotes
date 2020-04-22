@@ -1300,7 +1300,140 @@ Every metric space is first countable.
 \end{itemize}
 
 \begin{definition}[Pointwise bounded] 
-	
+	A sequence $\{ f_n \}$ of real-valued functions on a set $X$ are said to be \dfn{pointwise bounded} if $\forall x \in X$, the sequence $\{ f_n \}$ is bounded. A sequence is \dfn{uniformly bounded} if $\exists M \geq 0$ for which 
+	\begin{align*}
+		| f_n | \leq M \text{ on } X \text{ for all } n \in \mathbb{N} 
+	\end{align*}
 \end{definition}
+
+\begin{lemma}[The Arzela-Ascoli Lemma] 
+	Let $X$ be a separable metric space. Let $\{ f_n \}$ be an equicontinuous sequence in $X$ that is pointwise bounded. Then a subsequence $\{ f_n \}$ converges pointwise on all of $X$ to a real-valued function $f$ on $X$. 
+\end{lemma}
+
+\begin{definition}[Uniformly Epicontinuous]
+	Let $X$ be a compact metric space, $\mathcal{F}$ an epicontinuous collection of real-valued functions on $X$. Then, $\mathcal{F}$ is \dfn{uniformly equicontinuous} in the sense that $\forall$ $\varepsilon > 0$, $\exists$ $\delta >0$ such that $\forall $ $u, v \in X$, $\forall f \in \mathcal{F}$ if 
+	\begin{align*}
+		\rho (u,v) < \delta\ \Rightarrow |f(u) - f(v) | < \varepsilon
+	\end{align*}
+\end{definition}
+
+
+\begin{theorem}[Arzela-Ascoli Theorem]
+	Let $X$ be a compact metric space, $\{ f_n \}$ a uniformly bounded, equicontinuous sequence of real-valued functions on $X$. Then $\{ f_n \}$ has a subsequence that converges uniformly on $X$ to a continuous function $f$ on $X$. 
+\end{theorem}
+
+\begin{theorem}
+	Let $X$ be a compact metric space and $\mathcal{F} \subseteq C(X)$. Then, $\mathcal{F}$ is a compact subspace of $C(X)$ $\iff$ $\mathcal{F}$ is closed, uniformly bounded, and epicontinuous. 
+\end{theorem}
+
+\subsection{Baire Category Theorem}
+
+\begin{definition}[Hallow]
+	A subset of a metric space $X$ is \dfn{hallow} if it has an empty interior. 
+	\begin{itemize}[noitemsep]
+		\item For $E \subseteq X$, $E$ is \dfn{hallow}  in $X$ $\iff$ its complement is dense in $X$. 
+		\item Let $X$ be a metric space. Let $0 < r_1 < r_2$. Bu the continuity of the metric, $\overline{B(x, r_1)} \subseteq B(x, r_2) $. Thus, $\overline{B(x, r_1)}$ is a closed set for which the following holds: 
+		\begin{align}
+			B(x, r_1) \subseteq \overline{B(x, r_1) } \subseteq B(x, r_2) 	
+		\end{align}
+
+	\end{itemize}
+\end{definition}
+
+\begin{theorem}[Baire Category Theorem]
+	Let $X$ be a complete metric space. 
+	\begin{enumerate}[noitemsep]
+		\item Let $\{ \open_n \}_{n=1}^\infty$ be a countable collection of open, dense subsets of $X$. Then, the intersection $\bigcap_{n=1}^\infty \open_n$ is also dense. 
+		\item Let $\{ F_n \}_{n=1}^\infty$ be a countable collection of closed, hallow subsets of $X$. Then, their union $\bigcup_{n=1}^\infty F_n$ is also hallow. 
+	\end{enumerate}
+	Equivalent formulation:
+	\begin{itemize}[noitemsep]
+		\item In a complete metric space, the union of a countable collection of nowhere dense sets is hallow. 
+	\end{itemize}
+\end{theorem}
+
+\begin{definition}[Nowhere Dense]
+	A subset $E \subseteq X$, $X$ a metric space, is called \dfn{nowhere dense} provided that its closure $\overline{E}$ is hallow. We have the following equivalence: 
+	\begin{itemize}[noitemsep]
+		\item A subset $E \subseteq X$ is nowhere dense $\iff$ for each open subset $\open $ of $X$, $E \cap \open$ is not dense in $X$. 
+	\end{itemize}
+\end{definition}
+
+\begin{corollary}
+	Let $X$ be a complete metric space and $\{ F_n \}_{n=1}^\infty$ a countable collection of closed subsets of $X$. If $\cup_{n=1}^\infty F_n$ has a non-empty interior, then at least one of the $F_n$'s has a non-empty interior. In particular, if $X = \bigcup_{n=1}^\infty F_n$, then at least one of the $F_n's$ has empty interior. 
+\end{corollary}
+
+
+\begin{corollary}
+	Let $X$ be a complete metric space and $\{ F_n \}_{n=1}^\infty$ a countable collection of closed subsets of $X$. Then $\bigcup_{n=1}^\infty \partial F_n$ is hallow. 
+\end{corollary}
+
+\begin{theorem}
+	Let $\mathcal{F}$ be. family of continuous real-valued functions on a complete metric space $X$ that is pointwise bounded in the sense that $\forall x \in X$, $\exists$ a constant $M_x$ for which 
+	\begin{align}
+		|f(x) | \leq M_x \text{ } \forall f \in \mathcal{F} 	
+	\end{align}
+	Then, there is a non-empty open subset $\open$ of $X$ on which $\mathcal{F}$ is uniformly bounded in the sense that $\exists$ a constant $M$ such that 
+	\begin{align}
+		|f| \leq M \text{ on } \open\ \forall f \in \mathcal{F} 	
+	\end{align}
+\end{theorem}
+
+
+\begin{theorem}
+	Let $X$ be a complete metric space and let $\{ f_n \}$ be a sequence of continuous real-valued functions on $X$ that converges pointwise on $X$ to the real-valued function $f$. Then, there is a dense set $D \subseteq X$ for which $\{ f_n \}$ is epicontinuous and $f$ is continuous at each point in $D$. 
+\end{theorem}
+
+Some standard terminology: 
+\begin{itemize}[noitemsep]
+	\item \dfn{First Category/Meger}: a subset $E \subseteq X$ is of the \dfn{first category} if $E$ is the union of a countable collection of nowhere dense subsets of $X$. 
+	\item \dfn{Second Category/Non-Meger} a set that is not of the second category. 
+	\item \dfn{Residual}: the complement of a set of the first category. 
+\end{itemize}
+Equivalent formulation of the Baire Category Theorem: \emph{A non-empty set of a complete metric space is of the second category}
+
+\subsection{The Banach Contraction Principle}
+
+\begin{definition}[Fixed Point]
+	A point $x \in X$ is called a \dfn{fixed point} of the mapping $T: X \rightarrow X$ provided that $T(x) = x$. 
+\end{definition}
+
+\begin{definition}[Convex]
+	A subset $K \subseteq \R^n$ is said to be \dfn{convex} provided that whenever $u, v \in K$, the segment $\{ tu + (1-t) v\ |\ 0 \leq t \leq 1 \} \subseteq K$. 
+\end{definition}
+
+\begin{theorem}[Brouwer's Fixed Point Theorem]
+	If $K \subseteq \R^n$ is a compact, convex subset of $\R^n$, and if the mapping $T: K \rightarrow K$ is continuous, then $T$ has a fixed point. 
+\end{theorem}
+
+\begin{definition}[Lipschitz] 
+	A mapping $T$ from a metric space $(X, \rho)$ to itself is said to be \dfn{Lipschitz} provided that there is a number $c \geq 0$, called a Lipschitz constant for the mapping, for which 
+	\begin{align}
+		\rho(T(u), T(v) ) \leq c \rho (u,v)\ \forall u,v \in X	
+	\end{align}
+	If $c<1$, then the Lipschitz mapping is called a \dfn{contraction}
+\end{definition}
+
+
+\begin{theorem}[Banach Contraction Principle]
+	Let $X$ be a complete metric space and the mapping $T: X \rightarrow X$ a contraction. Then, $T: X \rightarrow X$ has exactly one fixed point. 
+\end{theorem}
+
+\begin{theorem}[Picard Local Existence Theorem]
+	Let $\open \subseteq \R^n$ be open, $(x_0, y_0) \in \open$. Let $g: \open \rightarrow \R$ be a function. Suppose we want to find an open interval of real numbers $I$ containing the point $x_0$ and a differentiable function $f: I \rightarrow \R$ such that
+	\begin{align}
+		\begin{cases}
+			f'(x) = g(x, f(x))\ \forall x \in I \\
+			f(x_0) = y_0 
+		\end{cases}	
+	\end{align}
+	Suppose the function $g: \open \rightarrow \R$ is continuous and there is a positive number $M$ for which the following Lipschitz property holds: 
+	\begin{align*}
+		| g(x, y_1) - g(x, y_2) | \leq M |y_1 - y_2 |\ \forall (x, y_1), (x, y_2) \in \open
+	\end{align*}
+	Then, $\exists$ an open interval $I$ containing $x_0$ on which the ODE above has a unique solution. 
+\end{theorem}
+
+\section{Topological Spaces: Three Fundamental Properties}
 
 \end{document}
