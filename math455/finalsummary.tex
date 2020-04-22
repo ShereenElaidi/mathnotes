@@ -1,0 +1,1306 @@
+\documentclass[11pt]{article}
+\usepackage{titlesec}
+\titleformat{\section}[hang]{\normalfont\scshape}{\thesection.}{1em}{}
+\titleformat{\subsection}[hang]{\normalfont\scshape}{\thesubsection.}{1em}{}
+\usepackage[T1]{fontenc}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amssymb} 
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[normalem]{ulem} 
+\usepackage{enumitem} 
+\setlist[enumerate]{itemsep=0mm}
+\usepackage{xcolor}
+\setenumerate{label=(\arabic*)}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{etoolbox}
+\usepackage{fancybox}
+\usepackage{framed}
+\usepackage{tcolorbox}
+\usepackage{xcolor} 
+% open 
+\newcommand{\open}[0]{\mathcal{O}}
+\newcommand{\topo}[0]{\mathcal{T}}
+\newcommand{\hood}[0]{\mathcal{U}}
+\newcommand{\base}[0]{\mathcal{B}} 
+% example environmentq
+\theoremstyle{definition} 
+\newtheorem{exmp}{Example}[section]
+
+
+% question environment
+\theoremstyle{definition}
+\newtheorem{question}{Question}
+
+%rd 
+\newcommand{\rd}[0]{\mathbb{R}^d}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\N}[0]{\mathbb{N}} 
+% let E in R be measurable 
+\newcommand{\EinR}[0]{Let $E \subseteq \R$ be measurable}
+
+%integral 
+\newcommand{\idx}[2]{\int_{#1}^{#2}}
+
+% weak convergence 
+\newcommand{\warrow}[0]{\rightharpoonup}
+\newcommand{\fcvw}[0]{ \{f_n \} \warrow f \text{ in } L^p(E)} 
+
+% Probability 
+\DeclareRobustCommand{\bbone}{\text{\usefont{U}{bbold}{m}{n}1}}
+\newcommand{\Var}[1]{\mathrm{Var[#1]}}			% variance
+\newcommand{\EX}[1]{\mathbb{E}\mathrm{[#1]}}	 % expected value 
+\newcommand{\seq}[1]{\{ #1_n	\}_{n \in \bb{N}}} % sequence of events
+\newcommand{\pspace}[0]{( \Omega, F, P)}		% probability space
+\newcommand{\msp}[0]{( \Omega, F)}		% measurable space
+	
+% Exercise environment 
+\newenvironment{myleftbar}{%
+\def\FrameCommand{\hspace{0.6em}\vrule width 2pt\hspace{0.6em}}%
+\MakeFramed{\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+\declaretheoremstyle[
+spaceabove=6pt,
+spacebelow=6pt
+headfont=\normalfont\bfseries,
+headpunct={} ,
+headformat={\cornersize*{2pt}\ovalbox{\NAME~\NUMBER\ifstrequal{\NOTE}{}{\relax}{\NOTE}:}},
+bodyfont=\normalfont,
+]{exobreak}
+
+\declaretheorem[style=exobreak, name=Exercise,%
+postheadhook=\leavevmode\myleftbar, %
+prefoothook = \endmyleftbar]{exo}
+
+% Solution environment 
+\newenvironment{mysolbar}{%
+\def\FrameCommand{\hspace{0.6em}\vrule width 2pt\hspace{0.6em}}%
+\MakeFramed{\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+\declaretheoremstyle[
+spaceabove=6pt,
+spacebelow=6pt
+headfont=\normalfont\bfseries,
+headpunct={} ,
+headformat={\cornersize*{2pt}\ovalbox{\NAME~\NUMBER\ifstrequal{\NOTE}{}{\relax}{\NOTE}:}},
+bodyfont=\normalfont,
+]{solbreak}
+
+\declaretheorem[style=solbreak, name=Solution,%
+postheadhook=\leavevmode\mysolbar, %
+prefoothook = \endmysolbar]{sol}
+
+% HEADERS
+\usepackage{fancyhdr}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{Page \thepage}
+\fancyhead[RE,LO]{Math 455: Analysis 4}
+\fancyhead[CE,CO]{Winter 2020 -- Final Summary}
+\fancyfoot[LE,RO]{}
+
+% Definitions
+\newcommand{\dfn}[1]{\underline{\textbf{#1}}}
+\newcommand{\im}[1]{\textbf{\textcolor{red}{#1}}}
+
+% lower integral
+\usepackage{accents}
+
+\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
+\def\avint{\mathop{\,\rlap{-}\!\!\int}\nolimits} 
+
+% custom commands 
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\vc}[1]{\mathbf{#1}}
+\newcommand{\step}[1]{\textbf{#1}\textbf{. Step:}}
+\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\sets}[2]{ \left\{ #1\ |\ #2 \right\}}
+\DeclareMathOperator{\Tr}{Tr}
+
+% Proofs
+\newcommand{\claim}[1]{\textbf{#1}\textbf{. Claim:}}
+
+	% iff proofs
+	\newcommand{\rhs}[0]{(\Rightarrow )}
+	\newcommand{\lhs}[0]{(\Leftarrow )}
+
+% sequence of functions
+\newcommand{\funcseqx}{(f_n(x))_{n \in \bb{N}}}
+\newcommand{\funcseq}{(f_n)_{n \in \bb{N}}}
+
+% measurable sets 
+\newcommand{\measurable}{f^{-1}([-\infty, c[)} 
+
+% heat equation 
+\newcommand{\pbdry}[2]{C^{(#1, #2)} (\Omega_T) \cap C (\overline{\Omega_T})}
+\DeclareMathOperator\erf{erf}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+
+% Laplace Equation 
+\newcommand{\lapbdry}[1]{C^{#1} (\Omega) \cap C (\overline{\Omega})}
+
+
+% math environments 
+\usepackage[utf8]{inputenc}
+\newtheorem{theorem}{\textcolor{blue}{Theorem}}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{\textcolor{OliveGreen}{Definition}}
+\newtheorem{prop}{\textcolor{red}{Proposition}}
+\newtheorem{ex}{\textcolor{Maroon}{Example}}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% cookbook proofs 
+\newcommand{\cb}[3]{\underline{(#1 #2): #3:}}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+
+% theorems 
+\newtcbtheorem[number within=section]{mytheo}{Theorem}%
+{colback=blue!5,colframe=blue!35!black,fonttitle=\bfseries}{th}
+
+% definitions 
+\newtcbtheorem[number within=section]{defn}{Definition}%
+{colback=black!5,colframe=black!35!black,fonttitle=\bfseries}{th}
+
+% axioms
+\newtcbtheorem[number within=section]{ax}{Axioms}%
+{colback=OliveGreen!5,colframe=black!35!OliveGreen,fonttitle=\bfseries}{th}
+
+
+% important examples
+\newtcbtheorem[number within=section]{examp}{Example}%
+{colback=Mahogany!5,colframe=black!35!Mahogany,fonttitle=\bfseries}{th}
+
+% upper and lower riemann integrals
+\newcommand{\upRiemannint}[2]{
+  \overline{\int_{#1}^{#2}}
+}
+\newcommand{\loRiemannint}[2]{
+  \underline{\int_{#1}^{#2}}
+}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\begin{document}
+
+\begin{center}
+	\textbf{Math 455: Analysis IV Summary} \\
+	\textbf{Midterm Date: 27 April 2020 14.00 - 17.00} \\
+	\textbf{Key Results, Theorems, Definitions, etc.} \\
+	\textbf{Shereen Elaidi}
+\end{center}
+
+\begin{abstract}
+	This document contains a summary of all the key definitions, results, and theorems from class. There are probably typos, and so I would be grateful if you brought those to my attention :-). 
+	
+	Syllabus: $L^p$ space, duality, weak convergence, Young, Holder, and Minkowski inequalities, point-set topology, topological space, dense sets, completeness, compactness, connectedness, path-connectedness, separability, Tychnoff theorem, Stone-Weierstrass Theorem, Arzela-Ascoli, Baire category theorem, open mapping theorem, closed graph theorem, uniform boudnedness principle, Hahn Banch theorem. 
+\end{abstract}
+
+\tableofcontents
+
+\section{$L^p$ Spaces: Completeness and Approximation}
+\subsection{Normed Vector Spaces}
+
+\begin{definition}[$\ell^p$ space]
+	Let $(a_1, a_n, ...)$ be a sequence. Then, the $\ell^p$-space is: 
+	\begin{align}
+		\ell^p := \sets{(a_1, a_2, ...)}{\sum_{n=1}^\infty |a_n|^p < +\infty}
+	\end{align}
+\end{definition}
+
+\begin{theorem}[Riesz-Fisher] 
+	$L^p(X)$ is complete. 
+\end{theorem}
+
+\begin{definition}[$L^p$ space]
+	Let $E$ be a measurable set and let $1 \leq p < \infty$. Then, $L^p(E)$ is the collection of measurable functions $f$ for which $|f|^p$ is Lebesgue integrable over $E$. 
+\end{definition}
+
+\begin{definition}[Equivalent Functions]
+	Let $\mathcal{F}$ be the collection of all measurable extended real-valued functions on $E$ that are finite a.e. on $E$. Define two functions $f$ and $g$ to be equivalent, and write $f \sim g$ if $g(x) = f(x)$ a.e. on $E$.
+\end{definition}
+
+\begin{definition}[Essentially Bounded]
+	We call a function $f \in \mathcal{F}$ to be \textbf{essentially bounded} if there exists some $M \geq 0$, called the \textbf{essential upper bound} for $f$, for which 
+	\begin{align*}
+		|f(x)| \leq M 	
+	\end{align*}
+	for almost every $x \in E$. $L^\infty(E)$ is the collection of equivalence classes $[f]$ for which $f$ is essentially bounded. 
+\end{definition}
+
+\begin{definition}[Norm]
+	Let $X$ be a linear space. A real-valued functional $|| \cdot ||$ on $X$ is called a \textbf{norm} provided that for each $f$ and $g$ in $X$ and each real number $\alpha$, 
+	\begin{enumerate}[noitemsep] 
+		\item (The Triangle Inequality). 
+		\begin{align*}
+			|| f + g || \leq ||f|| + ||g|| 	
+		\end{align*}
+		\item (Positive Homogeneity). 	
+		\begin{align*}
+			|| \alpha f || = |\alpha | || f || 	
+		\end{align*}
+		\item (Non-Negativity). 
+		\begin{align*}
+			|| f || \geq 0 \text{ and } ||f|| = 0 \text{ if and only if } f = 0	
+		\end{align*}
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Normed Linear Space]
+	$X$ is said to be a \textbf{normed linear space} if $X$ is equipped with a norm. 
+\end{definition}
+
+\begin{definition}[Essential Supremum]
+	Let $f \in L^\infty (E)$. $||f||_\infty$ is called the \textbf{essential supremum} and is defined as: 
+	\begin{align*}
+		||f ||_\infty := \sets{M}{M \text{ is an essential upper bound for } f}	
+	\end{align*}
+	\textbf{Theorem:} $|| \cdot ||_\infty$ is a norm on $L^\infty (E)$. 
+\end{definition}
+
+\subsection{The Inequalities of Young, Hölder, and Minkowski}
+
+\begin{definition}[p-norm]
+	Let $E$ be a measurable set, $1 < p < \infty$, and let $f \in L^p(E)$. Then, define the \textbf{p-norm} to be: 
+	\begin{align}
+		||f ||_p := \left[	\int_E |f|^p		\right]^{\frac{1}{p}} 
+	\end{align}
+\end{definition}
+	
+\begin{definition}[Conjugate]
+	The \textbf{conjugate} of a number $p \in ]1, \infty[$ is the number $q = p/(p-1)$, which is the unique number $q \in ]1, \infty[$ for which 
+	\begin{align}
+		\frac{1}{p} + \frac{1}{q} = 1
+	\end{align}
+\end{definition}
+The conjugate of 1 is defined to be $\infty$ and the conjugate of $\infty$ is defined to be 1. 
+
+\begin{definition}[Young's Inequality]
+	For $1 < p < \infty$, $q$ the conjugate of $p$, and any two positive numbers $a$ and $b$, we have: 
+	\begin{align}
+			ab \leq \frac{a^p}{p} + \frac{b^q}{q}
+	\end{align}
+\end{definition}
+
+\begin{theorem}[Hölder's Inequality]
+	Let $E \subseteq \bb{R}$ be measurable, $1 \leq p < \infty$, and $q$ the conjugate of $p$. If $f$ belongs to $L^p(E)$, and $g$ belongs to $L^q(E)$, then their product $f \cdot g$ is integrable over $E$ and: 
+	\begin{align}
+		\int_E | f \cdot g | \leq || f ||_p \cdot ||g||_q. 
+	\end{align}
+	Moreover, if $f \neq 0$, then the function defined as: 
+	\begin{align}
+		f^* := ||f||_p^{1-p} \cdot \text{sgn}(f) \cdot |f|^{p-1}
+	\end{align}
+	belongs to $L^q(E)$, 
+	\begin{align*}
+		\int_E f \cdot f^* = ||f||_p \text{ and } ||f^*||_q = 1	
+	\end{align*}
+	We call $f^*$ defined as above to be called the \textbf{conjugate function} of $f$. 
+\end{theorem}
+
+\begin{theorem}[Minkowski's Inequality]
+	Let $E$ be a measurable set and $1 \leq p \leq \infty$. If the functions $f$ and $g$ belong to $L^p(E)$, then so does their sum $f+g$. Moreover, 
+	\begin{align}
+		||f+g||_p \leq ||f||_p + ||g||_p 
+	\end{align}
+\end{theorem}
+
+\begin{theorem}[Cauchy-Schwarz Inequality]
+	Let $E$ be a measurable set and let $f$ and $g$ be measurable functions over $E$ for which $f^2$ and $g^2$ are integrable over $E$. Then, $f \cdot g$ is integrable over $E$ and 
+	\begin{align}
+		\int_E |f \cdot g| \leq \sqrt{\int_E f^2} \cdot  \sqrt{\int_E g^2}	
+	\end{align}
+\end{theorem}
+
+\begin{corollary}
+	Let $E$ be a measurable set and $1 < p < \infty$. Suppose $\mathcal{F}$ is a family of functions  in $L^p(E)$ that is bounded in $L^p(E)$ in the sense that there is a constant $M$ for which 
+	\begin{align*}
+		|| f ||_p \leq M \text{ for all } f \in \mathcal{F}	
+	\end{align*}
+	Then, the family $\mathcal{F}$ is uniformly integrable over $E$. 
+\end{corollary}
+
+\begin{corollary}
+	Let $E$ be a measurable set of finite measure and $1 \leq p_1 < p_2 \leq \infty$. Then, $L^{p_2}(E) \subseteq L^{p_1} (E)$. Furthermore, 
+	\begin{align*}
+		||f ||_{p_1} \leq c ||f||_{p_2} 	
+	\end{align*}
+	for all $f$ in $L^{p_2}(E)$, where $ c = [m(E)]^{\frac{p_2 - p_1}{q_1 p_2}}$ if $p_2 < \infty$ and $c = [m(E)]^{\frac{1}{p_1}}$ if $p_2 = \infty$. 
+\end{corollary}
+
+\subsection{$L^p$ is complete: the Reisz-Fischer Theorem}
+
+\begin{definition}[Converge]
+	A sequence $\{ f_n \}$ in a linear space $X$ normed by $|| \cdot ||$ is said to \textbf{converge to $f$ in $X$} provided: 
+	\begin{align*}
+		\lim_{n \rightarrow \infty} || f - f_n || = 0 	
+	\end{align*}
+\end{definition}
+
+\begin{definition}[Cauchy]
+	A sequence $\{ f_n \}$ in a linear space $X$ that is normed by $|| \cdot ||$ is said to be \textbf{Cauchy} in $X$ provided for each $\varepsilon > 0$, there exists a $N \in \bb{N}$ such that 
+	\begin{align}
+		|| f_n - f_m || < \varepsilon\ \forall\ m, n \geq N
+	\end{align}
+\end{definition}
+
+\begin{definition}[Complete]
+	A normed linear space $X$ is called \textbf{complete} if every Cauchy sequence in $X$ converges to a function in $X$. A complete normed linear space is called a \textbf{Banach space}. 
+\end{definition}
+
+
+\begin{prop}
+	Let $X$ be a normed linear space. Then, every convergent sequence in $X$ is Cauchy. Moreover, a Cauchy sequence in $X$ converges if it has a convergent subsequence. 
+\end{prop}
+
+\begin{definition}
+	Let $X$ be a linear space normed by $|| \cdot ||$. A sequence $\{ f_n \}$ in $X$ is said to be \textbf{rapidly Cauchy} if there is a convergent series of positive numbers $\sum_{k=1}^\infty \varepsilon_k$ for which 
+	\begin{align*}
+		|| f_{k+1} - f_k || \leq \varepsilon_k^2 	\text{ for all $k$} 
+	\end{align*}
+	
+\end{definition}
+
+\begin{prop}
+	Let $X$ be a normed linear space. Then, every rapidly Cauchy sequence in $X$ is Cauchy. Furthermore, every Cauchy sequence has a rapidly Cauchy subsequence. 
+\end{prop}
+
+\begin{prop}
+	Let $E$ be a measurable set and $1 \leq p \leq \infty$. Then, every rapidly Cauchy sequence in $L^p(E)$ converges with respect to the $L^p(E)$ norm and pointwise a.e. on $E$ to a function in $L^p(E)$. 
+\end{prop}
+
+\begin{theorem}[Riesz-Fischer Theorem] 
+	Let $E$ be a measurable set and $1 \leq p \leq \infty$. Then $L^p(E)$ is a Banach space. Moreover, if $\{f_n \} \rightarrow f$ in $L^p(E)$, a subsequence of $\{ f_n \}$ converges pointwise a.e. on $E$ to $f$. 
+\end{theorem}
+
+\begin{theorem}
+	Let $E$ be a measurable set and $1 \leq p < \infty$. Suppose $\{ f_n \}$ is a sequence in $L^p(E)$ that converges pointwise a.e. on $E$ to the function $f$ which belongs to $L^p(E)$. Then: 
+	\begin{align*} 
+		\{ f_n \} \rightarrow f \text{ in } L^p(E) \iff \lim_{n \rightarrow \infty } \int_E |f_n | ^p = \int_E |f|^p 	
+	\end{align*}
+\end{theorem}
+
+\begin{definition}[Tight]
+	A family $\mathcal{F}$ of measurable functions on $E$ is said to be \textbf{tight} over $E$ provided that for each $\varepsilon > 0$, there exists a subset $E_0$ of $E$ of finite measure for which 
+	\begin{align*}
+		\int_{E \setminus E_0 } |f| < \varepsilon \text{ for all } f \in \mathcal{F}	
+	\end{align*}
+
+\end{definition}
+\begin{theorem}
+	Let $E$ be a measurable set and let $1 \leq p < \infty$. Suppose $\{ f_n \}$ is a sequence in $L^p(E)$ that converges pointwise a.e. on $E$ to the function $f$ which belongs to $L^p(E)$. Then, $\{ f_n \} \rightarrow f$ in $L^p(E)$ $\iff$ $\{ |f_n|^p \}$ is uniformly integrable and tight over $E$. 
+\end{theorem}
+
+\subsection{Approximation and Separability}
+
+\begin{definition}[Dense]
+	Let $X$ be a normed linear space with norm $|| \cdot ||$. Given two subsets $\mathcal{F}$ and $\mathcal{G}$ of $X$ with $\mathcal{F} \subseteq \mathcal{G}$, we say that $\mathcal{F}$ is \textbf{dense} in $\mathcal{G}$ provided for each function $g$ in $\mathcal{G}$ and $\varepsilon > 0$, there is a function $f \in \mathcal{F}$ for which $||f - g || < \varepsilon$. 
+\end{definition}
+
+\begin{prop}
+	Let $E$ be a measurable set and let $1 \leq p \leq \infty$. Then, the subspace of simple functions in $L^p(E)$ is dense in $L^p(E)$. 
+\end{prop}
+
+\begin{prop}
+	Let $[a,b]$ be a closed, bounded interval and $1 \leq p < \infty$. Then, the subspace of step functions on $[a,b]$ is dense in $L^p[a,b]$. 
+\end{prop}
+
+\begin{definition}[Separable] A normed linear space $X$ is said to be \textbf{separable} provided there is a countable subset that is dense in $X$. 
+\end{definition}
+
+\begin{theorem}
+	Let $E$ be a measurable set and $1 \leq p < \infty$. Then, the normed linear space $L^p(E)$ is separable. 
+\end{theorem}
+
+\begin{theorem}
+	Suppose $E$ is measurable and let $1 \leq p < \infty$. Then, $C_c(E)$ (the set of all continuous functions with compact support on $E$) is dense in $L^p(E)$. 
+\end{theorem}
+
+\subsection{Results from the Homework}
+\begin{enumerate}[noitemsep]
+	\item (When Hölder's inequality $\rightarrow$ equality):  There is equality in Hölder's Inequality $\iff$ there exists constants $\alpha$, $\beta$, both of which non-zero, for which: 
+	\begin{align*}
+		\alpha |f|^p = \beta |g|^q 
+	\end{align*}
+	a.e. on $E$. 
+	\item (Extension of Hölder's Inequality for 3 functions): Let $E \subseteq \R$ be measurable, let $1 \leq p < \infty$, $1 \leq q < \infty$, $1 \leq r < \infty$ such that: 
+	\begin{align*}
+		\frac{1}{p} + \frac{1}{q} + \frac{1}{r} = 1
+	\end{align*}
+	If $f \in L^p(E)$, $q \in L^q(E)$, and $h \in L^r(E)$, then $fgh \in L^(E)$ and: 
+	\begin{align*}
+		\idx{E}{}  |f g h | \leq ||f||_p ||g||_q ||h||_r 
+	\end{align*}
+	\item For $1 \leq p \leq \infty$, $q$ conjugate of $p$, $f \in L^p(E)$: 
+	\begin{align*}
+		||f||_p = \max_{g \in L^q(E), ||g||_q \leq 1} \idx{E}{} f g 
+	\end{align*}
+	\item ($L^p$ dominated convergence theorem): Let $\{ f_n \}$ be a sequence of measurable functions that converge pointwise a.e. on $E$ to $f$. For $1 \leq p < \infty$, suppose $\exists$ a function $g \in L^p(E)$ such that $\forall$ $n \in \N$, $|f_n| \leq g$ a.e. on $E$. Then, $\{ f_n \} \rightarrow f$ in $L^p(E)$. 
+	\item Assume $1 \leq p < \infty$, if $E \subseteq \R$ has finite measure, $1 \leq p < \infty$, and $\{ f_n \}$ is a sequence of measurable functions which converge pointwise a.e. on $E$ to $f$, then $\{ f_n \} \rightarrow f$ in $L^p(E)$ if $\exists$ a $\theta > 0$ such that $\{ f_n \}$ belongs to and is \underline{bounded} as a subset of $L^{p+ \theta} (E)$. 
+	\item The space $c$ of all convergent sequences of real numbers and the space $c_0$ of all sequences which converge to zero are Banach spaces with respect to the $\ell^\infty$ norm. 
+	\item Let $E \subseteq \R$ be measurable, $1 \leq p \leq \infty$, $q$ the conjugate of $p$, and $\mathcal{S}$ a dense subset of $L^q(E)$. If $g \in L^p(E)$ and $\idx{E}{} g \cdot g =0$ for all $g \in \mathcal{S}$, then $g = 0$. 
+	\item (Separability of $\ell^p$): For $1 \leq p < \infty$, $\ell^p$ is separable. $\ell^\infty$ is \underline{not} separable. 
+\end{enumerate}
+
+\section{$L^p$ Spaces: Duality and Weak Convergence}
+
+\subsection{Riesz Representation Theorem for the Dual of $L^p$, $1 \leq p < \infty$}
+\begin{definition}[Linear Functional]
+	A \textbf{linear functional} on a linear space $X$ is a real-valued function $T$ on $X$ such that for $f$ and $g$ in $X$ and $\alpha$ and $\beta$ real numbers, 
+	\begin{align}
+		T(\alpha \cdot g + \beta \cdot h ) = \alpha \cdot T(g) + \beta \cdot T(h) 
+	\end{align}
+\end{definition}
+
+\begin{definition}[Bounded]
+	For a normed linear space $X$, a linear functional $T$ on $X$ is said to be \textbf{bounded} provided there is an $M \geq 0$ for which 
+	\begin{align}
+		|T(f)| \leq M \cdot ||f|| \text{ for all } f \in X
+	\end{align}
+	The infimum of all such $M$ is called the \textbf{norm} of $T$ and is denoted by $||T||_*$. 
+\end{definition}
+
+\begin{prop}[Continuity Property of a Bounded Linear Functional] 
+	Let $T$ be a bounded linear functional on the normed space $X$. Then, if $\{ f_n \} \rightarrow f$ in $X$, then $\{ T(f_n) \} \rightarrow \{ T(f) \} $. 
+\end{prop}
+
+\begin{prop}
+	Let $X$ be a normed vector space. Then, the collection of bounded linear functionals on $X$ is a linear space which is normed by $|| \cdot ||_*$. This normed vector space is called the \textbf{dual space} of $X$, and is denoted by $X^*$. 
+\end{prop}
+
+\begin{prop}
+	Let $E \subseteq \R$ be measurable, $1 \leq p < \infty$, q the conjugate of $p$, $g \in L^q(E)$. Define the functional $T$ on $L^p(E)$ by: 
+	\begin{align}
+		T(f) := \int_E g \cdot f \text{ 		} \forall f \in L^p(E) 
+	\end{align}
+	Then, $T$ is a bounded linear functional on $L^p(E)$ and $||T||_* = ||g||_q$. 
+\end{prop}
+
+\begin{prop}
+	Let $T$, $S$ be bounded linear functionals on the normed vector space $X$. If $T=S$ on a dense subset $X_0$ of $X$, then $T=S$. 
+\end{prop}
+
+\begin{lemma}
+	\EinR, $1 \leq p < \infty$. Suppose that $g$ is integrable over $E$ and there exists a $M \geq 0$ for which 
+	\begin{align*}
+		\left| 		\int_E g \cdot f \right| \leq M || f||_p 	\text{ 		} \forall f \in L^p(E),\ f \text{ simple} 
+	\end{align*}
+	Then, $g \in L^q(E)$, where $q$ is the conjugate of $p$. Moreover, $||g||_q \leq M$. 
+\end{lemma}
+
+\begin{theorem}
+	Let $[a,b]$ be a closed, bounded interval, and $1 \leq p < \infty$. Suppose that $T$ is a bounded linear functional on $L^p[a,b]$. Then, there is a functional $g \in L^q[a,b]$, where $q$ is the conjugate of $p$, for which: 
+	\begin{align}
+		T(f)= \idx{a}{b} g \cdot f \text{ 	} \forall f \in L^p[a,b] 
+	\end{align}
+\end{theorem}
+
+\begin{theorem}[Riesz-Representation Theorem for the Dual of $L^p(E)$] 
+	\EinR, $1 \leq p < \infty$, and q the conjugate of p. For all $g \in L^q(E)$, define the bounded linear functional $\mathcal{R}_g$ on $L^p(E)$ by: 
+	\begin{align}
+		\mathcal{R}_g := \idx{E}{} g \cdot f \text{ 		} \forall f \in L^p(E) 
+	\end{align}
+	Then, for each bounded linear functional $T$ on $L^p(E)$, there exists a unique $g \in L^q(E)$ for which 
+	\begin{enumerate}[noitemsep]
+		\item $\mathcal{R}_g = T$ and 
+		\item $||T||_* = ||g||_q$
+	\end{enumerate}
+\end{theorem}
+
+\subsection{Weak Sequential Convergence in $L^p$}
+
+\begin{definition}[Converge Weakly]
+	Let $X$ be a normed vector space. A sequence $\{ f_n \}$ in $X$ is said to \textbf{converge weakly} in $X$ to $f$ provided that 
+	\begin{align}
+		\lim_{n \rightarrow \infty} T(f_n) = T(f) \text{ 		} \forall T \in X^* 
+	\end{align}
+	we write 
+	\begin{align*}
+		\{ f_n \} \warrow f 
+	\end{align*}
+	to mean that $f$ and each $f_n$ belong to $X$ and $\{ f_n \}$ converges weakly in $X$ to $f$. 
+\end{definition}
+
+\begin{definition}
+	\EinR, $1 \leq p < \infty$, $q$ the conjugate of $p$. Then, $\fcvw$ $\iff$ 
+	\begin{align}
+		\lim_{n \rightarrow \infty} \idx{E}{} g \cdot f_n = \idx{E}{} g \cdot f \text{ 		} \forall g \in L^q(E) 
+	\end{align}
+\end{definition}
+
+\begin{theorem}
+	\EinR, $1 \leq p < \infty$. Suppose that $\fcvw$. Then: 
+	\begin{align*}
+		\text{ $\{f_n\}$ is bounded and } ||f||_p \leq \liminf ||f_n||_p 	
+	\end{align*}
+\end{theorem}
+
+\begin{corollary}
+	\EinR, $1 \leq p < \infty$, $q$ the conjugate of $p$. Suppose $\{f_n\}$ converges weakly to $f$ in $L^p(E)$ and $\{ g_n \}$ converges strongly to $g \in L^q(E)$. Then: 
+	\begin{align}
+		\lim_{n \rightarrow \infty} \idx{E}{} g_n \cdot f_n = \idx{E}{} g \cdot f
+	\end{align}
+\end{corollary}
+
+\begin{definition}[Linear Span] 
+	Let $X$ be a normed vector space, and let $S \subseteq X$. Then, the \textbf{linear span of $S$} is the vector space consisting of all linear functionals of the form: 
+	\begin{align}
+		f = \sum_{k=1}^n \alpha_k \cdot f_k 
+	\end{align}
+	where each $\alpha_k \in \R$ and $f_k \in S$. It is the set of all \emph{finite linear combinations of elements in $S$}. We care about this since $L^p$ is an infinite dimensional  space, so we want to find a way to approximate it with finitely many elements. 
+\end{definition}
+
+\begin{prop}[Characterisation of Weak Convergence in $L^p(E)$] 
+	\EinR, $1 \leq p < \infty$, q the conjugate of $P$. Assume that $\mathcal{F} \subseteq L^q(E)$ whose linear span is dense in $L^q(E)$. Let $\{f_n \}$ be a bounded sequence in $L^p(E)$, and let $f \in L^p(E)$. Then, $\fcvw$ $\iff$ 
+	\begin{align}
+		\lim_{n \rightarrow \infty} \idx{E}{} f_n \cdot g = \idx{E}{} f \cdot g \text{ 		} \forall g \in \mathcal{F} 
+	\end{align}
+\end{prop}
+
+\begin{theorem}
+	\EinR, $1 \leq p < \infty$. Suppose that $\{f_n \}$ is a bounded sequence in $L^p(E)$ and $f$ belongs to $L^p(E)$. Then, $\fcvw$ $\iff$ $\forall$ measurable sets $A \subseteq E$: 
+	\begin{align}
+		\lim_{n \rightarrow \infty} \idx{A}{} f_n = \idx{A}{} f
+	\end{align}
+	if $p > 1$, then it is sufficient to consider sets $A$ of finite measure. 
+\end{theorem}
+
+\begin{theorem}
+	Let $[a,b]$ be a closed and bounded interval, $1 < p < \infty$. Suppose that $\{ f_n \}$ is a bounded sequence in $L^p[a,b]$ and $f \in L^p[a,b]$. Then, $\fcvw$ in $L^p[a,b]$ $\iff$ 
+	\begin{align}
+		\lim_{n \rightarrow \infty} \left[		\idx{a}{x} f_n	\right] = \idx{a}{x} f \text{ 			} \forall x \in [a,b] 
+	\end{align}
+\end{theorem}
+
+\begin{lemma}[Riemann-Lebesgue Lemma; used in Fourier Series :-)] 
+	Let $I= [-\pi, \pi]$, $1 \leq p < \infty$. $\forall n \in \mathbb{N}$, define $f_n(x):= \sin(nx)$ for $x \in I$. Then, $\{f_n\}$ converges weakly in $L^p(I)$ to $f \equiv 0$. 
+\end{lemma}
+
+\begin{theorem}
+	\EinR, $1 < p < \infty$. Suppose that $\{ f_n \}$ is a bounded sequence in $L^p(E)$ that converges pointwise a.e. on $E$ to $f$. Then, $\fcvw$. 
+\end{theorem}
+This theorem was used in the proof but was not covered in Analysis 3: 
+\begin{quote}
+	\begin{theorem}[Vitali Convergence Theorem] 
+		\EinR\  and of finite measure. Suppose that the sequence of functions $\{ f_n \}$ is uniformly integrable over $E$. Then, if $\{f_n \} \rightarrow f$ pointwise a.e. on $E$, then $f$ is integrable over $E$  and $\lim_{n \rightarrow \infty} \idx{E}{} f_n = f$. 
+	\end{theorem}
+\end{quote}
+
+\begin{theorem}[Radon-Riesz Theorem]
+	\EinR, $1 < p < \infty$. Suppose that $\fcvw$. Then: 
+	\begin{align}
+		\{f_n \} \rightarrow f \text{ in } L^p(E) \iff \lim_{n \rightarrow \infty} ||f_n||_p = ||f||_p 
+	\end{align}
+\end{theorem}
+
+\begin{corollary} (Not Covered in Class): \EinR and $1 < p < \infty$. Suppose that $\fcvw$. Then, a subsequence of $\{f_n \}$ converges strongly to $f$ $\iff$ $||f||_p = \liminf||f_n||_p$. 
+\end{corollary}
+
+\subsection{Weak Sequential Compactness (``Compactness Found!'')} 
+
+\begin{theorem}
+	\EinR, $1 < p < \infty$. Then, every bounded sequence in $L^p(E)$ has a subsequence that converges weakly in $L^p(E)$ to a function in $L^p(E)$. 
+\end{theorem}
+
+\begin{theorem}[Helly's Theorem]
+	Let $X$ be a \emph{SEPARABLE} normed vector space and $\{ T_n \}$ a sequence in its dual space $X^*$ that is bounded; that is, $\exists$ a $M > 0$ for which 
+	\begin{align*}
+		|T_n(f)| \leq M \cdot ||f|| \text{ 		} \forall f \in X,\ \forall n \in \mathbb{N} 	
+	\end{align*}
+	Then, there is a subsequence $\{ T_{n_k} \}$ of $\{ T_n \}$ and $T \in X^*$ for which 
+	\begin{align}
+		\lim_{k \rightarrow \infty} T_{n_k} (f) = T(f) \text{ 		} \forall f \in X 
+	\end{align}
+\end{theorem}
+
+\begin{definition}[Weakly Sequentially Compact (Compact in the ``weak topology''] Let $X$ be a normed vector space. Then, a subset $K \subseteq X$ is \textbf{weakly sequentially compact} in $X$ provided that every sequence $\{ f_n \}$  in $K$ has a subsequence that converges weakly to $f \in K$. 
+\end{definition}
+
+\begin{theorem}[The Unit Ball is Weakly Sequentially Compact] \EinR, $1 < p < \infty$. Define: 
+\begin{align}
+	B_1:= \sets{f \in L^p(E)}{||f||_p \leq 1}. 
+\end{align}
+$B_1$ is weakly sequentially compact in $L^p(E)$. 
+
+	
+\end{theorem}
+
+\subsection{Results from the Homework}
+\begin{enumerate}
+	\item (Reisz-Representation Theorem for the Dual of $\ell^p$): Let $1 \leq p < \infty$, $q$ the conjugate of $p$. Then for all $\{ g_n \} \in \ell^q$, define the bounded linear functional $\mathcal{R}_g$ on $\ell^p$ by: 
+	\begin{align}
+		\mathcal{R}_g := T ( \{ f_n \}) = \sum_{n=1}^\infty g_n f_n 	
+	\end{align}
+ 	$\forall$ $\{ f_n \} \in \ell^p$. Then, for each bounded linear functional $T$ on $\ell^p$, there exists a unique $\{ g_n \} \in \ell^q$ for which: 
+ 	\begin{enumerate}[noitemsep]
+ 		\item $\mathcal{R}_g = T$
+ 		\item $||T||_* = || \{ g_n \} ||_q$ 
+ 	\end{enumerate}
+ 	\item Let $c$ be the vector space of all real sequences that converge to a real number and let $c_0$ be the subspace of $c$ comprising of all sequences that converge to zero. Norm each vector space with the $\ell^\infty$ norm. Then, $c^* = \ell^1$ and $c_0^* = \ell^1$. 
+ 	\item Assume that $h$ is a continuous function defined on all of $\R$ that is periodic with period $T$ and $\idx{0}{T}h =0$. Let $[a,b]$ be a closed + bounded interval. For each $n \in \N$, define $f_n(x) := h(nx)$. Define $f \equiv 0$ on $[a,b]$. Then, $\{ f_n \} $ converges weakly to $f$ in $L^p[a,b]$. 
+ 	\item Let $1 < p < \infty$, assume $f_0 \in L^p( \R)$. For each $n \in \N$, define $f_n(x) := f_0 (x-n)$. Define $f \equiv 0$ on $\R$. Then, $\{ f_n \}$ converges weakly to $f$ in $L^p(\R)$. Not true for $p=1$!
+ 	\item For $1 \leq p < \infty$, for each $n \in \N$, let $e_n \in \ell^p$ be the standard basis sequence. If $p > 1$, then $\{ e_n \}$ converges weakly to zero in $\ell^p$, but no subsequence converges strongly to zero. $\{ e_n \}$ does not converge at all in $\ell^1$. 
+ 	\item (Uniform Boundedness Principle): Let $E \subseteq \R$ be measurable, $1 \leq p < \infty$, and $q$ the conjugate of $p$. Suppose that $\{ f_n \}$ is a sequence in $L^p(E)$ for which for each $g \in L^q(E)$, the sequence $\{ \idx{E}{} g f_n \}$ is bounded. Show that $\{ f_n \}$ is bounded in $L^p(E)$. 
+ 	\item $\{ x^n \}$ in $C[0,1]$ fails to have a strongly convergent subsequence. Suitably modify this to work in any $C[a,b]$ by: 
+ 	\begin{align*}
+ 		f_n := \left( \frac{x-a}{b-a} \right)^n 
+ 	\end{align*}
+ 	\item In $\ell^p$, $1 < p < \infty$, every bounded sequence in $\ell^p$ has a weakly convergent subsequence. 
+ 	\item Let $X$ be a normed vector space, and let $\{ T_n \}$ be a sequence in $X^*$ for which there exists an $M \geq 0$ such that $||T_n ||_* \leq M$ for all $n \in \N$. Let $\mathcal{S} \subseteq X$ be a dense subset such that $\{ T_n (g) \}$ is Cauchy for all $g \in \mathcal{S}$. Then: 
+ 	\begin{enumerate}[noitemsep]
+ 		\item $\{ T_n (g) \}$ is Cauchy for all $g \in X$. 
+ 		\item The limiting functional is linear and bounded. 
+ 	\end{enumerate}
+ 	\item Helly's theorem fails when $X = L^\infty [0,1]$. To see why, consider  a sequence of linear functionals induced by the Rademacher functions. 
+\end{enumerate}
+
+\section{Metric Spaces}
+\textbf{This section was not covered in class, but since we have homework on this chapter I figured having this as a review from analysis 2 might be helpful. Also, there are a few terms/results that I don't think we covered in analysis 2.}
+
+\subsection{Examples of Metric Spaces}
+
+\begin{definition}[Metric Space]
+	Let $X$ be a non-empty set. A function $\rho: X \times X \rightarrow \R$ is called a \textbf{metric} if $\forall$ $x, y \in X$: 
+	\begin{enumerate}[noitemsep]
+		\item $\rho(x,y) \geq 0$ 
+		\item $\rho(x,y) = 0$ $\iff$ $x=y$ 
+		\item $\rho(x,y) = \rho(y,x)$
+		\item $\rho(x,z) \leq \rho(x,y) + \rho(y,z)$ (\textbf{Triangle Inequality)}. 
+	\end{enumerate}
+	A non-empty set together with a metric, denoted $(X, \rho)$ is called a \textbf{metric space}. 
+\end{definition}
+
+\begin{definition}[Discrete Metric]
+	For any non-empty set $X$, the \textbf{discrete metric} $\rho$ is defined by setting $\rho(x,y) = 0$ if $x = y$ and $\rho(x,y) = 1$ if $x \neq y$. 
+\end{definition}
+
+\begin{definition}[Metric Subspace]
+	For any metric space $(X, \rho)$, let $Y \subseteq X$ be non-empty. Then, the restriction of $\rho$ to $Y \times Y$ defines a metric on $Y$. We define this induced metric space as a \textbf{metric subspace}. 
+\end{definition}
+
+\begin{exmp}[Examples of metric spaces] The following are examples of metric spaces: 
+\begin{enumerate}[noitemsep]
+	\item Every non-empty subset of a Euclidean space. 
+	\item $L^p(E)$, where $E \subseteq \R$ is a measurable set. 
+	\item $C[a,b]$. 
+\end{enumerate}
+\end{exmp}
+
+\begin{definition}[Product Metric] For metric spaces $(X_1, \rho_1)$ and $(X_2, \rho_2)$, we define the \textbf{product metric} $\tau$ on the cartesian product $X_1 \times X_2$ by setting, for $(x_1, x_2)$ and $(y_1, y_2)$ in $X_1 \times X_2$:
+	\begin{align}
+		\tau ( (x_1, x_2), (y_1, y_2) ) := \{ 	[\rho_1(x_1, x_2)]^2 + [\rho_2(y_1, y_2)]^2	\}^{1/2} 
+	\end{align}
+\end{definition}
+
+\begin{definition}
+	Two metrics $\rho$ and $\sigma$ on a set $X$ are said to be \textbf{equivalent} if there are positive numbers $c_1$ and $c_2$ such that $\forall$ $x_1, x_2 \in X$, 
+	\begin{align*}
+		c_1 \sigma (x_1, x_2) \leq \rho(x_1, x_2) \leq c_2 \sigma(x_1, x_2) 	
+	\end{align*}
+\end{definition}
+
+\begin{definition}[Isometry] 
+	A mapping $f: (X, \rho) \rightarrow (Y, \sigma)$ between two metric spaces is called an \textbf{isometry} provided that $f$ is surjective and $\forall x_1, x_2 \in X$: 
+	\begin{align}
+		\sigma(f(x_1), f(x_2)) = \rho(x_1, x_2) 
+	\end{align}
+	We say that two metric spaces are \textbf{isometric} if there is an isometry from one to another. 
+\end{definition}
+
+\subsection{Open Sets, Closed Sets, and Convergent Sequences}
+
+\begin{definition}[Open Ball]
+	Let $(X, \rho)$ be a metric space. For a point $x \in X$ and $r>0$, the set: 
+	\begin{align}
+		B(x,r) := \sets{x' \in X}{\rho(x', x) < r}
+	\end{align}
+	is called the \textbf{open ball} centred at $x$ of radius $r$. A subset $\open \subseteq X$ is said to be \textbf{open} if $\forall x \in \open$, there exists an open ball centred at $x$ and contained in $\open$. For a point $x \in X$, an open set containing $x$ is called a \textbf{neighbourhood} of $x$.  
+\end{definition}
+
+\begin{prop}
+	Let $X$ be a metric space. The whole set $X$ and the empty set $\emptyset$ are open. The intersection of any two open sets is open. The union of any collection of open sets is open. 
+\end{prop}
+
+\begin{prop}
+	Let $X$ be a subspace of a metric space $Y$ and $E \subseteq X$. Then, E is \textbf{open in $X$} $\iff$ $E = X \cap \open$, where $\open$ is open in $Y$. 
+\end{prop}
+
+\begin{definition}[Closure]
+	For a subset $E \subseteq X$, a point $x \in X$ is called a \textbf{point of closure} of $E$ provided that every neighbourhood of $x$ contains a point in $E$. The collection of the points of closure of $E$ is called the \textbf{closure} of $E$ and is denoted by $\overline{E}$. 
+\end{definition}
+
+\begin{prop}
+	For $E \subseteq X$, where $X$ is a metric space, its closure $\overline{E}$ is closed. Moreover, $\overline{E}$ is the smallest closed subset of $X$ containing $E$ in the sense that if $F$ is closed and if $E \subseteq F$, then $\overline{E} \subseteq F$. 
+\end{prop}
+
+\begin{definition}[Converge]
+	A sequence $\{ x_n \}$ in a metric space $(X, \rho)$ is said to \textbf{converge} to the point $x \in x$ provided that: 
+	\begin{align*}
+		\lim_{n \rightarrow \infty} \rho(x_n, x) = 0 	
+	\end{align*}
+	that is, $\forall$ $\varepsilon > 0$, $\exists$ an index $N$ such that $\forall n \geq N$, $\rho(x_n, x) < \varepsilon$. 
+\end{definition}
+
+\begin{prop}
+	Let $\rho$ and $\sigma$ be equivalent metrics on a non-empty set $X$. Then, a subset $X$ is open in a metric space $(X, \rho)$ $\iff$ it is open in $(X, \sigma)$. 
+\end{prop}
+	
+\subsection{Continuous Mappings Between Metric Spaces}
+
+\begin{definition}[Continuous]
+	A mapping $f$ from a metric space $X$ to a metric space $Y$ is continuous at the point $x \in X$ if $\forall$ $\{ x_n \} \in X$, if $\{ x_n \} \rightarrow x$, then $\{ f(x_n) \} \rightarrow f(x)$. $f$ is said to be \textbf{continuous} if it is continuous at every point in $X$. 
+\end{definition}
+
+\begin{prop}[$\varepsilon$-$\delta$ criteria for continuity] 
+	A mapping from a metric space $(X, \rho)$ to a metric $(Y, \sigma)$ is continuous at the point $x \in X$ $\iff$ $\forall$ $\varepsilon > 0$, $\exists$ $\delta > 0$ such that if $\rho(x, x') < \delta$, then $\sigma(f(x), f(x')) < \varepsilon$. That is: 
+	\begin{align}
+		f(B(x, \delta)) \subseteq B(f(x), \varepsilon) 
+	\end{align}
+\end{prop}
+
+\begin{prop}
+	A mapping $f$ from a metric space $X$ to a metric space $Y$ is continuous $\iff$ $\forall$ open subsets $\open \subseteq Y$, the inverse image under $f$ of $\open$, $f^{-1}(\open)$, is an open subset of $X$. 
+\end{prop}
+
+\begin{prop}
+	The composition of continuous mappings between metric spaces, when defined, is continuous. 
+\end{prop}
+
+\begin{definition}[Uniformly Continuous] 
+	A mapping from a metric space $(X, \rho)$ to a metric space $(Y, \sigma)$ is said to be \textbf{uniformly continuous} if $\forall$ $\varepsilon > 0$, $\exists$ $\delta > 0$ such that $\forall u, v \in X$, if $\rho(u, v) < \delta$, $\sigma(f(u), f(v)) < \varepsilon$. 
+\end{definition}
+
+\begin{definition}[Lipschitz] 
+	A mapping $f: (X, \rho) \rightarrow (Y, \sigma)$ is said to be \textbf{Lipschitz} if $\exists$ a $c \geq 0$ such that $\forall$ $u, v \in X$: 
+	\begin{align*}
+		\sigma(f (u), f(v) ) \leq c \rho(u,v) 	
+	\end{align*}
+\end{definition}
+
+\subsection{Complete Metric Spaces} 
+
+\begin{definition}[Cauchy] A sequence $\{ x_n \}$ in a metric space $(X, \rho)$ is said to be a \textbf{Cauchy sequence} if $\forall \varepsilon > 0$, there exists a $N \in \mathbb{N}$ such that if $m, n \geq N$, then $\rho(x_n, x_m) < \varepsilon$. 
+\end{definition}
+
+\begin{definition}[Complete]
+	A metric space $X$ is said to be \textbf{complete} if every Cauchy sequence in $X$ converges to a point in $X$. 
+\end{definition}
+
+\begin{prop}
+	Let $[a,b]$ be a closed and bounded interval of real numbers. Then, $C[a,b]$ with the metric induced by the max norm is complete. 
+\end{prop}
+
+\begin{prop}[Characterisation of Complete Subspaces of Metric Spaces]
+	Let $E \subseteq X$, where $X$ is a complete metric space. Then, the metric subspace $E$ is complete $\iff$ $E$ is a closed subset of $X$. 
+\end{prop}
+
+\begin{theorem}
+	The following are complete metric spaces: 
+	\begin{enumerate}[noitemsep]
+		\item Every non-empty closed subset of $\R^n$. 
+		\item $E \subseteq \R$ measurable, $1 \leq p \leq \infty$, each non-empty closed subset of $L^p(E)$. 
+		\item Each non-empty closed subset of $C[a,b]$. 
+	\end{enumerate}
+\end{theorem}
+
+\begin{definition}[Diameter]
+	Let $E$ be a non-empty subset of a metric space $(X, \rho)$. We define the \textbf{diameter} of $E$, denoted by diam$(E)$, by: 
+	\begin{align}
+		\text{diam}(E):= \sup \sets{\rho(x,y)}{x, y \in E}
+	\end{align}
+	We say that $E$ is \textbf{bounded} if it has finite diameter. 
+\end{definition}
+
+\begin{definition}[Contracting Sequence]
+	A decreasing sequence $\{ E_n \}$ of non-empty subsets of $X$ is called a \textbf{contracting sequence} if: 
+	\begin{align}
+		\lim_{n \rightarrow \infty} \text{diam}(E_n) = 0 
+	\end{align}
+\end{definition}
+
+\begin{theorem}[Cantor Intersection Theorem]
+	Let $X$ be a metric space. Then, $X$ is complete $\iff$ whenever $\{ F_n \}$ is a contracting sequence of non-empty closed subsets of $X$, there is a point $x \in X$ for which: 
+	\begin{align}
+		\bigcap_{n=1}^\infty F_n = \{ x \}
+	\end{align}
+\end{theorem}
+
+\begin{theorem}
+	Let $(X, \rho)$ be a metric space. Then, there is a complete metric space $(\widetilde{X}, \tilde{\rho})$ for which $X$ is a dense subset of $\widetilde{X}$ and 
+	\begin{align}
+		\rho(u,v) = \tilde{\rho}(u,v) \text{ 		} \forall\ u, v \in X
+	\end{align}
+	we call such a space the \textbf{completion} of $(X, \rho)$. 
+\end{theorem}
+
+\subsection{Compact Metric Spaces}
+
+\begin{definition}[Compact Metric Space]
+	A metric space $X$ is called \textbf{compact} if every open cover of $X$ has a finite sub-cover. A subset $K \subseteq X$ is compact if $K$, considered as a metric subspace of $X$, is compact. 
+\end{definition}
+
+\underline{\textbf{Formulation of compactness in terms of closed sets:}} Let $\mathcal{T}$ be a collection of open subsets of a metric space $X$. Define $\mathcal{F}$ to be the collection of the complements of elements in $\mathcal{T}$. Since the elements of $\mathcal{T}$ are open, the elements of $\mathcal{F}$ are closed. Thus, $\mathcal{T}$ is a cover $\iff$ the elements of $\mathcal{F}$ have \emph{empty intersection}. By deMorgan's law, we can formulate compactness in terms of closed sets as: 
+\begin{quote}
+	A metric space $X$ is compact $\iff$ every collection of closed sets with empty intersection has a finite sub-collection whose intersection is non-empty. 
+\end{quote}
+	This property is called the \textbf{finite intersection property}.
+	
+\begin{definition}[Finite Intersection Property]
+	A collection of sets $\mathcal{F}$ is said to have the \textbf{finite intersection property} if any finite sub-collection of $\mathcal{F}$ has a non-empty intersection.
+\end{definition}
+
+\begin{prop}[Compactness in terms of closed sets]
+	A metric space $X$ is compact $\iff$ every collection $\mathcal{F}$ of closed subsets of $X$ with the finite intersection property has a non-empty intersection. 
+\end{prop}
+
+\begin{definition}[Totally Bounded]
+	A metric space $X$ is \textbf{totally bounded} if $\forall$ $\varepsilon > 0$,  the space $X$ can be covered by a finite number of open balls of radius $\varepsilon$. A subset $E \subseteq X$ is said to be \textbf{totally bounded} if $E$, a s a subspace of the metric space $X$, is totally bounded. 
+\end{definition}
+
+\begin{definition}[$\varepsilon$-net] 
+	Let $E$ be a subset of a metric space $X$. A $\varepsilon$-\textbf{net} for $R$ is a finite collection of open balls $\{ B(x_k, \varepsilon) \}_{k=1}^n$ with centres $x_k \in X$ whose union covers $E$. 
+\end{definition}
+
+\begin{prop}
+	A metric space $E$ is totally bounded $\iff$ $\forall$ $\varepsilon > 0$, there is a finite $\varepsilon$-net for $E$. 
+\end{prop}
+
+\begin{prop}
+	A subset of Euclidean space $\R^n$ is bounded $\iff$ it is totally bounded. 
+\end{prop}
+
+\begin{definition}[Sequentially Compact]
+	A metric space $X$ is \textbf{sequentially compact} if every sequence in $X$ has a subsequence that converges to a point in $X$. 
+\end{definition}
+
+\begin{theorem}[Characterisation of Compactness for a metric space]. Let $X$ be a metric space. Then, TFAE: 
+\begin{enumerate}[noitemsep]
+	\item $X$ is complete and totally bounded. 
+	\item $X$ is compact. 
+	\item $X$ is sequentially compact. 
+\end{enumerate}
+\end{theorem}
+	The following three propositions of this chapter are just breaking down these equivalences, so I will not write them.
+	
+\begin{theorem}
+	Let $K \subseteq \mathbb{R}^n$. Then, TFAE: 
+	\begin{enumerate}[noitemsep]
+		\item $K$ is closed and bounded. 
+		\item $K$ is compact. 
+		\item $K$ is sequentially compact. 
+	\end{enumerate}
+	\textbf{Observe}: The equivalence $(1) \iff (2)$ is the Heine-Borel theorem. The  equivalence $(2) \iff (3)$ is the Bolzano-Weierstrass theorem.  
+\end{theorem} 
+
+\begin{prop}
+	Let $f$ be a continuous mapping from a compact metric space $X$ to a compact metric space $Y$. Then, its image $f(X)$ is compact. 
+\end{prop}
+
+\begin{theorem}[Extreme Value Theorem]
+	Let $X$ be a metric space. Then, $X$ is compact $\iff$ every continuous real-valued function on $X$ attains a minimum and maximum value. 
+\end{theorem}
+
+\begin{definition}[Lebesgue Number]
+	Let $X$ be a metric space, and let $\{ \open_\lambda \}_{\lambda \in \Lambda}$ be an open cover of $X$. Thus, each $x \in X$ is contained in a member of the cover, $\open_\lambda$. Since $\open_\lambda$ is open, $\exists$ $\varepsilon > 0$ such that: 
+	\begin{align*}
+		B(x, \varepsilon) \subseteq \open_\lambda 	
+	\end{align*}
+	In general, $\varepsilon$ on $X$, but for compact metric spaces we can get \emph{uniform control}. This $\varepsilon$ that uniformly works is called the \textbf{Lebesgue number} for the cover $\{ \open_\lambda \}_{\lambda \in \Lambda }$. 
+\end{definition}
+
+\begin{lemma}
+	Let $\{ \open_\lambda \}_{\lambda \in \Lambda}$ be an open cover of a compact metric space $X$. Then, there is a number $\varepsilon > 0$ such that for each $x \in X$, the open ball $B(x, \varepsilon) $ is contained in some member of the cover. 
+\end{lemma}
+
+\begin{prop}
+	A continuous mapping from a compact space $(X, \rho)$ to a metric space $(Y, \sigma)$ is uniformly continuous. 
+\end{prop}
+
+\subsection{Separable Metric Spaces}
+
+\begin{definition}[Dense \& Separable] A subset $D $ of a metric space $X$ is \textbf{dense} in $X$ if every non-empty subset of $X$ contains a point of $D$. A metric space is \textbf{separable} if there is a countable subset of $X$ that is dense in $X$. 	
+\end{definition}
+
+The \textbf{Weierstrass Approximation Theorem} states that polynomials are dense in $C[a,b]$. So, $C[a,b]$ is separable, with the countable dense set being the set of polynomials with rational coefficients. 
+
+\begin{prop}
+	A compact metric space is separable. 
+\end{prop}
+
+\begin{prop}
+	A metric space $X$ is separable $\iff$ there is a countable collection of $\{ \open_n \}$ of open subsets of $X$ such that any open subset of $X$ is the union of a sub-collection of $\{ \open_n \}$. 
+\end{prop}
+
+\begin{prop}
+	Every subspace of a separable metric space is separable. 
+\end{prop}
+
+\begin{theorem}
+	Each of the following are separable metric spaces: 
+	\begin{enumerate}[noitemsep]
+		\item Every non-empty subset of Euclidean space $\R^n$. 
+		\item $1 \leq p < \infty$, $L^p(E)$ and all non-empty subsets of $L^p(E)$. 
+		\item Each non-empty subset of $C[a,b]$. 
+	\end{enumerate}
+\end{theorem}
+
+
+\subsection{Results from the Homework}
+
+\begin{enumerate}[noitemsep]
+	\item $\{ (X_n, \rho_n) \}_{n=1}^\infty$ a countable collection of metric spaces. Then, the following is a metric on the Cartesian product: 
+	\begin{align*}
+		\rho_*(x,y) = \sum_{n=1}^\infty \frac{1}{2^n} \cdot \frac{\rho_n(x_n, y_n)}{1 + \rho_n(x_n + y_n)}
+	\end{align*}
+	\item A continuous mapping between metric spaces remains continuous if an equivalent metric is imposed on the domain and an equivalent metric is imposed on the domain. 
+	\item The distance function (from a point to a set) is continuous. 
+	\item $\{ x \in X\ |\ \text{dist}(x,E) = 0 \} = \overline{E}$. 
+	\item (Sequential Definition of Uniform Continuity): For a mapping $f$ of a metric space $(X, \rho)$ to the metric space $(Y, \sigma)$, $f$ is uniformly continuous $\iff$ for all sequences $\{ u_n \}$ and $\{ v_n \}$ in $X$: 
+	\begin{align*}
+		\text{ if } \lim_{n \rightarrow \infty} \rho(u_n, v_n) = 0 \text{ then } \lim_{n \rightarrow \infty} \sigma (f(u_n), f(v_n)) = 0 
+	\end{align*}
+	\item If $X$ and $Y$ are metric spaces, with $Y$ complete, and $f$ a uniformly continuous mapping from $E \subseteq X \rightarrow Y$, then $f$ has a uniquely uniformly continuous extension mapping $\overline{f}$ of $\overline{E}$ to $Y$. 
+	\item Let $E \subseteq X$, $X$ a compact metric space. Then, the metric subspace $E$ is compact $\iff$ $E$ is a closed subset of $X$. 
+	\item $E \subseteq X$, $X$ complete. Then, $E$ is totally bounded $\iff$ $\overline{E}$ is totally bounded. 
+	\item The closed unit ball in $\ell^2$ is not compact. 
+\end{enumerate}
+
+
+\section{Topological Spaces}
+\subsection{Open Sets, Closed Sets, Bases, and Sub-bases}
+
+\begin{definition}[Open Sets] 
+	Let $X$ be a non-empty set. A \textbf{topology} $\topo$ for $X$ is a collection of subsets of $X$, called \textbf{open sets}, posessing the following properties: 
+	\begin{enumerate}[noitemsep]
+		\item The entire set $X$ and the empty set $\emptyset$ are open. 
+		\item The finite intersection of open sets are open. 
+		\item The union of any collection of open sets is open. 
+	\end{enumerate}
+	A non-empty set $X$, together with a topology on $X$, is called a \textbf{topological space}. For a point $x \in X$, an open set that contains $x$ is called a \textbf{neighbourhood} of $x$. 
+\end{definition}
+
+\begin{prop}
+	A subset $E \subseteq X$ is open $\iff$ for each $x \in E$, there exists a neighbourhood of $x$ that is contained in $E$. 
+\end{prop}
+
+\begin{ex}[Metric Topology]
+	Let $(X, \rho)$ be a metric space. Let $\open \subseteq X$ be  open if for all $x \in \open$, $\exists$ an open ball at $x$ that is contained in $\open$. This collection of open sets forms a topology; we call this the \textbf{metric topology} induced by $\rho$. 
+\end{ex}
+
+\begin{ex}[Discrete Topology] 
+	This topology is ``too much.'' Let $X$ be a non-empty subset. Let $\topo := \mathcal{P}(X)$. Then, every set containing a point is a neighbourhood of that point. This is induced by the discrete metric. 
+\end{ex}
+
+\begin{ex}[Trivial Topology]
+	Let $X$ be non-empty. Define $\topo := \{ X, \emptyset \}$. The only neighbourhood of any point is the whole set $X$. 	
+\end{ex}
+
+\begin{definition}[Topological Subspaces]
+	Let $(X, \topo)$ be a topological space and let $E$ be a non-empty subset of $X$. The inherited topology $\mathcal{S}$ for $E$ is the set of all sets of the form $E \cap \topo$, where $\open \in \topo$. The topological space $(E, \mathcal{S})$ is called a \textbf{subspace} of $(X, \topo)$. 
+\end{definition}
+
+\begin{definition}[Base for the Topology]
+	The building blocks of a topology is called a \textbf{base}. Let $(X, \topo)$ be a topological space. For a point $x \in X$, a collection of neighbourhoods of $x$, $B_x$, is called a \textbf{base for the topology at $X$} if $\forall$ neighbourhoods $\mathcal{U}$ of $x$, there exists a set $B$ in the collection $B_x$ for which $B \subseteq \mathcal{U}$. 
+	
+	A collection of open sets $\mathcal{B}$ is called a \textbf{base for the topology} $\topo$ provided it contains a base for the topology at each point. 
+\end{definition}
+
+\begin{center} 
+\textbf{A base for a topology completely determines a topology, alongside $\emptyset$ and $X$.}
+\end{center} 
+
+\begin{prop}
+	For a non-empty set $X$, let $\mathcal{B}$ be a collection of subsets of $X$. Then, $\mathcal{B}$ is a base for a topology for $X$ $\iff$: 
+	\begin{enumerate}[noitemsep]
+		\item $\mathcal{B}$ covers $X$. That is:
+		\begin{align}
+			X = \bigcup_{B \in \mathcal{B}} B
+		\end{align}
+		\item If $B_1, B_2 \in \mathcal{B}$, and $x \in B_1 \cap B_2$, then there is a set $B_3 \in \mathcal{B}$ for which $x \in B_3 \subseteq B_1 \cap B_2$. 
+	\end{enumerate}
+	The unique topology that has $\mathcal{B}$ as its base consists of $\emptyset$ and unions of sub-collections of $\mathcal{B}$. 
+\end{prop}
+
+\begin{definition}[Product Topology]
+	Let $(X, \topo)$ and $(Y, \mathcal{S})$ be two topological spaces. In the cartesian product $X \times Y$, consider the collection of sets $\mathcal{B}$ containing the products $\open_1 \times \open_2$, where $\open_1$ is open in $X$ and $\open_2$ is open in $Y$. Then, $\mathcal{B}$ is a base for a topology on $X \times Y$, which we call the \textbf{product topology.}
+\end{definition}
+
+\begin{definition}[Sub-base]
+	Let $(X, \topo)$ be a topological space. The collection of $\mathcal{S}$ of $\topo$ that covers $X$ is called a \textbf{sub-base} for the topology $\topo$ provided intersections of finite collections of $\mathcal{S}$ are a base for $\topo$. 
+\end{definition}
+
+\begin{definition}[Closure]
+	Let $E \subseteq X$ be a subset of a topological space. A point $x \in E$ is called a \textbf{point of closure} of $E$ if every neighbourhood of $x$ contains a point in $E$. The collection of the points of closure of $E$ is called the \textbf{closure} of $E$, denoted $\overline{E}$. 
+\end{definition}
+
+\begin{prop}
+	Let $X$ be a topological space, $E \subseteq X$. Then, $\overline{E}$ is closed. Moreover, $\overline{E}$ is the smallest closed subset of $X$ containing $E$ in the sense that if $F$ is closed and $E \subseteq F$, then $\overline{E} \subseteq F$. 
+\end{prop}
+
+\begin{prop}
+	A subset of a topological space $X$ is open $\iff$ its complement is closed. 
+\end{prop}
+
+\begin{prop}
+	Let $X$ be a topological space. Then, (a) $\emptyset$ and $X$ are closed, (b) the union of a finite collection of closed sets is closed, (c) the intersection of any collection of closed sets in $X$ is closed. 
+\end{prop}
+
+\subsection{Separation Properties}
+\textbf{Motivation:} Separation properties for a topology allow us to discriminate between which topologies discriminate between certain disjoint pairs of sets, which will then allow us to study a robust collection of cts real-valued functions on $X$. 
+
+\begin{definition}[Neighbourhood]
+	A \textbf{neighbourhood} of $K$ for a subset $K \subseteq X$ is an open set that contains $K$. 
+\end{definition} 
+
+\begin{definition}[Separated by Neighbourhoods]
+	We say that two disjoint sets $A$ and $B$ in $X$ can be separated by disjoint neighbourhoods provided that there exists neighbourhoods of $A$ and $B$, respectively, that are disjoint. 
+\end{definition}
+
+\begin{definition}[Separation Properties of Topological Spaces]. In the order of most general to least general, they are: 
+\begin{enumerate}[noitemsep]
+	\item \underline{\textbf{Tychonoff Separation Property}}: For each two points $u, v \in X$, there exists a neighbourhood of $u$ that does not contain $v$ and a neighbourhood of $v$ that does not contain $u$. 
+	\item \underline{\textbf{Hausdorff Separation Property}}: Each two points in $X$ can be separated by disjoint neighbourhoods. 
+	\item \underline{\textbf{Regular Separation Property}}: Tychonoff $+$ each closed set and a point not in the set can be separated by disjoint neighbourhoods.
+	\item \underline{\textbf{Normal Separation Property}}: Tychonoff $+$ each two disjoint closed sets can be separated by disjoint neighbourhoods. 
+\end{enumerate}
+\end{definition}
+
+\begin{prop}
+	A topological space is Tychonoff $\iff$ every set containing a single point, $\{ x \}$, is closed. 
+\end{prop}
+
+\begin{prop}
+	Every metric space is normal.
+\end{prop}
+
+\begin{lemma}
+	$F$ is closed $\iff$ dist$(x, F) > 0$ $\forall$ $ x \notin F$. 
+\end{lemma}
+
+\begin{prop}
+	Let $X$ be a Tychonoff topological space. Then, $X$ is normal $\iff$ whenever $\hood$ is a neighbourhood of a closed subset of $F$ of $X$, there is another neighbourhood of $F$ whose closure is contained in $\hood$. that is, there is an open set $\open$ for which: 
+	\begin{align}
+		F \subseteq \open \subseteq \overline{\open} \subseteq \hood 
+	\end{align}
+\end{prop}
+
+
+\subsection{Countability and Separability}
+\begin{definition}[Converge, Limit]
+	A sequence $\{ x_n \}$ in a topological space $X$ is said to \textbf{converge} to the point $x \in X$ if for each neighbourhood $\hood$ of $x$, there exists an index $N \in \mathbb{N}$ such that if $n \geq N$, then $x_n$ belongs to $\hood$. This point is called a \textbf{limit} of the sequence. 
+\end{definition}
+
+\begin{definition}[First and Second Countable]
+	A topological space $X$ is \textbf{first countable} if there is a countable base at each point. A space $X$ is said to be \textbf{second countable} if there is a countable base for the topology.
+\end{definition}
+
+\begin{ex}
+Every metric space is first countable. 	
+\end{ex}
+
+\begin{prop}
+	Let $X$ be a first countable topological space. For a subset $E \subseteq X$, a point $x \in X$ is called a point of closure of $E$ $\iff$ it is a limit of a sequence in $E$. Thus, a subset $E$ of $X$ is closed $\iff$ whenever a sequence in $E$ converges to $x \in X$, we have that $x \in E$. 
+\end{prop}
+
+\begin{definition}[Dense/Separable]
+	A subset $E \subseteq X$ is \textbf{dense} in $X$ if every open set in $X$ contains a point of $E$. We call $X$ \textbf{separable} if it has a countable dense subset. 
+\end{definition}
+
+\begin{definition}[Metrisable]
+	A topological space $X$ is said to be \textbf{metrisable} if the topology is induced by the metric. 
+\end{definition}
+
+\begin{theorem}
+	Let $X$ be a second countable topological space. Then, $X$ is metrisable $\iff$ it is normal. 
+\end{theorem}
+
+
+\subsection{Continuous Mappings between Topological Spaces}
+\begin{definition}[Continuous]
+	For topological spaces $(X, \topo)$, $(Y, \mathcal{S})$, a mapping $f: X \rightarrow Y$ is said to be \textbf{continuous} at the point $x_0$ in $X$ if, for every neighbourhood $\open$ if $f(x_0)$, there is a neighbourhood $\hood$ of $x_0$ for which $f(\hood) \subseteq \open$. We say that $f$ is continuous provided it is continuous at each point in $X$.  
+\end{definition}
+
+\begin{prop}
+	A mapping $f: X \rightarrow Y$ between topological spaces $X$ and $Y$ is continuous $\iff$ for any open subset $\open$ in $Y$, its inverse image under $f$, $f^{-1}(\open)$, is an open subset of $X$. 
+\end{prop}
+
+\begin{prop}
+	The composition of continuous mappings between topological spaces, when defined, is continuous. 
+\end{prop}
+
+\begin{definition}[Stronger]
+	Given two topologies $\topo_1$ and $\topo_2$ for a set $X$, if $\topo_2 \subseteq \topo_1$, then we say that $\topo_2$ is \textbf{weaker} than $\topo_1$, and that $\topo_1$ is \textbf{stronger} than $\topo_2$. 
+\end{definition}
+
+\begin{prop}
+	Let $X$ be a non-empty set and let $\mathcal{S}$ be a collection of subsets of $X$ that covers $X$. The collection of subsets of $X$ consisting of intersections of finite collections of $\mathcal{S}$ is a base for a topology $\topo$ of $X$. It is the weakest topology containing $\mathcal{S}$ in the sense that if $\topo'$ is any other topology for $X$ containing $\mathcal{S}$, then $\topo \subseteq \topo'$. 
+\end{prop}
+
+\begin{definition}[Weak Topology]
+	Let $X$ be a non-empty set and $\mathcal{F} := \{ f_\alpha\ |\ X \rightarrow X_\alpha \}_{\alpha \in \Lambda }$ a collection of mappings, where each $X_\alpha$ is a topological space. The weakest topology for $X$ that contains the collection of sets
+	\begin{align}
+		\{ f_\alpha^{-1} ( \open_\alpha)\ |\ f_\alpha \in \mathcal{F},\ \open_\alpha \text{ open in } X_\alpha \} 
+	\end{align}
+	is called the \textbf{weak topology for $X$ induced by $\mathcal{F}$.}
+\end{definition}
+
+\begin{prop} Let $X$ be a non-empty set, $\mathcal{F} := \{ f_\lambda\ |\ X \rightarrow X_\lambda \}_{\lambda \in \Lambda } $ a collection of mappings where each $X_\lambda$ is a topological space. The weak topology for $X$ induced by $\mathcal{F}$ is the topology on $X$ that has the fewest number of sets covering the topologies on $X$ for which each mapping $f_\lambda: X \rightarrow X_\lambda$ is continuous. 
+\end{prop}
+
+\begin{definition}[Homeomorphism]
+	A mapping from a topological space $X \rightarrow Y$ is said to be a \textbf{homeomorphism} if it is bijective and has a continuous inverse $f^{-1}: Y \rightarrow X$. Two topological spaces are said to be \textbf{homeomorphic} if there exists a homeomorphism between them. The notion of homeomorphism induces a notion of an equivalence relation between spaces. 
+\end{definition}
+
+\subsection{Compact Topological Spaces}
+
+\begin{definition}[Cover]
+	A collection of sets $\{ E_\lambda \}_{\lambda \in \Lambda }$ is said to be a \textbf{cover} of a set $E$ if $E \subseteq \bigcup_{\lambda \in \Lambda } E_\lambda$. 
+\end{definition}
+
+\begin{definition}[Compact]
+	A topological space $X$ is said to be \textbf{compact} if every open cover of $X$ has a finite sub-cover. A subset $K \subseteq X$ is compact if $K$, considered as a topological space with the subspace topology inherited from $X$, is compact. 
+\end{definition}
+
+\begin{prop}
+	A topological space $X$ is compact $\iff$ every collection of closed subsets of $X$ that posesses the finite intersection property has non-empty intersection. 
+\end{prop}
+
+\begin{prop}
+	A closed subset $K$ of a compact topological space is compact. 
+\end{prop}
+
+\begin{prop}
+	A compact subspace $K$ of a Hausdorff topological space is a closed subset of $X$. 
+\end{prop}
+
+\begin{definition}[Sequentially Compact] 
+	A topological space $X$ is said to be \textbf{sequentially compact} if every sequence in $X$ has a subsequence that converges to a point in $X$. 
+\end{definition}
+
+\begin{prop}
+	Let $X$ be a second countable topological space. Then, $X$ is compact $\iff$ it is sequentially compact. 
+\end{prop}
+
+\begin{theorem}
+	A compact Hausdorff space is normal. 
+\end{theorem}
+
+\begin{prop}
+	A continuous one-to-one mapping $f$ of a compact space $X$ onto a Hausdorff space $Y$ is a homeomorphism. 
+\end{prop}
+
+\begin{prop}
+	The continuous image of a compact topological space is compact. 
+\end{prop}
+
+\begin{corollary}
+	A continuous real-valued function on a compact topological space takes on a minimum and maximum functional value. 
+\end{corollary}
+
+\begin{definition}[Countably Compact] 
+	A topological space is \textbf{countably compact} if every countable open cover has a finite subcover.
+\end{definition}
+
+\subsection{Connected Topological Space}
+
+\begin{definition}[Separated]
+	Two non-empty subsets of a topological space \textbf{separate} $X$ if they are disjoint and their union is $X$. 
+\end{definition}
+
+\begin{definition}[Connected]
+	A topological space which cannot be separated by open sets is said to be \textbf{connected}. A subset $E \subseteq X$ is \textbf{connected} if there do NOT exist open subsets $\open_1$, $\open_2$ of $X$ for which: 
+	\begin{align*}
+		& \open_1 \cap E \neq \emptyset \\
+		& \open_2 \cap E \neq \emptyset \\
+		& E \subseteq \open_1 \cup \open_2, \\
+		& E \cap \open_1 \cap \open_2 = \emptyset 	
+	\end{align*}
+\end{definition}
+
+\begin{prop}
+	Let $f$ be a continuous mapping of a connected space $X$ to a topological space $Y$. Then, its image $f(X)$ is connected. 
+\end{prop}
+
+\begin{prop}
+	For A set $C \in \R$, the following are equivalent. 
+	\begin{enumerate}[noitemsep]
+		\item $C$ is an interval. 
+		\item $C$ is convex. 
+		\item $C$ is connected. 
+	\end{enumerate}
+\end{prop}
+
+\begin{definition}[Intermediate Value Property]
+	A topological space $X$ has the \textbf{intermediate value property} if the image of any continuous real-valued function on $X$ is an interval. 
+\end{definition}
+
+\begin{prop}
+	A topological space has the intermediate value property $\iff$ it is connected. 
+\end{prop}
+
+\begin{definition}[Arcwise connected]
+	A topological space $X$ is \textbf{arcwise connected} if, for each pair $u, v \in X$, there exists a continuous map $f: [0,1] \rightarrow X$ for which $f(0) = u$ and $f(1) = v$. Note: 
+	\begin{enumerate}[noitemsep]
+		\item Connected $\iff$ arcwise connected in $\R^n$. 
+		\item Arcwise connected $\Rightarrow$ connected (in general) 
+		\item There exist connected but non-arcwise connected spaces (in general). 
+	\end{enumerate}
+\end{definition}
+
+\subsection{Results from Homework}
+\begin{enumerate}[noitemsep]
+	\item Let $X$ be a topological space. Then, $X$ is Hausdorff $\iff$ the diagonal $D:= \{ (x_1, x_2) \in X \times X\ |\ x_1 = x_2 \}$ is closed as a subset of $X \times X$. 
+	\item The Moore plane is separable. The subspace $\R \times \{ 0 \}$ is not separable. Thus, the Moore plane is not metrisable and not second countable. 
+	\item Let $X$ and $Y$ be topological spaces. Then, you can construct a continuous map from a Hausdorff space to a non-Hausdorff space, and you can do the same for a normal space to a non-normal space.
+	\item If $\rho_1$ and $\rho_2$ are metrics on a set $X$ that induce topologies $\topo_1$ and $\topo_2$, respectively, then if they generate the same topology $\topo_1 = \topo_2$, then they are \underline{NOT} necessarily equivalent. A counter example would be: 
+	\begin{align*}
+		& \rho_1 := |x-y| \\
+		& \rho_2 := \frac{|x-y|}{1 + |x-y|}
+	\end{align*} 
+\end{enumerate}
+
+\section{Metric Spaces: Three Fundamental Theorems}
+
+\subsection{The Arzela-Ascoli Theorem}
+
+\begin{prop}
+	Let $X$ be a compact metric space. Then $C(X)$ is complete. 
+\end{prop}
+
+\begin{definition}[Epicontinuous] 
+	A collection $\mathcal{F}$ of real-valued functions on a metric space $X$ is said to be \dfn{epicontinuous} at the point $x \in X$ provided that $\forall \varepsilon >0$, $\exists$ $\delta >0$ such that $\forall f \in \mathcal{F}$, $x' \in X$: 
+	\begin{align*}
+		\text{ if } \rho (x', x) < \delta \text{ then } | f(x') - f(x) | < \varepsilon
+	\end{align*}
+	The collection $\mathcal{F}$ is said to be epicontinuous on $X$ if it is epicontinuous at every point in $X$. 
+\end{definition}
+
+\begin{itemize}[noitemsep]
+	\item Any finite collection of continuous functions will be epicontinuous. 
+	\item In general, infinite collections of epicontinuous functions are not epicontinuous. For example, consider $f_n := x^n$ where $x \in [0,1]$. This collection fails to be epicontinuous at $x=1$. 
+\end{itemize}
+
+\begin{definition}[Pointwise bounded] 
+	
+\end{definition}
+
+\end{document}
