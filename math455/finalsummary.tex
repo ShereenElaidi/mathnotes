@@ -1436,4 +1436,107 @@ Equivalent formulation of the Baire Category Theorem: \emph{A non-empty set of a
 
 \section{Topological Spaces: Three Fundamental Properties}
 
+\subsection{Ursohn's Lemma and the Tietze Extension Theorem}
+\begin{lemma}[Urysohn's Lemma]
+	Let $A$, $B$, be two non-empty, disjoint closed subsets of a normal space $X$. Then, for any closed, bounded interval of real numbers $[a,b]$, $\exists$ a continuous real-valued function $f$ defined on $X$ that takes values in $[a,b]$, while $f=A$ on $A$ and $f=b$ on $B$.  
+\end{lemma}
+
+\begin{definition}[Normally Ascending]
+	Let $X$ be a topological space and $\Lambda$ a set of numbers. A collection of open subsets of $X$ indexed by $\Lambda$, $\{ \open_\lambda \}_{\lambda \in \Lambda} $, is said to be \dfn{normally ascending} provided that for any $\lambda_1 < \lambda_2$: 
+	\begin{align*}
+		\overline{\open_{\lambda_1}} \subseteq \open_{\lambda_2} 
+	\end{align*}
+\end{definition}
+
+\begin{lemma}
+	Let $X$ be a topological space. For $\Lambda$ a dense subset of the open, bounded interval $]a,b[$, let $\{ \open_{\lambda}\}_{\lambda \in \Lambda}$, be a normally ascending collection of open subsets of $X$. Define the function $f: X \rightarrow \R$ by setting $f=b$ on $X \setminus \bigcup_{\lambda \in \Lambda} \open_\lambda$ and otherwise setting: 
+	\begin{align}
+		f(x) := \inf \{ \lambda \in \Lambda\ |\ x \in \open_\lambda \} 	
+	\end{align}
+	Then, $f: X \rightarrow [a,b]$ is continuous. 
+\end{lemma}
+
+\begin{lemma}
+	Let $X$ be a normal topological space, $F$ a closed subset of $X$, and $\mathcal{U}$ a neighbourhood of $F$. For any open, bounded interval $]a,b[$ there exists a dense subset $\Lambda$ of $]a,b[$ and a normally ascending collection of open subsets of $X$, $\{ \open_\lambda \}_{\lambda \in \Lambda }$ for which 
+	\begin{align}
+		F \subseteq \open_\lambda \subseteq \overline{\open}_\lambda \subseteq \mathcal{U} 	
+	\end{align}
+\end{lemma}
+
+\begin{theorem}[Tietze Extension Theorem]
+	Let $X$ be a normal topological space, $F$ a closed subset of $X$, and $f$ a continuous real-valued function on $F$ that takes values in the closed, bounded interval $[a,b]$. Then, $f$ has a continuous extension ot all of $X$ that also takes values in $[a,b]$. 
+\end{theorem}
+
+\begin{theorem}[Urysohn Metrization Theorem] 
+	Let $X$ be a second countable topological space. Then $X$ is metrisable $\iff$ $X$ is normal. 
+\end{theorem}
+
+
+\subsection{The Tychnoff Product Theorem}
+
+\begin{definition}[Product Topology]
+	Let $\{ (X_\lambda, \topo_\lambda ) \}_{\lambda \in \Lambda} $ be a collection of topological spaces indexed by a set $\Lambda$. The \dfn{product topology} on the cartesian product $\prod_{\lambda \in \Lambda} \open_\lambda$, where $\open_\lambda \in \topo_\lambda$ and $\open_\lambda = X_\lambda$ except for finitely many $\lambda$. 
+\end{definition}
+
+\begin{prop}
+	Let $X$ be a topological space. A sequence $\{ f_n\ | \Lambda \rightarrow X \}$ converges to $f$ in the product space $X^\Lambda$ $\iff$  $\{ f_n (\lambda) \}$ converges to $f(\lambda)$ for all $\lambda \in \Lambda$. Thus, convergence of a sequence wrt the product topology is pointwise convergence. 
+\end{prop}
+
+\begin{prop}
+	The product topology on the cartesian product of topological spaces $\prod_{\lambda \in \Lambda} X_\lambda$ is the weak topology associated to the collection of projections $\{ \pi_\lambda\ |\ \prod_{\lambda \in \Lambda} X_\lambda \rightarrow X_\lambda \}_{\lambda \in \Lambda} $, that is, the topology on the cartesian product that has the fewest number of sets among the topologies for which all projection mappings are continuous. 
+\end{prop}
+
+\begin{lemma}
+	Let $\mathcal{A}$ be a collection of subsets of a set $X$ that possesses the finite intersection property. Then, there exists a collection $\mathcal{B}$ of subsets of $X$ which contains $\mathcal{A}$, has the finite intersection property, and is maximal with respect to this property. 
+\end{lemma}
+
+\begin{lemma}
+	Let $\mathcal{B}$ be a collection of subsets of $X$ of a set that is maximal with respect to the finite intersection property. Then, each intersection of a finite number of sets in $\mathcal{B}$ is again in $\mathcal{B}$, and each subset of $X$ that has non-empty intersection with each set in $\mathcal{B}$ is itself in $\mathcal{B}$. 
+\end{lemma}
+
+\begin{theorem}[Tychnoff Product Theorem]
+	Let $\{ X_\lambda \}_{\lambda \in \Lambda}$ be a collection of compact topological spaces indexed by the set $\Lambda$. Then, the cartesian product $\prod_{\lambda \in \Lambda} X_\lambda$ with the product topology is compact. 
+\end{theorem}
+\subsection{The Stone-Weierstrass Theorem}
+\begin{theorem}[Weierstrass Approximation Theorem]
+	Let $f$ be a continuous real-valued function on a closed, bounded interval $[a,b]$. Then, $\forall$ $\varepsilon > 0$, $\exists$ a polynomial $p$ for which 
+	\begin{align}
+		|f(x) - p(x) | < \varepsilon\ \forall x \in [a,b] 	
+	\end{align}
+
+\end{theorem}
+
+\begin{definition}[Algebra]
+	A vector subspace $\mathcal{A} \leq C(X)$ is called an \dfn{algebra} provided that the product of any two functions in $\mathcal{A}$ is in $\mathcal{A}$. 
+\end{definition}
+
+
+\begin{definition}[Separate Points]
+	A collection $\mathcal{A}$ of real-valued functions  on $X$ is said to \dfn{separate points} in $X$ provided that for any two distinct points $u, v \in X$, $\exists f \in \mathcal{A}$ such that $f(u) \neq f(v)$. 
+\end{definition}
+
+\begin{theorem}[Stone-Weierstrass Approximation Theorem]
+	Let $X$ be a compact Hausdorff space. Suppose that $\mathcal{A}$ is an algebra of continuous real-valued functions on $X$ that separates points in $X$ and contains the constant functions. Then, $\mathcal{A}$ is dense in $C(X)$. 
+\end{theorem}
+Lemmas used in the proof of the Stone-Weierstrass theorem: 
+\begin{lemma}
+	Let $X$ be a compact Hausdorff space and $\mathcal{A}$ an algebra of continuous functions on $X$ that separates points and contains the constant functions. Then, for each closed subset $F$ of $X$ and point $x_0 \in X \setminus F$ there exists a neighbourhood $\hood$ of $x_0$ that is disjoint from $F$ with the following property: $\forall$ $\varepsilon >0$, $\exists h \in \mathcal{A}$ for which
+	\begin{align}
+		h < \varepsilon \text{ on } \hood, h > 1 - \varepsilon \text{ on } F, \text{ and } 0 \leq h \leq 1 \text{ on } X 	
+	\end{align}
+\end{lemma}
+
+\begin{lemma}
+	Let $X$ be a compact Hausdorff space and $\mathcal{A}$ an algebra of continuous functions on $X$ that separates points and contains the constant functions. Then, for each pair of disjoint and closed subsets $A$ and $B$ of $X$ and $\varepsilon > 0$, $\exists h \in \mathcal{A}$ for which 
+	\begin{align}
+		h < \varepsilon \text{ on } A, h > 1 - \varepsilon \text{ on } B, \text{ and } 0 \leq h \leq 1 \text{ on } X 	
+	\end{align}
+\end{lemma}
+
+\begin{theorem}[Borsuk's Theorem]
+	Let $X$ be a compact Hausdorff topological space. Then, the normed vector space $C(X)$ is separable $\iff$ the topology on $X$ is metrisable. 
+\end{theorem}
+
+\section{Continuous Linear Operators Between Banach Spaces}
+
 \end{document}
