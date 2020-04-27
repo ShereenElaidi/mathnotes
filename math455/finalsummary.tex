@@ -34,6 +34,8 @@
 \theoremstyle{definition} 
 \newtheorem{exmp}{Example}[section]
 
+% linear operators
+\newcommand{\lop}[2]{\mathcal{L}(#1, #2)}
 
 % question environment
 \theoremstyle{definition}
@@ -1538,5 +1540,213 @@ Lemmas used in the proof of the Stone-Weierstrass theorem:
 \end{theorem}
 
 \section{Continuous Linear Operators Between Banach Spaces}
+
+\subsection{Normed Vector Space}
+
+\begin{definition}[Linear Space]
+	A \dfn{linear space} $X$ is an abelian group with the group operation of addition, denoted by $+$, for which, $\forall $ $\alpha \in \R$ and $u \in X$, $\exists$ a scalar product $\alpha \cdot u \in X$ for which the following four properties hold: 
+	\begin{enumerate}[noitemsep]
+		\item $(\alpha + \beta) \cdot u = \alpha \cdot u + \beta \cdot u $
+		\item $\alpha \cdot (u+v) = \alpha \cdot u + \alpha \cdot v$ 
+		\item $(\alpha \beta) \cdot u = \alpha \cdot ( \beta \cdot u) $
+		\item $1 \cdot u =u$
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Norm]
+	A non-negative real-valued function $|| \cdot ||$ defined on the vector space $X$ is called a \dfn{norm} if $\forall u, v \in X$ $\alpha \in \R$: 
+	\begin{enumerate}[noitemsep]
+		\item $|| u || =0 \iff u=0$
+		\item $|| u + v || \leq ||u || + ||v||$
+		\item $ || \alpha u || = | \alpha | || u || $
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Equivalent Norms]
+	Two norms $|| \cdot ||_1$ and $|| \cdot ||_2$ on a vector space $X$ are said to be \dfn{equivalent} provided that there $\exists$ constants $c_1, c_2 \geq 0$ such that 
+	\begin{align}
+		c_1 || x ||_1 \leq || x ||_2 \leq c_2 || x_1 || \text{ 		} \forall x \in X	
+	\end{align}
+
+\end{definition}
+
+\begin{definition}[Direct Sum]
+	Let $Y$, $Z$ be subspaces of $X$. Then, $Y+Z$ is a subspace. If $Y \cap Z = \{ 0 \}$, then $Y \bigoplus Z$ is the \dfn{direct sum} of $Y$ and $Z$. 	
+\end{definition}
+
+\begin{definition}[Banach Space]
+	A normed vector apace is called a \dfn{Banach space} provided it is complete as a metric space with the metric induced by the norm. 
+\end{definition}
+
+\subsection{Linear Operators}
+
+\begin{definition}[Linear Mapping]
+	Let $X$ and $Y$ be linear spaces. A mapping $T: X \rightarrow Y$ is said to be \dfn{linear} provided that for each $u, v \in X$, real numbers $\alpha, \beta \in \R$, 
+	\begin{align}
+		T (\alpha u + \beta v) = \alpha T(v) + \beta T(v) 
+	\end{align}
+	These are called \dfn{linear operators} 
+\end{definition}
+
+\begin{definition}[Bounded Operator]
+	Let $X$ and $Y$ be normed linear spaces. A linear operator $T: X \rightarrow Y$ is said to be \dfn{bounded} provided that $\exists$ a constant $M \geq 0$ for which: 
+	\begin{align}	
+		|| T(u) || \leq M || u || \text{ 		} \forall u \in X 	
+	\end{align}
+	The inf of all such $M$ is called the \dfn{operator norm} of $T$ and is denoted by $||T||$. The collection of bounded linear operators from $X$ to $Y$ is denoted by $\mathcal{L}(X,Y)$. 
+\end{definition}
+
+\begin{theorem}
+	A linear operator between normed linear spaces is continuous $\iff$ it is bounded. 
+\end{theorem}
+
+\begin{definition}[Linear Combination]
+	Let $X$ and $Y$ be linear spaces. For $T: X \rightarrow Y$ and $S: X \rightarrow Y$ linear operators and real numbers $\alpha$ and $\beta$, define the \dfn{linear combination} $\alpha T + \beta S: X \rightarrow Y$ pointwise by: 
+	\begin{align*}
+		(\alpha T + \beta S) (u) := \alpha T(u) + \beta S(u)\ \forall u \in X
+	\end{align*}
+\end{definition}
+
+\begin{prop}
+	Let $X$ and $Y$ be normed linear spaces. The collection of bounded linear operators from $X$ to $Y$, $\lop{X}{Y}$, is a normed linear space. 
+\end{prop}
+
+\begin{theorem}
+	Let $X$ and $Y$ be normed linear spaces. If $Y$ is a Banach space, then so is $\lop{X}{Y}$. 
+\end{theorem}
+
+\begin{definition}[Isomorphism]
+	Let $X$ and $Y$ be normed spaces, $T \in \lop{X}{Y}$ is called an \dfn{isomorphism} if it is bijective and has a continuous inverse (we require that $T^{-1} \in \lop{X}{Y}$). 	
+\end{definition}
+
+\begin{definition}[Kernel]
+	Let $T: X \rightarrow Y$ be an operator. The subspace of $X$ ker$[T] := \{ x \in X\ |\ T(x) = 0 \}$ is called the \dfn{kernel} of $T$. 
+\end{definition}
+
+
+\subsection{Compactness Lost: Infinite-Dimensional Normed Vector Spaces}
+
+\begin{theorem}
+	Any two norms of a finite-dimensional linear space are equivalent. 
+\end{theorem}
+
+\begin{corollary}
+	Any two normed linear spaces of the same finite dimension are isomorphic. 
+\end{corollary}
+
+\begin{corollary}
+	Any finite-dimensional normed vector space is complete and therefore any finite-dimensional subspace of a normed linear space is closed. 
+\end{corollary}
+
+\begin{corollary}
+	The closed unit ball in a finite-dimensional normed linear space is compact. 
+\end{corollary}
+
+\begin{theorem}[Riesz's Theorem]
+	The closed unit ball of a normed vector space is compact $\iff$ $X$ is finite-dimensional.
+\end{theorem}
+
+The following lemma is used to establish the above theorem. 
+
+\begin{lemma}[Riesz's Lemma]
+	Let $Y$ be a closed proper linear subspace of the normed linear space $X$. Then, $\forall$ $\varepsilon > 0$, $\exists$ a unit vector $x_0 \in X$ for which 
+	\begin{align}
+		|| x_0 - y || > 1 - \varepsilon\ \forall  y \in Y 	
+	\end{align}
+\end{lemma}
+
+\subsection{The Open Mapping and Closed Graph Theorems}
+The following theorems are results of the Baire Category Theorem. They apply to the analysis of linear operators between infinite-dimensional Banach spaces. 
+
+\begin{theorem}
+	Let $X$ and $Y$ be Banach spaces and the linear operator $T: X \rightarrow Y$ be continuous. Then, $T(X)$ is a closed subspace of $Y$ $\iff$ $\exists$ a constant $M> 0$ for which given any $y \in T(X)$, $\exists$ $x \in x$ such that
+	\begin{align*}
+		T(x) = y\ \text{ and } ||x|| \leq M ||y||
+	\end{align*}
+\end{theorem}
+
+\begin{definition}[Open Mapping]
+	A mapping $f: X \rightarrow Y$ from the topological space $X$ to the topological space $Y$ is said to be \dfn{open} provided that the image of each open set in $X$ is open in the topological space $f(X)$, where $f(X)$ has the subspace topology induced from $Y$. 
+\end{definition}
+
+\begin{theorem}[Open Mapping Theorem]
+	Let $X$ and $Y$ be Banach spaces and the linear operator $T: X \rightarrow Y$ be continuous. Then, its image $T(X)$ is a closed subspace of $Y$ $\iff$ the operator $T$ is open. 
+\end{theorem}
+
+\begin{corollary}
+	Let $X$ and $Y$ be Banach spaces and $T \in \lop{X}{Y}$ be bijective. Then, $T^{-1}$ is continuous. 
+\end{corollary}
+
+\begin{corollary}
+	Let $|| \cdot ||_1$ and $|| \cdot||_2$ be norms on a linear space $X$ for which both $(X, || \cdot ||_1)$ and $(X, || \cdot ||_2 )$ are Banach spaces. Suppose that there is a $c \geq 0$ for which 
+	\begin{align}
+		|| \cdot ||_2 \leq c || \cdot ||_1 \text{ on } X 	
+	\end{align}
+	Then, the norms are equivalent. 
+\end{corollary}
+
+\begin{definition}[Closed]
+	A linear operator $T: X \rightarrow Y$ between normed linear spaces $X$ and $Y$ is said to be \dfn{closed} provided that whenever $\{ x_n \}$ is a sequence in $X$, if $\{ x_n \} \rightarrow x_0$ and $\{ T(x_n) \} \rightarrow y_0$, then $T(x_0) = y_0$. 
+\end{definition}
+
+\begin{definition}[Graph]
+	The \dfn{graph} of a mapping $T: X \rightarrow Y$ is the set $\{ (x, T(x)) \in X \times Y\ |\ x \in X \}$. 
+\end{definition}
+Thus, an operator is closed $\iff$ its graph is a closed subspace of the product space $X \times Y$. 
+
+\begin{theorem}[Closed Graph Theorem]
+	Let $T: X \rightarrow Y$ be a linear operator between the Banach spaces $X$ and $Y$. Then, $T$ is continuous $\iff$ it is closed. 
+\end{theorem}
+
+\begin{definition}[Linear Complement]
+	Let $V \leq X$, $X$ a linear space. By Zorn's Lemma, there exists a $W \leq X$ such that there exists a direct sum decomposition: 
+	\begin{align}
+		X = V \oplus W	
+	\end{align}
+	$W$ is called the \dfn{linear complement} of $V$ in $X$. If a subspace of $X$ has a finite-dimensional linear complement in $X$, then it is said to have \dfn{finite co-dimension} in $X$. 
+\end{definition}
+
+\begin{definition}[Projection]
+	For $x \in X$, and the linear complement decomposition, set $x:= v + w$ for $v \in V$ and $w \in W$. Define $P(x) := v$. Then, $P: X \rightarrow X$ is a mapping called the \dfn{projection} of $X$ onto $V$ along $W$; it has the following properties: 
+	\begin{enumerate}[noitemsep]
+		\item $P^2 = P$ on $X$ 
+		\item $P(X) = V$ 
+		\item $(ID - P)(X) = W$
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Closed Linear Complement]
+	Let $X$ be a normed vector space. A closed subspace $W$ of $X$ for which $X = V \oplus W$ is called the \dfn{closed linear complement} of $V$ in $X$. 
+\end{definition}
+
+\begin{theorem}
+	Let $V$ be a closed subspace of the Banach space $X$. Then, $V$ has a closed linear complement in $X$ $\iff$ $\exists$ a continuous projection of $X$ onto $V$. 
+\end{theorem}
+
+\begin{theorem}
+	Let $X$ and $Y$ be Banach spaces and the linear operator $T: X \rightarrow Y$ continuous. If $T(X)$ has a closed linear complement in $Y$, then $T(X)$ is closed in $Y$. In particular, if $T(X)$ has finite co-dimension in $Y$, then $T(X)$ is closed in $Y$. 
+\end{theorem}
+
+\subsection{The Uniform Boundedness Principle}
+
+\begin{theorem}[Uniform Boundedness Principle]
+	For $X$ a Banach space and $Y$ a normed vector space, consider a family $\mathcal{F} \subseteq \lop{X}{Y}$. Suppose the family $\mathcal{F}$ is pointwise bounded in the sense that $\forall x \in X$, $\exists$ a constant $M_x \geq 0$ for which 
+	\begin{align}
+		|| T(x) || \leq M x \text{ 		} \forall T \in \mathcal{F} 	
+	\end{align}
+		Then, the family $\mathcal{F}$ is uniformly bounded in the sense that $\exists$ a constant $M \geq 0$ for which $ || T|| \leq M$ $\forall T \in \mathcal{F}$. 
+\end{theorem}
+
+\begin{theorem}[Banach-Saks-Steinhaus Theorem]
+	Let $X$ be a Banach space, $Y$ a normed vector space, and $\{ T_n |\ X \rightarrow Y \}$ a sequence of continuous linear operators. Suppose that for each $x \in X$: 
+	\begin{align}
+		\lim_{n \rightarrow \infty} T_n(x) \text{ exists in $Y$ }	
+	\end{align}
+	Then, the sequence of operators $\{ T_n\ |\ X \rightarrow Y \}$ is uniformly bounded. Moreover, the operator $T: X \rightarrow Y$ defined by
+	\begin{align}
+		T(x) := \lim_{n \rightarrow \infty} T_n(x) \text{ 	} \forall x \in X 	
+	\end{align}
+	is linear, continuous, and $|| T || \leq \liminf_{n \rightarrow \infty} ||T_n||$. 
+\end{theorem}
 
 \end{document}

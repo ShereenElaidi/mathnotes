@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.26)  22 APR 2020 23:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.26)  26 APR 2020 22:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -497,16 +497,16 @@ Package: fancyhdr 2019/01/31 v3.10 Extensive control of page headers and footers
 \f@nch@O@orf=\skip66
 )
 
-Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is useless on input line 105.
-
-
-Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is useless on input line 106.
-
-
 Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is useless on input line 107.
 
 
-Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is useless on input line 108.
+Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is useless on input line 108.
+
+
+Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is useless on input line 109.
+
+
+Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is useless on input line 110.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/bezos/accents.sty
 Package: accents 2006/05/12 v1.4 Math Accent Tools
@@ -620,24 +620,24 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 )
 \Hy@SectionHShift=\skip67
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 201.
+Package hyperref Info: Option `colorlinks' set `true' on input line 203.
  (/Users/shereenelaidi/Desktop/mathnotes/math455/.texpadtmp/finalsummary.aux)
 \openout1 = `finalsummary.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 203.
-LaTeX Font Info:    ... okay on input line 203.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 205.
+LaTeX Font Info:    ... okay on input line 205.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 205.
+LaTeX Font Info:    ... okay on input line 205.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 205.
+LaTeX Font Info:    ... okay on input line 205.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 205.
+LaTeX Font Info:    ... okay on input line 205.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 205.
+LaTeX Font Info:    ... okay on input line 205.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 205.
+LaTeX Font Info:    ... okay on input line 205.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 205.
+LaTeX Font Info:    ... okay on input line 205.
  (/usr/local/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count156
@@ -699,7 +699,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box54
-Package hyperref Info: Link coloring ON on input line 203.
+Package hyperref Info: Link coloring ON on input line 205.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
  (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -707,18 +707,18 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count162
 )
-LaTeX Info: Redefining \ref on input line 203.
-LaTeX Info: Redefining \pageref on input line 203.
-LaTeX Info: Redefining \nameref on input line 203.
+LaTeX Info: Redefining \ref on input line 205.
+LaTeX Info: Redefining \pageref on input line 205.
+LaTeX Info: Redefining \nameref on input line 205.
  (/Users/shereenelaidi/Desktop/mathnotes/math455/.texpadtmp/finalsummary.out) (/Users/shereenelaidi/Desktop/mathnotes/math455/.texpadtmp/finalsummary.out)
 \@outlinefile=\write7
 \openout7 = `finalsummary.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 215.
+LaTeX Font Info:    Try loading font information for U+msa on input line 217.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 215.
+LaTeX Font Info:    Try loading font information for U+msb on input line 217.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/Users/shereenelaidi/Desktop/mathnotes/math455/.texpadtmp/finalsummary.toc
@@ -737,48 +737,36 @@ This may cause the page layout to be inconsistent, however.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 220.
+(hyperref)                removing `math shift' on input line 222.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 220.
+(hyperref)                removing `superscript' on input line 222.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 220.
+(hyperref)                removing `math shift' on input line 222.
 
-Package hyperref Info: bookmark level for unknown definition defaults to 0 on input line 223.
-Package hyperref Info: bookmark level for unknown theorem defaults to 0 on input line 230.
+Package hyperref Info: bookmark level for unknown definition defaults to 0 on input line 225.
+Package hyperref Info: bookmark level for unknown theorem defaults to 0 on input line 232.
 [2]
-Package hyperref Info: bookmark level for unknown corollary defaults to 0 on input line 335.
+Package hyperref Info: bookmark level for unknown corollary defaults to 0 on input line 337.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 350.
+(hyperref)                removing `math shift' on input line 352.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 350.
+(hyperref)                removing `superscript' on input line 352.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 350.
+(hyperref)                removing `math shift' on input line 352.
 
 [3]
-Package hyperref Info: bookmark level for unknown prop defaults to 0 on input line 372.
+Package hyperref Info: bookmark level for unknown prop defaults to 0 on input line 374.
  [4]
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 464.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 464.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 464.
-
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 466.
@@ -793,93 +781,105 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 466.
+(hyperref)                removing `math shift' on input line 468.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\leq' on input line 466.
+(hyperref)                removing `superscript' on input line 468.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\infty' on input line 466.
+(hyperref)                removing `math shift' on input line 468.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 466.
+(hyperref)                removing `math shift' on input line 468.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\leq' on input line 468.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\infty' on input line 468.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 468.
 
 [5]
-Package hyperref Info: bookmark level for unknown lemma defaults to 0 on input line 503.
+Package hyperref Info: bookmark level for unknown lemma defaults to 0 on input line 505.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 529.
+(hyperref)                removing `math shift' on input line 531.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `superscript' on input line 529.
+(hyperref)                removing `superscript' on input line 531.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 529.
+(hyperref)                removing `math shift' on input line 531.
 
 [6] [7] [8] [9]
-Package hyperref Info: bookmark level for unknown exmp defaults to 0 on input line 700.
+Package hyperref Info: bookmark level for unknown exmp defaults to 0 on input line 702.
  [10] [11] [12] [13]
-Package hyperref Info: bookmark level for unknown ex defaults to 0 on input line 1005.
+Package hyperref Info: bookmark level for unknown ex defaults to 0 on input line 1007.
  [14] [15]
-Overfull \hbox (14.04364pt too wide) in paragraph at lines 1081--1082
+Overfull \hbox (14.04364pt too wide) in paragraph at lines 1083--1084
 []$[]$\T1/cmr/m/n/10.95 : Each two points in $\OML/cmm/m/it/10.95 X$ \T1/cmr/m/n/10.95 can be separated by disjoint neighbourhoods. 
  []
 
 [16]
-Overfull \hbox (29.35872pt too wide) in paragraph at lines 1170--1171
+Overfull \hbox (29.35872pt too wide) in paragraph at lines 1172--1173
 [][][]\T1/cmr/bx/n/10.95 Definition[] 63 \T1/cmr/m/n/10.95 (Homeomorphism)\T1/cmr/bx/n/10.95 . []\T1/cmr/m/n/10.95 A mapping from a topological space $\OML/cmm/m/it/10.95 X \OMS/cmsy/m/n/10.95 ! \OML/cmm/m/it/10.95 Y$ \T1/cmr/m/n/10.95 is said to be a \T1/cmr/bx/n/10.95 homeomorphism
  []
 
 [17] [18]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1298.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1300.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1298.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1300.
 
-Overfull \hbox (0.5974pt too wide) in paragraph at lines 1310--1311
+Overfull \hbox (0.5974pt too wide) in paragraph at lines 1312--1313
 [][]\T1/cmr/bx/n/10.95 Lemma 34 \T1/cmr/m/n/10.95 (The Arzela-Ascoli Lemma)\T1/cmr/bx/n/10.95 . []\T1/cmr/m/n/10.95 Let $\OML/cmm/m/it/10.95 X$ \T1/cmr/m/n/10.95 be a separable metric space. Let $\OMS/cmsy/m/n/10.95 f\OML/cmm/m/it/10.95 f[]\OMS/cmsy/m/n/10.95 g$ \T1/cmr/m/n/10.95 be an equicontinuous
  []
 
 
-Overfull \hbox (1.18575pt too wide) in paragraph at lines 1314--1315
+Overfull \hbox (1.18575pt too wide) in paragraph at lines 1316--1317
 [][][]\T1/cmr/bx/n/10.95 Definition[] 74 \T1/cmr/m/n/10.95 (Uniformly Epicontinuous)\T1/cmr/bx/n/10.95 . []\T1/cmr/m/n/10.95 Let $\OML/cmm/m/it/10.95 X$ \T1/cmr/m/n/10.95 be a compact metric space, $\OMS/cmsy/m/n/10.95 F$ \T1/cmr/m/n/10.95 an epicontinuous collection
  []
 
 [19] [20] [21]
-Overfull \hbox (0.4693pt too wide) in paragraph at lines 1519--1520
+Overfull \hbox (0.4693pt too wide) in paragraph at lines 1521--1522
 [][][]\T1/cmr/bx/n/10.95 Theorem[] 52 \T1/cmr/m/n/10.95 (Stone-Weierstrass Approximation Theorem)\T1/cmr/bx/n/10.95 . []\T1/cmr/m/n/10.95 Let $\OML/cmm/m/it/10.95 X$ \T1/cmr/m/n/10.95 be a compact Hausdorff space. Suppose
  []
 
-[22] [23]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1542.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1542.
+[22] [23] [24] [25] [26]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1752.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1752.
  (/Users/shereenelaidi/Desktop/mathnotes/math455/.texpadtmp/finalsummary.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1542.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1542.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1752.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1752.
 Package rerunfilecheck Info: File `finalsummary.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
  ) 
 Here is how much of TeX's memory you used:
- 20028 strings out of 492616
- 362996 string characters out of 6129481
- 461530 words of memory out of 5000000
- 22975 multiletter control sequences out of 15000+600000
+ 20150 strings out of 492616
+ 365182 string characters out of 6129481
+ 461544 words of memory out of 5000000
+ 23002 multiletter control sequences out of 15000+600000
  16079 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  54i,14n,75p,798b,613s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on /Users/shereenelaidi/Desktop/mathnotes/math455/.texpadtmp/finalsummary.pdf (23 pages, 357714 bytes).
+Output written on /Users/shereenelaidi/Desktop/mathnotes/math455/.texpadtmp/finalsummary.pdf (26 pages, 375189 bytes).
 PDF statistics:
- 1015 PDF objects out of 1200 (max. 8388607)
- 962 compressed objects within 10 object streams
- 586 named destinations out of 1000 (max. 500000)
- 301 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1161 PDF objects out of 1200 (max. 8388607)
+ 1103 compressed objects within 12 object streams
+ 681 named destinations out of 1000 (max. 500000)
+ 341 words of extra memory for PDF output out of 10000 (max. 10000000)
 

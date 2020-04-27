@@ -35,3 +35,8 @@
 \contentsline {subsection}{\numberline {6.2}The Tychnoff Product Theorem}{22}{subsection.6.2}% 
 \contentsline {subsection}{\numberline {6.3}The Stone-Weierstrass Theorem}{22}{subsection.6.3}% 
 \contentsline {section}{\numberline {7}Continuous Linear Operators Between Banach Spaces}{23}{section.7}% 
+\contentsline {subsection}{\numberline {7.1}Normed Vector Space}{23}{subsection.7.1}% 
+\contentsline {subsection}{\numberline {7.2}Linear Operators}{23}{subsection.7.2}% 
+\contentsline {subsection}{\numberline {7.3}Compactness Lost: Infinite-Dimensional Normed Vector Spaces}{24}{subsection.7.3}% 
+\contentsline {subsection}{\numberline {7.4}The Open Mapping and Closed Graph Theorems}{24}{subsection.7.4}% 
+\contentsline {subsection}{\numberline {7.5}The Uniform Boundedness Principle}{26}{subsection.7.5}% 
