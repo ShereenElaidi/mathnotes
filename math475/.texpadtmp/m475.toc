@@ -4,3 +4,5 @@
 \contentsline {subsection}{\numberline {1.2}Classification of PDEs}{3}% 
 \contentsline {section}{\numberline {2}Diffusion}{4}% 
 \contentsline {subsection}{\numberline {2.1}Derivation and Setting Up $(n=1)$}{4}% 
+\contentsline {subsubsection}{\numberline {2.1.1}Boundary Value Problems in $L_T:= ]0, L[ \times ]0, T]$}{6}% 
+\contentsline {subsection}{\numberline {2.2}Derivation in $n \geq 1$}{7}% 

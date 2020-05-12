@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.26)  8 MAY 2020 15:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.7.26)  8 MAY 2020 16:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -422,7 +422,14 @@ File: pgfmodulematrix.code.tex 2019/04/04 v3.1.2 (3.1.2)
 \tikz@expandcount=\count126
  (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2019/04/04 v3.1.2 (3.1.2)
-))) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
+))) (/usr/local/texlive/2019/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count127
+\float@exts=\toks40
+\float@box=\box43
+\@float@everytoks=\toks41
+\@floatcapt=\box44
+) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
 File: tikzlibraryshapes.geometric.code.tex 2019/04/04 v3.1.2 (3.1.2)
  (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.geometric.code.tex
 File: pgflibraryshapes.geometric.code.tex 2019/04/04 v3.1.2 (3.1.2)
@@ -430,15 +437,15 @@ File: pgflibraryshapes.geometric.code.tex 2019/04/04 v3.1.2 (3.1.2)
 File: tikzlibrarycalc.code.tex 2019/04/04 v3.1.2 (3.1.2)
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2018/08/11 v1.3c Input encoding file
-\inpenc@prehook=\toks40
-\inpenc@posthook=\toks41
+\inpenc@prehook=\toks42
+\inpenc@posthook=\toks43
 )
-\c@theorem=\count127
-\c@corollary=\count128
-\c@definition=\count129
-\c@prop=\count130
-\c@ex=\count131
-\c@remark=\count132
+\c@theorem=\count128
+\c@corollary=\count129
+\c@definition=\count130
+\c@prop=\count131
+\c@ex=\count132
+\c@remark=\count133
  (/usr/local/texlive/2019/texmf-dist/tex/latex/mathtools/empheq.sty
 Package: empheq 2017/03/31 v2.15 Emphasizing equations
  (/usr/local/texlive/2019/texmf-dist/tex/latex/mathtools/mhsetup.sty
@@ -447,22 +454,22 @@ Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
 Package: mathtools 2018/01/08 v1.21 mathematical typesetting tools
  (/usr/local/texlive/2019/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count133
-\calc@Bcount=\count134
+\calc@Acount=\count134
+\calc@Bcount=\count135
 \calc@Adimen=\dimen169
 \calc@Bdimen=\dimen170
 \calc@Askip=\skip64
 \calc@Bskip=\skip65
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count135
+\calc@Ccount=\count136
 \calc@Cskip=\skip66
 )
 LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
 LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
-\g_MT_multlinerow_int=\count136
+\g_MT_multlinerow_int=\count137
 \l_MT_multwidth_dim=\dimen171
 \origjot=\skip67
 \l_MT_shortvdotswithinadjustabove_dim=\dimen172
@@ -472,39 +479,39 @@ LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
 \l_MT_above_shortintertext_sep=\dimen176
 \l_MT_below_shortintertext_sep=\dimen177
 )
-\l_EQ_equationtype_int=\count137
-\l_EQ_alignmentmode_int=\count138
+\l_EQ_equationtype_int=\count138
+\l_EQ_alignmentmode_int=\count139
 \l_EQ_totalwidth_dim=\dimen178
 \l_EQ_displaywidth_dim=\dimen179
 \l_EQ_temp_linewidth_dim=\dimen180
 \EmphEqdelimitershortfall=\dimen181
-\EmphEqdelimiterfactor=\count139
+\EmphEqdelimiterfactor=\count140
 \g_EQ_toptag_height_dim=\dimen182
 \g_EQ_bottomtag_depth_dim=\dimen183
 \g_EQ_toprow_height_dim=\dimen184
 \g_EQ_bottomrow_depth_dim=\dimen185
 \g_EQ_widesttag_dim=\dimen186
-\EQ_mathdisplay_box=\box43
-\EQ_tag_box=\box44
-\g_EQ_temprow_int=\count140
+\EQ_mathdisplay_box=\box45
+\EQ_tag_box=\box46
+\g_EQ_temprow_int=\count141
 )
 \mytemplen=\skip68
-\mytempbox=\box45
- (/Users/shereenelaidi/Desktop/mathnotes/.texpadtmp/m475.aux)
+\mytempbox=\box47
+ (/Users/shereenelaidi/Desktop/mathnotes/math475/.texpadtmp/m475.aux)
 \openout1 = `m475.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 87.
-LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 88.
+LaTeX Font Info:    ... okay on input line 88.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -542,17 +549,17 @@ LaTeX Font Info:    ... okay on input line 87.
 
 (/usr/local/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count141
+\scratchcounter=\count142
 \scratchdimen=\dimen187
-\scratchbox=\box46
-\nofMPsegments=\count142
-\nofMParguments=\count143
-\everyMPshowfont=\toks42
-\MPscratchCnt=\count144
+\scratchbox=\box48
+\nofMPsegments=\count143
+\nofMParguments=\count144
+\everyMPshowfont=\toks44
+\MPscratchCnt=\count145
 \MPscratchDim=\dimen188
-\MPnumerator=\count145
-\makeMPintoPDFobject=\count146
-\everyMPtoPDFconversion=\toks43
+\MPnumerator=\count146
+\makeMPintoPDFobject=\count147
+\everyMPtoPDFconversion=\toks45
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
  (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/infwarerr.sty
@@ -586,25 +593,25 @@ Package grfext Info: Graphics extension search list:
  (/usr/local/texlive/2019/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 )) ABD: EveryShipout initializing macros
-\Hy@linkcounter=\count147
-LaTeX Font Info:    Try loading font information for U+msa on input line 90.
+\Hy@linkcounter=\count148
+LaTeX Font Info:    Try loading font information for U+msa on input line 91.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 90.
+LaTeX Font Info:    Try loading font information for U+msb on input line 91.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
-(Font)              using `OT1/cmr/bx/n' instead on input line 90.
+(Font)              using `OT1/cmr/bx/n' instead on input line 91.
 
-(/Users/shereenelaidi/Desktop/mathnotes/.texpadtmp/m475.toc)
+(/Users/shereenelaidi/Desktop/mathnotes/math475/.texpadtmp/m475.toc)
 \tf@toc=\write4
 \openout4 = `m475.toc'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 94--98
+Underfull \hbox (badness 10000) in paragraph at lines 95--99
 
  []
 
@@ -612,35 +619,40 @@ Underfull \hbox (badness 10000) in paragraph at lines 94--98
 
 
 {/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-Overfull \hbox (1.36353pt too wide) in paragraph at lines 308--309
+Overfull \hbox (1.36353pt too wide) in paragraph at lines 309--310
 \OT1/cmr/m/n/10.95 from an elec-tric cur-rent or a chem-i-cal re-ac-tion. We will use the $[]$,
  []
 
 [4] [5]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 362.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 363.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 362.
- [6] (/Users/shereenelaidi/Desktop/mathnotes/.texpadtmp/m475.aux)
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 363.
+<pbdry.jpg, id=37, 963.6pt x 530.73282pt>
+File: pbdry.jpg Graphic file (type jpg)
+<use pbdry.jpg>
+Package pdftex.def Info: pbdry.jpg  used on input line 388.
+(pdftex.def)             Requested size: 284.52756pt x 156.71059pt.
+ [6 <./pbdry.jpg>] [7] (/Users/shereenelaidi/Desktop/mathnotes/math475/.texpadtmp/m475.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 16948 strings out of 492616
- 336146 string characters out of 6129481
- 510085 words of memory out of 5000000
- 20556 multiletter control sequences out of 15000+600000
- 15802 words of font info for 60 fonts, out of 8000000 for 9000
+ 17016 strings out of 492616
+ 337102 string characters out of 6129481
+ 511428 words of memory out of 5000000
+ 20614 multiletter control sequences out of 15000+600000
+ 16756 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,16n,60p,9116b,375s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 64i,19n,60p,9116b,365s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/shereenelaidi/Desktop/mathnotes/.texpadtmp/m475.pdf (6 pages, 192388 bytes).
+Output written on /Users/shereenelaidi/Desktop/mathnotes/math475/.texpadtmp/m475.pdf (7 pages, 340751 bytes).
 PDF statistics:
- 90 PDF objects out of 1000 (max. 8388607)
- 65 compressed objects within 1 object stream
+ 96 PDF objects out of 1000 (max. 8388607)
+ 69 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 18 words of extra memory for PDF output out of 10000 (max. 10000000)
 
