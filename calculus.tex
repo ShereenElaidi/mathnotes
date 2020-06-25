@@ -1,0 +1,838 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\title{Calculus: Single Variable, Multivariable, Differential Equations, and Vector Calculus Summary}
+\author{Shereen Elaidi}
+\date{8 June 2020}
+% HEADERS
+\usepackage{fancyhdr}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{Page \thepage}
+\fancyhead[RE,LO]{Calculus Summary}
+\fancyhead[CE,CO]{June 2020}
+\fancyfoot[LE,RO]{}
+
+\newcommand{\dfn}[1]{\underline{\textbf{#1}}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\deriv}[1]{\frac{d}{dx} \left[ #1 \right]}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arccsch}
+\DeclareMathOperator{\arccoth}{arccoth}
+
+\begin{document}
+
+\maketitle 
+
+\begin{abstract}
+	The purpose of this document is to review Calculus. The content here should be equivalent to Math 140, Math 141, Math 222, and Math 248/358 at McGill. 
+\end{abstract}
+
+
+\tableofcontents
+
+\section{Single Variable Calculus}
+\subsection{Limits and Derivatives}
+\begin{itemize}[noitemsep]
+	\item \dfn{Precise Definition of a Limit}: Let $f$ be a function defined on an open interval $]a,c[$ that contains the number $a$. Then, we say that the limit of $f(x)$ as $x$ approaches $a$ is $L$, and we write $\lim_{x \rightarrow a} f(x) = L$ if for every $\varepsilon > 0$, $\exists$ a $\delta > 0$ such that $0 < | x - a | < \delta$ $\Rightarrow$ $|f(x) - L| < \varepsilon$.
+	\begin{itemize}[noitemsep]	
+		\item Heuristically, this means that if any small interval $] L - \varepsilon, L +  \varepsilon [$ is given around $L$, then we can find an interval $]a - \delta, a + \delta [$ around $a$ such that $f$ maps the points in $]a - \delta, a + \delta [$ (except possibly $a$) into the interval $] L - \varepsilon, L+ \varepsilon[$. 
+	\end{itemize}
+	\item \dfn{Continuous}: A function $f$ is said to be continuous at a number $ a \in \R$ if $\lim_{x \rightarrow a} f(x) = f(a)$. 
+	\item \dfn{Intermediate Value Theorem}: Let $f$ be continuous on the interval $[a,b]$ and let $N$ be any number between $f(a)$ and $f(b)$ where $f(a) \neq f(b)$. Then, there exists a number $c \in ]a,b[$ for which $f(c) = N$. 
+	\item \dfn{Tangent Line}: The tangent line to the curve $y = f(x)$ at the point $P = (a, f(a))$ is the line through $P$ with the slope 
+	\begin{align}
+		m = \lim_{x \rightarrow a} \frac{f(x) - f(a)}{x - a} \iff m = \lim_{h \rightarrow 0} \frac{f(a+h) - f(a)}{h}	
+	\end{align}
+	\item \dfn{Velocity / Instantaneous Velocity}: the instantaneous velocity $v(a)$ at the time $t=a$ is the limit of the average velocities: 
+	\begin{align}
+		v(a) := \lim_{h \rightarrow 0} \frac{f(a+h) - f(a)}{h}	
+	\end{align}
+	\item \dfn{Derivative}: The \dfn{derivative} of a function $f$ at a number $a \in \R$, denoted by $f'(a)$, is 
+	\begin{align}
+		\lim_{h \rightarrow 0} \frac{f(a+h) - f(a)}{h} = f'(a)	
+	\end{align}
+\end{itemize}
+
+\subsection{Differentiation Rules}
+\begin{itemize}[noitemsep]
+	\item Derivative of a constant function: $\deriv{c} = 0$. 
+	\item \dfn{Power Rule}: if $n \in \R$, $\deriv{x^n} = nx^{n-1}$. One can prove this using geometric series. 
+	\item \dfn{Constant Multiple Rule}: if $c \in \R$ and $f$ differentiable, then $\deriv{cf(x)} = cf'(x)$. 
+	\item \dfn{Constant Sum Rule}: if $f, g$ are differentiable, then $\deriv{f(x) + g(x)} = \deriv{f(x)} + \deriv{g(x)}$. 
+	\item The rate of change of any exponential function is proportional to the function itself: for $f(x) := b^x$:
+	\begin{align}
+		f'(x) = f'(0) b^x	
+	\end{align}
+	\item \dfn{Derivative of the Natural Exponential Function}: 
+	\begin{align}
+		\deriv{e^x} = e^x 	
+	\end{align}
+	\item \dfn{Product Rule}: if $f, g$ are differentiable, then: 
+	\begin{align}
+		\deriv{f(x) g(x) } = f(x) \deriv{g(x)} + g(x) \deriv{f(x)} 	
+	\end{align}
+	\item \dfn{Quotient Rule}: If $f, g$ are differentiable, then: 
+	\begin{align}
+		\deriv{ \frac{f(x)}{g(x)} } = \frac{g(x) \deriv{f(x)} - f(x) \deriv{g(x)}}{[g(x)]^2}	
+	\end{align}
+	\item \dfn{Derivatives of Trigonometric Functions}: 
+	\begin{itemize}[noitemsep]
+		\item $\deriv{ \sin(x) } = \cos (x) $, $\deriv{ \csc(x) } = - \csc(x) \cot (x) $ 
+		\item $\deriv{\cos(x) } = - \sin(x)$, $\deriv{\sec(x)} = \sec(x) \tan (x)$
+		\item $\deriv{ \tan(x) } = \sec^2 (x)$, $ \deriv{\cot(x)} = - \csc^2 (x)$.
+	\end{itemize}
+	\item \dfn{Chain Rule}: If $g$ is differentiable at $x$ and if $f$ is differentiable at $g(x)$, then the composite function $F := f \circ g$ defined by $F(x) := f(g(x))$ is differentiable at $x$ and $F'$ is given by the product: 
+	\begin{align}
+		F'(x) = f'(g(x)) \cdot g'(x)	
+	\end{align}
+	or, in Leibnitz notation, 
+	\begin{align}
+		\frac{dy}{dx} = \frac{dy}{du} \frac{du}{dx}	
+	\end{align}
+	\item \dfn{Method of Implicit Differentiation}: Differentiating both sides of the equation with respect to $x$, and then solving the resulting equation for $y'$. 
+	\begin{itemize}[noitemsep]
+		\item Application: finding the derivatives of inverse trigonometric functions: 
+		\begin{itemize}[noitemsep]
+			\item $\deriv{\arcsin(x)} = \frac{1}{\sqrt{1-x^2}}$, $\deriv{\arcsec(x)} = \frac{-1}{x \sqrt{x^2 - 1}}$
+			\item $\deriv{\arccos(x)} = \frac{-1}{\sqrt{1-x^2}}$, $\deriv{\arcsec(x)} = \frac{1}{x \sqrt{x^2-1}}$ 
+			\item $\deriv{\arctan(x)} = \frac{1}{1+x^2}$, $\deriv{\arccot(x)} = \frac{-1}{x^2 +1}$ 
+		\end{itemize}
+		\item Application: derivatives of logarithmic functions, $y = \log_b(x)$ and $y = \ln(x)$. 
+		\begin{itemize}[noitemsep]
+			\item $\deriv{ \log_b(x)} = \frac{1}{x \ln (b)}$
+			\item $\deriv{ \ln (x) } = \frac{1}{x}$
+		\end{itemize}
+		\item \dfn{Method of Logarithmic Differentiation}: the calculation of complex functions involving products, quotients, or powers can be simplified by taking logarithms. 
+	\end{itemize}
+	\item \dfn{Hyperbolic Trigonometric Functions}: hyperbolic functions $\sim$ hyperbola like trigonometric functions $\sim$ circle. They are defined as: 
+	\begin{itemize}[noitemsep]
+		\item $\sinh(x) := \frac{e^x - e^{-x}}{2}$, $\csch(x) := \frac{1}{\sinh(x)}$
+		\item $\cosh(x) := \frac{e^x + e^{-x}}{2}$, $\sech(x) := \frac{1}{\cosh(x)}$
+		\item $\tanh(x) := \frac{\sinh(x)}{\cosh(x)}$, $\coth(x) := \frac{\cosh(x)}{\sinh(x)}$
+		\item Applications: whenever an entity such as light, velocity, electricity, or radioactivity is gradually absorbed or extinguished. 
+		\item Hyperbolic identities: 
+		\begin{itemize}
+			\item $\sinh(-x) = - \sinh(x)$, $\cosh(-x) = \cosh(x)$ 
+			\item $\cosh^2(x)  - \sinh^2(x) = 1$, $1- \tanh^2(x) = \sech^2(x)$ 
+			\item $\sinh(x+y) = \sinh(x) \cosh(y) + \cosh(x) \sinh(y)$
+			\item $\cosh(x+y) = \cosh(x) \cosh(y) + \sinh(x) \sinh(y)$
+		\end{itemize}
+		\item Derivatives of Hyperbolic Functions: 
+		\begin{itemize}[noitemsep]
+			\item $\deriv{\sinh(x)} = \cosh(x)$, $\deriv{\csch(x)} = - \csch(x) \coth(x)$, 
+			\item $\deriv{\cosh(x)} = \sinh(x)$, $\deriv{\sech(x)} = - \sech(x) \tanh(x)$, 
+			\item $\deriv{\tanh(x)} = \sech^2(x)$, $\deriv{\coth(x)} = - \csch^2(x)$. 
+		\end{itemize}
+		\item \dfn{Inverse Hyperbolic Functions}: 
+		\begin{itemize}[noitemsep]
+			\item $\arcsinh(x) := \ln(x + \sqrt{x^2 + 1})$ for $x \in \R$. 
+			\item $\arccosh(x) := \ln ( x + \sqrt{x^2 -1})$ for $x \geq 1$. 
+			\item $\arctanh(x) := \frac{1}{2} \ln \left( \frac{1+x}{1-x} \right)$ for $x \in [-1, 1]$ 
+		\end{itemize}
+		\item Derivatives of Inverse Hyperbolic Functions: 
+		\begin{itemize}[noitemsep]
+			\item $\deriv{\arcsinh(x)} = \frac{1}{\sqrt{1+x^2}}$, $\deriv{ \arccsch(x)} = \frac{-1}{|x| \sqrt{x^2 +1}}$
+			\item $\deriv{\arccosh(x)} = \frac{1}{\sqrt{x^2 - 1}}$, $\deriv{\arcsech(x)} = \frac{-1}{x \sqrt{1-x^2}}$
+			\item $\deriv{\arctanh(x)} = \frac{1}{1-x^2}$, $\deriv{ \arccoth(x) } = \frac{1}{1-x^2}$
+		\end{itemize}	
+	\end{itemize}
+\end{itemize}
+
+\subsection{Applications of Differentiation}
+\begin{itemize}[noitemsep]
+	\item \dfn{Extreme Value Theorem}: Let $f$ be continuous on the closed and bounded interval $[a,b]$. Then, $f$ attains an absolute maximum value $f(x)$ and an absolute minimum value $f(d)$ at some numbers $c, d \in [a,b]$.
+	\item \dfn{Fermat's Theorem}: If $f$ has a local maximum or minimum at $c$, and if $f'9x)$ exists, then $f'(x) =0$. 
+	\item \dfn{Closed Interval Method}: To find the absolute maximum and minimum values of a continuous function $f$ on a closed interval $[a,b]$, 
+	\begin{enumerate}[noitemsep]
+		\item Find the values of $f$ at the critical points of $f$ in the open interval $]a,b[$. 
+		\item Compute $f(a)$ and $f(b)$. 
+		\item The max between (1) and (2) is the absolute max; the min between (1) and (2) is the absolute min. 
+	\end{enumerate}
+	\item \dfn{Rolle's Theorem}: Let $f: [a,b] \rightarrow \R$ satisfy: 
+	\begin{enumerate}[noitemsep]
+		\item $f$ is continuous on $[a,b]$
+		\item $f$ is differentiable on $]a,b[$
+		\item $f(a) = f(b)$. 
+	\end{enumerate}
+	Then, there exists a number $c \in ]a,b[$ such that $f'(c) = 0$. 
+	\item \dfn{Mean Value Theorem}: Let $f: [a,b] \rightarrow \R$ satisfy: 
+	\begin{enumerate}[noitemsep]
+		\item $f$ is continuous on $[a,b]$ 
+		\item $f$ is differentiable on $]a,b[$
+	\end{enumerate}
+	Then, there exists a number $c \in ]a,b[$ such that
+	\begin{align}
+		f'(c) = \frac{f(b) - f(a)}{b-a} \iff f(b) -f(a) = f'(c) [b-a]	
+	\end{align}
+	\item \dfn{Theorem} (Consequence of MVT): If $f'(x) =0$ $\forall x \in ]a,b[$, then $f$ is constant on $]a,b[$. 
+	\begin{itemize}[noitemsep]
+		\item \dfn{Corollary}: If $f'(x) = g'(x)$ $\forall x \in ]a,b[$, then $f-g$ is constant on $]a,b[$, i.e., $\exists c \in \R$ such that $f(x) = g(x) +c$. 
+	\end{itemize}
+	\item \dfn{L'Hopital's Rule}: Suppose $f$ and $g$ are differentiable and that $g(x) \neq 0$ on an open interval containing $a$. Suppose that
+	\begin{align}
+		\lim_{x \rightarrow a} f(x) = 0 \text{ and } \lim_{x \rightarrow a} g(x) = 0 	
+	\end{align}
+	or
+	\begin{align}
+		\lim_{x \rightarrow a} f(x) = \pm \infty \text{ and } \lim_{x \rightarrow a} f(x)  = \pm \infty 	
+	\end{align}
+	then
+	\begin{align}
+		\lim_{x \rightarrow a} \left( \frac{f(x)}{g(x)} \right) = \lim_{ x \rightarrow a} \left( \frac{f'(x)}{g'(x)}	\right) 
+	\end{align}
+	\item \dfn{Antiderivative}: A function $F$ is called an \dfn{anti-derivative} of $f$ on an interval $I$ if $F'(x) = f(x)$ $\forall x \in I$. 
+\end{itemize}
+
+\subsection{Integrals}
+\begin{itemize}[noitemsep]
+	\item \dfn{Area}: The \dfn{area} $A$ of a region $S$ that lies under the graph of a continuous function $f$ is the limit of the sum of the approximating rectangles 
+	\begin{align}
+		A = \lim_{n \rightarrow \infty} R_n = \lim_{n \rightarrow \infty} [ f(x_1) \Delta x + ...  + f(x_n) \Delta x ]	
+	\end{align}
+	\item \dfn{Definite Integral}: Let $f: [a,b] \rightarrow \R$. Divide $[a,b]$ into $n$ subintervals of equal width $\Delta x = \frac{b-a}{n}$. Let $a = x_0 < x_1 < ... < x_n =b$ be the endpoints and let $x_1^*, ..., x_n^*$ be any sample points in these subintervals such that $x_i^*  \in [x_{i-1}, x_i]$. Then, the definite integral of $f$ from $a$ to $b$ is: 
+	\begin{align}
+		\int_a^b f(x) dx := \lim_{n \rightarrow \infty} \sum_{i=1}^n f(x_i^*) \Delta x	
+	\end{align}
+	provided that the limit exists and is the same for all possible choices of sample points. If it does exist, then we say that $f$ is \dfn{integrable} on $[a,b]$.
+	\item Formulae for the sums of positive integers: 
+	\begin{itemize}[noitemsep]
+		\item $ \sum_{i=1}^n i = \frac{n(n+1)}{2} $
+		\item $ \sum_{i=1}^n i^2 = \frac{n(n+1)(2n+1)}{6} $
+		\item $ \sum_{i=1}^n i^3 = \left[  \frac{n(n+1)}{2} \right]^2 $
+	\end{itemize}
+	\item \dfn{Fundamental Theorem of Calculus} connects differential calculus and integral calculus. Deals with equations of the form
+	\begin{align}
+		g(x) = \int_a^x f(t) dt 	
+	\end{align}
+	\begin{itemize}[noitemsep]
+		\item \dfn{Fundamental Theorem of Calculus Part 1}: let $f: [a,b] \rightarrow \R$ be continuous on $[a,b]$. Then, the function $g$ defined by
+		\begin{align}
+			g(x) := \int_a^x f(t) dt 	
+		\end{align}
+		is continuous on $[a,b]$ and differentiable on $]a,b[$. Moreover, $g'(x) = f(x)$. 
+		\item \dfn{Fundamental Theorem of Calculus Part 2}: If $f$ is continuous on $[a,b]$, then 
+		\begin{align}
+			\int_a^b f(x) dx = F(b) - F(a) 	
+		\end{align}
+		where $F$ is any anti-derivative of $f$. 
+		\item Alternative expression for the FoC Part 1: 
+		\begin{align}
+			\deriv{ \int_a^x f(t) dt } = f(x) 	
+		\end{align}
+	\end{itemize}
+	\item \dfn{Table of Integration Formulae}: 
+	\begin{itemize}
+\begin{minipage}{0.4\linewidth}
+    \item $\int x^n dx = \frac{x^{n+1}}{n+1}$ for $n \neq -1$. 
+    \item $\int e^x dx = e^x$
+    \item $\int \sin (x) dx = - \cos(x) $
+    \item $\int \sec^2(x) dx = \tan (x) $
+    \item $\int \sec (x) \tan (x) dx = \sec (x) $
+    \item $\int \sec (x) dx = \ln | \sec (x) + \tan (x) | $
+    \item $\int \tan (x) dx = \ln | \sec (x) |$
+    \item $\int \sinh (x) dx = \cosh (x) $
+    \item $\int \frac{1}{x^2 + a^2} dx = \frac{1}{a} \arctan \left( \frac{x}{a} \right)$ 
+    \item $\int \frac{1}{x^2 - a^2} dx = \frac{1}{2a} \ln \left|  \frac{ x-a}{x+a} \right| $
+\end{minipage}
+\begin{minipage}{0.4\linewidth}
+    \item $\int \frac{1}{x} dx = \ln |x |$
+    \item $\int b^x dx = \frac{b^x}{\ln b}$
+    \item $\int \cos (x) dx = \sin (x) $
+    \item $\int \csc^2 (x) dx = - \cot (x) $
+    \item $\int \csc (x) \cot (x) dx = - \csc (x) $ 
+    \item $\int \csc (x) dx = \ln | \csc (x) - \cot (x) | $
+    \item $\int \cot (x) dx = \ln \left| \sin (x) \right| $
+    \item $\int \cosh(x) dx = \sinh(x)$
+    \item $\int \frac{1}{\sqrt{a^2 - x^2}} dx = \arcsin \left( \frac{x}{a} \right) $ $a > 0$
+    \item $\int \frac{1}{\sqrt{ x^2 \pm a^2}} dx = \ln | x + \sqrt{x^2 \pm a^2 }| $
+\end{minipage}
+\end{itemize}
+\end{itemize}
+\subsection{Applications of Integration}
+\begin{itemize}[noitemsep]
+	\item  The \dfn{average value} of $f$ on the interval $[a,b]$ is: 
+	\begin{align}
+		f_{avg} := \frac{1}{b-a} \int_a^b f(x) dx 	
+	\end{align}
+	\item \dfn{Mean Value Theorem for Integrals}: If $f$ is continuous on $[a,b]$ then there exists a $c \in [a,b]$ such that
+	\begin{align}
+		f(x) = f_{avg} = \frac{1}{b-a} \int_a^b f(x) dx \iff \int_a^b f(x) dx = f(c) (b-a) 	
+	\end{align}
+\end{itemize}
+
+\subsection{Integration Techniques}
+\begin{itemize}[noitemsep]
+	\item \dfn{Integration by Parts}: 
+	\begin{align}
+		\int f(x) g'(x) dx = f(x) g(x) - \int g(x) f'(x) dx 	
+	\end{align}
+	\item \dfn{Trigonometric Integrals}: 
+	\begin{enumerate}[noitemsep]
+		\item Strategy for evaluating $\int \sin^m(x) \cos^n (x) dx$: 
+		\begin{enumerate}[noitemsep]
+			\item If $n$ is odd: save one cosine, use $\cos^2(x) = 1-\sin^2(x)$ to express the remaining factors in terms of sine: 
+			\begin{align}
+				\int \sin^m(x) \cos^{2k+1}(x) dx = \int \sin^m(x) (1-\sin^2(x))^k \cos(x) dx 	
+			\end{align}
+			and make the substitution $u=\sin(x)$. 
+			\item If $m$ is odd: save one sine, use $\sin^2(x) = 1 - \cos^2(x)$ to express the remaining factors in terms of cosine: 
+			\begin{align}
+				\int \sin^{2k+1}(x) \cos^n (x) dx = \int (1-\cos^2(x))^k \cos^n (x) \sin (x) dx 	
+			\end{align}
+			and make the substitution $u = \cos(x)$.
+			\item If sine and cosine are even, then use the half-angle identities: 
+			\begin{align}
+				\sin^2(x) = \frac{1}{2} ( 1 - \cos (2x)) \text{ and } \cos^2(x) = \frac{1}{2} ( 1 + \cos(2x)) 	
+			\end{align}
+			A helpful identity is $\sin (x) \cos(x) = \frac{1}{2} \sin (2x)$. 
+		\end{enumerate}
+		\item Strategy for evaluating $\int \tan^m (x) \sec^n(x) dx$: 
+		\begin{enumerate}[noitemsep]
+			\item If $n$ is even: save one secant squared, use the identity $\sec^2(x) = 1 + \tan^2(x)$ to express the remaining factors in terms of $\tan (x)$: 
+			\begin{align}
+				\int \tan^m(x) \sec^{2k} (x) dx = \int \tan^m(x) (1+\tan^2(x))^{k-1} \sec^2(x) dx 	
+			\end{align}
+			and make the substitution $u= \tan(x)$. 
+			\item If $m$ is odd: save one $\sec(x) \tan(x)$, use $\tan^2(x) = \sec^2(x) - 1$ to express the remaining factors in terms of $\sec(x)$: 
+			\begin{align}
+				\int \tan^{2k+1} (x) \sec^n(x) dx = \int ( \sec^2(x) - 1)^k \sec^{n-1}(x) \sec(x) \tan(x) dx 	
+			\end{align}
+			substitute $u= \sec(x)$. 
+		\end{enumerate}
+	\item Important product identities to remember: 
+	\begin{enumerate}[noitemsep]
+		\item $\sin (A) \cos (B) = \frac{1}{2} [ \sin (A-B) + \sin (A+B) ]$
+		\item $\sin (A) \sin (B) = \frac{1}{2} [ \cos (A-B) + \cos (A+B) ]$ 
+		\item $\cos (A) \cos (B) = \frac{1}{2} [ \cos (A-B) + \cos (A+B) ]$
+	\end{enumerate}
+	\end{enumerate}
+	\item \dfn{Trigonometric Substitution} 
+	\begin{itemize}[noitemsep]
+		\item $\sqrt{a^2 - x^2} \rightarrow x = a \sin ( \theta)$, $\theta \in \left[ - \frac{\pi}{2}, \frac{\pi}{2} \right]$ $\rightarrow$ $1 - \sin^2 (\theta ) = \cos^2 (\theta)$. 
+		\item $\sqrt{a^2 + x^2} \rightarrow x = a \tan ( \theta)$, $ \theta \in \left] - \frac{\pi}{2}, \frac{\pi}{2} \right[$ $\rightarrow 1 + \tan^2 (\theta) = \sec^2 (\theta)$. 
+		\item $\sqrt{x^2 - a^2} \rightarrow x = a \sec (\theta)$, $ \theta \in \left[ 0, \frac{\pi}{2} \right[ \cup \left[ \pi, \frac{3 \pi}{2} \right[$ $\rightarrow \sec^2 (\theta) - 1 = \tan^2(\theta)$. 
+	\end{itemize}
+	\item \dfn{Partial Fractions}: 
+	\begin{enumerate}[noitemsep]
+		\item Case I: Denominator $Q(x)$ is a product of distinct linear factors: 
+		\begin{align}
+			\frac{R(x)}{Q(x)} = \frac{A_1}{a_1x+b_1} + ... + \frac{A_k}{a_k x + b_k}	
+		\end{align}
+		\item Case II: Denominator $Q(x)$ is a product of linear factors, some of which are repeated $r$ times: 
+		\begin{align}
+			\frac{R(x)}{Q(x)} = \frac{A_1}{a_1 x + b_1}	 + ... + \frac{A_k}{(a_1 x + b_1)^r}
+		\end{align}
+		\item Case III: $Q(x)$ contains irreducible quadratic factors, none of which is repeated. Then, expression will have a term of the form
+		\begin{align}
+			\frac{Ax + B}{ax^2 + bx + c}	
+		\end{align}
+		which can be integrated by completing the square and using the formula: 
+	\begin{align}
+		\int \frac{1}{x^2 + a^2} dx = \frac{1}{a} \arctan \left( \frac{x}{a} \right) + C	
+	\end{align}
+	\item Case IV: $Q(x)$ contains a repeated irreducible factor. Then, the expression will have a term of the form: 
+	\begin{align}
+		\frac{A_1 x + B_1}{ax^2 + bx + c}	+ .... + \frac{
+		A_r x + B_r}{(ax^2 + bx + c)^r}
+	\end{align}
+	\end{enumerate}
+	\item General Strategy for Integrating: 
+	\begin{enumerate}[noitemsep]
+		\item Simplify the integrand if possible using algebraic manipulation and trigonometric identities. 
+		\item Look for obvious substitutions. 
+		\item Classify integrand according to its form
+		\begin{enumerate}[noitemsep]
+			\item Trigonometric functions
+			\item Rational functions ($\rightarrow$ partial fractions) 
+			\item Integration by parts
+			\item Radicals
+			\begin{enumerate}[noitemsep]
+				\item $\sqrt{ \pm x^2 \pm a^2}$ $\rightarrow$ trigonmetric substitution 
+				\item $(ax+b)^{1/n}$ $\rightarrow$ rationalising substitution $u = (ax+b)^{1/n}$
+			\end{enumerate}
+		\end{enumerate}
+	\end{enumerate}
+	\item \dfn{Improper Integral}: if in the definite integral, $\int_a^n f(x) dx$, either $[a,b]$ is an unbounded interval or $f(x)$ has an infinite discontinuity in $[a,b]$
+\end{itemize}
+
+\subsection{Further Applications of Integration}
+\begin{itemize}[noitemsep]
+	\item \dfn{Arc-length formula}: If $f'$ is continuous on $[a,b]$, then the length of the curve $y=f(x)$, $a \leq x \leq b$ is: 
+	\begin{align}
+		L = \int_a^b \sqrt{1+ [ f'(x)]^2}	
+	\end{align}
+	\item \dfn{Arc-Length Function}: If a smooth curve $C$ has the equation $y=f(x)$, $ a \leq x \leq b$, let $s(x)$ be the distance along $C$ from the initial point $P_0(a, f(a))$ to the point $Q(x, f(x))$. Then, $s$ is a function given by: 
+	\begin{align}
+		s(x) = \int_a^x \sqrt{1+ [f'(t)]^2} dt 	
+	\end{align}
+\end{itemize}
+\subsection{Parameter Equations and Polar Coordinates}
+\textbf{Motivation:} some curves are best handeled when both $x$ and $y$ are given as a function of a third variable $t$: $x=f(t)$, $y=g(t)$. 
+\begin{itemize}
+	\item Suppose $f$, $g$ are differentiable functions and suppose we want to find the tangent line at a point on the parametric curve $x=f(t)$, $y=g(t)$, where $y$ is also a differentiable function of $x$. If $\frac{dx}{dt} \neq 0$, then the slope of the parametric curve is given by: 
+	\begin{align}
+		\frac{dy}{dx} = \frac{\frac{dy}{dt}}{\frac{dx}{dt}}	
+	\end{align}
+	\begin{itemize}[noitemsep]
+		\item We can consider $\frac{d^2 y}{d^2x}$: 
+		\begin{align}
+			\frac{d^2 y}{dx^2} = \frac{d}{dx} \left( \frac{dy}{dx} \right) = \frac{\frac{d}{dt} \left( \frac{dy}{dx} \right)}{\frac{dx}{dt}}	
+		\end{align}
+	\item \dfn{Areas}: if a curve is traced out by the parametric equations $x = f(t)$ and $y=g(t)$ for $t \in [\alpha, \beta]$, then using the substitution rule for integrals one has the following formula: 
+	\begin{align}
+		\mathcal{A} = \int_a^b y dx = \int_\alpha^\beta g(t) f'(t) dt	
+	\end{align}
+	\item \dfn{Arc Length} if a curve $C$ is described by parametric equations $x = f(t)$, $y= g(t)$, $\alpha \leq t \leq \beta$, where $f'$ and $g'$ are continuous on $[a,b]$ and $C$ is traversed exactly once as $t$ travels from $\alpha$ to $\beta$, then the length of $C$ is: 
+	\begin{align}
+		L = \int_\alpha^\beta \sqrt{ \left( \frac{dx}{dt} \right)^2 + \left( \frac{dy}{dt} \right)^2} dt 	
+	\end{align}
+	\item \dfn{Surface Area}: similar to the conditions in the previous theorem, the surface area of a curve obtained by rotating it about the $x$-axis is given by: 
+	\begin{align}
+		S = \int_\alpha^\beta 2 \pi y \sqrt{ \left( \frac{dx}{dt} \right)^2 + \left( \frac{dy}{dt} \right)^2}	
+	\end{align}
+
+	\end{itemize}
+	\item Equations to convert between cartesian and polar coordinates: 
+	\begin{align}
+		x = r \cos (\theta)\ & y = r \sin (\theta) \\
+		r^2 = x^2 + y^2\ & \tan ( \theta) = \frac{y}{x}	
+	\end{align}
+	\item If $r = f(\theta)$ is a polar curve, then we can find the tangent line to a polar curve by regarding $\theta$ as a parameter: 
+	\begin{align*}
+			& x = f(\theta) \cos ( \theta) \\
+			& y = f(\theta) \sin ( \theta) 
+	\end{align*}
+	and the tangent is given by: 
+	\begin{align}
+		\frac{dy}{dx} = \frac{\frac{dy}{d \theta}}{\frac{dx}{d \theta}} = \frac{\frac{dr}{d \theta} \sin (\theta) + r \cos ( \theta)}{\frac{dr}{d \theta} \cos ( \theta) - r \sin (\theta)}
+	\end{align}
+	\item Areas and lengths in polar coordinates
+	\begin{itemize}[noitemsep]
+		\item The area of a sector of a circle: $A = \frac{1}{2} r^2 \theta$. The area of a polar region $\mathcal{R}$: 
+		\begin{align}
+			A(\mathcal{R}) = \int_a^b \frac{1}{2} [ f(\theta) ]^2 d \theta 
+		\end{align}
+		\item The arc-length of a polar curve with the equation $r = f( \theta)$, $ a \leq \theta \leq b$ is: 
+		\begin{align}
+			L = \int_a^b \sqrt{r^2 + \left( \frac{dr}{d \theta} \right)^2} d \theta 	
+		\end{align}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Infinite Sequences and Series}
+
+\begin{itemize}[noitemsep]
+	\item A \dfn{Sequence} is a list of numbers written in a definite order
+	\begin{align}
+		a_1, a_2, a_3, ....	
+	\end{align}
+	\item A sequence has a \dfn{limit} $L$ and we write
+	\begin{align*}
+		\lim_{n \rightarrow \infty} a_n = L 
+	\end{align*}
+	if we can make the terms $a_n$ as close to $L$ as we'd like by taking $n$ sufficiently large. if $\lim_{n \rightarrow \infty} a_n$ exists, then we say that $\{ a_n \}$ is \dfn{convergent}. Else, it is \dfn{divergent}. 
+	\begin{itemize}
+		\item A sequence $\{ a_n \}$ has a limit $L$ if $\forall$ $\varepsilon > 0$, $\exists$ an $N \in \mathbb{N}$ such that $\forall n \geq N$, one has that $|a_n - L| < \varepsilon$. 
+	\end{itemize}
+	\item \dfn{Squeeze Theorem}: if $a_n \leq b_n \leq c_n$ $\forall n \geq n_0$, and if $\lim_{n \rightarrow \infty} a_n = \lim_{n \rightarrow \infty} c_n =L$, then $\lim_{n \rightarrow \infty} b_n =L$. 
+	\begin{itemize}[noitemsep]
+		\item If $\lim_{n \rightarrow \infty} |a_n| = 0$, then $\lim_{n \rightarrow \infty} a_n = 0$. 
+		\item If $\lim_{n \rightarrow \infty} a_n = L$ and if $f$ is a continuous function at $L$, then
+		\begin{align*}
+			\lim_{n \rightarrow \infty} f(a_n) = f(L) 
+		\end{align*}
+	\end{itemize}
+	\item The sequence $\{ r^n \}$ is convergent if $r \in ]-1, 1]$ and divergent for all other values of $r$. If $r \in ]-1, 1]$: 
+	\begin{align*}
+		\lim_{n \rightarrow \infty} r^n = \begin{cases}
+			0 & \text{ if } r \in ]-1, 1[ \\
+			1 & \text{ if } r = 1
+		\end{cases}
+	\end{align*}
+	\item \dfn{Monotonic Sequence Theorem}: every bounded, monotonic sequence converges. 
+	\item \dfn{Series}: Given a series
+	\begin{align*}
+		\sum_{n=1}^\infty a_n = a_1 + a_2 + a_3 + a_4 + ... 
+	\end{align*}
+	let $s_n$ denote the $n$th partial sum: 
+	\begin{align*}
+		s_n := \sum_{i=1}^n a_i = a_1 + ... + a_n 
+	\end{align*}
+	if the \emph{sequence} $\{ s_n \}$ is convergent and $\lim_{n \rightarrow \infty} s_n = s \in \R$, then the series $\sum_{n=1}^\infty a_n$ is convergent. 
+	\item \dfn{Geometric Series}: is an important example of an infinite series.
+	\begin{align}
+		a + ar + ar^2 + ... + ar^{n-1} + ... = \sum_{n=1}^\infty ar^{n-1} \text{ ($a \neq 0$)} 	
+	\end{align}
+	\begin{itemize}[noitemsep]
+		\item If $r=1$, then $s_n = na \rightarrow \infty$. 
+		\item If $r \neq 1$, then $s_n = \frac{a(1-r^n)}{1-r}$. If $ r \in ]-1, 1[$, then $r^n \rightarrow 0 $ as $n \rightarrow \infty$, and so 
+		\begin{align}
+			\lim_{n \rightarrow \infty} s_n = \frac{a}{1-r}	
+		\end{align}
+		otherwise the geometric series diverges. 
+	\end{itemize}
+	\item \dfn{Harmonic Series} is defined as $\sum_{n=1}^\infty \frac{1}{n}$. It's divergent. 
+	\item If the series $\sum_{n=1}^\infty a_n$ is convergent, then $\lim_{n \rightarrow \infty} a_n =0$. 
+	\begin{itemize}
+		\item \dfn{Test for Divergence}: if $\lim_{n \rightarrow \infty} a_n$ does not exist or if $\lim_{n \rightarrow \infty} a_n \neq 0$, then the series $\sum_{n=1}^\infty a_n$ is divergent.
+	\end{itemize}
+	\item \dfn{Integral Test}: Suppose $f$ is a continuous, positive, decreasing function on $[1, \infty[$ and let $a_n = f(n)$. Then, the series $\sum_{n=1}^\infty a_n$ is convergent $\iff$ the improper integral $\int_1^\infty f(x) dx $ is convergent. 
+	\begin{itemize}
+		\item \dfn{p-series}: the $p$-series $\sum_{n=1}^\infty \frac{1}{n^p}$ converges $\iff$ $p >1$. 
+	\end{itemize}
+	\item \dfn{Remainder Estimate for the Integral Test}: Suppose that $f(k) = a_k$, where $f$ is a continuous, decreasing, positive function for $x \geq n$ and suppose that $\sum a_n$ is convergent. If $R_n := S - S_n$, then
+	\begin{align}
+		\int_{n+1}^\infty f(x) dx \leq R_n \leq \int_n^\infty f(x) dx 	
+	\end{align}
+	\item \dfn{Comparison Test}: Suppose that $\sum a_n$ and $\sum b_n$ are series with positive terms. 
+	\begin{enumerate}[noitemsep]
+		\item If $\sum b_n$ is convergent and $a_n \leq b_n $ $\forall n$, then $\sum a_n$ converges. 
+		\item If $\sum b_n$ is divergent and $b_n \leq a_n$ $\forall n$, then $\sum a_n$ diverges. 
+	\end{enumerate}
+	\item \dfn{Limit Comparison Test}: Suppose $\sum a_n$ and $\sum b_n$ are series with positive terms. If 
+	\begin{align*}
+		\lim_{n \rightarrow \infty} \frac{a_n}{b_n} = c
+	\end{align*}
+	where $c \in ]0, \infty[$, then both series have the same behaviour; i,e, either both series converge or both diverge. 
+	\item \dfn{Alternating Series Test}: If the alternating series $\sum_{n=1}^\infty (-1)^{n-1} b_n$ for $b_n > 0$ satisfies: 
+	\begin{enumerate}[noitemsep]
+		\item $b_{n+1} \leq b_n$ $\forall n \in \mathbb{N}$
+		\item $\lim_{n \rightarrow \infty} b_n = 0$
+	\end{enumerate}
+	then, the series converges. 
+	\item \dfn{Absolutely Convergent}: A series $\sum a_n$ is called \dfn{absolutely convergent} if the series of absolute values $\sum |a_n|$ is convergent. 
+	\item \dfn{Conditionally Convergent}: A series $\sum a_n$ is called \dfn{conditionally convergent} if its convergent but not absolutely convergent. 
+	\item If $\sum a_n$ is absolutely convergent then it is convergent.
+	\item \dfn{Ratio Test} Let $\{ a_n \}$ be a sequence.
+	\begin{enumerate}[noitemsep]
+		\item If $\lim_{n \rightarrow \infty} \left| \frac{a_{n+1}}{a_n} \right| = L < 1$, then $\sum_{n=1}^\infty a_n $ absolutely converges (and thus converges).
+		\item If $\lim_{n \rightarrow \infty} \left| \frac{a_{n+1}}{a_n} \right| = L > 1$ or $\lim_{n \rightarrow \infty} \left| \frac{a_{n+1}}{a_n} \right| - L = \infty $, then $\sum_{n=1}^\infty a_n $ diverges. 
+		\item If $\lim_{n \rightarrow \infty} \left| \frac{a_{n+1}}{a_n} \right| = L = 1$ then the Ratio test is inconclusive. 
+	\end{enumerate}
+	\item \dfn{Root Test} Let $\{ a_n \}$ be a sequence. 
+	\begin{enumerate}[noitemsep]
+		\item If $\lim_{n \rightarrow \infty} \sqrt[n]{|a_n|} = L < 1$, then the series absolutely converges (and therefore converges). 
+		\item If $\lim_{n \rightarrow \infty} \sqrt[n]{|a_n|} = L > 1$ or if $\lim_{n \rightarrow \infty} \sqrt[n]{|a_n|} = \infty$ then the series diverges. 
+		\item If $\lim_{n \rightarrow \infty} \sqrt[n]{|a_n|} = L = 1$, then the root test will be inconclusive. 
+	\end{enumerate}
+\end{itemize}
+\subsection{Strategy for Testing Series}
+\begin{enumerate}[noitemsep]
+	\item If the series is of the form $\sum \frac{1}{n^p}$, then apply the p-series rule. 
+	\item If the series is of the form $\sum ar^{n-1}$ or $\sum ar^n$, then apply the geometric series rule. 
+	\item If the series is similar to a p-series or a geometric series, then use a comparison test. 
+	\item If $\lim_{n \rightarrow \infty} a_n \neq 0$, use the divergence test to conclude that the series diverges. 
+	\item If the series is of the form $\sum (-1)^{n-1} b_n$ or $\sum (-1)^n b_n$, then use the alternating series test. 
+	\item If the series has factorials in it, consider applying a ratio test. 
+	\item If the series is of the form $(b_n)^n$, then consider the root test. 
+	\item If $a_n = f(n)$ where $\int_1^\infty f(x) dx$ is easily evaluated, then consider the integral test.
+\end{enumerate}
+
+\subsection{Power Series}
+\begin{itemize}[noitemsep]
+	\item \dfn{Power Series}: a power series is of the form 
+	\begin{align}
+		\sum_{n=0}^\infty c_n x^n = c_0 + c_1 x + c_2 x^2 + ... 	
+	\end{align}
+	A series of the form 
+	\begin{align}
+		\sum_{n=0}^\infty c_n (x-a)^n = c_0 + c_1 (x-a) + c_2 (x-a)^2 
+	\end{align}
+	is called a \dfn{power series in $(x-a)$}
+	\item \dfn{Theorem}: for a given power series $\sum_{n=0}^\infty c_n (x-a)^n$, there are only three possibilities: 
+	\begin{enumerate}[noitemsep]
+		\item The series converges only when $x=a$. 
+		\item The series converges for all $x$. 
+		\item $\exists$ an $R>0$ such that the series converges if $|x-a| < R$ and diverges if $|x-a| > R$. 
+	\end{enumerate}
+	\item \dfn{Theorem (Term-by-term Differentiation and Integration)}: If the power series $\sum c_n (x-a)^n$ has a radius of convergence $R>0$, then the function defined by: 
+	\begin{align}
+		f(x) := c_0 + c_1 (x-a) + c_2 (x-a)^2 + ... = \sum_{n=0}^\infty c_n (x-a)^n 	
+	\end{align}
+	is differentiable (and thus continuous) on the interval $]a-R, a+R[$ and:
+	\begin{enumerate}[noitemsep]
+		\item $f'(x) = c_0 + 2c_s(x-a) + 3c_3 (x-a)^2 + ... = \sum_{n=1}^\infty nc_n (x-a)^{n-1}$. 
+		\item $\int f(x) dx = c + c_0 (x-a) + c_a \frac{(c-a)^2}{2} + c_2 \frac{(x-a)^3}{3} + .... $
+		\begin{align}
+			\int f(x) dx = c + \sum_{n=0}^\infty c_n \frac{(x-a)^{n+1}}{n+1}	
+		\end{align}
+	The radius of convergence of both (1) and (2) remain $R$. 
+	\end{enumerate}
+	\item \dfn{Theorem (Taylor Series Representation)}: If $f$ has a power series representation (expansion) at $a$, that is, if 
+	\begin{align}
+		f(x) = \sum_{n=0}^\infty c_n (x-a)^n 	
+	\end{align}
+	for $|x-a|<R$, then the coefficients are given by the formula: 
+	\begin{align}
+		c_n = \frac{f^{(n)}(a)}{n!	}	
+	\end{align}
+	Then, the \dfn{Taylor Series} for $f$ about $a$ is given by: 
+	\begin{align}
+		f(x) = \sum_{n=0}^\infty \frac{f^{(n)} (a)}{n!} (x-a)^n	
+	\end{align}
+	For the special case of $a=0$, then the above becomes: 
+	\begin{align}
+		f(x) = \sum_{n=0}^\infty \frac{f^{(n)} (0)}{n!}x^n = f(0) + \frac{f'(0)}{1!} x + \frac{f''(0)}{2!} x^2 + ... 	
+	\end{align}
+	\item \dfn{Theorem (Remainder)}: Define the remainder of the Taylor series by $R_n := f(x) - T_n(x)$. If $f(x) = T_n(x) + R_n(x)$, where $T_n$ is the nth degree Taylor polynomial of $f$ at $a$ and
+	\begin{align}
+		\lim_{n \rightarrow \infty} R_n(x) = 0 	
+	\end{align}
+	for $|x-a| < R$, then $f$ is equal to the sum of its Taylor series on the interval $|x-a|<R $.
+	\item The following theorem is often used when trying to show that $\lim_{n \rightarrow \infty} R_n =0$ for a specific function $f$: 
+	\begin{itemize}[noitemsep]
+		\item \dfn{Taylor's Inequality}: If $|f^{(n+1)}(x)| \leq M$ $\forall $ $|x-a| \leq d$, then the remainder $R_n(x)$ of the Taylor series satisfies the following inequality: 
+		\begin{align}
+			|R_n(x) | \leq \frac{M}{(n+1)!}	|x-a|^{n+1} 
+		\end{align}
+		for $|x-a| \leq d$. 
+	\end{itemize}
+	\item \dfn{Important MacLaurin Series and their Radii of Convergence}: 
+	\begin{align}
+		\frac{1}{1-x} & = \sum_{n=0}^\infty x^n = 1 + x + x^2 + x^3 + ... \text{ ($R=1$) } \\
+		e^x & = \sum_{n=0}^\infty \frac{x^n}{n!} = 1 + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + .... \text{ ($R= \infty$)} \\
+		\sin (x) &  = \sum_{n=0}^\infty (-1)^n \frac{x^{2n+1}}{(2n+1)!} = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} _ ... \text{ ($R =\infty$)} \\
+		\cos (x) & = \sum_{n=0}^\infty (-1)^n \frac{x^{2n}}{(2n)!} = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + ... \text{ ($R=\infty$) } \\
+		\arctan(x) & = \sum_{n=0}^\infty \frac{x^{2n+1}}{(2n+1)} = 1 - \frac{x^3}{3} + \frac{x^5}{5!} - \frac{x^7}{7!} + ... \text{ ($R =1$)} \\
+		\ln (1+x) & = \sum_{n=1}^\infty (-1)^{n-1} \frac{x^n}{n} = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + ... \text{ ($R=1$) } \\
+		(1+x)^k & = \sum_{n=0}^\infty \binom{k}{n} x^n = 1 + kx + \frac{k(k-1)}{2!}x^3 + \frac{k(k-1)(k-2)}{3!}x^3 + ... \text{ ($R=1$)} 
+	\end{align}
+
+\end{itemize}
+
+\section{Multi Variable Calculus}
+\subsection{Vectors and Geometry of Space}
+\begin{itemize}[noitemsep]
+	\item If $\theta$ is the angle between vectors $\mathbf{a}$ and $\mathbf{b}$, then $\mathbf{a} \cdot \mathbf{b} = ||\mathbf{a}|| || \mathbf{b} || \cos (\theta)$ 
+	\begin{itemize}[noitemsep]
+		\item Two vectors are orthogonal $\iff$ $\mathbf{a} \cdot \mathbf{b} = 0$. 
+		\item \dfn{Scalar Projection of $\mathbf{b}$ onto $\mathbf{a}$}: 
+		\begin{align}
+			\text{comp}_{ \mathbf{a}} ( \mathbf{b}) : \frac{\mathbf{a} \cdot \mathbf{b} }{||\mathbf{a}|| }	
+		\end{align}
+		\item \dfn{Vector projection of $\mathbf{b}$ onto $\mathbf{a}$}: 
+		\begin{align}
+			\text{proj}_{\mathbf{a}} (\mathbf{b}) 	:= \left( \frac{\mathbf{a} \cdot \mathbf{b}}{|| \mathbf{a}|| } \right) \frac{\mathbf{a}}{|| \mathbf{a}||}
+		\end{align}
+	\end{itemize}
+	\item \dfn{Cross Product}: if $\mathbf{a} := \langle a_1, a_2, a_3 \rangle$ and $\mathbf{b} := \langle b_1, b_2, b_3 \rangle$, then their \dfn{cross product} is:
+	\begin{align}
+		\mathbf{a} \times \mathbf{b} := \det \begin{bmatrix}
+			\mathbf{\hat{i}} & \mathbf{\hat{j}} & \mathbf{\hat{k}} \\
+			a_1 & a_2 & a_3 \\
+			b_1 & b_2 & b_3 
+		\end{bmatrix}	
+	\end{align}	
+	\begin{itemize}[noitemsep]
+		\item If $\theta$ is the angle between $\mathbf{a}$ and $\mathbf{b}$, then 
+		\begin{align}
+			||\mathbf{a} \times \mathbf{b} || := || \mathbf{a}|| || \mathbf{b} || \sin (\theta) 	
+		\end{align}
+		\item Two non-zero vectors $\mathbf{a}$ and $\mathbf{b}$ are parallel $\iff$ $\mathbf{a} \times \mathbf{b} = 0$. 
+		\item The volume of the parallelepiped spanned by the vectors $\mathbf{a}$, $\mathbf{b}$, $\mathbf{c}$ is $| \mathbf{a} \cdot ( \mathbf{b} \times \mathbf{c} ) | $
+	\end{itemize}
+	\item A parametric equation for a line going through the point $(x_0, y_0, z_0)$ parallel to the direction vector $\langle a, b, c \rangle $ are: 
+	\begin{align*}
+		x & = x_0 + at \\
+		y & = y_0 + bt \\
+		z & = z_0 + ct 
+	\end{align*}
+	\item The scalar equation of the plane through the point $P_0(x_0, y_0, z_0) $ with the normal vector $\mathbf{n} := \langle a, b, c \rangle$ is: 
+	\begin{align}
+		a(x-x_0) + b(y-y_0) + c(z-z_0) = 0 	
+	\end{align}
+	\item The distance $D$ from a point $P_1(x_1, y_1, z_1)$ to the plane $ax+ by + cz + d =0$ is: 
+	\begin{align}
+		D = \frac{|ax_1 + by_1 + cz_1 + d |}{\sqrt{a^2 + b^2 + z^2}}	
+	\end{align}
+	\item \dfn{Vector-Valued Function}: a function whose domain is the set of real numbers and whose range is a set of vectors. 
+	\begin{itemize}[noitemsep]
+		\item The \dfn{limit} of a vector-valued function $\mathbf{r}$ is defined by taking the limits of the component functions as follows: 
+		\begin{align}
+			\lim_{ t \rightarrow a} \mathbf{r}(t) := \langle \lim_{t \rightarrow a} f(t), 	\lim_{t \rightarrow a} g(t), \lim_{t \rightarrow a} h(t) \rangle 
+		\end{align}
+	\item \dfn{Space-curve}: the set $C$ of all points $(x,y,z)$ in space where $x= f(t)$, $y=g(t)$, and $z = h(t)$, where $t \in I$, is called a \dfn{space-curve}. 
+	\end{itemize}
+	\item The \dfn{derivative} $\mathbf{r}'$ of a vector-valued function $\mathbf{r}$ is defined as: 
+	\begin{align}
+		\frac{d \mathbf{r}}{dt} = \mathbf{r}'(t) = \lim_{h \rightarrow 0} \frac{\mathbf{r}(t+h) - \mathbf{r}(t)}{h}	
+	\end{align}
+	\begin{itemize}
+		\item The \dfn{unit tangent} vector $\mathbf{T}(t)$ is defined as:
+		\begin{align}
+				\mathbf{T}(t) = \frac{\mathbf{r}'(t)}{|| \mathbf{r}'(t) ||}
+		\end{align}
+		\item The \dfn{definite integral} of a vector-valued function is exactly what one would expect: 
+		\begin{align}
+			\int_a^b \mathbf{r}(t) dt = \left( \int_a^b f(t) dt \right) \mathbf{\hat{i}} + \left( \int_a^b g(t) dt \right) \mathbf{\hat{j}} + \left( \int_a^b h(t) dt \right) \mathbf{\hat{k}}  
+		\end{align}
+	\end{itemize}
+	\item The length $L$ of a space-curve between the points $a$ and $b$ is parameterisation-independent and is given by:
+	\begin{align}
+		L = \int_a^b || \mathbf{r}'(t) || dt 	
+	\end{align}
+	\begin{itemize}[noitemsep]
+		\item The \dfn{arc-length function} of a curve, $s$, is defined as: 
+		\begin{align}
+			s(t) := \int_a^t || \mathbf{r}'(u) || du 	
+		\end{align}
+		We can use the above equation to parameterise a curve with respect to arc-length by differentiating both sides of the equation above with respect to $t$ and applying the fundamental theorem of calculus: 
+		\begin{align}
+			\frac{ds}{dt} = || \mathbf{r}'(t) ||	
+		\end{align}
+		Advantages of an arc-length parametrisation include: it arises naturally from the shape of the curve and it's coordinate-system independent. 
+	\end{itemize}
+	\item \dfn{Smooth}: a parameterisation $\mathbf{r}(t)$ is called \dfn{smooth} on an interval $I$ if $\mathbf{r}'$ is continuous and $\mathbf{r}'(t) \neq 0$ on $I$. 
+	\item \dfn{Curvature}: the \dfn{curvature} of a curve is given by: 
+	\begin{align}
+		\kappa := \left| \left| \frac{d \mathbf{T}}{ds} \right| \right| 	
+	\end{align}
+	where $\mathbf{T}$ is the unit tangent vector. We have three other formulae for curvature: 
+	\begin{enumerate}[noitemsep]
+		\item 
+		\begin{align}
+			\kappa(t) = \frac{|| \mathbf{T}'(t) ||}{|| \mathbf{r}'(t) ||}	
+		\end{align}
+		\item 
+		\begin{align}
+			\kappa (t) = \frac{|| \mathbf{r}'(t) \times \mathbf{r}''(t) ||}{|| \mathbf{r}'(t) ||^3}
+		\end{align}
+		\item For plane curves, write $\mathbf{r}(x) = x \mathbf{\hat{i}} + f(x) \mathbf{\hat{j}}$ 
+		\begin{align}
+				\kappa (x) = \frac{|f''(x)|}{[1+ (f'(x)^2]^{3/2} }
+		\end{align}
+	\end{enumerate}
+	\item When $\kappa(t) \neq 0$, one can define the \dfn{principle unit normal} $\mathbf{N}(t)$: 
+	\begin{align}
+		\mathbf{N}(t) = \frac{\mathbf{T}'(t)}{|| \mathbf{T}'(t) ||}	
+	\end{align}
+	\begin{itemize}
+		\item \dfn{Normal plane}: the plane determined by the normal and binormal vectors. Consists of all lines orthogonal to the unit tangent vector $\mathbf{T}$. 
+		\item \dfn{Osculating circle}: the plane determined by the vectors $\mathbf{T}$ and $\mathbf{N}$. 
+		\begin{itemize}
+			\item Closest plane to containing the part of the curve near $P$. 
+			\item \dfn{Osculating circle}: the circle that lies on the osculating plane of $C$ at $P$, has the same tangent as $C$ at $P$, and lies on the concave side of $C$ (towards where $\mathbf{N}$ is pointing). This best describes the behaviour of $C$ near $P$. 
+		\end{itemize}
+	\end{itemize}
+	\item The \dfn{velocity vector} $\mathbf{v}(t)$ at time $t$: 
+	\begin{align}
+		\mathbf{v}(t) := \lim_{h \rightarrow 0} \frac{\mathbf{r}(t+h) - \mathbf{r}(t)}{h} = \mathbf{r}'(t) 	
+	\end{align}
+	\begin{itemize}
+		\item \dfn{Speed}: the magnitude of the velocity vector $|| \mathbf{v}(t) ||$. 
+		\begin{align}
+			|| \mathbf{v}(t) || = || \mathbf{r}'(t) || = \frac{ds}{dt}	
+		\end{align}
+		\item \dfn{Acceleration}: the derivative of the velocity
+		\begin{align}
+			\mathbf{a}(t) = \mathbf{v'}(t) = \mathbf{r}''(t) 	
+		\end{align}
+	\end{itemize}
+	\item Often times it can be useful to resolve the acceleration of a particle into its tangential and normal components: 
+	\begin{align}\label{accdecomp}
+		\mathbf{a} = \underbrace{v'}_{:= \mathbf{a}_T}  \mathbf{T} + \underbrace{ \kappa v^2}_{:= \mathbf{a}_N}	\mathbf{N}
+	\end{align}
+	where $v := || \mathbf{r}'(t) ||$. One can re-write Equation (\ref{accdecomp}) so that it only depends on $\mathbf{r}$, $\mathbf{r}'$, and $\mathbf{r}''$: 
+	\begin{align}
+		\mathbf{a}_T & = \frac{\mathbf{r}'(t) \cdot \mathbf{r}''(t)}{|| \mathbf{r}'(t) ||}	\\
+		\mathbf{a}_N & = \frac{|| \mathbf{r}'(t) \times \mathbf{r}''(t) || }{|| \mathbf{r}'(t) ||}
+	\end{align}
+\end{itemize}
+\subsection{Partial Derivatives}
+\begin{itemize}[noitemsep]
+	\item \dfn{Graph}: let $f$ be a function in two variables with domain $\Omega$. Then, the \dfn{graph} of $f$ is the set of all points $(x,y,z) \in \R^3$ such that $z = f(x,y)$ for $(z,y) \in \Omega$. 
+	\item \dfn{Level Curves}: The \dfn{level curves} of a function $f$ in two variables are the curves with equations $f(x,y) = k$, where $k \in \R$ is a constant.
+	\item \dfn{Limit}: Let $f$ be a function of two variables whose domain $\Omega$ includes points arbitrarily close to $(a,b)$. Then, we say that the \dfn{limit of $f(x,y)$ as $(x,y) \rightarrow (a,b)$} is $L$ and we write:
+	\begin{align}
+		\lim_{(x,y) \rightarrow (a,b)} f(x,y) = L	
+	\end{align}
+ 	if $\forall$ $\varepsilon > 0$, $\exists \delta > 0$ such that if $(x,y) \in \Omega$, $0 < \sqrt{(x-a)^2 + (y-b)^2} < \delta$, then $|f(x,y) - L | < \varepsilon$. 
+ 	\item \dfn{Partial Derivative}: the partial derivative of $f$ with respect to $x$ at $(a,b)$ is: 
+ 	\begin{align}
+ 		f_x(a,b) := \lim_{h \rightarrow 0} \frac{f(a+h) - f(a,b)}{h}	
+ 	\end{align}
+	\item \dfn{Claircut's Theorem}: suppose $f$ is defined on a disk $D$ that contains the point $(a,b)$. If the functions $f_{xx}$ and $f_{yy}$ are both continuous on $D$, then, 
+	\begin{align}
+		f_{xy} (a,b) = f_{yx} (a,b) 	
+	\end{align}
+ 	\item \dfn{Tangent Plane}: Suppose $f$ has continuous partial derivatives. An equation for the tangent plane to the surface $z = f(x,y)$ at the point $P(x_0, y_0, z_0) $ is given by: 
+ 	\begin{align}
+ 		z - z_0 = f_x (x_0, y_0) (x-x_0) + f_y (x_0, y_0) (y-y_0 ) 	
+ 	\end{align}
+	\begin{itemize}[noitemsep]
+		\item \dfn{Linearisation}: an equation for the tangent plane to the graph $f$ at the point $(a,b, f(a,b))$ is given by: 
+		\begin{align}
+			z = f(a,b) + f_x(a,b) (x-a) + f_y(a,b) (y-b) 	
+		\end{align}
+		the graph of this tangent plane is called the \dfn{linearisation} of $f$ at $(a,b)$: 
+		\begin{align}
+			L(x,y) := f(a,b) + f_x(a,b) (x-a) + f_y(a,b) (y-b)	
+		\end{align}
+	\end{itemize}
+	\item \dfn{Differentiable}: If $z = f(x,y)$, then $f$ is \dfn{differentiable} at $(a,b)$ if $\Delta z$ can be expressed in the form: 
+	\begin{align}
+		\Delta z = f_x (a,b) \Delta x + f_y (a,b) \Delta y + \varepsilon_1 \Delta x + \varepsilon_2 \Delta y	
+	\end{align}
+	where $\varepsilon_1, \varepsilon_2 \rightarrow 0$ as $(\Delta x, \Delta y) \rightarrow  (0,0)$.
+	\begin{itemize}[noitemsep]
+		\item If the partial derivatives $f_x$ and $f_y$ exist near $(a,b)$, and are continuous at $(a,b)$, then $f$ is differentiable at $(a,b)$.
+		\item \dfn{Total Differential}: for a differentiable function of two variables $z = f(x,y)$, then the \dfn{total} \dfn{differential} is defined as: 
+		\begin{align*}
+			dz & := f_x (x,y) dx + f_y (x,y) dy 	\\
+			   & = \frac{\partial z}{\partial x} dx + \frac{\partial z}{\partial y} dy
+		\end{align*} 
+		and so in the language of differentials, we write: 
+		\begin{align*}
+			f(x,y) \approx f(a,b) + dz
+		\end{align*}
+	\end{itemize}
+	\item \dfn{Chain Rule (1. Case)}: Suppose that $z= f(x,y)$ is a differentiable function of $x$ and $y$, and suppose that both $x$ and $y$ are differentiable functions of $t$ (i.e, $x=x(t)$, $y=y(t)$) so that $z = (f(x(t), y(t))$. Then, $z$ is a differentiable function of $t$ and: 
+	\begin{align}
+		\frac{dz}{dt} = \frac{\partial f}{\partial x} \frac{dx}{dt} + \frac{\partial f}{\partial y}\frac{dy}{dt}	
+	\end{align}
+	\item \dfn{Chain Rule (General Version)}: Suppose that $u$ is a differentiable function of $n$ variables ($x_1, ..., x_n$) and each $x_j$ is a differentiable function of $m$ variables $t_1, ..., t_m$. Then, $u$ is a function of $t_1, ..., t_m$ and one has: 
+	\begin{align}
+		\frac{\partial u}{\partial t_i} = \frac{\partial u}{\partial x_i} \frac{\partial x_1}{\partial t_i}	+ \frac{\partial u}{\partial x_i} \frac{\partial x_2}{\partial t_i} + ... + \frac{\partial u}{\partial x_i} \frac{\partial x_n}{\partial t_i}
+	\end{align}
+	$\forall i = 1, 2, ..., m$. 
+	\item \dfn{Implicit Function Theorem}: Let $y=f(x)$. If $F$ is defined on a disc containing $(a,b)$, where $F(a,b) = 0$ $F_y(a,b) \neq 0$, and $F_y$ and $F_x$ are continuous on the disc, then the equation $F(x,y) = 0$ defines $y$ as a function of $x$ near the point $(a,b)$ whose derivative is given by: 
+	\begin{align}
+		\frac{dy}{dx} = - \frac{\frac{\partial F}{\partial x}}{\frac{\partial F}{\partial y}} = - \frac{F_x}{F_y}	
+	\end{align}
+	Now, for $z=f(x,y)$, if $z$ is implicitly given as a function by an equation of the form $F(x,y,z) =0$, then the derivative of the implicitly defined function is: 
+	\begin{align}
+		\frac{\partial z}{\partial x} & = - \frac{\frac{\partial F}{\partial x}}{\frac{\partial F}{\partial z}}	\\
+		\frac{\partial z}{\partial y} & = - \frac{\frac{\partial F}{\partial y}}{\frac{\partial F}{\partial z}}
+	\end{align}
+	\item \dfn{Directional Derivative}: the \dfn{directional derivative} of $f$ at $(x_0, y_0)$ in the direction of the unit vector $\mathbf{u} = \langle a, b \rangle$ is:
+	\begin{align}
+		D_uf(x_0, y_0) := \lim_{h \rightarrow 0 } \frac{f(x_0 + ha, y_0 + hb) - f(x_0, y_0)}{h}	
+	\end{align}
+	
+\end{itemize}
+
+
+\end{document}

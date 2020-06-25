@@ -1,7 +1,35 @@
-\contentsline {section}{\numberline {1}Introduction}{1}{section.1}% 
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}% 
 \contentsline {section}{\numberline {2}Abstract Vector Spaces}{3}{section.2}% 
-\contentsline {subsection}{\numberline {2.1}Many Examples of Vector Spaces}{3}{subsection.2.1}% 
-\contentsline {subsection}{\numberline {2.2}Consequences of the Axioms}{4}{subsection.2.2}% 
+\contentsline {subsection}{\numberline {2.1}Many Examples of Vector Spaces}{4}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.2}Consequences of the Axioms}{5}{subsection.2.2}% 
 \contentsline {subsection}{\numberline {2.3}Subspaces}{6}{subsection.2.3}% 
-\contentsline {subsection}{\numberline {2.4}Linear Combination and Span}{8}{subsection.2.4}% 
-\contentsline {subsection}{\numberline {2.5}Linear Independence and Dependence}{9}{subsection.2.5}% 
+\contentsline {subsection}{\numberline {2.4}Linear Combination and Span}{9}{subsection.2.4}% 
+\contentsline {subsection}{\numberline {2.5}Linear Independence and Dependence}{10}{subsection.2.5}% 
+\contentsline {subsection}{\numberline {2.6}Applications (Theoretical) of Steinitz Exchange Lemma}{11}{subsection.2.6}% 
+\contentsline {section}{\numberline {3}Linear Maps}{13}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Endomorphisms}{14}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {3.2}Coordinate Vectors}{14}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}Representations of Linear Maps as Matrices}{14}{subsection.3.3}% 
+\contentsline {subsection}{\numberline {3.4}Composition of Linear Maps}{14}{subsection.3.4}% 
+\contentsline {subsection}{\numberline {3.5}Matrix Representations of Isomorphisms}{15}{subsection.3.5}% 
+\contentsline {subsection}{\numberline {3.6}Change of Basis}{15}{subsection.3.6}% 
+\contentsline {subsection}{\numberline {3.7}The Normal Form Problem}{15}{subsection.3.7}% 
+\contentsline {subsection}{\numberline {3.8}Characteristic Polynomial}{16}{subsection.3.8}% 
+\contentsline {subsection}{\numberline {3.9}Normal Form for Non-Diagonalisable Matrices}{16}{subsection.3.9}% 
+\contentsline {section}{\numberline {4}Applications of Linear Algebra (to other fields of math...not real life :-P)}{17}{section.4}% 
+\contentsline {subsection}{\numberline {4.1}Matrix Exponential}{17}{subsection.4.1}% 
+\contentsline {section}{\numberline {5}Orthogonality: A quick introduction}{17}{section.5}% 
+\contentsline {subsection}{\numberline {5.1}Standard inner product on $\mathbb {R}^n$}{17}{subsection.5.1}% 
+\contentsline {subsection}{\numberline {5.2}Properties of the Standard Inner Product on $\mathbb {C}^n$}{18}{subsection.5.2}% 
+\contentsline {subsection}{\numberline {5.3}Application of Orthogonality (Orthogonal and Unitary Matrices)}{18}{subsection.5.3}% 
+\contentsline {subsubsection}{\numberline {5.3.1}Orthogonal Case}{18}{subsubsection.5.3.1}% 
+\contentsline {subsubsection}{\numberline {5.3.2}Unitary Case}{18}{subsubsection.5.3.2}% 
+\contentsline {subsection}{\numberline {5.4}Orthogonality and Unitary: Diagonalisation and Upper Triangularisation}{19}{subsection.5.4}% 
+\contentsline {subsubsection}{\numberline {5.4.1}Spectral Theorem: Complex Case}{19}{subsubsection.5.4.1}% 
+\contentsline {subsection}{\numberline {5.5}Applications of the Real Spectral Theorem}{20}{subsection.5.5}% 
+\contentsline {subsubsection}{\numberline {5.5.1}Real Quadratic Forms}{20}{subsubsection.5.5.1}% 
+\contentsline {section}{\numberline {6}Inner Product Spaces}{20}{section.6}% 
+\contentsline {subsection}{\numberline {6.1}$K = \mathbb {R}$}{21}{subsection.6.1}% 
+\contentsline {subsection}{\numberline {6.2}Complex Inner Product Spaces}{21}{subsection.6.2}% 
+\contentsline {subsection}{\numberline {6.3}Geometry on a Vector Space}{21}{subsection.6.3}% 
+\contentsline {section}{\numberline {7}Fourier Series in 30 Minutes [not examinable]}{22}{section.7}% 

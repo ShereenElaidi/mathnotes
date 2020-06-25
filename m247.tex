@@ -28,6 +28,8 @@
     urlcolor=black
 }
 
+
+
 % definition
 \newcommand{\dfn}[1]{\textbf{\underline{#1}}}
 \newcommand{\dist}[0]{\mathcal{F}}
@@ -37,6 +39,9 @@
 \newcommand{\Z}[0]{\mathbb{Z}}
 \newcommand{\Q}[0]{\mathbb{Q}}
 \newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\kernel}[1]{\text{ker}[#1]}
+\newcommand{\image}[1]{\text{im}[#1]}
+
 
 % Let V be a vs over k...
 \newcommand{\vsok}[0]{Let $(V, +, \cdot)$ be a vector space over $K$}
@@ -47,6 +52,7 @@
 % matrix groups
 \newcommand{\mat}[1]{\text{MAT}(m \times n, \mathbb{#1})}
 \newcommand{\gl}[1]{\text{GL}(n, \mathbb{#1})}
+\newcommand{\matn}[1]{\text{MAT}(n\times n, \mathbb{#1})}
 
 % converge in probability 
 \newcommand{\cvp}[0]{\overset{p}{\to}}
@@ -668,5 +674,821 @@ Methods of showing that a vector space is infinite dimensional are very differen
 	$c_{00}$ is infinite-dimensional. We will do a proof by contradiction. Assume that $c_{00}$ is finite-dimensional. Let $s_1, ..., s_n$ be sequences in $c_{00}$ such that $c_{00} =$ span$\{ s_1, ..., s_n \}$. 
 \end{ex}
 
+No more proofs; just summary. 
+
+\begin{theorem}[Steinitz Exchange Lemma]
+	Let $V$ be a finite-dimensional vector space over $K$. Let $u_1, ..., u_m \in V$ be linearly independent. Let $v_1, ..., v_n$ be spanning  (i.e., $V = \text{span} \{ v_1, ..., v_n \}$). Then, $m \leq n$ and there exist finitely many indices $k_1, ..., k_{n-m}$ such that 
+	\begin{align}
+		u_1, ..., u_m, v_{k},..., v_{k_{n-m}}	
+	\end{align}
+	is spanning (i.e., we exchange $m$ of the vectors $v_1, ..., v_n$ by $u_1, ..., u_m$ without changing the span.)
+\end{theorem}
+
+\subsection{Applications (Theoretical) of Steinitz Exchange Lemma}
+\begin{theorem}
+	Every subspace of a finite-dimensional vector space is finite-dimensional. 
+\end{theorem}
+
+\begin{definition}[Basis]
+	Let $V$ be a vector space over $K$. A subset $\mathcal{B}$ of $V$ is called a \dfn{basis} of $V$ if: 
+	\begin{enumerate}[noitemsep]
+		\item $\mathcal{B}$ is linearly independent. 
+		\item $\mathcal{B}$ is spanning. 
+	\end{enumerate}
+\end{definition}
+
+\begin{ex}
+	For $\R^n$, $\mathcal{B} = \{ e_1, ..., e_n \}$. 
+\end{ex}
+
+
+\begin{ex} 
+	For $P_n$ (recall these are polynomials of degree less than or equal to $n$), the basis would be $\mathcal{B} = \{ 1, x, ..., x^n \}$. 
+\end{ex}
+
+\begin{ex} 
+	Set $V = \mat{K}$. Let 
+	\begin{align}
+		M_{ij}: (m_{ij}) \text{ where } m_{kl} \text{ is } \begin{cases}
+			0 & \text{ if } kl  \neq ij \\
+			1 & \text{ if } kl = ij
+		\end{cases}	
+	\end{align}
+	Then, $M_{ij}$ is a basis for $V$. 
+\end{ex}
+
+\begin{theorem}
+	Every finite-dimensional vector space has a basis. 
+\end{theorem}
+
+\begin{theorem}
+	Let $V$ be a finite-dimensional vector space over $K$. Let $\{ u_1, ..., u_m \}$ and $ \{ v_1, ..., v_n \}$ be two bases for $V$. Then $m=n$, i..e, any two bases of a finite-dimensional vector space contain the same number of elements.  
+\end{theorem}
+
+\begin{definition}[Dimension]
+	Let $V$ be a finite-dimensional vector space over $K$. Let $\{ v_1, ..., v_n \}$ be any basis for $V$. Then, $n$ is the \dfn{dimension} of $V$. 
+\end{definition}
+
+\begin{ex}
+	\begin{enumerate}[noitemsep]
+		\item $\R^n$ as a vector space over $\R$ has dimension $n$. 
+		\item $\C^n$ as a vector space over $\C$ has dimension $n$. 
+		\item $P_n(K)$ as a vector space over $K$ has dimension $k+1$. 
+		\item $\mat{K}$ has dimension $n \times m$. 
+	\end{enumerate}	
+\end{ex}
+
+\begin{theorem}
+	Let $V$ be a finite-dimensional vector space over $K$. Let $V = \text{span} \{ B_1, ..., B_n \}$ be a basis for $V$. Let $v \in V$. Then, there exists a uniquely determined $k_1, ..., k_n \in K$ such that
+	\begin{align}
+		v = k_1 v_1 + ... + k_n v_n 
+	\end{align}
+\end{theorem}
+
+\begin{theorem}
+	Let $V$ be a finite-dimensional vector space over $K$. Let $U \leq V$. then, dim$(U) \leq $ dim$(V)$. 
+\end{theorem}
+
+\begin{theorem}
+	This theorem answers the question: when can we stop constructing bases? Let $V$ be a finite-dimensional vector space over $K$ of dimension $n$. Let $\{ v_1, ..., v_n \}$ be a set of $n$ linearly independent vectors. Then, $\{ v_1, ..., v_n \}$ is a basis for $V$. 
+\end{theorem}
+
+\begin{theorem}
+	Let $V$ be a finite-dimensional vector space over $K$ of dimension $n$. Let $\mathcal{B} = \{ v_1, ..., v_n \}$ be spanning. Then, $\mathcal{B}$ is a basis for $V$. 
+\end{theorem}
+
+\begin{theorem}
+	Let $V$ be a finite-dimensional vector space over $K$. Let $U \leq V$ and let $\mathcal{B}_u := \{ u_1, ..., u_m \}$ be a basis for $U$. Then, $\mathcal{B}_u$ can be extended to a basis for $V$ i.e, $\exists$ $u_{m+1}, ..., u_n \in V$ such that
+	\begin{align}
+		\mathcal{B}_v := \{ u_1, ..., u_m, u_{m+1}, ..., u_n \} 	
+	\end{align}
+	is a basis for $V$. 
+\end{theorem}
+
+\begin{theorem}
+	Let $V$ be a finite-dimensional vector space over $K$. Let $U \leq V$ and $W \leq V$. Then: 
+	\begin{align}
+		\operatorname{dim}(U+W) = \operatorname{dim}(U) + \operatorname{dim}(W) - \operatorname{dim}(U \cap W) 	
+	\end{align}
+\end{theorem}
+
+\begin{ex}
+	Any two planes through the origin in $\R^3$ have non-trivial intersection, i.e., they intersect in at least a line through the origin. One can use the above theorem to give a formal proof of this. 	
+\end{ex}
+
+\begin{definition}[Direct Sum]
+	\vsok. Let $U \leq V, W \leq V$. Define: 
+	\begin{align}
+		U + W := \{ u+w\ |\ u \in U, w \in W \} 	
+	\end{align}
+	Now, the sum is called \dfn{direct} if the following property holds: $\forall$ $v \in U + W$, the representation $v = u + w$, where $u \in U$ and $w \in W$ is uniquely determined. We then write $V = U \oplus W$. 
+\end{definition}
+
+\begin{theorem}
+	A sum $U+W$ of subspaces of $V$ is direct $\iff$ $U \cap W = \{ 0 \}$. 
+\end{theorem}
+
+\section{Linear Maps}
+In mathematics one often wants to study maps between objects that preserve structures. In our case, we want to study \dfn{linear maps}.
+
+\begin{definition}[Linear]
+	Let $V$ and $W$ be vector spaces over $K$ (it must be the same $K$). A function $L: V \rightarrow W$ is called \dfn{linear} if it behaves well with respect to the operations that we have: 
+	\begin{enumerate}[noitemsep]
+		\item $L(v_1 + v_2) = L(v_1) + L(v_2)$. 
+		\item $L(kv_1) = kL(v_1)$ $\forall k \in K$. 
+	\end{enumerate}
+\end{definition}  
+
+\begin{theorem}
+	Let $L: V \rightarrow W$ be linear. Then the zero vector is preserved: 
+	\begin{align}
+		L(0) = 0 	
+	\end{align}
+\end{theorem}
+\textbf{Caution!} in calculus the so called ``linear'' maps $f: \R \rightarrow \R$, $x \mapsto ax +b$ is only linear if $b=0$. This is similar to the fact that lines in general are not subspaces. 
+
+\begin{definition}[Subspaces Associated to Linear Maps: Kernel and Image] Let $L: V \rightarrow W$ be linear. Then: 
+\begin{enumerate}[noitemsep]
+	\item The \dfn{kernel} is defined as: 
+	\begin{align}
+		\operatorname{ker}(L) := \{ v \in V\ |\ L(v) = 0 \} \subseteq V 	
+	\end{align}
+	\item The \dfn{image} is defined as: 
+	\begin{align}
+		\operatorname{im}(L) := \{ L(v)\ |\ v \in V \} \subseteq W	
+	\end{align}
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+	Let $L: V \rightarrow W$ be linear. Then: 
+	\begin{enumerate}[noitemsep]
+		\item The kernel is a subspace of $V$. 
+		\item The image is a subspace of $W$. 
+	\end{enumerate}
+\end{theorem}
+
+\begin{ex} 
+	Let $A \in \mat{K}$. Then, $\kernel{K}$ is the null space of $A$ and $\image{K}$ is the column space of $A$. 
+\end{ex}
+
+\begin{ex} 
+	Consider the derivative map: $\mathcal{D}: P(\R) \rightarrow P(\R)$, $p \mapsto p'$. Then $\kernel{\mathcal{D}} = P_0(\R)$ (the set of all constant polynomials) and $\image{\mathcal{D}} = P(\R)$ (everything). 
+\end{ex}
+
+
+\begin{theorem}
+	Let $V, W$ be vector spaces over $K$. Let $L: V \rightarrow W$ be linear. Then $L$ is injective $\iff$ $\kernel{K} = \{ 0 \}$. 
+\end{theorem}
+
+\begin{theorem}
+	This theorem tells us how we can construct linear maps. Let $V$ be a finite-dimensional vector space over $K$, let $W$ be any vector space over $K$. Let $\{ v_1, ..., v_n \}$ be a basis for $V$. Let $\{ w_1, ..., w_n \}$ be arbitrary vectors iN $W$. Then, there exists a uniquely determined linear map $L: V \rightarrow W$ such that
+	\begin{align}
+		L(v_1) = w_1, ..., L(v_n) = w_n 	
+	\end{align}
+	This tells us that we can uniquely determined a linear map by its basis. 
+\end{theorem}
+
+\begin{theorem}[Dimension Formula -- Fundamental Theorem]
+	Let $V$ be a finite-dimensional vector space over $K$, $W$ a vector space over $K$, $L: V \rightarrow W$ a linear map. 
+	\begin{align}
+		\dim{\kernel{L}} + \dim{ \image{L}} = \dim{V} 
+	\end{align}
+\end{theorem}
+
+\subsection{Endomorphisms}
+
+\begin{definition}[Endomorphism]
+	A linear map $L: V \rightarrow V$ is called a \dfn{endomorphism}. 
+\end{definition}
+
+\begin{theorem}
+	Let $V$ be a finite-dimensional vector space over $K$, $L: V \rightarrow V$ an endomorphism. Then 
+	\begin{align}
+		L \text{ bijective } \iff L \text{ injective } \iff L \text{ surjective} 	
+	\end{align}
+\end{theorem}
+
+\begin{lemma}
+	Let $V$ be a finite-dimensional vector space over $K$ and let $U \leq V$ such that $\dim U \leq \dim V$. Then $U=V$.
+\end{lemma}
+
+\subsection{Coordinate Vectors}
+\begin{theorem}
+	Let $V$ be a finite-dimensional vector space and let $\mathcal{B}$ be an ordered basis for $V$. Then $[ \cdot ]_{\mathcal{B}}: V \rightarrow K^n$, $v \mapsto [v]_{\mathcal{B}}$ is linear and bijective, i.e. such a map is called a \dfn{isomorphism}. 
+\end{theorem}
+
+
+\begin{theorem}
+	Let $L: V \rightarrow W$ be an isomorphism. Then, $L$ has an inverse map $L^{-1}: W \rightarrow V$ which is linear. 
+\end{theorem}
+
+\begin{theorem}
+	Let $V$ be a vector space over $K$ of dimension $n$. Then, $V$ is isomorphic to $K^n$. 
+\end{theorem}
+
+
+\subsection{Representations of Linear Maps as Matrices}
+\begin{theorem}
+	Let $L: V \rightarrow W$ be linear, $\dim V = m$, $\dim W = n$. Let $\mathcal{B} = \{ v_1, ..., v_m \}$ be a basis for $V$ and let $\mathcal{B'} = \{ w_1, ..., w_n \}$ be a bsis for $W$. Then
+	\begin{align}
+		[ L(v) ]_{\mathcal{B}'} = [L]_{\mathcal{B'}, \mathcal{B}} [v]_{\mathcal{B}} 	
+	\end{align}
+	$\forall v \in V$.
+\end{theorem}
+
+\begin{theorem}
+	Let $L: V \rightarrow W$ be linear, where $V$ and $W$ are finite-dimensional. Let $\mathcal{B}$ be a basis for $V$ and let $\mathcal{B}'$ be a basis for $W$ and define $A := [L]_{\mathcal{B', B}}$. Then: 
+	\begin{enumerate}[noitemsep]
+		\item $\kernel{L} \simeq \text{nullspace}(A)$.
+		\item $\image{L} \simeq \text{colspace}(A)$. 
+	\end{enumerate} 
+	the isomorphism is given by the following map: 
+	\begin{align}
+		& \kernel{L} \rightarrow \text{nullspace}(A) \\
+		& v \mapsto [v]_\mathcal{B} 	
+	\end{align}
+	and 
+	\begin{align}
+		& \image{L} \rightarrow \text{colspace}(A) \\
+		& w \mapsto [w]_{\mathcal{B}'} 	
+	\end{align}
+\end{theorem}
+
+\subsection{Composition of Linear Maps}
+\begin{theorem}
+	Let $L_1: U_\mathcal{B} \rightarrow V_{\mathcal{B}'} $ and $L_2: V_{\mathcal{B'}} \rightarrow W_{\mathcal{B''}}$ be two linear maps. Let $\dim{U} = m$, $\dim{V} = k$, and $\dim{W} = n$. Then: 
+	\begin{align}
+		\underbrace{[L_2 \circ L_1]_{\mathcal{B'', B}}}_{n \times m} = \underbrace{[L_2]_{\mathcal{B'', B'}}}_{n \times k} \circ \underbrace{[L_1]_{\mathcal{B', B}}}_{k \times m} 	
+	\end{align}
+	(Remark: this is why matrix multiplication in Math 133 was defined in such a complicated way). 
+\end{theorem}
+
+\subsection{Matrix Representations of Isomorphisms}
+\begin{theorem}
+	Let $U, V$ be finite-dimensional vector spaces over a field $K$. Let $L: V \rightarrow W$ be linear and let $\mathcal{B}, \mathcal{B'}$ be bases for $V, W$, respectively. Then, $L$ is an isomorphism $\iff$ the matrix representation map $[L]_{\mathcal{B}', \mathcal{B}}$ is invertible. 
+\end{theorem}
+
+\subsection{Change of Basis}
+Two driving questions of this section: 
+\begin{enumerate}[noitemsep]
+	\item If $V$ is a finite-dimensional vector space over $K$, $\mathcal{B}, \mathcal{B'}$ are bases for $V$, then how are the coordinate vectors of $v \in V$ related for each of the bases? In other words, let $v \in V$. Given $[v]_{\mathcal{B}}$, how can one compute $[v]_{\mathcal{B'}}$? We call this a \dfn{change of basis}. 
+	\item Let $L: V \rightarrow V$ be linear, let $\mathcal{B}, \mathcal{B'}$ be bases for $V$. Given $[L]_{\mathcal{B}, \mathcal{B}}$, how can one compute $[L]_{\mathcal{B'}, \mathcal{B'}}$? 
+\end{enumerate}
+One can answer 1. question with the \dfn{transition matrix} or \dfn{change of basis matrix} 
+\begin{align}
+	[v]_{\mathcal{B'}} = [id]_{\mathcal{B', B}} \cdot [v]_{\mathcal{B}} 	
+\end{align}
+One can answer 2. question similarly.  For an invertible matrix $P$ that goes from $\mathcal{B}$ to $\mathcal{B'}$, we have: 
+\begin{align}	
+	[L]_{\mathcal{B', B'}} = P^{-1} [L]_{\mathcal{B,B}} P	
+\end{align}
+This leads us to the notion of similar matrices. 
+
+\begin{definition}[Similar]
+	We say that two $n \times n$ matrices are \dfn{similar} there exists an invertible matrix $P \in \matn{K}$ such that
+	\begin{align}
+		B = P^{-1} A P 	
+	\end{align}
+\end{definition}
+
+\subsection{The Normal Form Problem}
+\begin{definition}[Equivalence Relation] 
+	Let $S$ be a set. A \dfn{relation} is a subset of the cartesian product $ S \times S$. An equivalence relation is denoted by $\sim$, and it holds for any relation such that the following properties hold:
+	\begin{enumerate}[noitemsep]
+		\item Every element in $S$ is in a relation with itself: 
+		\begin{align}
+			\forall x \in S, x \sim x 	
+		\end{align}
+		\item (Reflexivity): $\forall x, y \in S$, $x \sim y$ $\iff$ $y \sim x$. 
+		\item (Transitivity): $\forall x, y, z \in S$ if $x \sim y \land y \sim z \Rightarrow x \sim z$. 
+	\end{enumerate}
+	Equivalence relations partitions sets $S$ into pairwise disjoint equivalence classes. 
+\end{definition}
+
+\begin{definition}[Equivalence Class]
+	Let $S$ be a set. Let $\sim$ be an equivalence relation on $S$. Then, the \dfn{equivalence class} of $S$ is defined as: 
+	\begin{align}
+		[s]_{\sim} := \{ t \in S\ |\ t \sim s \} 	
+	\end{align}
+	where $s \in S$. 
+\end{definition}
+
+\begin{theorem}
+	Let $S$ be a set, $\sim$ an equivalence relation on $S$. The equivalence classes of $\sim$ partition $S$ (i.e, every $s \in S$ is contained in an equivalence class) and any two equivalence classes are either identical or disjoint). 
+\end{theorem}
+
+\begin{theorem}
+	Similarity is an equivalence relation on the set of all $n \times n$ matrices with coefficients in $K$. That is, the relation
+	\begin{align}	
+		B \sim A \iff \exists P \in GL(n, K) \text{ such that } B = P^{-1}AP 	
+	\end{align}
+	is an equivalence relationship. 
+\end{theorem}
+
+\textbf{Motivating Question of the Normal Form Problem:} can we within a given similarly class find  one representation or several that is ``simpler'' than the others? These can be more useful, since they can shed light on certain mathematical details. This is the motivation behind eigenvectors and eigenvalues. 
+
+\begin{definition}[Invariant Subspace]
+	Let $L: V \rightarrow V$ be a linear map. Let $V$ be a vector space over $K$, can be finite or infinite-dimensional. A subspace $U \leq V$ is called \dfn{L-Invariant} if 
+	\begin{align}
+		\image{L(u)} \subseteq U 	
+	\end{align}
+	for example, the kernel of any linear map is invariant since its mapped to zero, and $0 \in U$. 
+\end{definition}
+
+\begin{definition}[Eigenvector/Eigenvalue]
+	\vsok. Let $L: V \rightarrow V$ be linear. Let $ v \in V$, $v \neq 0$,  such that $L(v) = \lambda v$ for some $\lambda \in K$. Then, $v$ is called a \dfn{eigenvector} of $L$ to the \dfn{eigenvalue} $\lambda$. 
+\end{definition}
+
+
+\begin{theorem}
+	Let $V$ be a finite-dimensional vector space over $K$. Let $L: V \rightarrow V$ be a linear map. Let $\lambda$ be an eigenvalue of $L$. Define $E_\lambda := \{ v \in V\ |\ L(v) = \lambda v \}$. Then, $E_\lambda (L) \leq V$. This is called the \dfn{eigenspace} of the eigenvalue $\lambda$. 
+\end{theorem}
+
+\begin{theorem}
+	$E_\lambda(L)$ is $L$-invariant. 
+\end{theorem}
+
+\begin{theorem}
+	(Eigenvectors to distinct eigenvalues are linearly dependent). If $L: V \rightarrow V$ is linear, $v_1, ..., v_k$ are eigenvectors of $L$ to eigenvalues $\lambda_1, ..., \lambda_k$ (which are pairwise distinct), then $v_1, ..., v_k$ are linearly independent. 
+\end{theorem}
+
+\begin{theorem}[Very Fundamental and Important]
+	Let $V$ be a vector space over $K$, $V$ finite-dimensional. Let $L$ be an endomorphism. Then, $L$ is diagonalisable, i.e., there is a basis $\mathcal{B}$ for which $[K]_{\mathcal{B}}$ is a diagonal matrix $\iff$ $V$ has a basis of eigenvectors. 
+\end{theorem}
+
+\textbf{Question:} can we find a criteria for a linear map to be diagonalisable? 
+
+\begin{theorem}
+	Let $V$ be a vector space over $K$ with dimension of $V$ equal to $n$. Let $L: V \rightarrow V$ be a linear map. Assume that $L$ has a basis of eigenvectors to pairwise distinct eigenvalues. Then, $L$ is diagonalisable. 
+\end{theorem}
+
+\textbf{Question:} is every linear map $L: V \rightarrow V$ diagonalisable?
+\newline
+\newline
+\textbf{Answer:} No. Consider the following examples: 
+\begin{ex}
+	\begin{itemize}
+		\item Differentiation map $\mathcal{D}$ is not diagonalisable. 
+	\end{itemize}
+\end{ex}
+
+\begin{theorem}
+	Let $L: V \rightarrow V$. Then, $0$ is an eigenvalue of $L$ $\iff$ $L$ is not injective. In this case, the eigenspace to the eigenvalue $0$ is the kernel. 
+\end{theorem}
+
+\subsection{Characteristic Polynomial}
+\begin{theorem}
+Similar matrices  have the same characteristic polynomial. 	
+\end{theorem}
+
+\subsection{Normal Form for Non-Diagonalisable Matrices}
+\begin{definition}[Upper/Lower Triangular] 
+	Let $A \in \matn{K}$. A matrix of the form: 
+	\begin{align}
+		A = \begin{bmatrix}
+			\lambda_1 & * & * & * & \hdots & * \\
+			0 & \lambda_2 & * & * & \hdots & * \\
+			0 & 0 & \lambda_3 & * & \hdots & * \\
+			0 & 0 & \hdots & \ddots & \hdots & * \\
+			0 & 0 & 0 & 0 & 0 & \lambda_n 
+		\end{bmatrix}	
+	\end{align}
+	is called \dfn{upper triangular}. The transpose of such a matrix is called \dfn{lower triangular}. Here, $\lambda_1, ..., \lambda_n$ are the eigenvalues. 
+\end{definition}
+
+\begin{theorem}
+	Let $A \in \matn{C}$ and let $A$ be upper triangular. Then, the elements on the main diagonal are exactly the eigenvalues of $A$. 
+\end{theorem}
+
+\begin{theorem}[``Great Theorem''] 
+	Every matrix in $\matn{C}$ is similar to an upper triangular matrix. 
+\end{theorem}
+
+\section{Applications of Linear Algebra (to other fields of math...not real life :-P)}
+\subsection{Matrix Exponential}
+Recall from Math 222 the MacLaurin series of $e$: 
+\begin{align}
+	e^x & = 1 + x + \frac{x^2}{2!} + ... \\
+	& = \sum_{k=0}^\infty \frac{x^k}{k!}	
+\end{align}
+Can we do the same with matrices? That is, let $X \in \matn{K}$. Does the limit
+\begin{align}
+	\lim_{N \rightarrow \infty} \sum_{k=0}^N \frac{1}{k!} X^k	
+\end{align}
+exist in the analytic sense? Yes -- w/o justification, see analysis. The limit is denoted by: 
+\begin{align}
+	\operatorname{exp}(X) := \sum_{k=0}^\infty \frac{1}{k!} X^k 	
+\end{align}
+this is called the \dfn{matrix exponential of $X$}. This is used to solve ODEs. In short, the matrix exponential of a diagonal matrix is really nice. One can diagonalise a non-diagonal matrix and take the exponential. If the matrix is not diagonalisable, then one can upper-triangularise it. Then, the matrix exponential gives you a recursive relation which you can then use a computer to solve. 
+
+This can also be used to solve difference equations. 
+
+\section{Orthogonality: A quick introduction}
+\subsection{Standard inner product on $\R^n$}
+Recall the standard inner product on $\R^n$. Let $u = [u_1, ..., u_n]^t$ and $v = [v_1, ..., v_n]^t$. Then: 
+\begin{align}
+	\langle u, v \rangle := u_1 v_1 + ... + u_n v_n 
+\end{align}
+This is called a \dfn{bilinear form}, i.e., it's linear in each component. What does this mean?
+\begin{align}
+	& \langle u+w , v \rangle = \langle u, v \rangle + \langle w, v \rangle \\
+	& \langle ku, v \rangle = k \langle u, v \rangle \\
+	& \langle u, v +w \rangle = \langle u, v \rangle + \langle u, w \rangle \\
+	& \langle u, kv \rangle = k \langle u, v \rangle	
+\end{align}
+Now let's go to $\C$. Let $z = x + iy$. Recall the \dfn{complex conjugate} of $z$, $\overline{z}$: 
+\begin{align}
+	\overline{z} = \overline{x+iy} = x-iy 	
+\end{align}
+We have the following: 
+\begin{align}
+	\overline{z} z = | z |^2	
+\end{align}
+Let's generalise this to $\C^n$. How can we determine the length of a vector in $\C^n$? To do this, first define: 
+\begin{align}
+	z^* := \overline{z}^t 	
+\end{align}
+then, 
+\begin{align}
+	|| z ||^2 = z^* z 	
+\end{align}
+We will thus define the standard inner product on $\C^n$ as: 
+\begin{align}
+	\langle z, w \rangle := z^* w = \overline{z}_1 w_1 + ... + \overline{z}_n w_n 	
+\end{align}
+\subsection{Properties of the Standard Inner Product on $\C^n$}
+Caution! The standard inner product on $\C^n$ is not bilinear; it is only \dfn{sesqui-linear}. Here, it is only linear in its FIRST component: 
+\begin{align}
+	& \langle z, v + w \rangle = \langle z, w \rangle + \langle z, v \rangle \\
+	& \langle z, kw \rangle = k \langle z, w \rangle \\
+	& \langle z + v, w \rangle = \langle z, w \rangle + \langle v, w \rangle \\
+	& \langle kz, w \rangle = \overline{k} \langle z, w \rangle 	
+\end{align}
+
+\begin{definition}[Orthogonal]
+	Two vectors $z, w \in \C^n$ are called \dfn{orthogonal} if their inner product $\langle z, w \rangle = 0$. 
+\end{definition}
+
+\begin{definition}[Unit Vector]
+	A vector $v \in K^n$ is a \dfn{unit vector} if $|| v || = \sqrt{\langle v, v \rangle} = 1$. 
+\end{definition}
+
+\begin{definition}
+	Vectors $\{ v_1, ..., v_n \} \in K^n$ are called \dfn{orthogonal} if $\{ v_1, ..., v_n \}$ are pairwise orthogonal. They're called \dfn{orthonormal} if they're pairwise orthogonal and all the $v_i$ are unit vectors. 
+\end{definition}
+If $\{ v_1, ..., v_k \}$ are orthonormal and $v = a_1 v_1 + ... = a_n v_n$, then 
+\begin{align}
+	a_j = \langle v_i, v \rangle 	
+\end{align}
+
+\begin{definition}[Orthogonal]
+	A matrix $A \in \matn{R}$ is called \dfn{orthogonal} if the columns of $A$ are orthonormal (``for historical reasons -- a bit of an unfortunate thing''). 
+\end{definition}
+
+\begin{definition}[Unitary]
+	A matrix $A \in \matn{C}$ is called \dfn{unitary} if the columns of $A$ are orthonormal with respect to the inner product on $\C^n$. 
+\end{definition}
+
+\subsection{Application of Orthogonality (Orthogonal and Unitary Matrices)}
+\subsubsection{Orthogonal Case}
+Let $A \in \matn{R}$ be orthogonal. Then, its inverse is $A^t$. 
+
+\subsubsection{Unitary Case}
+Let $A \in \matn{C}$ be unitary. Then, its inverse is $A^*$, where $A^* := \overline{A}^t$. 
+\newline
+\newline 
+\textbf{Question:} let $U \leq K^n$. Let $\mathcal{B} = \{ v_1, ..., v_k \}$ be a basis for $U$. How can we find an orthogonal or maybe orthonormal basis $\mathcal{B}'$ for the same subspace? 
+\newline
+\newline
+\textbf{Answer:} Gram-Schmidt process !! 
+Let $\mathcal{B} = \{ v_1, ..., v_k \}$ be a basis for $U$. Then, define the following vectors: 
+\begin{align*}
+	& u_1 = v \\
+	& u_2 = v_2 - \frac{\langle u_1, v_2 \rangle}{\langle u_1, u_1 \rangle} u_1 \\
+	& u_3 = v_3 - \frac{\langle u_1, v_3 \rangle}{\langle u_1, u_1 \rangle} u_1 - \frac{\langle u_2, v_3 \rangle}{\langle u_2, u_2 \rangle} u_2 \\
+	& \vdots \\
+	& u_k = v_k - \frac{\langle u_1, v_k \rangle}{\langle u_1, u_1 \rangle} u_1 - ... - \frac{\langle u_{k-1}, u_k \rangle}{\langle u_{k-1}, u_{k-1} \rangle} u_{k-1} 
+\end{align*}
+When the GS process terminates, make sure you normalise each vector to get an orthonormal basis (as of now, you just have an orthogonal basis). 
+
+\begin{theorem}
+	Let $P$ be orthogonal. Then, the row vectors of $P$ are pairwise orthogonal unit vectors.
+\end{theorem}
+
+\begin{theorem}
+	\begin{enumerate}[noitemsep]
+		\item Let $P$, $Q$ be orthogonal. Then, $P^{-1}$ is orthogonal and the product $PQ$ is orthogonal. The set of all orthogonal matrices form a \dfn{subgroup} of general linear with respect to matrix multiplication: 
+		\begin{align}
+			O(n) := \{ P \in \matn{R}\ |\ P \text{ orthogonal } \} 	
+		\end{align}
+		\item Let $P, Q$ be unitary. Then $P^{-1}$ is unitary and $PQ$ is unitary. Moreover: 
+		\begin{align}
+			U(n) := \{ P \in \matn{C}\ |\ P \text{ unitary } \} 	
+		\end{align}
+		is a group with respect to matrix multiplication, and is in fact a subgroup of $GL(n, \C)$. 
+	\end{enumerate}
+\end{theorem}
+
+\subsection{Orthogonality and Unitary: Diagonalisation and Upper Triangularisation }
+
+\textbf{Question:} what matrices can be diagonalised or upper triangularised by an orthogonal matrix? What matrix can be diagonalised or upper triangularised by a unitary matrix?
+
+\begin{theorem}[Schur]
+	Every matrix $A \in \matn{C}$ can be upper-triangularised by a unitary matrix. 
+\end{theorem}
+
+\begin{corollary}
+	If $A \in \matn{R}$ has only real eigenvalues, $A$ can be upper-triangularised via an orthogonal matrix. 
+\end{corollary}
+
+\begin{theorem}
+	Let $A \in $ Symm$(n \times n, \R)$. 
+	\begin{enumerate}[noitemsep]
+		\item Then, all eigenvalues of $A$ are real. 
+		\item Eigenvectors to distinct eigenvalues of $A$ are automatically orthogonal. 
+	\end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+	Let $A \in $ Symm$(n \times n, \R)$.  and let $P \in O(n)$. Then, $B= P^{-1}AP = P^t A P$ is again symmetric. 
+\end{theorem}
+
+\begin{theorem}[Spectral Theorem in $\R$]
+	A matrix $A \in \matn{R}$ is diagonalisable via an orthogonal matrix $P$ $\iff$ $A$ is symmetric. 
+\end{theorem}
+
+\subsubsection{Spectral Theorem: Complex Case}
+\textbf{Question:} what types of matrices can be diagonalised via a unitary matrix? 
+
+\begin{definition}[Hermitian] 
+	A matrix $A \in \matn{C}$ is called \dfn{hermitian} if $A^* = A$ (complex equivalent of a real symmetric matrix). 
+\end{definition}
+
+One may conjecture that $A$ is diagonalisable by a unitary matrix if $A$ is hermitian. However, while it is true that all Hermitian matrices are diagonalisable via a unitary matrix, the converse does not hold. We need some more definitions. 
+
+
+\begin{definition}[Normal Matrix]
+	A matrix $A \in \matn{C}$ is called \dfn{normal} if $AA^* = A^* A$. 
+\end{definition}
+Many important matrices are normal. 
+\begin{theorem}
+	The following classes of matrices are normal: 
+	\begin{enumerate}[noitemsep]
+		\item Real symmetric matrices. 
+		\item Skew-symmetric real matrices (all eigenvalues are imaginary). 
+		\item Real orthogonal matrices (here, the determinant's absolute value is one; resembles rotations and reflections). 
+		\item Hermitian matrices 
+		\item Skew-Hermitian matrices ($A^* = -A$). 
+		\item Unitary matrices.
+	\end{enumerate}
+\end{theorem}
+
+
+\begin{remark}
+	If $A$ is normal, $P \in GL(n, \C)$, then $P^{-1}AP$, in general, is not normal. However...
+\end{remark}
+
+\begin{theorem}
+	Let $A \in \matn{C}$, $P \in U(n)$. Then, $P^{-1}AP = P^*AP$ is normal. 
+\end{theorem}
+
+\begin{theorem}
+	Let $A \in \matn{C}$ be both normal and upper triangular. Then, $A$ is a diagonal matrix. 
+\end{theorem}
+
+\begin{theorem}[Complex Spectral Theorem]
+	Let $A \in \matn{C}$. Then, $A$ is diagonalisable by a unitary matrix $\iff$ $A$ is normal. 
+\end{theorem}
+
+\begin{definition}
+	A real symmetric matrix is called...
+	\begin{enumerate}[noitemsep]
+		\item \dfn{Positive definite} if all eigenvalues of $A$ are positive. 
+		\item \dfn{Positive semi-definite} if all eigenvalues are greater or equal than zero. 
+		\item \dfn{Negative definite} if all eigenvalues are strictly less than zero. 
+		\item \dfn{Negative semidefinite} if all eigenvalues are less than or equal to zero. 
+	\end{enumerate}
+\end{definition}
+
+\subsection{Applications of the Real Spectral Theorem}
+\subsubsection{Real Quadratic Forms}
+\begin{definition}[Real Quadratic Form]
+	A \dfn{real quadratic form} is a purely quadratic polynomial in $n$ variables with real coefficients. For example: 
+	\begin{align}
+		X_1^2 + 4X_1X_2 + X_2^2	
+	\end{align}
+\end{definition}
+
+\textbf{Question:} How can we determine the range of a quadratic form? 
+
+\textbf{Question:} Can every quadratic form be written as a sum or difference of squares?
+
+\begin{definition}[Positive Definite]
+	A quadratic form $X := Q(X_1, ..., X_n)$ is called \dfn{positive definite} if $Q(x) \geq 0$ $\forall X \in \R^n$ and $Q(x) = 0 $ $\iff$ $X =0$. One can equivalently define negative definite. 
+\end{definition}
+
+Every quadratic form $Q(X)$ can be written in ``matrix form'', i.e; 
+\begin{align}
+	Q(X) = X^t A X	
+\end{align}
+
+\section{Inner Product Spaces}
+There is no notion of length in an abstract vector space. Therefore, the aim is to introduce a notion of lengths and angles to abstract vector spaces, i.e., generalise what we've done with the standard inner product. 
+
+We generalise between $K = \R$ and $K= \C$. 
+\subsection{$K = \R$}
+\begin{definition}[Inner Product Space] Let $V$ be a vector space over $\R$. A function: $\langle, \rangle: V \times V \rightarrow \R$ is called an \dfn{inner product} on $V$ if: 
+\begin{enumerate}[noitemsep]
+	\item $\langle, \rangle$ is bilinear
+	\item $\langle, \rangle$ is symmetric 
+	\item $\langle, \rangle$ is positive definite 
+\end{enumerate}
+	A vector space with an inner product is called a \dfn{inner product space}. 
+\end{definition}
+
+\begin{ex}
+	The standard inner product on $\R^n$, $\langle x, y \rangle := x^t y$ is an inner product. 
+\end{ex}
+
+\begin{ex}
+	Let $V = \R^n$ a positive definite $n \times n$ (which implies symmetric on $\R$ or hermitian on $\C$) matrix $A$ gives us an inner product: 
+	\begin{align}
+		\langle x, y \rangle := x^t Ay 	
+	\end{align}
+\end{ex}
+
+\begin{ex} 
+Let $V = C[a,b]$: the vector space of all continuous functions on $[a,b]$. A useful inner product in analysis is: 
+\begin{align}
+	\langle f, g \rangle := \int_a^b f(x) g(x) dx 	
+\end{align}
+	
+\end{ex}
+
+\subsection{Complex Inner Product Spaces}
+\begin{definition}[Complex Inner Product Space]
+	Let $V$ be a $VS$ over $\C$, $\langle, \rangle : V \times V \rightarrow \C$ such that
+	\begin{enumerate}[noitemsep]
+		\item $\langle, \rangle$ is sesqui-linear.
+		\item Conjugate symmetry: $\forall z , w \in V$: 
+		\begin{align}
+			\langle z, w \rangle = \overline{\langle w, z \rangle} 	
+		\end{align}
+	\item Positive definite. 
+	\end{enumerate}
+	Then, $(V, \langle, \rangle)$ is called a \dfn{complex inner product space}. 
+\end{definition}
+
+\begin{ex}
+	Let $A \in \matn{C}$ be a Hermitian positive definite matrix. Then $\langle z, w \rangle := z^* A w$ is a complex inner product on $\C^n$. 
+\end{ex}
+
+\subsection{Geometry on a Vector Space}
+We can define the \dfn{length} on an IPS as: 
+\begin{align}
+	|| x || := \sqrt{ \langle x, y \rangle } 	
+\end{align}
+Claim: this satisfies all of the conditions in what mathematics is called a norm. 
+
+\begin{definition}[Norm]
+	\vsok. Then, $|| \cdot ||$ (\dfn{norm}) is a function that assigns a length to a vector: $V \rightarrow \R_0^+ = [0, \infty[$ such that
+	\begin{enumerate}[noitemsep]
+		\item $|| x|| \geq 0$ $\forall x \in V$ and $|| x || = 0 \iff x =0$. 
+		\item $|| kx || = |k| || x ||  $ $\forall k \in K, x \in V$. 
+		\item \dfn{Triangle Inequality}: $|| x +y || \leq || x || + ||y ||$. 
+	\end{enumerate}
+\end{definition}
+
+\begin{theorem}
+	Let $V$ be an IPS over $K$, $|| x || := \sqrt{ \langle x, x, \rangle }$ $\forall x \in V$. Then, $|| \cdot ||$ is a norm on $V$. 
+\end{theorem}
+
+\begin{theorem}[Cauchy-Schwarz Inequality]
+	Let $V$ be an IPS over $K$. Then: 
+	\begin{align}
+		| \langle x, y \rangle | \leq || x|| || y || 	
+	\end{align}
+	$\forall x, y \in V$. 
+\end{theorem}
+
+\begin{lemma}
+	$\langle a + \lambda b, a + \lambda b \rangle = \langle a, a \rangle + \lambda \langle a, b \rangle + \overline{\lambda} \overline{ \langle a, b \rangle } + \lambda \overline{\lambda} \langle b, b \rangle $
+\end{lemma}
+
+
+\begin{theorem}[Triangle Inequality]
+	Let $x, y \in V$ where $V$ is an IPS. Then: 
+	\begin{align}
+		|| x + y || \leq || x|| + ||y||	
+	\end{align}
+	(this is the most important theorem in maths). 
+\end{theorem}
+
+\begin{lemma}
+	Let $z \in \C$. Then: 
+	\begin{enumerate}[noitemsep]
+		\item $z + \overline{z} = 2 \operatorname{Re}(z)$
+		\item $| \operatorname{Re}(z) | \leq |z|$
+	\end{enumerate}
+\end{lemma}
+
+
+\begin{definition}[Angle]
+	Let $V$ be a real IPS with an inner product $\langle, \rangle$. Let $x, y \neq 0$ in $V$. Let $\varphi \in [0, \pi]$ be uniquely determined such that
+	\begin{align}
+		\cos ( \varphi ) = \frac{\langle x, y \rangle}{|| x || || y ||}	 \in [-1, 1]
+	\end{align}
+	(where the inclusion is thanks to Cauchy Schwarz). Then $\varphi$ is the \dfn{angle} between $x$ and $y$. 
+\end{definition}
+
+\begin{definition}
+	Let $V$ be a real IPS. We say that $x$ and $y$ are \dfn{orthogonal} if $\langle x, y \rangle = 0$. Note that for $x, y \neq 0$, this is equivalent to the angle between $x$ and $y$ being $\pi /2$.
+\end{definition}
+
+\begin{definition}
+	Let $V$ be an IPS over $\R$. We say that $x, y \in V$ are orthogonal $\iff$ their inner product is zero. 
+\end{definition}
+
+\begin{theorem}[Pythagorean's Theorem] 
+	Let $V$ be an IPS. Let $X, Y \in V$ be orthogonal. Then
+	\begin{align}
+		|| X + Y ||^2 = ||x||^2 + ||Y||^2	
+	\end{align}
+\end{theorem}
+
+\section{Fourier Series in 30 Minutes [not examinable]}
+Consider $V$ the vector space of all continuous functions on $\R$ endowed with the inner product
+\begin{align}
+	\int_{-\pi}^\pi f(x) g(x) dx	
+\end{align}
+and consider the following set
+\begin{align}
+	S := \{ 1, \sin (x) , \cos(x), \sin(2x), \cos(2x), ... \} 	
+\end{align}
+Claim: the functions in $S$ are pairwise orthogonal: 
+\begin{align}
+	\int_{- \pi}^\pi \sin (nx) \cos(mx) dx = 0 	
+\end{align}
+$\forall n \in \N, m \in \N_0$. This follows from the product-to-sum trigonometric identities. Moreover, observe: 
+\begin{align}
+	& \int_{-\pi}^\pi \sin^2 (nx) dx = \pi\ \forall n \in \N \\
+	& \int_{-\pi}^\pi \cos^2 (nx ) dx = \pi\ \forall n \in \N \\
+	& \int_{-\pi}^\pi 1 dx = 2 \pi \text{ for } n = 0
+\end{align}
+Now recall the following: Let's work in $\R^n $ with the standard inner product. Let $v_1, ..., v_n$ be pairwise orthogonal, non-zero vectors. Then, we may write: 
+\begin{align}
+	v = a_1 v_1 +... + a_n v_n 	
+\end{align}
+for any vector $v \in \R^n$. Recall that we recovered the coefficients $a_1, ..., a_j$ previously with the formula: 
+\begin{align}
+	a_j = \frac{\langle v_j, v \rangle}{\langle v_j , v_j \rangle}	
+\end{align}
+(the proof for that only used linearity in the second argument and positive definiteness). Now let $f(x)$ represent a ``signal'': 
+\begin{align}
+	f(x ) = c_0 + [ a_1 \cos(x) + ... + a_n \cos (nx) ] + [b_1 \sin(x) + ... + b_n \sin (nx) ] 
+\end{align}
+We know that $f(x) $ is a linear combination of the members in $S$. Assume that we are given an $f(x)$. \textbf{How can we recover the linear combination of sines and cosines?} Well, we simply apply the formula: 
+\begin{align}
+	a_n & = \frac{\langle \cos(nx), f(x) \rangle}{\langle \cos(nx), \cos(nx) \rangle}	\\
+	& = \frac{1}{\pi} \int_{-\pi}^\pi f(x) \cos (nx) dx 
+\end{align}
+This is all linear algebra! No calculus or analysis! Similarly for the $b_n$'s: 
+\begin{align}
+b_n & = \frac{\langle \sin(nx), f(x) \rangle}{\langle \sin (nx), \sin (nx) \rangle}	\\
+& = \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin(nx) dx 
+\end{align}
+and we can recover $c_0$: 
+\begin{align}	
+	c_0 = \frac{1}{2 \pi} \int_{-\pi}^\pi f(x) dx 	
+\end{align}
+Drawback: in linear algebra, all sums must be finite. Not all functions can be represented as a finite sum of trigonometric functions; they must also be periodic. 
+
+
+\textbf{Question:} Can $f(x)$ be represented as an infinite series? Does it converge? 
+
+
+We will use these formulae as a motivation for the definition of a Fourier series. 
+
+\begin{definition}[Fourier Series]
+	Let $f(x)$ be periodic and continuous with period $2 \pi$. Define: 
+	\begin{align}
+		& a_n := \frac{1}{\pi} \int_{-\pi}^\pi f(x) \cos (nx) dx \\
+		& b_n := \frac{1}{\pi} \int_{-\pi}^\pi f(x) \sin (nx) dx \\
+		& c_0 := \frac{1}{2 \pi} \int_{-\pi}^\pi f(x) dx 	
+	\end{align}
+	Now, the analysis comes; two questions: 
+	\begin{enumerate}[noitemsep]
+		\item Does it converge?
+		\item Will we get $f(x)$ back?
+	\end{enumerate}
+	If it does converge, we obtain the \dfn{Fourier Series} of $f$, which is entirely generated by orthogonality relations. There is a lot of substantial literature covering these two questions. 
+\end{definition}
+
+\begin{theorem}[Dirichlet's Theorem]
+	Let $F$ be a periodic function with period $ 2 \pi$ and let it be piecewise continuous and continuously differentiable on $[-\pi, \pi]$. Then, the Fourier series of $f$ converges at all points where $f$ is continuous, and it represents $f$. 
+\end{theorem}
+This is pretty good news as long as your functions are 
+reasonably well-behaved. 
 
 \end{document}
