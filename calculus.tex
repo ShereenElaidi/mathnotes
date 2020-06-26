@@ -831,8 +831,278 @@
 	\begin{align}
 		D_uf(x_0, y_0) := \lim_{h \rightarrow 0 } \frac{f(x_0 + ha, y_0 + hb) - f(x_0, y_0)}{h}	
 	\end{align}
-	
+	\begin{itemize}[noitemsep]
+		\item If $f$ is a differentiable function of $x$ and $y$, then $f$ has a directional derivative in the direction of any unit vector $\mathbf{u} = \langle a, b \rangle$ and 
+		\begin{align}	
+			D_f(x,y) = f_x(x,y) a + f_y(x,y) b 	
+		\end{align}
+	\end{itemize}
+	\item \dfn{Gradient}: Let $f: \R \times \R \rightarrow \R$ be a function of two variables. Then, the \dfn{gradient} of $f$ is the vector function $\nabla f$ defined by: 
+	\begin{align*}
+		\nabla f(x,y) & := \langle f_x(x,y), f_y(x,y) \rangle \\
+					  & = \frac{\partial f}{\partial x} \mathbf{\hat{i}} + \frac{\partial f}{\partial y} \mathbf{\hat{j}} 
+	\end{align*}
+	Using this notation, we can re-write the directional derivative as a dot product: 
+	\begin{align*}
+		D_u f(x,y) = \nabla f(x,y) \cdot \mathbf{u} 
+	\end{align*}
+	Thus, we can interpret the directional derivative as the scalar projection of the gradient function onto $\mathbf{u}$. 
+	\item Let $f: \R^n \rightarrow \R$ be a differentiable function of $n$ variables. The maximum value of the directional derivative $D_uf(x)$ is $|| \nabla f(x) ||$; this occurs when $\mathbf{u}$ is parallel to $\nabla f(x)$. 
+	\item The \dfn{tangent planet to the level surface} $F(x,y,z) = k$ at the point $P(x_0, y_0, z_0)$ is the plane that passes through $P$ with the normal vector $\nabla F(x_0, y_0, z_0)$. This is written as:
+	\begin{align}
+		F_x(x_0, y_0, z_0) (x-x_0) + F_y(x_0, y_0, z_0) (y-y_0) + F_z (x_0, y_0, z_0) (z-z_0) = 0 	
+	\end{align}
 \end{itemize}
 
+\subsection{Multiple Integrals}
+\begin{itemize}
+	\item \dfn{Double Integral}: the \dfn{double integral} of $f$ over the rectangle $\mathcal{R}$ is: 
+	\begin{align}
+		\iint_{\mathcal{R}} f(x,y) dA := \lim_{m,n \rightarrow \infty} \sum_{i=1}^m \sum_{j=1}^n f(x_{i,j}^*, y_{i,j}^*) \Delta A 	
+	\end{align}
+	if the limit exists.
+	\begin{itemize}
+		\item If $f \geq 0$, then the volume $V$ of the solid above the rectangle $\mathcal{R}$ and below the surface $z=f(x,y)$ is:
+		\begin{align}
+			V = \iint_{\mathcal{R}} f(x,y) dA	
+		\end{align}
+	\end{itemize}
+	\item \dfn{Fubini's Theorem}: If $f$ is continuous on the rectangle $\mathcal{R} := \{ (x,y)\ |\ a \leq x \leq b, c \leq y \leq d \}$ then: 
+	\begin{align}
+		\iint_{\mathcal{R}} f(x,y) dA = \int_a^b \int_c^d f(x,y) dy dx = \int_c^d \int_a^b f(x,y) dx dy 	
+	\end{align}
+	\item \dfn{Average Value}: the \dfn{average value} of a function $f$ of two variables defined on the rectangle $\mathcal{R}$ is defined to be: 
+	\begin{align}
+		f_{\text{avg}} := \frac{1}{A(\mathcal{R})} \iint_{\mathcal{R}} f(x,y) dA 	
+	\end{align}
+	\item \dfn{Double Integral of $f$ over $D$}: let $D$ be a bounded region in $\R^n$. Define the following function $F$; let $\mathcal{R}$ be a rectangle such that $D \subseteq \mathcal{R}$ and 
+	\begin{align}
+		F(x,y) := \begin{cases}
+			f(x,y) & (x,y) \in D \\
+			0 	   & (x,y) \notin D 
+		\end{cases}	
+	\end{align}
+		then, the \dfn{double integral of $f$ over $D$} is given by:
+		\begin{align}
+			\iint_{D} f(x,y) dA := \iint_{\mathcal{R}} F(x,y) dA 
+	    \end{align}
+	 \item We have various ``types'' of domains/regions: 
+	 \begin{itemize}
+	 	\item \dfn{Type I}: A plane region $D$ is Type I if it lies between the graphs of two continuous functions of $x$: 
+	 	\begin{align}
+	 		D := \{ (x,y) \in \R\ |\ a \leq x \leq b, g_1(x) \leq y g_2(x) \} 	
+	 	\end{align}
+		in this case, the double integral is given by: 
+		\begin{align}
+			\iint_D f(x,y) dA := \int_a^b \int_{g_1(x)}^{g_2(x)} f(x,y) dy dx 	
+		\end{align}
+		\item \dfn{Type II}: a plane region of Type II is: 
+		\begin{align}
+			D := \{ (x,y) \in \R^2\ |\ c \leq y \leq d,\ h_1(y) \leq x \leq h_2(y) \}	
+		\end{align}
+		where $h_1, h_2 \in C(\R)$. In this case, the double integral is given by: 
+		\begin{align*}
+			\iint_D f(x,y) dA := \int_c^d \int_{h_1(y)}^{h_2(y)} f(x,y) dx dy
+		\end{align*}
+	 \end{itemize}
+	 \item If $m \leq f(x,y) \leq M$ $\forall$ $(x,y) \in D$, then: 
+	 \begin{align}
+	 	mA(D) \leq \iint_D f(x,y) dA \leq M A(D) 	
+	 \end{align}
+	\item \dfn{Polar Rectangle}: $\mathcal{R} := \{ (r, \theta)\ |\ a \leq r \leq b, \alpha \leq \theta \leq \beta \}$ 
+	\begin{itemize}
+		\item \dfn{Change to Polar Coordinates in a Double Integral}: Let $f: \R \rightarrow \R$ be continuous, $\mathcal{R}$ a polar rectangle, $f$ continuous. If $\mathcal{R}$ is given by $0 \leq a \leq r \leq b$, $\alpha \leq \theta \beta$, $0 \leq \beta - \alpha \leq 2 \pi $. Then: 
+		\begin{align}
+			\iint_{\mathcal{R}} f(x,y) dA := \int_\alpha^\beta \int_a^b f ( r \cos (\theta), r \sin (\theta)) r dr d \theta 	
+		\end{align}
+		if $f$ is continuous on a polar region of the form $D := \{ (r, \theta)\ |\ \alpha \leq \theta \leq \beta, h_1(\theta) \leq r \leq h_2(\theta) \}$, then: 
+		\begin{align}
+			\iint_D f(x,y) dA = \int_{\alpha}^{\beta} \int_{h_1(\theta)}^{h_2(\theta)} f(r \cos (\theta), r \sin (\theta) ) r dr d \theta 	
+		\end{align}
+	\end{itemize}
+	\item \dfn{Surface Area}: the area of the surface $z = f(x,y)$ for $(x,y) \in D $ where $\frac{\partial z}{\partial x}$ and $\frac{\partial z}{\partial y}$ are continuous is given by: 
+	\begin{align}
+		A(S) = \iint_D \sqrt{1 +  \left( \frac{\partial z}{\partial x} \right)  + \left( \frac{\partial z}{\partial y} \right) }	
+	\end{align}	
+\end{itemize}
+\subsection{Triple Integrals}
+\begin{itemize}
+	\item \dfn{Triple Integrals over a Box}: The \dfn{triple integral} of $f$ over the box $B$ is: 
+	\begin{align}
+		\iiint_B f(x,y,z) dV := \lim_{\ell, m, n \rightarrow \infty} \sum_{i=1}^\ell \sum_{j=1}^m \sum_{k=1}^n f(x_{ijk}^*, y_{ijk}^*, z_{ijk}^*) \Delta V	
+	\end{align}
+	\item \dfn{Cylindrical Coordinate System}: a point $P \in \R^3$ is represented by the ordered triple $(r, \theta, z)$; the equations to convert are given by: 
+	\begin{align*}
+		& x = r \cos (\theta)\ &  y = r \sin (\theta)\ & z = z \\
+		& r^2 = x^2 + y^2 + z^2\	& \tan (\theta) = y/z\ & z = z 
+	\end{align*} 
+	Often useful in problems involving symmetry about an axis. 
+	\item \dfn{Triple Integration in Polar Coordinates}: Suppose $E$ is a Type I region whose projection $D$ onto the $xy$-plane is described in polar coordinates: 
+	\begin{align*}
+		E & = \{ (x, y, z)\ |\ (x,y) \in D\ |\ u_1(x,y) \leq z \leq u_2(x,y)\ \} \\
+		D & = \{ (r, \theta)\ |\ \alpha \leq \theta \leq \beta,\ h_1(\theta) \leq r \leq h_2(\theta) \} 	
+	\end{align*}
+	Then, 
+	\begin{align}
+		\iint_E f(x,y,z) dV = \int_\alpha^\beta \int_{h_1(\theta)}^{h_2(\theta)} \int_{u_1(r \cos (\theta), r \sin (\theta) }^{u_2(r \cos (\theta), r \sin (\theta)}	f (r \cos (\theta), r \sin (\theta)) r dz dr d \theta 
+	\end{align}
+	\item \dfn{Spherical Coordinates}: the spherical coordinates $(\rho, \theta, \varphi)$ of a point $p \in \R^3$ are given by: 
+	\begin{align*} 
+		& x = \rho \sin (\varphi) \cos (\theta),\ y = \rho \sin (\theta) \sin (\theta),\ z = \rho \cos (\varphi) \\
+		& \rho^2 = x^2 + y^2 + z^2 	
+	\end{align*} 
+	\begin{itemize}[noitemsep]
+		\item The formula for a triple integral in spherical coordinates is given by:
+		\begin{align}
+			\iiint_E f(x,y,z) dV = \int_c^d \int_\alpha^\beta \int_a^b f(\rho \sin (\varphi) \cos (\theta), \rho \sin (\theta) \sin (\theta), \rho \cos (\varphi) ) \rho^2 \sin (\varphi) d \rho d \theta d \varphi 	
+		\end{align}
+	\end{itemize}
+	\item \dfn{Jacobian}: the \dfn{Jacobian} of a transformation $T$ given by $x = g(u,v)$ and $y=h(u,v)$ is given by: 
+	\begin{align}
+		\frac{\partial (x,y)}{\partial (u,v)} = \det \begin{bmatrix}
+			\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\
+			\frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}
+		\end{bmatrix}	
+	\end{align}
+	\begin{itemize}[noitemsep]
+		\item Suppose $T$ is a $C^1$-transformation whose Jacobian is non-zero and that $T$ maps $S$ in the $uv$-plane to region $\mathcal{R}$ in the $xy$-plane. Suppose that $f$ is continuous on $\mathcal{R}$ and that both $\mathcal{R}$ and $S$ are Type I or Type II regions. Moreover, assume that $T$ is bijective, except for potentially on $\partial S$. Then: 
+		\begin{align}
+			\iint_{\mathcal{R}} f(x,y) dA = \iint_S f(x(u,v), y(u,v)) | \det (\mathbf{Jac}) | du dv 	
+		\end{align}
+	\end{itemize}
+\end{itemize}
+
+\section{Vector Calculus}
+\subsection{Vector Fields}
+\begin{itemize}[noitemsep]
+	\item \dfn{Vector Field on $\R^n$}: Let $D \subseteq \R^n$. A \dfn{vector field} on $\R^n$ is a function $\mathbf{F}$ that assigns to every point $(x_1, ..., x_n) \in D$ an n-dimensional vector $\mathbf{F}(x_1, ..., x_n)$. One can write this in terms of component functions, e.g. in $\R^2$: 
+	\begin{align}
+		\mathbf{F}(x,y) = P(x,y) \mathbf{\hat{i}} + Q(x,y) \mathbf{\hat{j}} + Q(x,y) \hat{\mathbf{k}}  = \langle P(x,y), Q(x,y), Q(x,y) \rangle 	
+	\end{align}
+	\begin{itemize}
+		\item \dfn{Gradient Vector Field}: if $f: \R^2 \rightarrow \R$, recall that $\nabla f$ is: 
+		\begin{align}
+			\nabla f(x,y) = f_x(x,y) \hat{\mathbf{i}} + f_y(x,y) \hat{\mathbf{j}} 	
+		\end{align}
+		which means that $\nabla f$ is a vector field on $\R^2$ (we call this vector field a \dfn{gradient vector field}).
+	\end{itemize}
+	\item \dfn{Conservative Vector Field}: A vector field $\mathbf{F}$ is a \dfn{conservative vector field} if there exists a scalar function $f$ such that $\nabla f = \mathbf{F}$. 
+\end{itemize}
+\subsection{Line Integrals}
+\begin{itemize}[noitemsep]
+	\item \dfn{Line Integral}: parameterise a smooth curve $C$ by
+	\begin{align*}
+		x = x(t),\ y = y(t)\ t \in [a,b] 
+	\end{align*}
+	or, equivalently, 
+	\begin{align*}
+		r(t) = x(t) \hat{\textbf{i}} + y(t) \hat{\textbf{j}} 
+	\end{align*}
+	then, the \dfn{line integral} of $f$ along $C$ is: 
+	\begin{align}
+		\int_C f(x,y) ds = \lim_{n \rightarrow \infty} \sum_{i=1}^n f(x_i^*, y_i^*) \Delta s_i 	
+	\end{align}
+	the line integral is given by: 
+	\begin{align}
+		\int_C f(x,y) ds = \int_a^b f(x(t), y(t)) \sqrt{\left( \frac{dx}{dt} \right)^2 + \left( \frac{dy}{dt} \right)^2 } dt 	
+	\end{align}
+	\begin{itemize}[noitemsep]
+		\item A more compact notation for line integrals can be given by: 
+		\begin{align}
+			\int_a^b f(\mathbf{r}(t)) || \mathbf{r}'(t) || dt 	
+		\end{align}
+	\end{itemize}
+	\item \dfn{Line Integrals over Vector Fields}: Let $\mathbf{F}$ be a continuous vector field defined on a smooth curve $C$ be given by a vector function $\mathbf{r}(t)$, $ t \in [a,b]$. Then, the \dfn{line integral of $\mathbf{F}$ along $C$} is: 
+	\begin{align}
+		\int_C \mathbf{F} \cdot d \mathbf{r} = \int_a^b F(\mathbf{r}(t)) \cdot \mathbf{r}'(t) dt = \int_C \mathbf{F} \cdot \mathbf{T} ds 	
+	\end{align}
+	Suppose a vector field $\mathbf{F}$ on $\R^3$ is given in compact-form by the equation $\mathbf{F} = P \hat{\mathbf{i}} + Q \hat{\mathbf{j}} + R \hat{\mathbf{k}} $. Then, 
+	\begin{align}
+		\int_C \mathbf{F} \cdot dr = \int_C P dx + Q dy + K dz 	
+	\end{align}
+	\item \dfn{Fundamental Theorem for Line Integrals}: Let $C$ be a smooth curve given by the vector function $\mathbf{r}(t)$ for $t \in [a,b]$. Let $f$ be a differentiable function $f$ of two or three variables whose gradient vector $\nabla f$ is continuous on $C$. Then:
+	\begin{align}
+		\int_C \nabla f \cdot d \mathbf{r}  = f (\mathbf{r}(b)) - f (\mathbf{r}(a)) 	
+	\end{align}
+	\item Path Independence
+	\begin{itemize}[noitemsep]
+		\item $\int_C \mathbf{F} \cdot d \mathbf{r}$ is independent of path in $D$ $\iff$ $\int_C \mathbf{F} \cdot d \mathbf{r} = 0$ for every closed path $C$ in $D$.
+		\item Let $D$ be an open, connected domain. Suppose that $F$ is a vector field on $D$. If $\int_C \mathbf{F} \cdot d \mathbf{r}$ is independent of path on $D$, then $\mathbf{F}$ is a conservative vector field on $D$, that is, $\exists$ an $f$ such that $\nabla f = \mathbf{F}$.
+		\item Let $F(x,y) = P(x,y) \hat{\mathbf{i}} + Q(x,y) \hat{\mathbf{j}} $ be a conservative vector field, where $P $ and $Q$ have continuous first-order partial derivatives on a domain $D$. Then, throughout $D$, we have
+		\begin{align}
+			\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}	
+		\end{align}
+		\item \dfn{Simple Curve}: a curve that doesn't intersect itself anywhere between its endpoints. 
+		\item \dfn{Simply-Connected Region}: a connected region $D$ such that every simple closed curve in $D$ encloses points that are only in $D$.
+	\end{itemize}
+	\item Let $\mathbf{F} = P \hat{\mathbf{i}} + Q \mathbf{\hat{j}}$ be a vector field of an open, simply-connected region $D$. Suppose that $P$ and $Q$ have continuous first-order partial derivatives and 
+	\begin{align}
+		\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}	
+	\end{align}
+	throughout $D$. Then, $\mathbf{F}$ is conservative. 
+\end{itemize}
+
+\subsection{Green's Theorem}
+Counterpart of the Fundamental Theorem of Calculus for double integrals.
+\begin{itemize}[noitemsep]
+	\item \dfn{Green's Theorem}: Let $C$ be a positively-oriented, piece-wise smooth simple closed curve in the plane and let $D$ be a region bounded by $C$. If $P$ and $Q$ have continuous partial derivatives on an open region containing $D$, then:
+	\begin{align}
+		\oint_C Pdx + Qdy = \iint_D \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dA 	
+	\end{align}
+	\item Can be used to calculate areas: 
+	\begin{align}
+		A(D) = \oint_C x dy = - \oint_C y dx = \frac{1}{2} \oint_C x dy - y dx 	
+	\end{align}
+\end{itemize}
+
+\subsection{Curl and Divergence}
+Each of the following operations resemble differentiation, but one produces a vector field and the other produces a scalar field. 
+
+\begin{itemize}[noitemsep]
+	\item \dfn{Curl}: Let $\mathbf{F} := P \hat{\mathbf{i}} + Q \hat{\mathbf{j}} + R \hat{\mathbf{k}}$ be a vector field on $\R^3$. Assume that the partial derivatives $P$, $Q$, and $R$ all exist. Then, the \dfn{curl} of $\mathbf{F}$ is the vector field on $\R^3$ defined by: 
+	\begin{align*}
+		\operatorname{curl}(F) & := \left( \frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z}   \right) \hat{\mathbf{i}} + \left( \frac{\partial P}{\partial z} - \frac{\partial R}{\partial x} \right) \hat{\mathbf{j}} + \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) \hat{\mathbf{k}} \\
+		& = \nabla \times \mathbf{F} \\
+		& = \det \begin{bmatrix}
+			\hat{\mathbf{i}} & \hat{\mathbf{j}} & \hat{\mathbf{k}} \\
+			\frac{\partial}{\partial x} & \frac{\partial }{\partial y} & \frac{\partial }{\partial z} \\
+			P & Q & R
+		\end{bmatrix}
+	\end{align*}
+	\item If $f$ is a function of three variables and has continuous, second-order partial derivatives, then:
+	\begin{align}
+		\text{curl}(\nabla f) = 0 	
+	\end{align}
+	\begin{itemize}[noitemsep]
+		\item Conservative vector fields have $\mathbf{F} = \nabla f$, and so $\text{curl}(\mathbf{F}) = 0$ for conservative vector fields.
+		\item Let $\mathbf{F}$ be a vector field defined on all of $\R^3$ whose component functions have continuous partial derivatives and $\text{curl}(\mathbf{F}) = 0$. Then, $\mathbf{F}$ is a conservative vector field. 
+		\item We say that a vector field $\mathbf{F}$ is irrotational if $\text{curl}(\mathbf{F})=0$.
+	\end{itemize}
+	\item \dfn{Divergence}: Let $\mathbf{F} := P \hat{\mathbf{i}} + Q \hat{\mathbf{j}} + R \hat{\mathbf{k}}$ be a vector field on $\R^3$ and assume that $\frac{\partial P}{\partial x }$, $\frac{\partial Q}{\partial y}$, and $\frac{\partial R}{\partial z}$ all exist. Then, the \dfn{divergence} of $\mathbf{F}$ is defined by:
+	\begin{align}
+		\operatorname{div}(\mathbf{F}) & := \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}	\\
+			& = \nabla \cdot \mathbf{F} 
+	\end{align}
+	\item If $\mathbf{F} := P \hat{\mathbf{i}} + Q \hat{\mathbf{j}} + R \hat{\mathbf{k}}$ be a vector field on $\R^3$ and if $P$, $Q$, and $R$ have continuous second-order partial derivatives, then 
+	\begin{align}
+		\operatorname{div}( \operatorname{curl}(\mathbf{F})) = 0 	
+	\end{align}
+	\begin{itemize}[noitemsep]
+		\item A vector field $\mathbf{F}$ is called \dfn{incompressible} if $\operatorname{div}(\mathbf{F}) =0$. 
+	\end{itemize}
+	\item We can use what we've built up here to formulate Green's Theorem in terms of vector forms. 
+	\begin{itemize}[noitemsep]	
+		\item The first vector form of Green's theorem is: 
+		\begin{align}
+			\oint_C \mathbf{F} \cdot d \mathbf{r} 	= \iint_D ( \operatorname{curl}(\mathbf{F})) \cdot \mathbf{\hat{k}} d A 
+		\end{align}
+		\item The second vector form of Green's Theorem is: 
+		\begin{align}
+			\oint_C \mathbf{F} \cdot \mathbf{\hat{n}}	ds = \iint_D \operatorname{div}(\mathbf{F}) dA
+		\end{align}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Parametric Surfaces and their Areas}
 
 \end{document}
