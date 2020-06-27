@@ -1105,4 +1105,48 @@ Each of the following operations resemble differentiation, but one produces a ve
 
 \subsection{Parametric Surfaces and their Areas}
 
+\section{Ordinary Differential Equations}
+\subsection{Basic Concepts}
+\begin{itemize}[noitemsep]
+	\item A \dfn{differential equation} is an equation that involves an unknown function and its derivatives. We say that a function is an \dfn{ordinary differential equation} if the unknown function depends only on one independent variable. 
+	\item The \dfn{order} of a differential equation is the order of the highest derivative appearing in the equation.
+	\item A \dfn{solution} of an ODE in an unknown function $y$ and an independent variable $x$ on an interval $I$ is a function $y(x)$ satisfying the ODE for all $x \in I$. 
+\end{itemize}
+
+\subsection{Classification of First Order Differential Equations}
+First of all, the two forms that we can see ODEs come in: 
+\begin{itemize}[noitemsep]
+	\item \dfn{Standard Form}: $y' = f(x,y)$. 
+	\item \dfn{Differential Form}: $M(x,y) dx + N(x,y) dy =0$. 
+\end{itemize}
+And now, some types of first order differential equations that we will encounter: 
+\begin{itemize}[noitemsep]
+	\item \dfn{Linear Equation}: If $f(x,y)$ can be written as: 
+	\begin{align}
+		f(x,y) = -p(x) y + q(x) 	
+	\end{align}
+	then the ODE is \dfn{linear} and it can always be expressed as: 
+	\begin{align}
+		y' + p(x) y = q(x) 	
+	\end{align}
+	\item \dfn{Bernoulli Equation}: A \dfn{Bernoulli differential equation} is an equation of the form: 
+	\begin{align}
+		y' + p(x) y = q(x) y^n	
+	\end{align}
+	\item \dfn{Homogeneous Equation}: A differential equation in standard form is said to be \dfn{homogeneous} if:
+	\begin{align}
+		f(tx, ty) = f(x,y) 	
+	\end{align}
+	\item \dfn{Separable Equation}: A differential equation given in differential form 
+	\begin{align*}
+			M(x,y) dx + N(x,y) dy = 0 
+	\end{align*}
+	is said to be \dfn{separable} if $M(x,y) = A(x)$ and $B(x,y) = B(y)$. 
+	\item \dfn{Exact Equations}: A differential equation in the differential form is called \dfn{exact} if: 
+	\begin{align}
+		\frac{\partial M(x,y)}{\partial y} = \frac{\partial N(x,y)}{\partial x}	
+	\end{align}
+
+\end{itemize}
+
 \end{document}
