@@ -1,0 +1,432 @@
+\documentclass[11pt]{article}
+\title{\textbf{Math 254: Analysis 1}\vspace{-2ex}}
+\author{Definitions, Theorems, and Results from the Class\vspace{-2ex} (Fall 2018)}
+\date{Shereen Elaidi} 
+
+\usepackage{titlesec}
+\titleformat{\section}[hang]{\normalfont\scshape}{\thesection.}{1em}{}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amssymb} 
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+
+\usepackage{enumitem} 
+\setlist[enumerate]{itemsep=0mm}
+\usepackage{xcolor}
+\setenumerate{label=(\roman*)}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{etoolbox}
+\usepackage{fancybox}
+\usepackage{framed}
+\usepackage{tcolorbox}
+% example environment
+\newtheorem{exmp}{Example}[section]
+
+% question environment
+\theoremstyle{definition}
+\newtheorem{question}{Question}
+
+%rd 
+\newcommand{\rd}[0]{\mathbb{R}^d}
+\newcommand{\R}[0]{\mathbb{R}}
+
+% Probability 
+\DeclareRobustCommand{\bbone}{\text{\usefont{U}{bbold}{m}{n}1}}
+\newcommand{\Var}[1]{\mathrm{Var[#1]}}			% variance
+\newcommand{\EX}[1]{\mathbb{E}\mathrm{[#1]}}	 % expected value 
+\newcommand{\seq}[1]{\{ #1_n	\}_{n \in \bb{N}}} % sequence of events
+\newcommand{\pspace}[0]{( \Omega, F, P)}		% probability space
+\newcommand{\msp}[0]{( \Omega, F)}		% measurable space
+	
+% Exercise environment 
+\newenvironment{myleftbar}{%
+\def\FrameCommand{\hspace{0.6em}\vrule width 2pt\hspace{0.6em}}%
+\MakeFramed{\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+\declaretheoremstyle[
+spaceabove=6pt,
+spacebelow=6pt
+headfont=\normalfont\bfseries,
+headpunct={} ,
+headformat={\cornersize*{2pt}\ovalbox{\NAME~\NUMBER\ifstrequal{\NOTE}{}{\relax}{\NOTE}:}},
+bodyfont=\normalfont,
+]{exobreak}
+
+\declaretheorem[style=exobreak, name=Exercise,%
+postheadhook=\leavevmode\myleftbar, %
+prefoothook = \endmyleftbar]{exo}
+
+% Solution environment 
+\newenvironment{mysolbar}{%
+\def\FrameCommand{\hspace{0.6em}\vrule width 2pt\hspace{0.6em}}%
+\MakeFramed{\advance\hsize-\width \FrameRestore}}%
+{\endMakeFramed}
+\declaretheoremstyle[
+spaceabove=6pt,
+spacebelow=6pt
+headfont=\normalfont\bfseries,
+headpunct={} ,
+headformat={\cornersize*{2pt}\ovalbox{\NAME~\NUMBER\ifstrequal{\NOTE}{}{\relax}{\NOTE}:}},
+bodyfont=\normalfont,
+]{solbreak}
+
+\declaretheorem[style=solbreak, name=Solution,%
+postheadhook=\leavevmode\mysolbar, %
+prefoothook = \endmysolbar]{sol}
+
+% HEADERS
+\usepackage{fancyhdr}
+ 
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{Page \thepage}
+\fancyhead[RE,LO]{Math 254: Analysis 1}
+\fancyfoot[CE,CO]{}
+\fancyfoot[LE,RO]{\thepage}
+
+% Definitions
+\newcommand{\dfn}[1]{\textbf{{\underline{#1}}}}
+\newcommand{\im}[1]{\textbf{\textcolor{red}{#1}}}
+
+% lower integral
+\usepackage{accents}
+
+\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
+\def\avint{\mathop{\,\rlap{-}\!\!\int}\nolimits} 
+
+% custom commands 
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\vc}[1]{\mathbf{#1}}
+\newcommand{\step}[1]{\textbf{#1}\textbf{. Step:}}
+\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\sets}[2]{ \left\{ #1\ |\ #2 \right\}}
+\DeclareMathOperator{\Tr}{Tr}
+
+% Proofs
+\newcommand{\claim}[1]{\textbf{#1}\textbf{. Claim:}}
+
+	% iff proofs
+	\newcommand{\rhs}[0]{(\Rightarrow )}
+	\newcommand{\lhs}[0]{(\Leftarrow )}
+
+% sequence of functions
+\newcommand{\funcseqx}{(f_n(x))_{n \in \bb{N}}}
+\newcommand{\funcseq}{(f_n)_{n \in \bb{N}}}
+
+% measurable sets 
+\newcommand{\measurable}{f^{-1}([-\infty, c[)} 
+
+% heat equation 
+\newcommand{\pbdry}[2]{C^{(#1, #2)} (\Omega_T) \cap C (\overline{\Omega_T})}
+\DeclareMathOperator\erf{erf}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+
+% Laplace Equation 
+\newcommand{\lapbdry}[1]{C^{#1} (\Omega) \cap C (\overline{\Omega})}
+
+
+% math environments 
+\usepackage[utf8]{inputenc}
+\newtheorem{theorem}{\textcolor{blue}{Theorem}}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{\textcolor{OliveGreen}{Definition}}
+\newtheorem{prop}{\textcolor{red}{Proposition}}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% cookbook proofs 
+\newcommand{\cb}[3]{\underline{(#1 #2): #3:}}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems}
+
+% theorems 
+\newtcbtheorem[number within=section]{mytheo}{Theorem}%
+{colback=blue!5,colframe=blue!35!black,fonttitle=\bfseries}{th}
+
+% definitions 
+\newtcbtheorem[number within=section]{defn}{Definition}%
+{colback=black!5,colframe=black!35!black,fonttitle=\bfseries}{th}
+
+% axioms
+\newtcbtheorem[number within=section]{ax}{Axioms}%
+{colback=OliveGreen!5,colframe=black!35!OliveGreen,fonttitle=\bfseries}{th}
+
+
+% important examples
+\newtcbtheorem[number within=section]{examp}{Example}%
+{colback=Mahogany!5,colframe=black!35!Mahogany,fonttitle=\bfseries}{th}
+
+% upper and lower riemann integrals
+\newcommand{\upRiemannint}[2]{
+  \overline{\int_{#1}^{#2}}
+}
+\newcommand{\loRiemannint}[2]{
+  \underline{\int_{#1}^{#2}}
+}
+
+
+
+
+\begin{document}
+
+
+\maketitle 
+
+\begin{abstract}
+	The purpose of this document is to review analysis 1.
+\end{abstract}
+
+\section{Introduction}
+Random things we proved to get a handle on how to prove things:
+\begin{itemize}[noitemsep]
+	\item $\cap_{x \in [0, 1] } [0,x] = \{ 0 \}$.
+	\item $2^n < n!$ 
+	\item Let $X$ and $Y$ be sets. Consider the following family of sets: 
+	\begin{align*}
+		\{ V_i\ |\ i \in I, V_i \subseteq Y \}
+	\end{align*}
+	then, $f^{-1} \left( \cup_{i \in I} V_i \right) = \cup_{i \in I} f^{-1}(V_i )$.
+	\item $5^n -1$ is divisible by 4 $\forall n \geq 1$. 
+	\item \dfn{Bernoulli's Inequality}: $\forall n \in \mathbb{N}$, $x \in \R$, $x \geq -1$, one has: 
+	\begin{align}
+		(1+x)^n \geq 1 + nx	
+	\end{align}
+	\item Every non-empty subset of the natural numbers has a smallest element. 
+\end{itemize}
+
+\begin{definition}[Cartesian Product] 
+	Let $A$ and $B$ be two sets. Then, their \dfn{Cartesian Product} is defined as: 
+	\begin{align}
+		A \times B 	:= \{ (a,b)\ |\ a \in A \land b \in B \} 
+	\end{align}
+\end{definition}
+
+\begin{definition}[Function]
+	Let $D$, $E$ be sets. A \dfn{function} $f$ from $D$ to $E$ is a subset of the cartesian product $D \times E$ such that $\forall x \in D$, $\exists_1$ $t \in E$ such that $(x,y) \in f$. In symbols, we define: 
+	\begin{align}
+		f(A) := \{ f(x)\ |\ x \in A \} 	
+	\end{align}
+\end{definition}
+
+\begin{prop}[Properties of Functions]
+	Let $f: D \rightarrow E$ be a function and let $A, B \subseteq D$. Then, consider the following: 
+	\begin{itemize}[noitemsep]
+		\item $f(A \cup B) = f(A) \cup f(B)$ [well behaved with respect to unions]
+		\item $f( A \cap B) \subseteq f(A) \cap f(B)$. 
+	\end{itemize}
+\end{prop}
+
+\begin{definition}[Pre-Image]
+	Let $f: D \rightarrow E$, $A \subseteq E$. Then, the \dfn{pre-image} is defined as: 
+	\begin{align}
+		f^{-1}(A) := \{ x \in D\ | 	f(x) \in A \} 
+	\end{align}
+\end{definition}
+
+\begin{prop}
+	Let $f: D \rightarrow E$, $A, B \subseteq E$. Then: 
+	\begin{itemize}[noitemsep]
+		\item $f^{-1}(A \cup B) = f^{-1} (A) \cup f^{-1}(B) $
+		\item $f^{-1}(A \cap B) = f^{-1}(A) \cap f^{-1}(B)$
+	\end{itemize}
+\end{prop}
+
+\begin{definition}[Injective]
+	Let $f: D \rightarrow E$. $f$ is said to be \dfn{injective} if $f(x_1) \neq f(x_2)$ whenever $x_1 \neq x_2$. 
+\end{definition}
+
+\begin{definition}[Surjective]
+	Let $f: D \rightarrow E$. $f$ is said to be \dfn{surjective} if $\forall y \in E$, $\exists x \in D$ such that $f(x) = y$.
+\end{definition}
+
+
+\begin{definition}[Bijective]
+	$f: D \rightarrow E$ is called \dfn{bijective} if it is surjective and injective.
+\end{definition}
+
+\begin{definition}
+	If $f: D \rightarrow E$ is bijective, then we can define the \dfn{inverse} function $f^{-1}: E \rightarrow D$ as follows: 
+	\begin{align} 
+		f^{-1}(y) :=x	
+	\end{align}
+	where $x$ is a uniquely determined point in $D$ with $f(x)  = y$. 
+\end{definition}
+
+\subsection{Countability of Finite Sets}
+\begin{definition}[Cardinality]
+	Let $S = \{ a_1, ..., a_n \}$. Then, the \dfn{cardinality} of $S$, in symbols $|S|$, is the number of elements in a set $S$. 
+\end{definition}
+
+\begin{theorem}
+	Let $A$, $B$ be finite sets. Then, $|A| \leq |B|$ $\iff$ there exists a function $f: A \rightarrow B$ which is injective.
+\end{theorem}
+
+\begin{theorem}
+	Let $A$, $B$ be finite sets. Then, $|A| \geq |B|$ $\iff$ $\exists$ a surjective map from $A \rightarrow B$.
+\end{theorem}
+
+\begin{theorem}
+	Let $A$, $B$ be finite sets. Then, $|A| = |B| $ $\iff$ $\exists$ a bijective map $f: A \rightarrow B$.
+\end{theorem}
+
+\begin{definition}
+	Let $A$ and $B$ be sets, not necessarily finite. We then say that $A$ and $B$ have the \dfn{same cardinality}, in symbols, 
+	\begin{align}
+		|A| = |B|	
+	\end{align}
+	if $\exists$ a bijective map $f: A \rightarrow B$. 
+\end{definition}
+
+\begin{theorem}[Cantor's Theorem]
+	Let $A$ and $B$ be sets. If $|A| \leq |B|$ and if $|B| \leq |A|$, then $|A| = |B|$. 
+\end{theorem}
+
+\begin{definition}[Countability]
+	We say that a set $A$ with $|A| = | \mathbb{N} |$ is \dfn{countably infinite}. A set which is either finite or countably infinite is called \dfn{countable}.
+\end{definition}
+
+\begin{theorem}[Arithmetic-Geometric Inequality]
+	$\forall n \geq 1$ and for all $x_1, ..., x_n >0$, the following holds: 
+\begin{align}
+	\frac{x_1 + ... + x_n}{n} \geq \sqrt[n]{x_1x_2 \cdots x_n }	
+\end{align}
+\end{theorem}
+
+\begin{lemma}
+	Let $n \in \mathbb{N}$ and let $x_1, ... , x_n > 0$. If $x_1 \cdots x_n = 1$, then: 
+	\begin{align}
+		x_1 + ... + x_n \geq n	
+	\end{align}
+\end{lemma}
+
+\begin{theorem}
+	Let $S \subseteq \mathbb{N}$. Then, there are only two possibilities: 
+	\begin{enumerate}[noitemsep]
+		\item $S$ is finite. 
+		\item $S$ is countably infinite.
+	\end{enumerate}
+\end{theorem}
+
+\begin{lemma}
+	Let $a_1 < a_2 < \cdots $ be a strictly increasing sequence of natural numbers. Then, we can say something about the growth rate: 
+	\begin{align}
+		a_n \geq n 	
+	\end{align}
+	$\forall n \in \mathbb{N}$.
+\end{lemma}
+
+\begin{theorem}
+	Let $f: \mathbb{N} \rightarrow S$ be surjective. Then, $S$ is countable.
+\end{theorem}
+
+\begin{theorem}[Cantor]
+	The set $\mathbb{Q}$  of all rational numbers is countably infinite.
+\end{theorem}
+
+\begin{theorem}
+	$\R$ is uncountable (i.e, $\R$ is infinite and there does not exist a bijection from $\mathbb{N}$ to $\R$.
+\end{theorem}
+
+\begin{definition}[Absolute Value]
+	Let $x \in \R$. Then, the \dfn{absolute value} of $x$ is defined as:
+	\begin{align}
+		|x| := \begin{cases}
+			x & \text{ if } x \geq 0 \\
+			-x & \text{ if } x < 0 
+		\end{cases}	
+	\end{align}
+	Note that $|x|$ is used to measure distances.	
+\end{definition}
+
+\begin{prop}[Properties of Absolute Value]
+	\begin{enumerate}[noitemsep]
+		\item $\forall x \in \R$, $|x| \geq 0$ and $|x| = 0 \iff x =0$. 
+		\item $\forall x, y \in \R$, $|xy| = |x||y|$. Especially, $|-x| = |x|$, in this case you would simply set $y = -1$. 
+		\item $\forall x \in \R$, $-|x| \leq x \leq |x|$.
+		\item Let $a > 0$, $x \in \R$. Then, $|x| \leq a \iff -a \leq x \leq a$.
+	\end{enumerate}
+\end{prop}
+
+\begin{theorem}[Triangle Inequality]
+	Let $x, y \in \R$. Then: 
+	\begin{enumerate}[noitemsep]
+		\item $|x+y| \leq |x| + |y| $ 
+		\item $|x-y| \geq | |x| - |y| | $ 
+		\item Especially, 
+		\begin{enumerate}[noitemsep]
+			\item $|x-y| \geq |x| - |y| $ 
+			\item $|x-y| \geq |y| - |x|$
+		\end{enumerate}
+	\end{enumerate}
+\end{theorem}
+
+\begin{corollary}
+	We also have, 
+	\begin{enumerate}[noitemsep]
+		\item $|x-y| \leq |x|+ |y| $ 
+		\item $|x+y| \geq |x| - |y|$ and $|x+y| \geq |y| - |x|$.
+	\end{enumerate}
+\end{corollary}
+
+\begin{corollary}[Generalisation of the Triangle Inequality]
+	\begin{align}
+		|x_1 + x_2 + ... + x_n | \leq |x_1| + |x_2| + ... + |x_n |	
+	\end{align}
+\end{corollary}
+
+
+\begin{definition}{$\varepsilon$-neighbourhood}
+	Let $x \in \R$ and let $\varepsilon > 0$ be fixed. Then, the \dfn{$\varepsilon$-neighbourhood} of $x$, $V_\varepsilon(x)$, to be: 
+	\begin{align*}
+		V_\varepsilon(x) & := ]x- \varepsilon, x+ \varepsilon [ \\
+						 & = \{ y \in \R\ |\ |y-x| < \varepsilon \} 	
+	\end{align*}
+\end{definition}
+
+
+\begin{theorem}
+	Let $x, y \in \R$, where $x \neq y$. Then, ``$x$ and $y$ can be separated by neighbourhoods'', i.e., $\exists$ a $\varepsilon > 0$ such that $V_\varepsilon(x) \cap V_\varepsilon(y) \neq \emptyset$.
+\end{theorem}
+
+\subsection{Supremum and Infimum}
+\begin{definition}[Bounded From Above]
+	Let $S \subseteq \R$, $S \neq \emptyset$. We say that $S$ is \dfn{bounded from above} if $\exists$ a $u \in \R$ such that $\forall s \in S$ $s \leq u$.
+\end{definition}
+
+
+\begin{definition}[Bounded from Below]
+	Let $S \subseteq \R$, $S \neq \emptyset$. We say that $S$ is \dfn{bounded from below} if $\exists$ a $u \in \R$ such that $\forall s \in S$, $u \leq s$.
+\end{definition}
+
+
+\begin{definition}[Supremum/Least Upper Bound]
+	Let $S \subseteq \R$, $S \neq \emptyset$. $u \in \R$ is called a \dfn{supremum} or \dfn{least upper bound}, denoted by $\sup{S}$, if: 
+	\begin{enumerate}[noitemsep]
+		\item $u$ is an upper bound for $S$. 
+		\item If $v$ is any other upper bound for $S$, then $u \leq v$.
+	\end{enumerate}
+	If $u = \sup{S} \in S$, then we say that $u$ is the \dfn{maximum element} of $S$.
+\end{definition}
+
+\begin{definition}[Infimum/Greatest Lower Bound]
+	Let $S \subseteq \R$, $S \neq \emptyset$. $u \in \R$ is called a \dfn{infimum} or \dfn{greatest lower bound}, denoted by $\inf{S}$, if: 	
+	\begin{enumerate}[noitemsep]
+		\item $u$ is a lower bound.
+		\item If $v$ is an arbitrary lower bound of $S$, then $v \leq u$.
+	\end{enumerate}
+	If $u = \inf{S} \in S$, then we say that $u$ is the \dfn{minimum element of $S$}.
+\end{definition}
+
+
+\end{document} 

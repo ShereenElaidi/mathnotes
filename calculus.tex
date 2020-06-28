@@ -1146,7 +1146,39 @@ And now, some types of first order differential equations that we will encounter
 	\begin{align}
 		\frac{\partial M(x,y)}{\partial y} = \frac{\partial N(x,y)}{\partial x}	
 	\end{align}
-
+	\item Separable ODE $\Rightarrow$ exact ODE.
 \end{itemize}
-
+\subsection{Separable First Order Differential Equations}
+Suppose our ODE is of the form: 
+\begin{align}
+	A(x) dx + B(y) dy = 0 	
+\end{align}
+i.e., we have a separable first-order differential equation. Then, the solution is obtained by integrating: 
+\begin{align}
+	\int A(x) dx + \int B(y) dy = c	
+\end{align}
+where $c \in \R$ is our constant of integration. This is the \dfn{general solution}; if we have an initial value problem: 
+\begin{align*}
+	& A(x) dx + B(y) dy = 0 	 \\
+	& y(x_0) = y_0 
+\end{align*} 
+then we can obtain the particular solution by first obtaining the general solution, and then applying the initial condition to solve for $c \in \R$.
+\subsubsection{Reduction of a Homogeneous Equation}
+Suppose we have a homogeneous equation (i.e, $f(xt , yt) = f(x,t)$ $\forall t$. Then, there are two transformations which we can apply to obtain a separable equation: 
+\begin{enumerate}[noitemsep]
+	\item Make the following substitution: $y = xv$. This has the corresponding derivative:
+	\begin{align}
+		\frac{dy}{dx} = v + x \frac{dv}{dx}	
+	\end{align}
+	Then, the ODE is separable in $v$ and $x$. 
+	\item Re-write the differential equation as:
+	\begin{align}
+		\frac{dx}{dy} = \frac{1}{f(x,y)}	
+	\end{align}
+	and make the following substitution for $x$ $x:= yu$, which gives the corresponding derivative: 
+	\begin{align*}
+		\frac{dx}{dy} = u + y \frac{du}{dy}
+	\end{align*}
+	and substitute back into the ODE. 
+\end{enumerate}
 \end{document}
