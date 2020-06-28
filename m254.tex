@@ -428,5 +428,153 @@ Random things we proved to get a handle on how to prove things:
 	If $u = \inf{S} \in S$, then we say that $u$ is the \dfn{minimum element of $S$}.
 \end{definition}
 
+\begin{center}
+	\textbf{[Begin Tutorial]}
+\end{center}
+\begin{prop}
+	If $X_1, ..., X_{n+1}$ are countable sets, then so is $X_1 \times \cdots \times X_{n+1}$.
+\end{prop}
+
+\begin{definition}[Power Set]
+	Let $X$ be a set, possibly empty. Then, the \dfn{power set of $X$}, denoted $\mathcal{P}(X)$, is defined as the set of all subsets of $X$:
+	\begin{align}
+		\mathcal{P}(X) := \{ A\ |\ A \subseteq X \}	
+	\end{align}
+\end{definition}
+
+\begin{theorem}[Cantor's Theorem]
+	Let $X$ be a set. Then, there does not exist a surjection $X \rightarrow \mathcal{P}(X)$, which means that $|X| < | \mathcal{P}(X) | $
+\end{theorem}
+
+\begin{corollary}[Russel's Paradox]
+	The set of all sets does not exist.
+\end{corollary}
+
+\begin{prop}
+	A binary sequence is a list of points
+		\begin{align*}
+			a_1, a_2, ..., a_n , ...
+		\end{align*}
+		such that each $a_i \in \{ 0, 1\}$. Let $\mathcal{B}$ be the set of all binary sequences. Then, $\mathcal{B}$ is uncountable.
+\end{prop}
+
+\begin{center}
+	\textbf{[End Tutorial]}
+\end{center}
+
+
+\begin{theorem}
+	Let $S$ be a non-empty and bounded set from above, with supremum $\sup{S} $. Define: 
+	\begin{align*}
+		a + S := \{ a + s\ |\ s \in S \}
+	\end{align*}
+	Then, $a+S$ has a supremum which is given by: 
+	\begin{align}
+		\sup{(a+S)} = a + \sup{S} 	
+	\end{align}
+\end{theorem}
+
+\begin{theorem}
+	Let $S \neq \emptyset$, $S \subseteq \R$, $S$ bounded from above with supremum $\sup{S}$. Let $k >0$ and define: 
+	\begin{align*}
+		k \cdot s := \{ ks\ |\ s \in S \} 
+	\end{align*}
+	Then, 
+	\begin{itemize}[noitemsep]
+		\item If $k > 0$, $k \cdot S$ is bounded from above and
+		\begin{align}
+			\sup{k \cdot S} = k \cdot \sup{S} 		
+		\end{align}
+		\item if $k < 0$, then $k \cdot S$ is bounded from below and 
+		\begin{align}
+			\inf{k \cdot S} = k \cdot \sup{S} 	
+		\end{align}
+	\end{itemize}
+\end{theorem}
+
+\textbf{AXIOM:} we assume $\R$ is complete. This means that every non-empty subset $S \subseteq \R$ which is bounded from above has a supremum in $\R$.
+\begin{theorem}[Archimedean Property of $\R$]
+	Let $x \in \R$, $x > 0$. Then, $\exists n \in \mathbb{N}$ such that $n \geq x$.
+\end{theorem}
+
+\begin{theorem}
+	Let $x < y$, $x, y \in \R$. Then, $\exists r \in \mathbb{Q}$ such that $x < r < y$. I.e., this means that the rational numbers are \dfn{dense} in $\R$.
+\end{theorem}
+
+\begin{theorem}
+	The irrational numbers are dense in $\R$.
+\end{theorem}
+
+\begin{definition}
+	Let $I_1, , I_2, I_3,...$ be intervals with the following property:
+	\begin{align*}
+		I_1 \supseteq I_2 \supseteq I_3 \supseteq \cdots 
+	\end{align*}
+	Then, we call the $I_1, I_2, I_3,...$ a \dfn{nested sequence} of intervals.
+\end{definition}
+
+
+\begin{theorem}[Nested Interval Property]
+	Let $I_1 \supseteq I_2 \supseteq I_3 \cdots$ be a nested sequence of non-empty, closed and bounded (we call this compact) intervals, then: 
+	\begin{align}
+		\bigcap_{n \in \mathbb{N}} I_n \neq \emptyset	
+	\end{align}
+\end{theorem}
+
+\begin{center}
+	\textbf{THE NESTED INTERVAL PROPERTY IS IN FACT EQUIVALENT TO COMPLETNEESS.}
+\end{center}
+
+\begin{corollary}
+	$\R$ is uncountable.
+\end{corollary}
+
+\begin{center}
+	\textbf{[Begin Tutorial]}
+\end{center}
+
+\textbf{COMPLETENESS PROPERTY OF $\R$}: Let $X$ be a non-empty subset of $\R$ that is bounded from above. Then, $X$ has a least upper bound, denoted by $\sup{X}$. 
+
+
+\begin{prop}
+	Let $X \subseteq \R$. 
+	\begin{enumerate}[noitemsep]
+		\item if $X$ has a supremum, then $X$ is non-empty and bounded from above. 
+		\item if $X$ has an infimum, then $X$ is non-empty and bounded from below.
+	\end{enumerate}
+\end{prop}
+
+
+\begin{prop}
+	Let $X$ be a non-empty set and let $s$ be an upper bound for $X$ in $\R$. Then, the following statements are equivalent: 
+	\begin{enumerate}[noitemsep]
+		\item $s = \sup{S}$
+		\item $\forall $ $\varepsilon > 0$, $\exists$ $x_\varepsilon \in X$ such that:
+		\begin{align}
+			s - \varepsilon < x_\varepsilon \leq s	
+		\end{align}
+	\end{enumerate}
+\end{prop}
+
+\begin{prop}
+	Let $X$ be a non-empty set and let $v$ be a lower bound for $X$ in $\R$. Then, the following statements are equivalent: 
+	\begin{enumerate}[noitemsep]
+		\item $v = \inf{S}$
+		\item $\forall $ $\varepsilon > 0$, $\exists$ $x_\varepsilon \in X$ such that:
+		\begin{align}
+			v \leq x_\varepsilon < v + \varepsilon	
+		\end{align}
+	\end{enumerate}
+\end{prop}
+A useful application of the Archimedean property: $\forall $ $\varepsilon > 0$, one has that $\exists$ an $m \in \mathbb{N}$ such that $0 < \frac{1}{m} < \varepsilon$. 
+
+\begin{theorem}[Characterisation of Intervals]
+	Let $S \subseteq \R$ contain at least two points and assume that $S$ satisfies the property:
+	\begin{align} 	
+		x, y \in S \text{ and } x < y\ \Rightarrow [x,y] \subseteq S	
+	\end{align}
+	then $S$ is an interval.
+\end{theorem}
+
 
 \end{document} 
