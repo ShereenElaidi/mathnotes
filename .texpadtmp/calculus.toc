@@ -26,3 +26,5 @@
 \contentsline {subsection}{\numberline {4.2}Classification of First Order Differential Equations}{23}{subsection.4.2}% 
 \contentsline {subsection}{\numberline {4.3}Separable First Order Differential Equations}{24}{subsection.4.3}% 
 \contentsline {subsubsection}{\numberline {4.3.1}Reduction of a Homogeneous Equation}{24}{subsubsection.4.3.1}% 
+\contentsline {subsection}{\numberline {4.4}Exact First-Order Differential Equations}{24}{subsection.4.4}% 
+\contentsline {subsubsection}{\numberline {4.4.1}Integrating Factors}{25}{subsubsection.4.4.1}% 

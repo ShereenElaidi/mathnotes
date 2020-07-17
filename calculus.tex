@@ -1181,4 +1181,75 @@ Suppose we have a homogeneous equation (i.e, $f(xt , yt) = f(x,t)$ $\forall t$. 
 	\end{align*}
 	and substitute back into the ODE. 
 \end{enumerate}
+
+\subsection{Exact First-Order Differential Equations}
+We say than an ODE of the form 
+\begin{align*}
+	M(x,y) dx + N(x,y) dy = 0 
+\end{align*}
+is \dfn{exact} if there exists a function $g(x,y)$ such that
+\begin{align}
+	d g(x,y) = M(x,y) dx + N(x,y) dy 	
+\end{align}
+We can check to see if an ODE is exact by using the \dfn{test for exactness}: if $M(x,y)$ and $N(x,y)$ are continuous functions with continuous first partial derivatives on a rectangle in the $xy$-plane, then the ODE $M(x,y) dx + N(x,y) dy = 0 $ is exact $\iff$: 
+\begin{align}
+	\frac{\partial M(x,y)}{\partial y} = \frac{\partial N(x,y)}{\partial x}	
+\end{align}
+Then, the solution to the ODE is given by first solving the equations: 
+\begin{align*}
+	& \frac{\partial g(x,y)}{x} = M(x,y) \\
+	& \frac{\partial g(x,y)}{y} = N(x,y) 
+\end{align*}
+for $g(x,y)$; the solution is then implicitly given by:
+\begin{align}
+	g(x,y) = c,\ c \in \R 	
+\end{align}
+\subsubsection{Integrating Factors}
+We can transform an ODE into an exact ODE by using an \dfn{integrating factor} $I(x,y)$; we say that $I(x,y)$ is an \dfn{integrating factor} if the ODE
+\begin{align*}
+	I(x,y) [ M(x,y) dx + N(x,y) dy ] = 0 
+\end{align*}
+is exact. Below, we have some common integrating factors:
+\begin{enumerate}
+	\item If $ \frac{1}{N} \left( \frac{\partial M}{\partial y} - \frac{\partial N}{\partial x} \right) \equiv g(x)$, then:
+	\begin{align*}
+		I(x,y) = e^{\int g(x) dx } 
+	\end{align*}
+	\item If $\frac{1}{M} \left( \frac{\partial M}{\partial y} - \frac{\partial N}{\partial x} \right) \equiv h(y)$, then: 
+	\begin{align*}
+		I(x,y) = e^{-\int h(y) dy } 
+	\end{align*}
+\end{enumerate}
+Common Integrating Factors:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline 
+Group of Terms & Integrating Factor $I(x,y)$ & Exact Differential $dg(x,y)$  \\
+\hline 
+  $ydx - xdy$ &  $- \frac{1}{x^2}$ &   $\frac{xdy - ydx}{x^2} = d \left ( \frac{x}{y} \right)$ \\
+\hline 
+ $ydx - xdy$  &  $\frac{1}{y^2}$    &  $\frac{ydx = xdy}{y^2}  = d \left( \frac{x}{y} \right)$    \\
+ \hline 
+ $ydx - xdy$  & $- \frac{1}{xy}$ & 	$\frac{xdy - ydx}{xy} = d \left(\ln  \frac{y}{x} \right) $	\\
+ \hline 
+ $ydx - xdy$  & $ - \frac{1}{x^2 + y^2}$	& 	$\frac{xdy - y dx}{x^2 + y^2} = d \left(  \arctan{ \frac{y}{x}}\right) $	\\     
+ \hline            
+ $ydx + xdy $  & 	$\frac{1}{xy}$	& $\frac{ydx + xdy}{xy} = d(\ln(x,y))$ \\
+ \hline 
+ $ydx + xdy $  &  $ \frac{1}{(xy)^n}$	& $\frac{ydx + xdy}{(xy)^n} = d \left[  \frac{-1}{(n-1)(xy)^{n-1}} \right] $\\      
+ \hline 
+ $ydy + xdx $ & $ \frac{1}{x^2+y^2}$ & $\frac{ydy + xdx}{(x^2 + y^2)^n} = d \left[ \frac{1}{2} \ln ( x^2 + y^2) \right] $ \\
+ \hline 
+ $ydy + xdx$ & $\frac{1}{(x^2+y^2)^n}$, $n > 1$& $\frac{ydy + xdx}{(x^2 + y^2)^n} = d \left[ \frac{-1}{2(n-1)(x^2+y^2)^{n-1}} \right] $ \\
+ \hline 
+$ay dx + bx dy $ & $a^{a-1}y^{b-1}$ & $x^{a-1}y^{b-1}(ay dx + bx dy ) = d(x^a y^b)$ \\ 
+\hline 
+\end{tabular}
+\end{table}
+If $M= yf(xy)$ and $N=xg(xy)$, then
+\begin{align}
+I(x,y) = \frac{1}{xM - yN}	
+\end{align}
+
 \end{document}
