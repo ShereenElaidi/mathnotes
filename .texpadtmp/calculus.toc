@@ -25,3 +25,5 @@
 \contentsline {subsection}{\tocsubsection {}{3.7}{Oriented Surface}}{20}{subsection.3.7}% 
 \contentsline {subsection}{\tocsubsection {}{3.8}{Surface Integrals over Vector Fields}}{21}{subsection.3.8}% 
 \contentsline {subsubsection}{\tocsubsubsection {}{3.8.1}{Physical Interpretations: Electric Flux and Heat Flow}}{21}{subsubsection.3.8.1}% 
+\contentsline {subsection}{\tocsubsection {}{3.9}{Stokes' Theorem}}{21}{subsection.3.9}% 
+\contentsline {subsection}{\tocsubsection {}{3.10}{Divergence Theorem}}{21}{subsection.3.10}% 

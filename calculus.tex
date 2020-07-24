@@ -1242,8 +1242,28 @@ If, moreover, $S$ has an equation $z=g(x,y)$, then:
 	\begin{align}
 		\iint_S \mathbf{F} \cdot \mathbf{dS} = -k \iint_S \nabla \mathbf{u} \cdot \mathbf{dS} 	
 	\end{align}
-
 \end{enumerate}
+\subsection{Stokes' Theorem}
+\begin{theorem}[Stokes' Theorem]
+	Let $S$ be an oriented piece-wise smooth surface bounded by a simple, closed, piece-wise smooth boundary curve $C$ with positive orientation. Let $\mathbf{F}$ be a vector fields with components with partial derivatives which are $C^1$ on an open set $\Omega \subseteq \R^3$ such that $S \subseteq \Omega$. Then: 
+	\begin{align}
+		\int_C \mathbf{F} \cdot \mathbf{dr} = \iint_S \mathrm{curl}( \mathbf{F} ) \cdot \mathbf{dS}	
+	\end{align}
+	or, equivalently, 
+	\begin{align}
+		\int_{\partial S} \mathbf{F} \cdot \mathbf{dr} = \iint_S \mathrm{curl}(\mathbf{F}) \cdot \mathbf{dS} 	
+	\end{align}
+\end{theorem}
+The physical meaning of $\int_{\partial S} \mathbf{F} \cdot \mathbf{dr}$ is that it represents the circulation of $\mathbf{F}$ around $C$.
+\subsection{Divergence Theorem}
+\begin{theorem}[Divergence Theorem]
+	Let $E$ be a simple solid region. Let $S$ be the boundary surface of $E$, given with positive outward orientation. Let $\mathbf{F}$ be a vector field with component functions in $C^1$ on $\Omega \supseteq E$. Then: 
+	\begin{align}
+		\iint_S \mathbf{F} \cdot \mathbf{dS} = \iiint_E \mathrm{div}(\mathbf{F}) dV \end{align}
+\end{theorem}
+
+
+
 %
 %
 %\section{Ordinary Differential Equations}
