@@ -1,18 +1,71 @@
-\documentclass[11pt]{article}
-\usepackage[margin=2cm]{geometry}
+\documentclass[reqno,11pt]{amsart}
+\usepackage[margin=2cm]{geometry}                
+\usepackage{color}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.4}
+\usepackage[pdfauthor={Shereen Elaidi},pdftitle={Sobolev Spaces},pdfsubject={PDE},colorlinks,citecolor=darkblue,linkcolor=darkblue,urlcolor=darkblue]{hyperref}
+%\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{subcaption}
+\usepackage{mathrsfs}
+\usepackage{xlop}
+\usepackage{MnSymbol}
+\usepackage[ruled]{algorithm2e}
+
+\makeatletter
+\newcommand{\LeftEqNo}{\let\veqno\@@leqno}
+\makeatother
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{axiom}{Axiom}
+\setcounter{axiom}{-1}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{remark}
+
+\newcommand{\reals}{{\mathbb{R}}}
+\newcommand{\TT}{{\mathbb{T}}}
+\newcommand{\sphere}{{\mathbb{S}}}
+\newcommand{\hyp}{{\mathbb{H}}}
+\usepackage{cite}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\eps}{\varepsilon}
+
+\newcommand\Hol{\mathscr{O}}
+\newcommand\Con{\mathscr{C}}
+\renewcommand\Re{\mathrm{Re}}
+\renewcommand\Im{\mathrm{Im}}
+\newcommand\exd{\mathrm{d}}
+\newcommand{\myref}[2]{{\hyperref[#2]{#1\thinspace\ref*{#2}}}}
+
+
+
 \usepackage{amsmath}
 \usepackage{enumitem}
 \usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{float}
 \usepackage{hyperref}
-\hypersetup{
-    colorlinks,
-    citecolor=black,
-    filecolor=black,
-    linkcolor=black,
-    urlcolor=black
-}
+%\hypersetup{
+%    colorlinks,
+%    citecolor=black,
+%    filecolor=black,
+%    linkcolor=black,
+%    urlcolor=black
+%}
 
 \title{Calculus: Single Variable, Multivariable, Differential Equations, and Vector Calculus Summary}
 \author{Shereen Elaidi}
@@ -28,7 +81,6 @@
 \fancyfoot[LE,RO]{}
 
 \newcommand{\dfn}[1]{\underline{\textbf{#1}}}
-\newcommand{\R}[0]{\mathbb{R}}
 \newcommand{\deriv}[1]{\frac{d}{dx} \left[ #1 \right]}
 \DeclareMathOperator{\arcsec}{arcsec}
 \DeclareMathOperator{\arccot}{arccot}
@@ -43,16 +95,11 @@
 \DeclareMathOperator{\arccoth}{arccoth}
 
 \begin{document}
-
 \maketitle 
-
 \begin{abstract}
 	The purpose of this document is to review Calculus. The content here should be equivalent to Math 140, Math 141, Math 222, and Math 248/358 at McGill. 
 \end{abstract}
-
-
 \tableofcontents
-
 \section{Single Variable Calculus}
 \subsection{Limits and Derivatives}
 \begin{itemize}[noitemsep]
@@ -1104,152 +1151,247 @@ Each of the following operations resemble differentiation, but one produces a ve
 \end{itemize}
 
 \subsection{Parametric Surfaces and their Areas}
+A vector function $\mathbf{r}(u,v) := x(u,v) \mathbf{\hat{i}} + y(u,v) \mathbf{\hat{j}} + z(u,v) \hat{\mathbf{k}}$ can trace out a surface. We call this surface a \dfn{parametric surface}; consider the following tangent vectors: 
+\begin{align}
+	\mathbf{r}_v &  = \frac{\partial x}{\partial v}(u_0, v_0) \hat{\mathbf{i}} + \frac{\partial y}{\partial v}(u_0, v_0) \hat{\mathbf{j}} + \frac{\partial z}{\partial v}(u_0, v_0) \hat{\mathbf{k}} 	 \\
+	\mathbf{r}_u &  = \frac{\partial x}{\partial u}(u_0, v_0) \hat{\mathbf{i}} + \frac{\partial y}{\partial u}(u_0, v_0) \hat{\mathbf{j}} + \frac{\partial z}{\partial u}(u_0, v_0) \hat{\mathbf{k}} 	 	
+\end{align}
+If $\mathbf{r}_u \times \mathbf{r}_v \neq \mathbf{0}$, then the surface is \dfn{smooth} and the tangent plane is the plane containing the vectors $\mathbf{r}_u$ and $\mathbf{r}_v$.
 
-\section{Ordinary Differential Equations}
-\subsection{Basic Concepts}
-\begin{itemize}[noitemsep]
-	\item A \dfn{differential equation} is an equation that involves an unknown function and its derivatives. We say that a function is an \dfn{ordinary differential equation} if the unknown function depends only on one independent variable. 
-	\item The \dfn{order} of a differential equation is the order of the highest derivative appearing in the equation.
-	\item A \dfn{solution} of an ODE in an unknown function $y$ and an independent variable $x$ on an interval $I$ is a function $y(x)$ satisfying the ODE for all $x \in I$. 
+\begin{definition}[Surface Area]
+	Let $S$ be a smooth parametric surface given by the equation:
+	\begin{align}
+		\mathbf{r}(u,v) = x(u,v) \hat{\mathbf{i}} + y(u,v) \mathbf{\hat{j}} + z(u,v) \mathbf{\hat{k}} 	
+	\end{align}
+	for $(u,v) \in D$. Then, the \dfn{surface area} of $S$ is:
+	\begin{align}
+		A(S) := \iint_D || \mathbf{r}_u \times \mathbf{r}_v || dA 	
+	\end{align}
+\end{definition}
+If, moreover, the surface $S$ has the equation $z= f(x,y)$, $(x,y) \in D$ and $f \in C^1$, then:
+\begin{align}
+	A(S) = \iint_D \sqrt{1 + \left( \frac{\partial z}{\partial x} \right)^2  + \left( \frac{\partial z}{\partial y} \right)^2} dA 	
+\end{align}
+
+\subsection{Surface Integrals}
+\begin{definition}[Surface Integral over $S$] Suppose that a surface $S$ has the following vector equation:
+\begin{align}
+	\mathbf{r}(u,v) = x(u,v) \hat{\mathbf{i}} + y(u,v) \hat{\mathbf{j}} + z(u,v) \hat{\mathbf{k}} 	
+\end{align}
+Then, the \dfn{surface integral of $f$ over $S$} is: 
+\begin{align}
+	\iint_S f(x,y,z) dS := \lim_{n, m \rightarrow \infty} \sum_{i=1}^m \sum_{j=1}^n f(P^*_{ij}) \Delta S_{ij} 	
+\end{align}
+where
+\begin{align*}
+	\Delta S_{ij} \approx || \mathbf{r}_u \times \mathbf{r}_v || \Delta u \Delta v
+\end{align*}
+If the components are continuous and $\mathbf{r}_u$ and $\mathbf{r}_v$ are non-zero and non-parallel on int$(D)$, then:
+\begin{align}
+	\iint_S f(x,y,z) dS = \iint_D f( \mathbf{r}(u,v)) || \mathbf{r}_u \times \mathbf{r}_v || dA
+\end{align}	
+\end{definition}
+If, moreover, $S$ has an equation $z=g(x,y)$, then:
+\begin{align*}
+	\iint_S f(x,y,z) dS = \iint_D f(x,y,g(x,y)) \sqrt{ \left( \frac{\partial z}{\partial x} \right)^2 + \left( \frac{\partial z}{\partial y} \right)^2  + 1 } dA 
+\end{align*}
+
+\subsection{Oriented Surface}
+\begin{definition}[Oriented Surface]
+	Let $S$ be a surface with a with a tangent plane at every point $(x,y,z) \in S$. If it's possible to choose a unit normal vector $\mathbf{n}$ at every point $(x,y,z) \in S$ such that $\mathbf{n}$ varies continuously over $S$, then we say that $S$ is an \textbf{orientable surface}.
+\end{definition}
+\begin{itemize}
+	\item For a surface $z = g(x,y)$, the natural orientation will be given by the following unit normal vector:
+	\begin{align}
+		\mathbf{n} = \frac{- \frac{\partial g}{\partial x} \mathbf{\hat{i}} - \frac{\partial g}{\partial y}\mathbf{\hat{j}} + \mathbf{\hat{k}} }{\sqrt{1 + \left( \frac{\partial g}{\partial x} \right)^2 + \left( \frac{\partial g}{\partial y} \right)^2}}	
+	\end{align}
+	\item For a smooth orientable surface $S$ given in parametric form by a vector $\mathbf{r}(x,y)$, the unit normal points in the same direction as the position vector:
+	\begin{align}
+		\mathbf{n} = \frac{\mathbf{r}_u \times \mathbf{r}_v}{||\mathbf{r}_u \times \mathbf{r}_v ||}	
+	\end{align}
+
 \end{itemize}
 
-\subsection{Classification of First Order Differential Equations}
-First of all, the two forms that we can see ODEs come in: 
-\begin{itemize}[noitemsep]
-	\item \dfn{Standard Form}: $y' = f(x,y)$. 
-	\item \dfn{Differential Form}: $M(x,y) dx + N(x,y) dy =0$. 
-\end{itemize}
-And now, some types of first order differential equations that we will encounter: 
-\begin{itemize}[noitemsep]
-	\item \dfn{Linear Equation}: If $f(x,y)$ can be written as: 
-	\begin{align}
-		f(x,y) = -p(x) y + q(x) 	
-	\end{align}
-	then the ODE is \dfn{linear} and it can always be expressed as: 
-	\begin{align}
-		y' + p(x) y = q(x) 	
-	\end{align}
-	\item \dfn{Bernoulli Equation}: A \dfn{Bernoulli differential equation} is an equation of the form: 
-	\begin{align}
-		y' + p(x) y = q(x) y^n	
-	\end{align}
-	\item \dfn{Homogeneous Equation}: A differential equation in standard form is said to be \dfn{homogeneous} if:
-	\begin{align}
-		f(tx, ty) = f(x,y) 	
-	\end{align}
-	\item \dfn{Separable Equation}: A differential equation given in differential form 
-	\begin{align*}
-			M(x,y) dx + N(x,y) dy = 0 
-	\end{align*}
-	is said to be \dfn{separable} if $M(x,y) = A(x)$ and $B(x,y) = B(y)$. 
-	\item \dfn{Exact Equations}: A differential equation in the differential form is called \dfn{exact} if: 
-	\begin{align}
-		\frac{\partial M(x,y)}{\partial y} = \frac{\partial N(x,y)}{\partial x}	
-	\end{align}
-	\item Separable ODE $\Rightarrow$ exact ODE.
-\end{itemize}
-\subsection{Separable First Order Differential Equations}
-Suppose our ODE is of the form: 
-\begin{align}
-	A(x) dx + B(y) dy = 0 	
-\end{align}
-i.e., we have a separable first-order differential equation. Then, the solution is obtained by integrating: 
-\begin{align}
-	\int A(x) dx + \int B(y) dy = c	
-\end{align}
-where $c \in \R$ is our constant of integration. This is the \dfn{general solution}; if we have an initial value problem: 
-\begin{align*}
-	& A(x) dx + B(y) dy = 0 	 \\
-	& y(x_0) = y_0 
-\end{align*} 
-then we can obtain the particular solution by first obtaining the general solution, and then applying the initial condition to solve for $c \in \R$.
-\subsubsection{Reduction of a Homogeneous Equation}
-Suppose we have a homogeneous equation (i.e, $f(xt , yt) = f(x,t)$ $\forall t$. Then, there are two transformations which we can apply to obtain a separable equation: 
-\begin{enumerate}[noitemsep]
-	\item Make the following substitution: $y = xv$. This has the corresponding derivative:
-	\begin{align}
-		\frac{dy}{dx} = v + x \frac{dv}{dx}	
-	\end{align}
-	Then, the ODE is separable in $v$ and $x$. 
-	\item Re-write the differential equation as:
-	\begin{align}
-		\frac{dx}{dy} = \frac{1}{f(x,y)}	
-	\end{align}
-	and make the following substitution for $x$ $x:= yu$, which gives the corresponding derivative: 
-	\begin{align*}
-		\frac{dx}{dy} = u + y \frac{du}{dy}
-	\end{align*}
-	and substitute back into the ODE. 
-\end{enumerate}
 
-\subsection{Exact First-Order Differential Equations}
-We say than an ODE of the form 
-\begin{align*}
-	M(x,y) dx + N(x,y) dy = 0 
-\end{align*}
-is \dfn{exact} if there exists a function $g(x,y)$ such that
-\begin{align}
-	d g(x,y) = M(x,y) dx + N(x,y) dy 	
-\end{align}
-We can check to see if an ODE is exact by using the \dfn{test for exactness}: if $M(x,y)$ and $N(x,y)$ are continuous functions with continuous first partial derivatives on a rectangle in the $xy$-plane, then the ODE $M(x,y) dx + N(x,y) dy = 0 $ is exact $\iff$: 
-\begin{align}
-	\frac{\partial M(x,y)}{\partial y} = \frac{\partial N(x,y)}{\partial x}	
-\end{align}
-Then, the solution to the ODE is given by first solving the equations: 
-\begin{align*}
-	& \frac{\partial g(x,y)}{x} = M(x,y) \\
-	& \frac{\partial g(x,y)}{y} = N(x,y) 
-\end{align*}
-for $g(x,y)$; the solution is then implicitly given by:
-\begin{align}
-	g(x,y) = c,\ c \in \R 	
-\end{align}
-\subsubsection{Integrating Factors}
-We can transform an ODE into an exact ODE by using an \dfn{integrating factor} $I(x,y)$; we say that $I(x,y)$ is an \dfn{integrating factor} if the ODE
-\begin{align*}
-	I(x,y) [ M(x,y) dx + N(x,y) dy ] = 0 
-\end{align*}
-is exact. Below, we have some common integrating factors:
+\subsection{Surface Integrals over Vector Fields}
+\begin{definition}[Surface Integral]
+	Let $\mathbf{F}$ be a continuous vector field defined on an oriented surface $S$ with unit normal vector $\mathbf{n}$. Then, the \dfn{surface integral of $\mathbf{F}$ over $S$} is: 
+	\begin{align}
+		\iint_S \mathbf{F} \cdot \mathbf{dS} = \iint_S \mathbf{F} \cdot \mathbf{n} dS 	
+	\end{align}
+\end{definition}
+
 \begin{enumerate}
-	\item If $ \frac{1}{N} \left( \frac{\partial M}{\partial y} - \frac{\partial N}{\partial x} \right) \equiv g(x)$, then:
-	\begin{align*}
-		I(x,y) = e^{\int g(x) dx } 
-	\end{align*}
-	\item If $\frac{1}{M} \left( \frac{\partial M}{\partial y} - \frac{\partial N}{\partial x} \right) \equiv h(y)$, then: 
-	\begin{align*}
-		I(x,y) = e^{-\int h(y) dy } 
-	\end{align*}
+	\item If $S$ is given by a vector function $\mathbf{r}(u,v)$, then: 
+	\begin{align}
+		\iint_S \mathbf{F} \cdot \mathbf{dS} = \iint_D \mathbf{F} \cdot [\mathbf{r}_u \times \mathbf{r}_v] dA 	
+	\end{align}
+	\item If $S$ is given by a graph $z = g(x,y)$, then let $\mathbf{F} := (P, Q, R)$. Then, the surface integral is: 
+	\begin{align}
+		\iint_S \mathbf{F} \cdot \mathbf{dS} = \iint_D \left( - P \frac{\partial g}{\partial x} - Q \frac{\partial g}{\partial y} + R \right) dA 	
+	\end{align}
 \end{enumerate}
-Common Integrating Factors:
-\begin{table}[H]
-\centering
-\begin{tabular}{|c|c|c|}
-\hline 
-Group of Terms & Integrating Factor $I(x,y)$ & Exact Differential $dg(x,y)$  \\
-\hline 
-  $ydx - xdy$ &  $- \frac{1}{x^2}$ &   $\frac{xdy - ydx}{x^2} = d \left ( \frac{x}{y} \right)$ \\
-\hline 
- $ydx - xdy$  &  $\frac{1}{y^2}$    &  $\frac{ydx = xdy}{y^2}  = d \left( \frac{x}{y} \right)$    \\
- \hline 
- $ydx - xdy$  & $- \frac{1}{xy}$ & 	$\frac{xdy - ydx}{xy} = d \left(\ln  \frac{y}{x} \right) $	\\
- \hline 
- $ydx - xdy$  & $ - \frac{1}{x^2 + y^2}$	& 	$\frac{xdy - y dx}{x^2 + y^2} = d \left(  \arctan{ \frac{y}{x}}\right) $	\\     
- \hline            
- $ydx + xdy $  & 	$\frac{1}{xy}$	& $\frac{ydx + xdy}{xy} = d(\ln(x,y))$ \\
- \hline 
- $ydx + xdy $  &  $ \frac{1}{(xy)^n}$	& $\frac{ydx + xdy}{(xy)^n} = d \left[  \frac{-1}{(n-1)(xy)^{n-1}} \right] $\\      
- \hline 
- $ydy + xdx $ & $ \frac{1}{x^2+y^2}$ & $\frac{ydy + xdx}{(x^2 + y^2)^n} = d \left[ \frac{1}{2} \ln ( x^2 + y^2) \right] $ \\
- \hline 
- $ydy + xdx$ & $\frac{1}{(x^2+y^2)^n}$, $n > 1$& $\frac{ydy + xdx}{(x^2 + y^2)^n} = d \left[ \frac{-1}{2(n-1)(x^2+y^2)^{n-1}} \right] $ \\
- \hline 
-$ay dx + bx dy $ & $a^{a-1}y^{b-1}$ & $x^{a-1}y^{b-1}(ay dx + bx dy ) = d(x^a y^b)$ \\ 
-\hline 
-\end{tabular}
-\end{table}
-If $M= yf(xy)$ and $N=xg(xy)$, then
-\begin{align}
-I(x,y) = \frac{1}{xM - yN}	
-\end{align}
+
+\subsubsection{Physical Interpretations: Electric Flux and Heat Flow}
+\begin{enumerate}
+	\item Electricity: Let $\mathbf{E}$ be an electric field. Then, the meaning of the surface integral $\iint_S \mathbf{E} \cdot \mathbf{dS}$ is that it represents the \dfn{electric flux of $\mathbf{E}$ through $S$}.Then, \dfn{Gauss' Law} states that the net charge enclosed by a closed surface $S$ is given by:
+	\begin{align}
+		Q = \epsilon_0 \iint_S \mathbf{E} \cdot \mathbf{dS} 	
+	\end{align}
+	\item Heat Flow: the \dfn{heat flow} is the vector field given by $\mathbf{F} := - k \nabla \mathbf{u}$, where $k$ is a constant that encodes the conductivity of the material. Then, the rate of heat flow across the surface $S$ in the body is given by:
+	\begin{align}
+		\iint_S \mathbf{F} \cdot \mathbf{dS} = -k \iint_S \nabla \mathbf{u} \cdot \mathbf{dS} 	
+	\end{align}
+
+\end{enumerate}
+%
+%
+%\section{Ordinary Differential Equations}
+%\subsection{Basic Concepts}
+%\begin{itemize}[noitemsep]
+%	\item A \dfn{differential equation} is an equation that involves an unknown function and its derivatives. We say that a function is an \dfn{ordinary differential equation} if the unknown function depends only on one independent variable. 
+%	\item The \dfn{order} of a differential equation is the order of the highest derivative appearing in the equation.
+%	\item A \dfn{solution} of an ODE in an unknown function $y$ and an independent variable $x$ on an interval $I$ is a function $y(x)$ satisfying the ODE for all $x \in I$. 
+%\end{itemize}
+%
+%
+%\subsection{Classification of First Order Differential Equations}
+%First of all, the two forms that we can see ODEs come in: 
+%\begin{itemize}[noitemsep]
+%	\item \dfn{Standard Form}: $y' = f(x,y)$. 
+%	\item \dfn{Differential Form}: $M(x,y) dx + N(x,y) dy =0$. 
+%\end{itemize}
+%And now, some types of first order differential equations that we will encounter: 
+%\begin{itemize}[noitemsep]
+%	\item \dfn{Linear Equation}: If $f(x,y)$ can be written as: 
+%	\begin{align}
+%		f(x,y) = -p(x) y + q(x) 	
+%	\end{align}
+%	then the ODE is \dfn{linear} and it can always be expressed as: 
+%	\begin{align}
+%		y' + p(x) y = q(x) 	
+%	\end{align}
+%	\item \dfn{Bernoulli Equation}: A \dfn{Bernoulli differential equation} is an equation of the form: 
+%	\begin{align}
+%		y' + p(x) y = q(x) y^n	
+%	\end{align}
+%	\item \dfn{Homogeneous Equation}: A differential equation in standard form is said to be \dfn{homogeneous} if:
+%	\begin{align}
+%		f(tx, ty) = f(x,y) 	
+%	\end{align}
+%	\item \dfn{Separable Equation}: A differential equation given in differential form 
+%	\begin{align*}
+%			M(x,y) dx + N(x,y) dy = 0 
+%	\end{align*}
+%	is said to be \dfn{separable} if $M(x,y) = A(x)$ and $B(x,y) = B(y)$. 
+%	\item \dfn{Exact Equations}: A differential equation in the differential form is called \dfn{exact} if: 
+%	\begin{align}
+%		\frac{\partial M(x,y)}{\partial y} = \frac{\partial N(x,y)}{\partial x}	
+%	\end{align}
+%	\item Separable ODE $\Rightarrow$ exact ODE.
+%\end{itemize}
+%\subsection{Separable First Order Differential Equations}
+%Suppose our ODE is of the form: 
+%\begin{align}
+%	A(x) dx + B(y) dy = 0 	
+%\end{align}
+%i.e., we have a separable first-order differential equation. Then, the solution is obtained by integrating: 
+%\begin{align}
+%	\int A(x) dx + \int B(y) dy = c	
+%\end{align}
+%where $c \in \R$ is our constant of integration. This is the \dfn{general solution}; if we have an initial value problem: 
+%\begin{align*}
+%	& A(x) dx + B(y) dy = 0 	 \\
+%	& y(x_0) = y_0 
+%\end{align*} 
+%then we can obtain the particular solution by first obtaining the general solution, and then applying the initial condition to solve for $c \in \R$.
+%\subsubsection{Reduction of a Homogeneous Equation}
+%Suppose we have a homogeneous equation (i.e, $f(xt , yt) = f(x,t)$ $\forall t$. Then, there are two transformations which we can apply to obtain a separable equation: 
+%\begin{enumerate}[noitemsep]
+%	\item Make the following substitution: $y = xv$. This has the corresponding derivative:
+%	\begin{align}
+%		\frac{dy}{dx} = v + x \frac{dv}{dx}	
+%	\end{align}
+%	Then, the ODE is separable in $v$ and $x$. 
+%	\item Re-write the differential equation as:
+%	\begin{align}
+%		\frac{dx}{dy} = \frac{1}{f(x,y)}	
+%	\end{align}
+%	and make the following substitution for $x$ $x:= yu$, which gives the corresponding derivative: 
+%	\begin{align*}
+%		\frac{dx}{dy} = u + y \frac{du}{dy}
+%	\end{align*}
+%	and substitute back into the ODE. 
+%\end{enumerate}
+%
+%\subsection{Exact First-Order Differential Equations}
+%We say than an ODE of the form 
+%\begin{align*}
+%	M(x,y) dx + N(x,y) dy = 0 
+%\end{align*}
+%is \dfn{exact} if there exists a function $g(x,y)$ such that
+%\begin{align}
+%	d g(x,y) = M(x,y) dx + N(x,y) dy 	
+%\end{align}
+%We can check to see if an ODE is exact by using the \dfn{test for exactness}: if $M(x,y)$ and $N(x,y)$ are continuous functions with continuous first partial derivatives on a rectangle in the $xy$-plane, then the ODE $M(x,y) dx + N(x,y) dy = 0 $ is exact $\iff$: 
+%\begin{align}
+%	\frac{\partial M(x,y)}{\partial y} = \frac{\partial N(x,y)}{\partial x}	
+%\end{align}
+%Then, the solution to the ODE is given by first solving the equations: 
+%\begin{align*}
+%	& \frac{\partial g(x,y)}{x} = M(x,y) \\
+%	& \frac{\partial g(x,y)}{y} = N(x,y) 
+%\end{align*}
+%for $g(x,y)$; the solution is then implicitly given by:
+%\begin{align}
+%	g(x,y) = c,\ c \in \R 	
+%\end{align}
+%\subsubsection{Integrating Factors}
+%We can transform an ODE into an exact ODE by using an \dfn{integrating factor} $I(x,y)$; we say that $I(x,y)$ is an \dfn{integrating factor} if the ODE
+%\begin{align*}
+%	I(x,y) [ M(x,y) dx + N(x,y) dy ] = 0 
+%\end{align*}
+%is exact. Below, we have some common integrating factors:
+%\begin{enumerate}
+%	\item If $ \frac{1}{N} \left( \frac{\partial M}{\partial y} - \frac{\partial N}{\partial x} \right) \equiv g(x)$, then:
+%	\begin{align*}
+%		I(x,y) = e^{\int g(x) dx } 
+%	\end{align*}
+%	\item If $\frac{1}{M} \left( \frac{\partial M}{\partial y} - \frac{\partial N}{\partial x} \right) \equiv h(y)$, then: 
+%	\begin{align*}
+%		I(x,y) = e^{-\int h(y) dy } 
+%	\end{align*}
+%\end{enumerate}
+%Common Integrating Factors:
+%\begin{table}[H]
+%\centering
+%\begin{tabular}{|c|c|c|}
+%\hline 
+%Group of Terms & Integrating Factor $I(x,y)$ & Exact Differential $dg(x,y)$  \\
+%\hline 
+%  $ydx - xdy$ &  $- \frac{1}{x^2}$ &   $\frac{xdy - ydx}{x^2} = d \left ( \frac{x}{y} \right)$ \\
+%\hline 
+% $ydx - xdy$  &  $\frac{1}{y^2}$    &  $\frac{ydx = xdy}{y^2}  = d \left( \frac{x}{y} \right)$    \\
+% \hline 
+% $ydx - xdy$  & $- \frac{1}{xy}$ & 	$\frac{xdy - ydx}{xy} = d \left(\ln  \frac{y}{x} \right) $	\\
+% \hline 
+% $ydx - xdy$  & $ - \frac{1}{x^2 + y^2}$	& 	$\frac{xdy - y dx}{x^2 + y^2} = d \left(  \arctan{ \frac{y}{x}}\right) $	\\     
+% \hline            
+% $ydx + xdy $  & 	$\frac{1}{xy}$	& $\frac{ydx + xdy}{xy} = d(\ln(x,y))$ \\
+% \hline 
+% $ydx + xdy $  &  $ \frac{1}{(xy)^n}$	& $\frac{ydx + xdy}{(xy)^n} = d \left[  \frac{-1}{(n-1)(xy)^{n-1}} \right] $\\      
+% \hline 
+% $ydy + xdx $ & $ \frac{1}{x^2+y^2}$ & $\frac{ydy + xdx}{(x^2 + y^2)^n} = d \left[ \frac{1}{2} \ln ( x^2 + y^2) \right] $ \\
+% \hline 
+% $ydy + xdx$ & $\frac{1}{(x^2+y^2)^n}$, $n > 1$& $\frac{ydy + xdx}{(x^2 + y^2)^n} = d \left[ \frac{-1}{2(n-1)(x^2+y^2)^{n-1}} \right] $ \\
+% \hline 
+%$ay dx + bx dy $ & $a^{a-1}y^{b-1}$ & $x^{a-1}y^{b-1}(ay dx + bx dy ) = d(x^a y^b)$ \\ 
+%\hline 
+%\end{tabular}
+%\end{table}
+%If $M= yf(xy)$ and $N=xg(xy)$, then
+%\begin{align}
+%I(x,y) = \frac{1}{xM - yN}	
+%\end{align}
 
 \end{document}

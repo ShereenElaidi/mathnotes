@@ -1,0 +1,71 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{commands}
+
+% \documentclass[reqno,11pt]{amsart}
+\RequirePackage[margin=2cm]{geometry}                
+\RequirePackage{color}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.4}
+\RequirePackage[pdfauthor={Shereen Elaidi},pdftitle={Sobolev Spaces},pdfsubject={PDE},colorlinks,citecolor=darkblue,linkcolor=darkblue,urlcolor=darkblue]{hyperref}
+%\usepackage{hyperref}
+\ReqiurePackage{graphicx}
+\RequirePackage{amssymb}
+\RequirePackage{enumerate}
+\RequirePackage{subcaption}
+\RequirePackage{mathrsfs}
+\RequirePackage{xlop}
+\RequirePackage{MnSymbol}
+\RequirePackage[ruled]{algorithm2e}
+
+\makeatletter
+\newcommand{\LeftEqNo}{\let\veqno\@@leqno}
+\makeatother
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{axiom}{Axiom}
+\setcounter{axiom}{-1}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{remark}
+
+\newcommand{\reals}{{\mathbb{R}}}
+\newcommand{\TT}{{\mathbb{T}}}
+\newcommand{\sphere}{{\mathbb{S}}}
+\newcommand{\hyp}{{\mathbb{H}}}
+\RequirePackage{cite}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\eps}{\varepsilon}
+
+\newcommand\Hol{\mathscr{O}}
+\newcommand\Con{\mathscr{C}}
+\renewcommand\Re{\mathrm{Re}}
+\renewcommand\Im{\mathrm{Im}}
+\newcommand\exd{\mathrm{d}}
+\newcommand{\myref}[2]{{\hyperref[#2]{#1\thinspace\ref*{#2}}}}
+
+
+
+\RequirePackage{amsmath}
+\RequirePackage{enumitem}
+\RequirePackage{graphicx}
+\RequirePackage{amssymb}
+\RequirePackage{float}
+\RequirePackage{hyperref}
+%\hypersetup{
+%    colorlinks,
+%    citecolor=black,
+%    filecolor=black,
+%    linkcolor=black,
+%    urlcolor=black
+%}
