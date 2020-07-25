@@ -11,10 +11,9 @@ This repository contains:
 * Math 247 (Applied Linear Algebra, Winter 2018) summary.  
 * Math 248 (Vector Calculus / Advanced Calculus, Fall 2018) summary sheet. 
 
-The following are long-term projects since they are not classes that are actively happening (roughly in order of priority): 
+Long-term projects: 
 
 * Math 475 (Partial Differential Eqns, Fall 2019) 
-* Math 235 (Algebra 1, Fall 2018), full class notes, also very long-term. Most likely will finish by September 2020 
-* Math 254 (Analysis 1, Fall 2018)
+* Something to review Math 235. 
 
-Some other things.
+Some physics things. 
