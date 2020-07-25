@@ -1,180 +1,99 @@
-\documentclass[11pt]{article}
-\title{\textbf{Math 254: Analysis 1}\vspace{-2ex}}
-\author{Definitions, Theorems, and Results from the Class\vspace{-2ex} (Fall 2018)}
-\date{Shereen Elaidi} 
-
-\usepackage{titlesec}
-\titleformat{\section}[hang]{\normalfont\scshape}{\thesection.}{1em}{}
-
-\usepackage[dvipsnames]{xcolor}
-\usepackage[margin=2cm]{geometry}
-\usepackage{amssymb} 
-\usepackage{amsmath}
+\documentclass[reqno,11pt]{amsart}
+\usepackage[margin=2cm]{geometry}                
+\usepackage{color}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.4}
+\usepackage[pdfauthor={Shereen Elaidi},pdftitle={Sobolev Spaces},pdfsubject={PDE},colorlinks,citecolor=darkblue,linkcolor=darkblue,urlcolor=darkblue]{hyperref}
+%\usepackage{hyperref}
 \usepackage{graphicx}
-\usepackage{float}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{subcaption}
+\usepackage{mathrsfs}
+\usepackage{xlop}
+\usepackage{MnSymbol}
+\usepackage[ruled]{algorithm2e}
 
-\usepackage{enumitem} 
-\setlist[enumerate]{itemsep=0mm}
-\usepackage{xcolor}
-\setenumerate{label=(\roman*)}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{babel}
-\usepackage{mathtools}
-\usepackage{amsthm}
-\usepackage{thmtools}
-\usepackage{etoolbox}
-\usepackage{fancybox}
-\usepackage{framed}
-\usepackage{tcolorbox}
-% example environment
-\newtheorem{exmp}{Example}[section]
+\makeatletter
+\newcommand{\LeftEqNo}{\let\veqno\@@leqno}
+\makeatother
 
-% question environment
 \theoremstyle{definition}
-\newtheorem{question}{Question}
+\newtheorem{theorem}{Theorem}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{axiom}{Axiom}
+\setcounter{axiom}{-1}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{remark}
 
-%rd 
-\newcommand{\rd}[0]{\mathbb{R}^d}
-\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\reals}{{\mathbb{R}}}
+\newcommand{\TT}{{\mathbb{T}}}
+\newcommand{\sphere}{{\mathbb{S}}}
+\newcommand{\hyp}{{\mathbb{H}}}
+\usepackage{cite}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\eps}{\varepsilon}
 
-% Probability 
-\DeclareRobustCommand{\bbone}{\text{\usefont{U}{bbold}{m}{n}1}}
-\newcommand{\Var}[1]{\mathrm{Var[#1]}}			% variance
-\newcommand{\EX}[1]{\mathbb{E}\mathrm{[#1]}}	 % expected value 
-\newcommand{\seq}[1]{\{ #1_n	\}_{n \in \bb{N}}} % sequence of events
-\newcommand{\pspace}[0]{( \Omega, F, P)}		% probability space
-\newcommand{\msp}[0]{( \Omega, F)}		% measurable space
-	
-% Exercise environment 
-\newenvironment{myleftbar}{%
-\def\FrameCommand{\hspace{0.6em}\vrule width 2pt\hspace{0.6em}}%
-\MakeFramed{\advance\hsize-\width \FrameRestore}}%
-{\endMakeFramed}
-\declaretheoremstyle[
-spaceabove=6pt,
-spacebelow=6pt
-headfont=\normalfont\bfseries,
-headpunct={} ,
-headformat={\cornersize*{2pt}\ovalbox{\NAME~\NUMBER\ifstrequal{\NOTE}{}{\relax}{\NOTE}:}},
-bodyfont=\normalfont,
-]{exobreak}
+\newcommand\Hol{\mathscr{O}}
+\newcommand\Con{\mathscr{C}}
+\renewcommand\Re{\mathrm{Re}}
+\renewcommand\Im{\mathrm{Im}}
+\newcommand\exd{\mathrm{d}}
+\newcommand{\myref}[2]{{\hyperref[#2]{#1\thinspace\ref*{#2}}}}
 
-\declaretheorem[style=exobreak, name=Exercise,%
-postheadhook=\leavevmode\myleftbar, %
-prefoothook = \endmyleftbar]{exo}
 
-% Solution environment 
-\newenvironment{mysolbar}{%
-\def\FrameCommand{\hspace{0.6em}\vrule width 2pt\hspace{0.6em}}%
-\MakeFramed{\advance\hsize-\width \FrameRestore}}%
-{\endMakeFramed}
-\declaretheoremstyle[
-spaceabove=6pt,
-spacebelow=6pt
-headfont=\normalfont\bfseries,
-headpunct={} ,
-headformat={\cornersize*{2pt}\ovalbox{\NAME~\NUMBER\ifstrequal{\NOTE}{}{\relax}{\NOTE}:}},
-bodyfont=\normalfont,
-]{solbreak}
 
-\declaretheorem[style=solbreak, name=Solution,%
-postheadhook=\leavevmode\mysolbar, %
-prefoothook = \endmysolbar]{sol}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{hyperref}
+%\hypersetup{
+%    colorlinks,
+%    citecolor=black,
+%    filecolor=black,
+%    linkcolor=black,
+%    urlcolor=black
+%}
 
+\title{Math 254: Analysis I (Theorems, Definitions, and Results from the Class)}
+\author{Shereen Elaidi}
+\date{8 June 2020}
 % HEADERS
 \usepackage{fancyhdr}
  
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[LE,RO]{Page \thepage}
-\fancyhead[RE,LO]{Math 254: Analysis 1}
-\fancyfoot[CE,CO]{}
-\fancyfoot[LE,RO]{\thepage}
+\fancyhead[RE,LO]{Math 254: Analysis I}
+\fancyhead[CE,CO]{Fall 2018}
+\fancyfoot[LE,RO]{}
 
-% Definitions
-\newcommand{\dfn}[1]{\textbf{{\underline{#1}}}}
-\newcommand{\im}[1]{\textbf{\textcolor{red}{#1}}}
-
-% lower integral
-\usepackage{accents}
-
-\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
-\def\avint{\mathop{\,\rlap{-}\!\!\int}\nolimits} 
-
-% custom commands 
-\newcommand{\bb}[1]{\mathbb{#1}}
-\newcommand{\vc}[1]{\mathbf{#1}}
-\newcommand{\step}[1]{\textbf{#1}\textbf{. Step:}}
-\newcommand{\pdv}[2]{\frac{\partial #1}{\partial #2}}
-\newcommand{\sets}[2]{ \left\{ #1\ |\ #2 \right\}}
-\DeclareMathOperator{\Tr}{Tr}
-
-% Proofs
-\newcommand{\claim}[1]{\textbf{#1}\textbf{. Claim:}}
-
-	% iff proofs
-	\newcommand{\rhs}[0]{(\Rightarrow )}
-	\newcommand{\lhs}[0]{(\Leftarrow )}
-
-% sequence of functions
-\newcommand{\funcseqx}{(f_n(x))_{n \in \bb{N}}}
-\newcommand{\funcseq}{(f_n)_{n \in \bb{N}}}
-
-% measurable sets 
-\newcommand{\measurable}{f^{-1}([-\infty, c[)} 
-
-% heat equation 
-\newcommand{\pbdry}[2]{C^{(#1, #2)} (\Omega_T) \cap C (\overline{\Omega_T})}
-\DeclareMathOperator\erf{erf}
-\newcommand{\mbf}[1]{\mathbf{#1}}
-
-% Laplace Equation 
-\newcommand{\lapbdry}[1]{C^{#1} (\Omega) \cap C (\overline{\Omega})}
-
-
-% math environments 
-\usepackage[utf8]{inputenc}
-\newtheorem{theorem}{\textcolor{blue}{Theorem}}
-\newtheorem{corollary}{Corollary}
-\newtheorem{lemma}[theorem]{Lemma}
-\theoremstyle{definition}
-\newtheorem{definition}{\textcolor{OliveGreen}{Definition}}
-\newtheorem{prop}{\textcolor{red}{Proposition}}
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-
-% cookbook proofs 
-\newcommand{\cb}[3]{\underline{(#1 #2): #3:}}
-
-\usepackage{tcolorbox}
-\tcbuselibrary{theorems}
-
-% theorems 
-\newtcbtheorem[number within=section]{mytheo}{Theorem}%
-{colback=blue!5,colframe=blue!35!black,fonttitle=\bfseries}{th}
-
-% definitions 
-\newtcbtheorem[number within=section]{defn}{Definition}%
-{colback=black!5,colframe=black!35!black,fonttitle=\bfseries}{th}
-
-% axioms
-\newtcbtheorem[number within=section]{ax}{Axioms}%
-{colback=OliveGreen!5,colframe=black!35!OliveGreen,fonttitle=\bfseries}{th}
-
-
-% important examples
-\newtcbtheorem[number within=section]{examp}{Example}%
-{colback=Mahogany!5,colframe=black!35!Mahogany,fonttitle=\bfseries}{th}
-
-% upper and lower riemann integrals
-\newcommand{\upRiemannint}[2]{
-  \overline{\int_{#1}^{#2}}
-}
-\newcommand{\loRiemannint}[2]{
-  \underline{\int_{#1}^{#2}}
-}
-
+\newcommand{\dfn}[1]{\underline{\textbf{#1}}}
+\newcommand{\deriv}[1]{\frac{d}{dx} \left[ #1 \right]}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arccsch}
+\DeclareMathOperator{\arccoth}{arccoth}
 
 
 
@@ -182,10 +101,11 @@ prefoothook = \endmysolbar]{sol}
 
 
 \maketitle 
-
 \begin{abstract}
-	The purpose of this document is to review analysis 1.
+	The purpose of this document is to summarise Analysis 1 (Math 254).
 \end{abstract}
+
+\tableofcontents
 
 \section{Introduction}
 Random things we proved to get a handle on how to prove things:
@@ -586,6 +506,649 @@ A useful application of the Archimedean property: $\forall $ $\varepsilon > 0$, 
 	\textbf{[End Tutorial]}
 \end{center}
 
+\section{Point-Set Topology}
+\begin{definition}[Open]
+	A set $U \subseteq \R$ is called \dfn{open} if $\forall x \in U$, $\exists \varepsilon > 0$ such that $V_\varepsilon(x) \subseteq U$.
+\end{definition}
+\begin{definition}[Closed]
+	A set $A \subseteq \R$ is called \dfn{closed} if its complement, $\R \setminus A$, is open.
+\end{definition}
+
+\begin{theorem}
+	$\forall  x \in \R$, $\forall \eps > 0$, $V_\eps(x) $ is open.	
+\end{theorem}
+
+\begin{theorem}
+Open intervals are open ``seems self-evident, but still requires proof.'' 	
+\end{theorem}
+\begin{theorem}
+All closed intervals are closed. 	
+\end{theorem}
+\begin{theorem}
+	Let $J$ be an arbitrary index set and let $U_j$ be open, $U_j \subseteq \R$, $\forall j \in J$. Then, the union is open:
+	\begin{align}
+		U := \bigcup_{j \in J} U_j 	
+	\end{align}
+\end{theorem}
+
+\begin{remark}
+	Arbitrary intersections of open sets are, in general, not open.
+\end{remark}
+
+\begin{theorem}
+	The finite intersection of open sets are open, i.e., if $U_1, ..., U_n \subseteq \R$ are open, then: 
+	\begin{align}
+		U := \bigcap_{i=1}^n U_i = U_1 \cap U_2 \cap \cdots U_n 	
+	\end{align}
+	is open.
+\end{theorem}
+
+\begin{theorem}
+	The arbitrary intersection of closed sets are closed, i.e., if $J$ is some index set, and if $A_j$ is closed for each $j \in J$, then:
+	\begin{align}
+		A := \bigcap_{j \in J} A_j 	
+	\end{align}
+	is closed.
+\end{theorem}
+
+\begin{theorem}
+	Finite unions of closed sets are closed. 
+\end{theorem}
+\begin{theorem}
+	$\emptyset$ and $\R$ are the only subsets of $\R$ that are both open and closed. 
+\end{theorem}
+
+\begin{definition}[Boundary Point]
+	Let $U \subseteq \R$, $x \in \R$ is called a \dfn{boundary point of $U$ } if, $\forall $$\eps > 0$, $V_\eps(x) \cap U \neq \emptyset$ and $V_\eps(x) \cap ( \R \setminus U) \neq \emptyset$ 
+\end{definition}
+
+\begin{definition}
+	The set of all boundary points of a subset $U \subseteq \R$ is called the \dfn{boundary} of $U$, denoted $\partial U$.
+\end{definition}
+
+\begin{theorem}
+	Let $S \subseteq \R$ and $U \subseteq S$, $U$ open. Then, $U \cap \partial S = \emptyset$. 
+\end{theorem}
+
+\begin{theorem}
+	Let $S \subseteq \R$. Then, $\partial S = \partial ( \R \setminus S) $.
+\end{theorem}
+
+\begin{theorem}
+	Let $S \subseteq \R$. Then, $\partial S$ is closed.
+\end{theorem}
+
+\begin{theorem}
+	Let $S \subseteq \R$. Then, 
+	\begin{enumerate}[noitemsep]
+		\item $S$ is open $\iff$ $S$ contains \emph{none} of its boundary points, i.e., 
+		\begin{align}
+			S \cap \partial S = \emptyset \hspace{2cm} \text{ or } \hspace{2cm} \partial S \subseteq \R \setminus S	
+		\end{align}
+		\item $S$ is closed $\iff$ $S$ contains all of its boundary points, i.e.:
+		\begin{align}
+			\partial S \subseteq S	
+		\end{align}
+	\end{enumerate}
+\end{theorem}
 
 
+\begin{definition}[Interior] 
+	Let $S \subseteq \R$. Then, the \dfn{interior} $\mathrm{int}(S)$ is defined as: 
+	\begin{align}
+		\mathrm{int}(S) := \bigcup_{U \subseteq S, U \mathrm{ open}}U	
+	\end{align}
+	By definition, the interior is the largest open set contained in $S$. 
+\end{definition}
+
+\begin{definition}[Closure]
+	Let $S \subseteq \R$. The \dfn{closure}, denote $\overline{S} := \mathrm{cl}(S)$ is:
+	\begin{align}
+		\overline{S} := \bigcap_{A \supseteq S} A 	
+	\end{align}
+	which is closed since arbitrary intersections of closed sets are closed. By definition, the closure is the smallest closed set containing $S$. 
+\end{definition}
+
+\begin{prop}
+	\begin{enumerate}[noitemsep]
+		\item $S$ open $\iff$ $\mathrm{int}(S) = S$. 
+		\item $S$ closed $\iff$ $\overline{S} = S$. 
+		\item $S\subseteq T$ $\Rightarrow$ $\overline{S} \subseteq \overline{T}$ and $\mathrm{int}(S) \subseteq \mathrm{int}({T})$.
+	\end{enumerate}
+\end{prop}
+
+\begin{center}
+	\textbf{[Begin Tutorial]}
+\end{center}
+\begin{theorem}[Characterisation of Intervals]
+	Let $I \subseteq \R$ containing at least two points. Assume that $I$ satisfies the following property: if $x, y \in I$ with $x < y$, then $[x,y] \subseteq I$. Then, we say that $I$ is an interval.
+\end{theorem}
+
+\begin{center}
+	\textbf{[End Tutorial]}
+\end{center}
+
+\begin{prop}
+	Properties: 
+	\begin{enumerate}[noitemsep]
+		\item If $S \subseteq T$, $S$ open, then $S \subseteq \mathrm{int}(T)$.
+		\item If $S \subseteq T$, $T$ closed, then $\overline{S} \subseteq T$.
+		\item $\overline{\overline{S}} = \overline{S}$.
+		\item $\mathrm{int}(\mathrm{int}(S)) = \mathrm{int}(S)$.
+		\begin{enumerate}[noitemsep]
+			\item CAUTION! In general, $\partial (\partial S) \neq \partial S$ in general.
+		\end{enumerate}
+	\item $\mathrm{int}(S) \cup \partial S = \overline{S}$.
+	\end{enumerate}
+\end{prop}
+
+\begin{theorem}[Characterisation of Open intervals in $\R$]
+	A subset $S \subseteq \R$ is open $\iff$ $S$ is the countable union of open intervals.
+\end{theorem}
+
+
+\section{Sequences}
+
+\begin{definition}
+	An \dfn{infinite sequence} is a function $f: \N \rightarrow \R$ for which $n \mapsto f(n) = a_n$.
+\end{definition}
+
+\begin{definition}
+	Let $(a_n)$ be a sequence, $L \in \R$. We say that $(a_n)$ \dfn{converges} to $L$, or that the \dfn{limit} of $(a_n)$ is $L$, if:
+	\begin{align}
+		\forall\ \eps > 0,\ \exists\ N \in \N, \text{ s.t. } \forall\ n \geq N,\ |a_n - L| < \eps 	
+	\end{align}
+\end{definition}
+
+\begin{theorem}
+	Let $(a_n)$ be a sequence. If $(a_n)$ converges, then the limit is uniquely determined.
+\end{theorem}
+
+\subsection{Some Results on Convergent Sequences}
+\begin{theorem}
+	Every convergent sequence is bounded. 
+\end{theorem}
+
+\begin{theorem}
+	Let $(a_n)$, $(b_n)$ be convergent sequences with $a := \lim (a_n)$ and $b:= \lim (b_n)$. Then, 
+	\begin{enumerate}[noitemsep]
+		\item $(a_n + b_n) $ is convergent and $\lim(a_n + b_n) = a+b$. 
+		\item $(a_n \cdot b_n)$ is convergent and $\lim ( a_n \cdot b_n) = a \cdot b$. 
+	\end{enumerate}
+\end{theorem}
+
+\begin{corollary}
+\begin{enumerate}[noitemsep]
+	\item Let $c \in \R$, $(a_n)$ convergent with $a = \lim (a_n)$. Then, $c (a_n)$ is convergent with $\lim(c \cdot a_n) = ca$.
+	\item $(a_n)$, $(b_n)$ convergent with $a = \lim ( a_n)$, $b = \lim (b_n)$. Then, $(a_n - b_n)$ is convergent and $\lim (a_n - b_n) = a -b$.
+\end{enumerate}
+\end{corollary}
+
+
+\begin{theorem}
+	Let $(b_n)$ be convergent, $b:= \lim (b_n)$ such that $\forall n \in \N$, $b_n \neq 0$ and $b \neq 0$. Then, $(1/b_n)$ converges and its limit is $1/b$.
+\end{theorem}
+
+\begin{theorem}
+	Let $(a_n)$, $(b_n)$ be convergent sequences with $a := \lim (a_n)$, $b:= \lim (b_n)$ and $\forall n \in \N$, $b_n \neq 0$. Then, $(a_n / b_n)$ converges and $\lim (a_n / b_n) = (a/b)$.
+\end{theorem}
+
+\begin{theorem}[Convergence Criterion]
+	Let $(a_n)$ be a sequence, $(b_n)$ a convergent non-negative sequence with $\lim (b_n) = 0$, and let $c > 0$. If $\exists k \in \N$ such that $\forall n \geq k$, $|a_n - a| \leq c \dot b_n$, then $(a_n)$ converges and $\lim(a_n) = a$.
+\end{theorem}
+
+\begin{theorem}
+	Let $(x_n)$ be a sequence such that $\exists k \in \N$, $\forall n \geq k$, $x_n \geq 0$. If $(x_n)$ converges, then $x:= \lim(x_n) \geq 0$.
+\end{theorem}
+
+\begin{corollary}
+	Let $(x_n)$, $(y_n)$ be convergent sequences with $k \in \N$ such that $x_n \leq y_n$ $\forall n \geq k$. Then, $\lim(x_n) \leq \lim(y_n)$.
+\end{corollary}
+
+\begin{corollary}
+	Let $(x_n)$ be a convergent sequence such that $\exists$ $k \in \N$ such that $\forall n \geq k$, $a \leq x_n \leq b$, $a, b \in \R$. Then, $a \leq \lim (x_n) \leq b$.
+\end{corollary}
+
+\begin{theorem}[Squeeze Theorem]
+	Let $(a_n)$, $(b_n)$, $(x_n)$ be sequences with $\exists k \in \N$ such that $\forall n \geq k$, we have $a_n \leq x_n \leq b_N$. Furthermore, let $(a_n)$ and $(b_n)$ converge to the same limit $x$. Then, 
+	\begin{enumerate}[noitemsep]
+		\item $(x_n)$ converges and 
+		\item $\lim(x_n) = x$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+	Assume that $(a_n)$ is bounded and that $(b_n)$ converges to zero. Then, $(a_n \cdot b_n)$ converges to zero.
+\end{theorem}
+
+\subsection{Monotone Sequences}
+\begin{definition}[Increasing, strictly increasing, eventually increasing]
+	Let $(x_n)$ be a sequence. Then, 
+	\begin{enumerate}[noitemsep]
+		\item $(x_n)$ is \dfn{increasing} if $x_1 \leq x_2 \leq ...$ 
+		\item $(x_n)$ is \dfn{strictly increasing} if $x_1 < x_2 < ...$
+		\item $(x_n)$ is \dfn{eventually increasing} if $\exists$ $k \in \N$ such that $x_k \leq x_{k+1} \leq x_{k+2} \leq ...$
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Monotone]
+	A sequence $(x_n)$ is called \dfn{monotone} if it is increasing or decreasing.
+\end{definition}
+
+\begin{theorem}[Monotone Sequence Theorem]
+	Let $(x_n)$ be a monotone sequence. 
+	\begin{enumerate}[noitemsep]
+		\item $(x_n)$ converges $\iff$ it is bounded. 
+		\item If $(x_n)$ is bounded and increasing, then
+		\begin{align}
+			\lim (x_n) = \sup \{ x_n\ |\ n \in \N \} 	
+		\end{align}
+		\item if $(x_n)$ is bounded and decreasing, then
+		\begin{align}
+			\lim(x_n) = \inf \{ x_n\ |\ n \in \N \} 	
+		\end{align}
+
+	\end{enumerate}
+\end{theorem}
+
+\begin{center}
+	\textbf{[Begin Tutorial]}
+\end{center}
+\begin{prop}
+	Let $(x_n) \rightarrow x \in \R$ be a sequence. Then, $(|x_n|) \rightarrow |x|$.
+\end{prop}
+\begin{theorem}
+	Let $a>1$. Then, $\lim (1/a^n) = 0$.
+\end{theorem}
+\begin{theorem}
+	Let $a \in ]-1, 1[$. Then, $\lim(a^n) =0$.
+\end{theorem}
+
+\begin{theorem}
+	Let $(x_n)$ be with $x_n > 0$. If
+	\begin{align}
+		L = \lim \left( \frac{x_{n+1}}{x_n} \right) 	
+	\end{align}
+	exists and $L<1$, then $\lim (x_n) = 0$.
+\end{theorem}
+
+\begin{definition}[Series]
+	Let $(x_n)$ be a sequence in $\R$ or $\C$. For $N \in \N$, define:
+	\begin{align}
+		S_N := \sum_{n=1}^N x_n 	
+	\end{align}
+	Thus, $(S_n)$ is a sequence in $\R$ or $\C$. If $\lim_{N \rightarrow \infty} S_N =: S$ exists, we write $\sum_{n=1}^\infty x_n$.
+\end{definition}
+
+\begin{definition}[Converge, Series]
+	We say that $\sum_{n=1}^\infty |x_n| = \lim_{N \rightarrow \infty} \sum_{n=1}^N |x_n|$ exists $\iff$ the sequence of partial sums is bounded.
+\end{definition}
+
+\begin{example}
+	$\lim(2^n/n!) =0$.
+\end{example}
+
+\begin{example}
+	$\lim(n!/n^n) =0$.
+\end{example}
+
+\begin{center}
+	\textbf{[End Tutorial]}
+\end{center}
+
+\subsection{Subsequences}
+
+\begin{definition}
+	Let $n_1 < n_2 < n_3 < ...$ be natural numbers. Let $(x_n)$ be a sequence and consider:
+	\begin{align}
+		(x_{n_k}) = (x_{n_1}, x_{n_2}, .... )	
+	\end{align}
+	The $(x_{n_k})$ is a \dfn{subsequence} of $(x_n)$.
+\end{definition}
+
+\begin{theorem}
+	Let $(x_n) \rightarrow x$ and let $(x_{n_k})$ be a subsequence. Then, $(x_{n_k})$ converges to $x$.
+\end{theorem}
+
+\begin{corollary}
+	Let $(x_n)$ be a sequence. Then, $(x_n)$ converges $\iff$ all subsequences of $(x_n)$ converge to the \emph{same} limit.
+\end{corollary}
+
+\begin{example}
+	$\lim (1 + a/n)^n = e^a$.
+\end{example}
+
+\begin{example}
+	$\lim (\sqrt[n]{a}) =1$ for $a > 1$, $n \in \N$.
+\end{example}
+
+\begin{example}
+	$\lim (\sqrt[n]{n}) = 1$.
+\end{example}
+
+\begin{definition}[Accumulation Point]
+	Let $(x_n)$ be a sequence. A point $x \in \R$ is called an \dfn{accumulation point} of $x_n$ if $\exists$ a subsequence $(x_{n_k})$ of $x_n$ that converges to $x$.
+\end{definition}
+
+\begin{theorem}
+	Let $(x_n)$ be a sequence, $x \in \R$ an accumulation point of $(x_n)$ $\iff$ $\forall \eps > 0$, $V_\eps(x)$ contains infinitely many points of $(x_n)$.
+\end{theorem}
+
+\begin{theorem}[Bolzano-Weierstrass Theorem]
+	Let $(x_n)$ be a bounded sequence in $\R$. Then, $(x_n)$ has a convergent subsequence i.e., $(x_n)$ has at least one accumulation point.
+\end{theorem}
+
+\begin{definition}[Limit Superior]
+	Let $(x_n)$ be bounded. The greatest accumulation point of $(x_n)$ is called the \dfn{limit superior} of $(x_n)$: $x^* := \limsup (x_n)$.
+\end{definition}
+
+\begin{definition}[Limit inferior] 
+		Let $(x_n)$ be bounded. The smallest accumulation point of $(x_n)$ is called the \dfn{limit inferior} of $(x_n)$: $x_* := \liminf (x_n)$.
+\end{definition}
+
+\begin{theorem}
+	Let $(x_n)$ be bounded. Let $v_m := \sup( x_1, ..., x_m)$. Then, 
+	\begin{align*}
+		\lim (v_m) 	& = \lim ( \sup \{ x_n\ | n \geq m \} ) \\
+					& = \limsup(x_n) 
+	\end{align*} 
+	and 
+	\begin{align*}
+		\liminf(x_n) = \lim (\inf \{ x_n\ |\ n \geq m \} ) 
+	\end{align*}
+\end{theorem}
+
+
+\subsection{Cauchy Sequences}
+
+\begin{definition}[Cauchy Sequence]
+	A sequence $(x_n)$ is called a \dfn{Cauchy sequence} if $\forall \eps > 0$, $\exists N \in \N$ such that $\forall m , n \geq N$, one has 
+	\begin{align}
+		|x_n - x_m| < \eps 	
+	\end{align}
+\end{definition}
+
+\begin{theorem}
+	A sequence in $\R$ converges $\iff$ it is a Cauchy Sequence.
+\end{theorem}
+
+\begin{theorem}
+	Every Cauchy Sequence is bounded. 
+\end{theorem}
+
+\begin{definition}[Contractive Sequence]
+	A sequence $(x_n)$ is \dfn{contractive} if $\exists$ a $0 < c < 1$ such that
+	$\forall n \in \N$, 
+	\begin{align}
+		|x_{n+2} - x_{n+1} | \leq  c | x_{n+1} - x_n | 	
+	\end{align}
+\end{definition}
+
+\begin{theorem}
+	Every contractive sequence is Cauchy, and thus converges.
+\end{theorem}
+
+
+\subsection{Divergence to $\pm \infty$}
+\begin{definition}
+	Let $(x_n)$ be a sequence. 
+	\begin{enumerate}[noitemsep]
+		\item $(x_n)$ \dfn{diverges to $\infty$} if $\forall M \in \R$, $\exists N \in \N$ such that $\forall n \geq N$, $x_n > M$.
+		\item $(x_n)$ \dfn{diverges to $-\infty$} if $\forall M \in \R$, $\exists N \in \N$ such that $\forall n \geq N$, $x_n < M$.
+	\end{enumerate}
+\end{definition}
+\begin{theorem}
+	An increasing sequence diverges to $+\infty$ $\iff$ it is unbounded. Similarly, a decreasing sequence diverges to $-\infty$ $\iff$ it is unbounded.
+\end{theorem}
+
+
+\begin{center}
+	\textbf{[Begin Tutorial]}
+\end{center}
+
+\begin{theorem}
+	Let $F \subseteq \R$, $F \neq \emptyset$. Then, TFAE: 
+	\begin{enumerate}[noitemsep]
+		\item $F$ is closed. 
+		\item If $x_n$ is a sequence in $F$ and $x = \lim (x_n)$, then $x \in F$.
+	\end{enumerate}
+\end{theorem}
+
+
+\begin{prop}
+	Let $(x_n)$ be a bounded sequence. Then, $\lim(x_n)$ exists $\iff$ $(x_n)$ has only one accumulation point.
+\end{prop}
+
+\begin{prop}
+	Let $(x_n)$ be bounded, Then, $\lim(x_n)$ exists $\iff$ $\limsup(x_n) = \liminf(x_n)$.
+\end{prop}
+
+\begin{center}
+	\textbf{[End Tutorial]}
+\end{center}
+
+\section{Limits of Functions}
+
+\begin{definition}
+	Let $f: A \subseteq \R \rightarrow \R$ be a function. Let $c, L \in \R$. We say that the \dfn{limit of $f$ as $x$ approaches} \dfn{$c$ is $L$}, in symbols, $\lim_{x \rightarrow x}f(x) = L$, if $\forall$ sequences $(x_n) \in A$ with $\lim(x_n) = c$, $\lim (f(x_n)) = L$.
+\end{definition}
+
+\begin{definition}[Cluster Point]
+	Let $A \subseteq \R$. $c$ is called a \dfn{cluster point} of $A$ if either of the two equivalent definitions hold: 
+	\begin{enumerate}[noitemsep]
+		\item There exists a sequence $(x_n) \in A \setminus \{ c \}$ such that $\lim (x_n) = c$.
+		\item $\forall \eps > 0$, $V_\eps^*(c) \cap A \neq \emptyset$.
+	\end{enumerate}	
+\end{definition}
+
+\begin{theorem}
+	Let $A \subseteq \R$, $c$ a cluster point of $A$. Let $f: A \rightarrow \R$. If $\lim_{x \rightarrow c} (f(x)) $ exists, then it is uniquely determined.
+\end{theorem}
+
+\begin{definition}
+	A point $c \in A$ which is not a cluster point is called an \dfn{isolated point}, i.e., $c$ is isolated if $\exists \eps > 0$ such that $V_\eps^*(c) \cap A \neq \emptyset$.
+\end{definition}
+
+\begin{theorem}
+	Let $A \subseteq \R$, $c$ a cluster point of $A$. Then, $c \in \overline{A} = A \cup \partial A$.	
+\end{theorem}
+
+\begin{definition}[$\eps- \delta$ definition of a limit]
+	Let $f: A \rightarrow \R$, $c$ a cluster point of $A$, $L \in \R$. We say that $\lim_{x \rightarrow c} f(x) = L$ if: 
+	\begin{align}
+		\forall \eps > 0, \exists \delta > 0\ s.t.\ \forall x \in A,\ 0 < |x-c| < \delta \Rightarrow |f(x) - L| < \eps 	
+	\end{align}
+\end{definition}
+
+\begin{definition}[Topological Definition of a Limit] 
+Two equivalent definitions:
+\begin{enumerate}[noitemsep]
+	\item 	$\forall \eps > 0$, $\exists$ $\delta > 0$ such that $\forall x \in V_\delta^*(c)$, $f(x) \in V_\eps (L)$. 
+	\item $\forall \eps > 0$, $\exists \delta > 0$. such that $f(V_\delta^*(c)) \subseteq V_\eps (L)$.
+\end{enumerate}
+\end{definition}
+
+
+\begin{theorem}
+	The sequential definition and the $\eps-\delta$ definition of a limit are equivalent. 
+\end{theorem}
+
+\begin{theorem}[Sequential Criterion for the non-existence of a limit]
+	$f: A \rightarrow \R$, $c$ a cluster point of $A$. Then, 
+	\begin{enumerate}[noitemsep]
+		\item Let $(x_n)$ be a sequence in $A \setminus \{ c \}$ with $\lim (x_n) = c$. If $(f(x_n))$ diverges, then $\lim_{x \rightarrow c} f(x)$ does not exist.
+		\item Let $(x_n)$, $(y_n)$ be sequences in $A \setminus \{ c \}$ with $\lim (x_n) = c = \lim (y_n)$. If $(f(x_n))$ and $(f(y_n))$ both converge but have different limits, then $\lim_{x \rightarrow c}f(x) $ does not exist.
+	\end{enumerate}
+\end{theorem}
+
+
+\begin{theorem}[Limit Laws]
+	Let $f, g: A \subseteq \R \rightarrow \R$, $c$ a cluster point of $A$ such that $\lim_{x \rightarrow c} f(x)$ and $\lim_{x \rightarrow c} g(x)$ exists. Then: 
+	\begin{enumerate}[noitemsep]
+		\item $\lim_{x \rightarrow c} [af(x) + bg(x)] = a \lim_{ x \rightarrow c} f(x) + b \lim_{x \rightarrow c} g(x)$.
+		\item $\lim_{x \rightarrow c} [f(x)g(x)] = \lim_{x \rightarrow c} f(x) \lim_{x \rightarrow c} g(x) $
+		\item $\lim_{x \rightarrow c} \frac{f(x)}{g(x)} = \frac{\lim_{x \rightarrow c} f(x)}{\lim_{x \rightarrow c} g(x)}$
+	\end{enumerate}
+\end{theorem}
+
+\subsection{Continuity}
+\begin{definition}[Continuous] 
+	Let $f: A \rightarrow \R$, $c$ a cluster point of $A$, $c \in A$. We say that $f$ is \dfn{continuous at $c$} if: 
+	\begin{align}
+		\lim_{x \rightarrow c} f(x) = f(c)	
+	\end{align}
+\end{definition}
+
+\begin{theorem}
+	Let $f: A \rightarrow \R$, $c$ a cluster point of $A$, $a, b \in \R$ such that $a \leq f(x) \leq b$ $\forall x \in A$. If $\lim_{x \rightarrow c} f(x) $ exist, then it holds that
+	\begin{align}
+		a \leq \lim_{x \rightarrow c} f(x) \leq b 	
+	\end{align}
+\end{theorem}
+
+\begin{theorem}[Squeeze Theorem]
+	Let $f, g, h$ be functions from $A \rightarrow \R$, let $c $ be a cluster point of $A$ such that $\lim_{x \rightarrow c} g(x) = L = \lim_{x \rightarrow c} h(x)$ and $g(x) \leq f(x) \leq h(x)$ $\forall x \in A$. Then, $\lim_{x \rightarrow c} f(x)$ exists and equals $L$.	
+\end{theorem}
+
+\begin{theorem}
+	Let $f: A \rightarrow \R$, $c$ a cluster point of $A$. Then, $\lim_{x \rightarrow c}f(x)$ exists $\iff$ both one-sided limits exist and are equal. 
+\end{theorem}
+
+\begin{definition}[Sequential Definition of Continuity] 
+	$\lim_{x \rightarrow c} f(x) = f(c)$ if $\forall (x_n)$ in $A \setminus \{ c \}$ with $\lim (x_n) = c$, it follows that $\lim (f(x_n)) = f(c)$.
+\end{definition}
+
+\begin{theorem}
+	Let $f, g: A \rightarrow \R$ be continuous, $c$ a cluster point, $c \in A$, $f,g$ continuous at $c$. Then:
+	\begin{enumerate}[noitemsep]
+		\item $f+g$ is continuous at $c$. 
+		\item $f-g$ is continuous at $c$
+		\item $f \cdot g$ is continuous at $c$. 
+		\item $f/g$ is continuous at $c$, provided $g(x) \neq 0$ $\forall x \in A$.
+	\end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+	Let $f: A \rightarrow \R$, $g: B \rightarrow \R$, $f(A) \subseteq B$, $f$ continuous at $c \in A$, $g$ continuous at $d:= f(c)$. Then, $g \circ f: A \rightarrow \R$ is continuous at $c$.
+\end{theorem}
+
+\begin{theorem}[Location of Roots Theorem]
+	Let $I:=[a,b]$, $f: I \rightarrow \R$ be continuous such that $f(a) > 0$ and $f(b) < 0$ or vice versa. Then, $\exists $ $c \in ]a,b[$ such that $f(c) =0$.
+\end{theorem}
+
+\begin{theorem}[Intermediate Value Theorem]
+	Let $f: I \rightarrow \R$, $f$ continuous on $I$. Let $a, b \in I$ with $f(a) < f(b)$ and let $d$ be a point in between. Then, $\exists$ a $c$ between $a$ and $b$ with $f(c) =d$.
+\end{theorem}
+
+\begin{theorem}[Preservation of Intervals] 
+	Let $f: A \rightarrow \R$ continuous, $I \subseteq A$. Then, $f(I)$ is an interval.
+\end{theorem}
+
+\begin{definition}[Open Cover]
+	Let $S \subseteq \R$, $\mathcal{C} := \{ U_i\ |\ i \in I\}$ a collection of open sets such that $S \subseteq \bigcup_{i \in I}U_i$. Then, we say that $\mathcal{C}$ is an \dfn{open cover} for $S$.
+\end{definition}
+
+\begin{theorem}[Heine-Borel]
+	A subset $S \subseteq \R$ is compact $\iff$ every open cover of $S$ has a finite sub-cover.
+\end{theorem}
+
+\begin{theorem}
+	Let $A \subseteq \R$ be compact, $f: A \rightarrow \R$ locally bounded on $A$. Then, $f$ is bounded on $A$. 
+\end{theorem}
+
+\begin{theorem}[Topological Characterisation of Continuity]
+	Let $f: A \rightarrow \R$; $f$ is continuous on $A$ $\iff$ the pre-image under $f$ of every open set is open in $A$. 
+\end{theorem}
+
+\begin{definition}[Relatively Open]
+	$W \subseteq \R$ is called \dfn{open in $A$} if there exists an open set $U \subseteq \R$ such that $W = A \cap U$.
+\end{definition}
+
+\begin{theorem}
+	Let $f: A \rightarrow \R$ be continuous and let $A$ be compact. Then, $f(A) $ is compact.
+\end{theorem}
+
+\begin{corollary}
+	Let $f: [a,b] \rightarrow \R$ be continuous. Then, $f([a,b])$ is a compact interval.
+\end{corollary}
+
+\begin{theorem}[Min-Max Theorem]
+	Let $f: A \rightarrow \R$ be continuous; $A$ compact. Then, $f$ has at least one minimum and one maximum.
+\end{theorem}
+
+\begin{definition}[Uniformly Continuous]
+	A function $f: A \rightarrow \R$ is \dfn{uniformly continuous} on $A$ if $\forall \eps > 0$, $\exists$ $\delta = \delta(\eps) > 0$ such that $\forall u, x \in A$ such that $|x-u| < \delta$ implies $|f(x) - f(u)| < \eps$.
+\end{definition}
+
+\begin{theorem}[Two-Sequence Criterion for Non-Uniform Continuity] 
+	Let $f: A \rightarrow \R$. If $\exists$ $\eps_0 > 0$ and two sequences $(x_n)$ and $(u_n)$ in $A$ such that $\lim(x_n - u_n) = 0$ but $|f(x_n) - f(u_n)| \geq \eps_0$ for all $n \in \N$, then $f$ is not uniformly continuous. 
+\end{theorem}
+
+\begin{theorem}
+	Let $f: A \rightarrow \R$ be uniformly continuous. Let $(x_n)$ be a Cauchy sequence in $A$. Then, $(f(x_n))$ is also a Cauchy sequence. 
+\end{theorem}
+
+\begin{theorem}
+	Let $f: A \rightarrow \R$, $f$ continuous, $A$ compact. Then, $f$ is uniformly continuous on $A$. 
+\end{theorem}
+
+\begin{definition}
+	$f: A \rightarrow \R$ is called a \dfn{Lipschitz Function} or is said to be \dfn{Lipschitz Continuous} or is said to satisfy a \dfn{Lipschitz Condition} if $\exists k > 0$ such that $|f(x) - f(u)| \leq k |x-u|$ for all $u, x \in A$.
+\end{definition}
+
+\begin{theorem}
+	Let $f: A \rightarrow \R$. If $f$ is \dfn{Lipschitz continuous} on $A$, then $f$ is uniformly continuous on $A$.
+\end{theorem}
+
+\section{Differentiation}
+\begin{definition}
+	Let $I \subseteq \R$ be an interval and let $f: I \rightarrow \R$. Let $c \in I$. We say that $f$ is \dfn{differentiable} at $a$ if the following limit exists:
+	\begin{align}
+		f'(c) := \lim_{x \rightarrow c} \frac{f(x) - f(c)}{x-c}	
+	\end{align}
+\end{definition}
+
+\begin{theorem}[Caratheodory]
+	Let $f: I \rightarrow \R$, $c \in I$, $f$ is differentiable at $c$ $\iff$ there exists a $\varphi: I \rightarrow \R$ which is continuous at $c$ such that $f(x) = f(c) + f(x)(x-c)$. In that case, $\varphi(c) = f'(c)$.
+\end{theorem}
+
+\begin{theorem}[Chain Rule]
+	Let $f: I \rightarrow \R$, $g: J \rightarrow \R$. $f(I) \subseteq J$, $c \in I$, $d:=f(c)$. Assume $f$ is differentiable at $c$, $g$ differentiable at $d$. Then, $g \circ f: I \rightarrow \R$ is differentiable at $c$ and:
+	\begin{align}
+		(g \circ f)'(c) = g'(f(c)) \cdot f'(c) 	
+	\end{align}
+\end{theorem}
+
+\begin{theorem}[Fermat's Theorem]
+	Let $f: I \rightarrow \R$, $c \in I$, $c \notin \partial I$, $f$ differentiable at $c$. Let $f$ have a local extremum at $c$. Then, $f'(c) =0$.
+\end{theorem}
+
+\begin{theorem}[Rolle's Theorem]
+	Let $f: [a,b] \rightarrow \R$, $f$ continuous on $[a,b]$ and differentiable on the open interval $]a,b[$. Let $f(c) = f(b) =0$. Then, $\exists$ a $c \in ]a,b[$ such that $f'(c) =0$.
+\end{theorem}
+
+\begin{theorem}[Mean Value Theorem]
+	Let $f: [a,b] \rightarrow \R$, $f$ continuous on $[a,b]$, $f$ differentiable on $]a,b[$. Then, $\exists$ a $c \in ]a,b[$ such that 
+\begin{align}
+	f'(c) = \frac{f(b) - f(a)}{b-a}	
+\end{align}
+\end{theorem}
+
+\subsection{Applications of the Mean Value Theorem}
+\begin{theorem}
+Let $f: [a,b] \rightarrow \R$ be differentiable. Then, $f' \equiv 0$ on $[a,b]$ $\iff$ $f$ is constant on $[a,b]$.
+\end{theorem}
+
+\begin{corollary}
+	Let $f, g: [a,b] \rightarrow \R$ differentiable such that $f' \equiv g'$ on $[a,b]$. Then, $\exists$ a $c \in \R$ such that $g = f+c$.
+\end{corollary}
+
+\begin{theorem}
+	Let $f: [a,b] \rightarrow \R$, $f$ differentiable. Then, $f$ is increasing on $[a,b]$ $\iff$ $f'(x) \geq 0$ $\forall x \in [a,b]$.
+\end{theorem}
+
+
+\begin{theorem}
+	Let $f: I \rightarrow \R$ be differentiable. Then, $f$ is Lipschitz continuous on $I$ $\iff$ $f'$ is bounded on $I$.
+\end{theorem}
 \end{document} 
