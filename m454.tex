@@ -1,7 +1,7 @@
-\documentclass[11pt]{article}
+\documentclass[reqno,11pt]{amsart}
 \title{\textbf{Math 454: Analysis 3 -- Theory of Lebesgue Measure}\vspace{-2ex}}
-\author{Definitions, Theorems, and Results from the Class\vspace{-2ex}}
-\date{Shereen Elaidi} 
+\author{Shereen Elaidi\vspace{-2ex}}
+\date{Fall 2019 Semester} 
 
 \usepackage{titlesec}
 \titleformat{\section}[hang]{\normalfont\scshape}{\thesection.}{1em}{}
@@ -87,10 +87,8 @@ prefoothook = \endmysolbar]{sol}
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[LE,RO]{Page \thepage}
+\fancyhead[CE,CO]{Fall 2019} 
 \fancyhead[RE,LO]{Math 454: Analysis 3}
-\fancyfoot[CE,CO]{}
-\fancyfoot[LE,RO]{\thepage}
-
 % Definitions
 \newcommand{\dfn}[1]{\textbf{\textcolor{blue}{#1}}}
 \newcommand{\im}[1]{\textbf{\textcolor{red}{#1}}}
@@ -280,7 +278,7 @@ prefoothook = \endmysolbar]{sol}
 		\begin{align}
 			m \left( 	\bigcup_{k=1}^\infty A_k 	\right) = \lim_{k \rightarrow \infty} m(A_k) 
 		\end{align}
-		\item If $A_{k+1} \subseteq A_k \forall k$ (decreasing sequence of sets), then: 
+		\item If $A_{k+1} \subseteq A_k \forall k$ (decreasing sequence of sets), and $m(A_{1}) <\infty$,  then: 
 		\begin{align}
 						m \left( 	\bigcap_{k=1}^\infty A_k 	\right) = \lim_{k \rightarrow \infty} m(A_k) 
 		\end{align}
@@ -305,7 +303,7 @@ prefoothook = \endmysolbar]{sol}
 		\item \textbf{(Outer Approximation of Measurable Sets by Open Sets)}. $\forall \varepsilon > 0,\ \exists\ O_\varepsilon \subseteq \bb{R}$ open such that $A \subseteq O_\varepsilon$ and $m^*(O_\varepsilon \setminus A) < \varepsilon$. 
 		\item \textbf{(Approximation by $G_\delta$ sets)}. $\exists (O_n)_{n \in \bb{N}}$ open such that $A \subseteq G$ and $m^*(G \setminus A) = 0$, where $G:= \bigcap_{n \in \bb{N}} O_n$. The countable intersection of open sets is a $\mathbf{G_\delta}$\textbf{-set}. 
 		\item \textbf{(Inner Approximation of Measurable Sets by Closed Sets)} $\forall \varepsilon > 0,\ \exists\ F_\varepsilon \subseteq \bb{R}$ closed such that $F_\varepsilon \subseteq A$ and $m^*(A \setminus F_\varepsilon) < \varepsilon$. 
-		\item \textbf{(Approximation by $F_\sigma$ sets)}. $\exists (F_n)_{n \in \bb{N}}$ closed such that $F \subseteq A$ and $m^*(A \setminus F) = 0$, where $F:= \bigcup_{n \in \bb{N}} F_n$. The countable intersection of closed sets is a $\mathbf{F_\sigma}$\textbf{-set}. 
+		\item \textbf{(Approximation by $F_\sigma$ sets)}. $\exists (F_n)_{n \in \bb{N}}$ closed such that $F \subseteq A$ and $m^*(A \setminus F) = 0$, where $F:= \bigcup_{n \in \bb{N}} F_n$. The countable uniojn of closed sets is a $\mathbf{F_\sigma}$\textbf{-set}. 
 
 	\end{enumerate}
 \end{theorem}
