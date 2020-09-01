@@ -11,6 +11,16 @@ This repository contains:
 * Math 247 (Applied Linear Algebra, Winter 2018) summary.  
 * Math 248 (Vector Calculus / Advanced Calculus, Fall 2018) summary sheet. 
 
+Work-in-progress:
+* Math 466 (Complex Analysis, Fall 2020) full notes.
+* Math 456 (Algebra 3, Fall 2020) full notes. 
+* Math 567 (Functional Analysis, Fall 2020) full notes. 
+* Math 580 (Partial Differential Eqns 1, Fall 2020) full notes. 
+* Phys 251 (Classical Mechanics, Fall 2020) summary. 
+
+If I have time: 
+* Phys 260 (Modern Physics \& Relativity, Fall 2020) summary.
+
 Long-term projects: 
 
 * Math 475 (Partial Differential Eqns, Fall 2019) 
