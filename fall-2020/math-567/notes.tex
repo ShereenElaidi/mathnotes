@@ -6,8 +6,10 @@
 \usepackage{enumerate}
 \usepackage{mathrsfs}
 \usepackage{stackengine}
+\usepackage{mathtools}
 \stackMath
 \usepackage{graphicx}
+\newcommand{\given}{\ |\ }
 \usepackage{graphics}
 \usepackage[margin=2cm]{geometry}
 \newtheorem{thm}{Theorem}[section]
@@ -37,6 +39,7 @@
 
 \newcommand{\T}[0]{\mathbb{T}}
 \newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\Q}[0]{\mathbb{Q}}
 \newcommand{\R}[0]{\mathbb{R}}
 \newcommand{\Z}[0]{\mathbb{Z}}
 \newcommand{\Sph}[0]{\mathbb{S}}
@@ -48,21 +51,359 @@
 \newcommand{\M}{\mathcal{M}}
 \usepackage{framed}
 \usepackage{appendix}
+\newcommand{\eps}[0]{\varepsilon}
 
 \makeatletter
 \let\c@equation\c@thm
 \makeatother
 \numberwithin{equation}{section}
 
+\newcommand{\holdernorm}[0]{||f||_{C^{0, \gamma}(\Omega)}}
+
 \bibliographystyle{plain}
 
 \title[Math 567: Functional Analysis]{Math 567: Functional Analysis (Fall 2020 Semester)}
-\author{Shereen Elaidi}
+\author{Shereen Elaidi as taught by Prof. lin; Last Updated: \today}
 \date{Fall 2020 Semester}
 
 \begin{document}
 
 \maketitle
+
+This class is about linear functional analysis. This has a lot in common with linear algebra in infinite-dimensional spaces. We can think of this as infinite-dimensional linear algebra. There are two main applications of this: (a) geometry and topology in infinite dimensions and (b) solving PDEs. Recall that in regular linear algebra, we used those tools to solve linear systems. The infinite-dimensional equivalent to this is a PDE. In this class, we'll focus on the second application of functional analysis.
+
+
+\section{Basic Functional Analysis}
+This corresponds to Chapters 4 and 5 of the textbook.
+\subsection{Banach Spaces and General Topology}
+Let \( X \) be a vector space. Recall that this means that it is closed under addition and scalar multiplication. 
+
+\begin{defn}[Norm]
+	A \textbf{norm} on a vector space \( X \), \( || \cdot ||: X \rightarrow [0, \infty [ \), satisfies the following three properties: 
+	\begin{enumerate}
+		\item \( || x || = 0 \iff x = 0 \). 
+		\item \textbf{(Homogeneity)}: \( || \lambda x || = |\lambda | || x || \) for each \( x \in X \), \( \lambda \in \R \).
+		\item \textbf{(Triangle Inequality):} \( || x+y || \leq || x || + || y || \).
+	\end{enumerate}
+\end{defn}
+
+\begin{defn}[Completeness / Banach Space]
+	\( X \) is \textbf{complete} if every Cauchy sequence converges. \( (X, || \cdot ||) \) is a \textbf{Banach space} if it is a complete normed vector space.
+\end{defn}
+
+\begin{defn}[Dense Subset]
+	\( Y \subseteq X \) is \textbf{dense} if 
+	\begin{enumerate}
+		\item \( \overline{Y} = X \) (one thing we need to note: \( \overline{Y} \) is the closure, but we need to ask ourselves ``in which topology''? ).
+	\end{enumerate}
+	This is equivalent to: 
+	\begin{align*}
+		\forall \eps > 0,\ \forall x \in X,\ \exists y \in Y\ \text{ s.t. } || x - y || < \eps.
+	\end{align*}
+	And also equivalent to, 
+	\begin{align*}
+		\forall x \in X,\ \exists \{ y_n \} \subseteq Y\ \text{ s.t. } y_n \rightarrow y \in X. 
+	\end{align*}
+\end{defn}
+
+\begin{defn}[Strong Topology]
+	The \textbf{strong topology} is the topology induced by the norm, \( || \cdot || \) (the open sets are characterized by the balls, \( B_r := \{ x\ |\ || x || < r \} \)). In this topology, the definitions of density given above are equivalent.
+\end{defn}
+
+\begin{defn}[Separable]
+	\( X \) is \textbf{separable} if \( \exists \) a countable dense subset. 
+\end{defn}
+
+We have the following equivalent definitions of compactness. 
+
+\begin{defn}[Compactness 1]
+	\( E \subseteq X \) is \textbf{compact} if every open cover of \( E \) admits a finite subcover.
+\end{defn}
+
+\begin{defn}[Compactness 2]
+	Every sequence has a convergent sub-sequence. 
+\end{defn}
+
+\begin{defn}[Compactness 3]
+	For any sequence  \( \{ x_n \} \subseteq E \), there exists \( \{ x_{n_k} \} \) and \( x^* \in E \) such that \( x_{n_k} \rightarrow x^* \in E \).
+\end{defn}
+
+\begin{defn}[Pre-Compact]
+	\( E \subseteq X \) is \textbf{pre-compact} if \( \overline{E} \) is compact.
+\end{defn}
+
+\subsection{Euclidean Space \( \R^n \)}
+Let \( x \in \R^n \). This is denoted by \( (x_1, ..., x_n) \). Then, recall, 
+\begin{align*}
+	||x || = || x ||_{\ell^2} = \left( \sum_{j=1}^n x_j^2 \right)^{1/2}. 
+\end{align*}
+We also have these other typical norms on Euclidean space:
+\begin{align*}
+	|| x||_{\ell^1}  &= \sum_{j=1}^n |x_j | \\
+	||x||_{\ell^p} & = \left( \sum_{j=1}^n |x_j|^p \right)^{1/p} \\
+	|| x ||_{\ell^\infty} & = \max_{1 \leq j \leq n } |x_j |.
+\end{align*}
+
+\begin{defn}[Equivalent Norms]
+	We say that two norms, \( | \cdot | \) and \( || \cdot || \), are equivalent if and only if there exist two constants \( a \) and \( b \) such that
+	\begin{align}
+		\boxed{a||x|| \leq |x | \leq b || x|| \hspace{1cm} \forall x \in X.}	
+	\end{align}
+\end{defn}
+In words, this is saying that you can't be big on one norm but small in another. These norms are comparable; they are bounded by constants on either side. 
+
+\begin{thm}
+	All norms on \( \R^n \) are equivalent (all norms in finite dimensions are equivalent).
+\end{thm}
+
+\begin{proof}
+	Let \( || \cdot || \) be the Euclidean norm, and let \( | \cdot | \) be another norm. Let \( \{ e_i \}_{i=1}^n \) be the standard basis of \( \R^n \); recall that this is \( e_i = (0, ..., 1, ... , 0 ) \) where the \( 1 \) is in the ith slot. Since this is a basis, for \( x \in X \): 
+	\begin{align*}
+		x = \sum_{i=1}^n x_i e_i.
+	\end{align*}
+	By the reverse triangle inequality, 
+	\begin{align*}
+		| |x| - |y| | & \leq |x-y | \\
+					 & = \left| \sum_{i=1}^n (x_i - y_i) e_i \right| \\
+					 & \leq \sum_{i=1}^n |x_i - y_i| |e_i| \\
+					 & \leq \underbrace{ \left( \sum_{i=1}^n |e_i|^2  \right)^{1/2} }_{:= C} \left( \sum_{i=1}^n |x_i - y_i|^2   \right)^{1/2} \hspace{0.5cm} \text{(Cauchy-Schwarz) } \\
+					 & \leq C ||x-y|| \hspace{1cm} (*),
+	\end{align*}
+	where \( C \) is some number. Norms are continuous; \( x \mapsto || x || \) is continuous \( S = \{ x\ |\ || x|| = 1 \} \) (the unit ball). By \( (*) \), \( x \mapsto | x | \) is continuous on \(  S \). \( S \) is closed and bounded on \( \R^n \) which means that \( S \) is compact. By the extreme value theorem, this means that there exist two constants \( a, b \in \R \) such that
+	\begin{align}
+		a \leq |x | \leq b \hspace{1cm} \forall x \in S.	
+	\end{align}
+	Observe that \( | x | = 0 \iff x = 0 \), which implies that \( a > 0 \). For any \( y \in \R^n \), let \( x := \frac{y}{||y||} \in S \). Then, 
+	\begin{align*}
+		a \leq \left| \frac{y}{||y||}  \right| \leq b \iff a \leq \frac{1}{||y ||} |y| \leq b \iff a || y || \leq |y| \leq b || y || \hspace{0.5cm} \forall y \in \R^n \setminus \{ 0 \}.
+	\end{align*}
+	The case of \( y = 0 \) is straightforward. This proves that any norm in a finite-dimensional vector space are equivalent. Note that this proof rests on the fact that we have a basis.
+\end{proof}
+
+\begin{rem}
+	\( \R^n \) is separable in any norm. The typical countable dense subset of \( \R^n \) is \( \Q^n \). We will see in infinite-dimensions that all norms are not equivalent.
+\end{rem}
+
+
+\subsection{The Spaces of \( C^r \), \( C^{r, \gamma} \) of Continuous Functions}
+
+\begin{defn}[\(C^0 \)]
+	Let \( \Omega \subseteq \R^n \) be open. Then, 
+	\begin{align*}
+		C^0(\Omega) & \coloneqq \{ f\ |\ \Omega \to \R \text{ s.t. } f \text{ is continuous on } \Omega \}  \\
+		C^0(\overline{\Omega}) & \coloneqq \{ f\ |\ \overline{\Omega} \rightarrow \R \text{ s.t. } f \text{ is continuous on } \overline{\Omega} \}. 
+	\end{align*}
+\end{defn}
+This implies that \( f \in C^0(\overline{\Omega}) \) is bounded and uniformly continuous.
+
+\begin{defn}[\( || \cdot ||_\infty \)]
+		The standard norm on \( C^0(\Omega) \) is
+		\begin{align}
+			|| u ||_\infty \coloneqq \sup_{x \in \Omega} |u(x) | \leftrightarrow \text{ uniform convergence}. 	
+		\end{align}
+\end{defn}
+
+\begin{prop}
+	\begin{enumerate}
+		\item \( (C^0(\Omega), || \cdot ||_\infty ) \) is a Banach space. 
+		\item If \( \Omega \subseteq \R^n \) is bounded, then \( C^0(\overline{\Omega})\) is separable.
+	\end{enumerate}
+\end{prop}
+We will only give a sketch of the proof.
+\begin{proof}
+	\begin{enumerate}
+		\item The uniform limit of continuous functions is continuous. 
+		\item Follows from the Weierstrass approximation theorem: polynomials are dense in \( C^0(\overline{\Omega}) \); then, consider the polynomials with rational coefficients.
+	\end{enumerate}
+\end{proof}
+
+\subsubsection{Higher-Order Derivatives}
+Recall some notation from advanced calculus: 
+\begin{align}
+	\boxed{Du = \nabla u = \text{ gradient of } u = \begin{bmatrix}
+		\partial_1 u \\
+		\vdots \\
+		\partial_n u 
+	\end{bmatrix}}.	
+\end{align}
+We consider the \textbf{multi-index} \( \alpha = (\alpha_1, ..., \alpha_n ) \), where \( |\alpha| \coloneqq \alpha_1 + ... + \alpha_n \), and \( \forall k \in \R^n \), define \( k^\alpha \coloneqq k_1^{\alpha_1} \cdots h_n^{\alpha_n} \). Then, in this notation, 
+\begin{align*}
+	D^\alpha u &  = \partial_1^{\alpha_1} \cdots \partial_n^{\alpha_n} u  \\
+			& = \frac{\partial^{|\alpha|} u}{\partial x_1^{\alpha_1} \cdots \partial x_n^{\alpha_n}} \hspace{1cm} \text{(partial derivative)}.
+\end{align*}
+
+\begin{defn}[\(C^r(\Omega) \)]
+	\begin{align} 
+C^r(\Omega) := \{ f \given D^\alpha f \in C^0(\Omega)\ \forall\ |\alpha| < r \} 		
+	\end{align}
+\end{defn}
+In words, this means that all partial derivatives less than or equal to \( r \) are continuous. Then, we can define the following space:
+\begin{align}
+	C^\infty (\Omega) \coloneqq \bigcap_{r=1}^\infty C^r(\Omega).	
+\end{align}
+
+\begin{defn}[Support of \( f \) ]
+		The \textbf{support} of \( f \) is defined as the smallest closed set such that \( f \equiv 0 \) on \( \R^n \setminus \operatorname{supp}(f) \).
+		\begin{align}
+			\operatorname{supp} (f) \coloneqq \overline{\{ x \given f(x) \neq 0 \} }.
+		\end{align}
+\end{defn}
+
+\begin{defn}[Compactly Contained]
+	A set \( K \subset \subset \Omega \) means that \( K \subseteq \Omega \) is compact. We say that \( K \) is \textbf{compactly contained} in \( \Omega \) if \( K \subset \subset \Omega \), \( \Omega\) is bounded, and that there exists an \( \eps > 0 \) such that \( B(x, \eps ) \subseteq \Omega \) for all \( x \in K \). This is equivalent to for all \( x \in K \), 
+	\begin{align}
+		\exists\ \eps > 0 \text{ s.t. } d(x, \partial \Omega) \coloneqq \inf_{y \in \partial \Omega} |x-y| > \eps.
+	\end{align}
+\end{defn}
+
+\begin{defn}[\( C_c^r ( \Omega) \)]
+	\begin{align}
+		C_c^r(\Omega) \coloneqq \{ f \given f \in C^r(\Omega), \text{supp}(f) \subset \subset \Omega \}.	
+	\end{align}
+\end{defn}
+
+\begin{defn}[Norm on \( C^r(\overline{\Omega}) \)]
+		Let \( \Omega \) be bounded. Then, 
+		\begin{align}
+			\boxed{|| 
+			f||_{C^r} \coloneqq \sum_{|\alpha|\leq r} \sup_{ x \in \Omega} |D^\alpha f(x)|.}	
+		\end{align}
+\end{defn}
+
+\begin{prop}
+Let \( \Omega \subseteq \R^n \) be bounded. Then, \( C^r(\Omega) \) is a separable Banach space
+ (in fact, all you need for separable is that it is bounded) for all \( r < \infty \).
+\end{prop}
+
+\begin{rems}
+	\( C_c^r(\Omega) \) is not complete. \( C^\infty (\Omega) \) is not complete. However, subspaces of \( C^\infty \) is still complete with some norm.
+\end{rems}
+We also introduce, 
+\begin{defn}[Hölder Continuous \( C^{0, \gamma} (\Omega) \)]
+	\( f: \Omega \rightarrow \R \) is \textbf{Hölder Continuous} with exponent \( \gamma \in [0, 1[ \) if there exists a \( C \) such that
+	\begin{align}
+		\boxed{| f(x) - f(y) | \leq C || x-y||^\gamma.	}
+	\end{align}
+	If \( \gamma =1 \Rightarrow  f \) is \textbf{Lipschitz Continuous}.
+\end{defn}
+
+Also, 
+\begin{align*}
+	\boxed{[f]_{C^{0, \gamma}(\Omega)} \coloneqq \sup_{x, y \in \Omega} \frac{|f(x) - f(y) |}{|| x- y ||^\gamma}}
+\end{align*}
+is called the \textbf{Hölder seminorm}. This is nor a norm, but we can make it a norm: 
+\begin{defn}[\( || \cdot ||_{C^{0,\gamma}} \)]
+	\begin{align}
+		\boxed{||f||_{C^{0, \gamma}(\Omega)} \coloneqq ||f||_\infty + [f]_{C^{0, \gamma} (\Omega)}.} 	
+	\end{align}
+\end{defn}
+On the homework, you'll show that 
+\begin{align*}
+	(C^{0, \gamma}(\Omega), ||f||_{C^{0, \gamma}(\Omega)}) 
+\end{align*}
+is complete.
+\begin{defn}[\(C^{r, \gamma} \)]
+\begin{align}
+		\boxed{C^{r, \gamma}(\Omega) \coloneqq \{ f \given f \in C^r(\Omega) \text{ and } |D^\alpha f(x) - D^\alpha f(y) | \leq C || x-y||^\gamma\ \forall \ |\alpha| = r \}}.
+\end{align} 
+The norm of this space is given by, 
+\begin{align}
+	\boxed{|| f||_{C^{r, \gamma}} \coloneqq ||f||_{C^r} + \sup_{|\alpha| = r} [D^\alpha f]_{C^{0,r}}.}	
+\end{align}
+\end{defn}
+
+\begin{rem}
+	If \( f \in C^{0, \gamma}(\Omega) \), \( \Omega \) bounded, then \( f \in C^{0, \alpha}(\Omega) \) for all \( 0 < \alpha \leq \gamma \)	
+\end{rem}
+
+
+\begin{rem}
+	\textbf{(Rademacher's Theorem)}. If \( f \in C^{0,1} \), then \( f \) is differentiable a.e.	
+\end{rem}
+
+\subsection{Integration Theorems}
+
+\begin{thm}[Monotone Convergence Theorem]
+		If \( f_n \uparrow f \) pointwise for almost every \( x \), then 
+		\begin{align}
+			\boxed{\lim_{n \rightarrow \infty} \int_{\Omega} f_n(x) dx = \int_{\Omega} f(x) dx}.
+		\end{align}
+\end{thm}
+
+\begin{thm}[Fatou's Lemma]
+	Let \( \{ f_n \} \) be a sequence of measurable functions that are all positive. Then, 
+	\begin{align}
+		\boxed{\int_{\Omega} \liminf_{n \rightarrow \infty} f_n(x) \leq \liminf_{n \rightarrow \infty} \int_\Omega f_n(x) dx}	
+	\end{align}
+\end{thm}
+
+\begin{thm}[Dominated Convergence Theorem]
+		Assume that \( \{ f_n \} \) are measurable, \( f_n \rightarrow f \) pointwise a.e. Then, if \( |f_n(x)| \leq g(x) \) for all \( n \in \N \) for almost every \( x \), where \( g \in L^1(\Omega) \), then
+		\begin{align}
+			\boxed{\lim_{n \rightarrow \infty} \int_\Omega f_n(x) dx = \int_\Omega f(x) dx}	
+		\end{align}
+\end{thm}
+This is the theorem that you use when you want to differentiate under integrals.
+
+\begin{thm}
+	The space \( C_c^0(\R^n ) \) is dense in \( L^1(\R^n) \).	
+\end{thm}
+
+\begin{thm}[Fubini-Tonelli] 
+	For all \( f: X \times Y \to \R^n \), 
+	\begin{align}
+		\boxed{\int_X \int_Y | f(x,y)| dy dx = \int_Y \int_X |f(x,y)|dx dy = \int_{X \times Y } |f(x,y)| d(x,y).} 
+	\end{align}
+	If, moreover, \( f \in L^1(X \times Y) \), 
+	\begin{align}
+		\int_X \int_Y f(x, y) dy dx = \int_Y \int_X f(x, y) dx dy = \int_{X \times y} f(x,y) d(x,y) 	
+	\end{align}
+\end{thm}
+
+\subsection{Elementary \( L^p \) Spaces}
+
+\begin{defn}[\(L^p \)] 
+		Fix \( 1 \leq p < \infty \), let \( \Omega \subseteq \R^n \). Then, we define the \(L^p\) space to be
+		\begin{align}
+			\boxed{L^p(\Omega) \coloneqq \{ f: \Omega \to \R \given f \text{ measurable } |f|^p \in L^1(\Omega) \}}
+		\end{align}
+		with the following norm, 
+		\begin{align}
+			|| f ||_{L^p} \coloneqq \left[ \int_{\Omega} |f(x)|^p \right]^{1/p}.	
+		\end{align}
+\end{defn}
+
+\begin{defn}[\( L^\infty \)]
+		We define \(L^\infty\) to be: 
+		\begin{align}
+			L^\infty(\Omega) \coloneqq \{ f: \Omega \to \R \given f \text{ measurable }, \exists\ C \text{ s.t. } |f(x)| \leq C \text{ a.e. } \}, 	
+		\end{align}
+		with the following norm, 
+		\begin{align}
+			||f||_{L^\infty} = || f||_\infty = \inf \{ c\ |\ |f(x)| \leq c\ a.e. \} 	
+		\end{align}
+\end{defn}
+This definition implies that \( f(x) \leq || f||_\infty \) almost everywhere. Below are some fundamental tools that we'll be using
+\begin{thm}[Hölder's Inequality]
+		Let \( 1 \leq p, p' \leq \infty \). If \( f \in L^p(\Omega) \), \( g \in L^{p'}(\Omega) \) and \( 1/p + 1/p' = 1 \), then \( fg \in L^1 \) and
+		\begin{align}
+			\boxed{\int|fg|dx \leq ||f||_p ||g||_{p'}}	
+		\end{align}
+\end{thm}
+
+\begin{thm}[Minkowski's Inequality]
+	For all \( p \in [1, \infty] \), 
+	\begin{align}
+		\boxed{||f+g||_p \leq ||f||_p + ||g||_p.} 	
+	\end{align}
+\end{thm}
+As a consequence of [Minkowski's Inequality, \(L^p \) is a vector space.
+
+
+
+
+
+
 
 
 \end{document}
