@@ -397,12 +397,422 @@ This definition implies that \( f(x) \leq || f||_\infty \) almost everywhere. Be
 		\boxed{||f+g||_p \leq ||f||_p + ||g||_p.} 	
 	\end{align}
 \end{thm}
-As a consequence of [Minkowski's Inequality, \(L^p \) is a vector space.
+As a consequence of Minkowski's Inequality, \(L^p \) is a vector space.
+
+\begin{thm}[Riesz-Fischer] 
+	\( L^p \) is a Banach space for all \( p \in [1, \infty] \).
+\end{thm}
+
+\begin{proof}
+	\textbf{Case \# 1:} \( p = \infty \). Let \( \{ f_n \} \subseteq L^\infty \) be Cauchy. Hence, for all \( k \in \mathbb{N} \), there exists an \( N_k \) such that for all \( n, m \geq N_k \), 
+	\begin{align}
+		|| f_n - f_m ||_\infty < \frac{1}{k}. 
+	\end{align}
+	Then, there exists a null set \( E_k \) such that \( \forall n,m \geq N_k \). 
+	\begin{align*}
+		|f_n(x) - f_m(x) | \leq \frac{1}{k}.
+	\end{align*} 
+	for all \( x \in \Omega \setminus E_k \), \( \{ f_n \} \subseteq \R \) is a Cauchy sequence. Since \( \R \) is complete, there exists an \( f(x) \in \R \) such that		
+	\begin{align*} 
+		f_n(x) \rightarrow f(x) \hspace{0.5cm} x \in \Omega \setminus E.
+	\end{align*} 
+	 So, in particular, \( \forall m \geq N_k \),
+	 \begin{align*}
+	 		| f_n(x) - f(x) | \leq \frac{1}{k}\ \forall x \in \Omega \setminus E. 
+	 \end{align*}
+	 We can then take the supremum, 
+	 \begin{align*}
+	 	\sup_{ x \in \Omega \setminus E } |f_m(x) - f(x) | \leq \frac{1}{k}. 
+	 \end{align*}
+	 Extend \( f \) to be whatever on \( E \): 
+	 \begin{align*}
+	 	\Rightarrow & || f - f_m ||_\infty \leq \frac{1}{k}, \hspace{0.5cm} n \geq N_k, \\
+	 	\Rightarrow &  f_n \rightarrow f \text{ in } L^\infty. 
+	 \end{align*}
+\end{proof}
+Also, \( f = (f - f_n) + f_n \). We have that \( (f - f_n) \in L^\infty \) and \( f_n \in L^\infty \). Hence, \( f \in L^\infty \) since \( L^\infty \) i a vector space. Hence, we have proven that \(L^p \) is a Banach space for \( p = \infty \).
+\newline
+\newline
+\textbf{Case \# 2:} \( 1 \leq p < \infty \).  Similarly, \( \{ f_n \} \subseteq L^p \) be Cauchy. Choose a subsequence such that, 
+\begin{align*} 
+	||f_{n_{k+1}} - f_{n_k} ||_{L^p} < \frac{1}{2^k} \hspace{1cm} \forall k \geq 1.
+\end{align*}
+Then, 
+\begin{align*}
+	\left| \left| \sum_{k=1}^N | f_{n_{k+1}} - f_{n_k} | \right| \right|_{L^p} \leq \sum_{k=1}^N \left( \frac{1}{2^k} \right) < 1. 
+\end{align*}
+Define, 
+\begin{align*}
+	v(x) \coloneqq \lim_{N \rightarrow \infty} \sum_{k=1}^N | f_{n_{k+1}}(x) - f_{n_k}(x) |.
+\end{align*}
+(Possibly infinite, but always positive). By Fatou's Lemma, 
+\begin{align*}
+	\int_{\Omega} |v|^p dx \leq \liminf_{N \rightarrow \infty} \int_{\Omega} \left( \sum_{k=1}^N |f_{n_{k+1}}(x) - f_{n_k}(x) | \right)^p dx  \leq 1. 
+\end{align*}
+Hence, \( v \in L^p \) which implies that \( |v(x)| < \infty \) a.e. and, 
+\begin{align*}
+	f_{n_{k+1}}(x) + \sum_{k=1}^\infty ( f_{n_{k+1}}(x) - f_{n_k} (x) ) \hspace{0.5cm} (*) 
+\end{align*}
+converges almost everywhere for \( x \). Observe that the partial sums of the above in \( (*) \) are just \( f_{n_{k+1}}(x) \) (telescoping series): 
+\begin{align*}
+	f(x) := \lim_{k \rightarrow \infty } f_{n_k} (x),
+\end{align*}
+which we already knew converges for a.e. \( x \) and extend this to be whatever on a null set. Claim: \( f \in L^p \) and \( ||f_n - f||_{L^p} \rightarrow 0 \). By Fatou's Lemma, for \(k \) sufficiently large, 
+\begin{align*}
+	\int_{\Omega} |f-f_{n_k} |^p dx \leq \liminf_{j \rightarrow \infty} \int_{\Omega} |f_{n_j} - f_{n_k} |^p \leq \frac{\eps}{2} \hspace{0.5cm} \text{(since Cauchy)}
+\end{align*}
+Which implies, 
+\begin{align*}
+	& \Rightarrow f- f_{n_k} \in L^p (\Omega) \\ 
+	& \Rightarrow f(x) = \underbrace{(f(x) - f_{n_k}(x))}_{\in L^p} + \underbrace{f_{n_k}}_{\in L^p} (x) \\
+	& \Rightarrow f \in L^p.
+\end{align*}
+Break at the subsequence, which means that the limiting guy is in \( L^p \). Also, for all \( n \geq N \), \( n_k \geq N \), 
+\begin{align*}
+	||f_n(x) - f(x) ||_{L^p} &  \leq || f_n(x) - f_{n_k} (x) ||_{L^p} + ||f_{n_k}(x) - f(x) ||_{L^p} \\
+	& \leq \frac{\eps}{2} + \frac{\eps}{2} \\
+	& = \eps.
+\end{align*}
+Hence, \( f_n \rightarrow f \) in \( L^p \).
+
+\begin{cor}
+	Let \( \{ f_n \} \subseteq L^p \) and let \( f \in L^p \) such that \( || f_n - f ||_{L^p} \rightarrow 0 \), then there exists a subsequence such that, 
+	\begin{align*}
+		f_{n_k}(x) \rightarrow f(x) \hspace{0.5cm} on \Omega. 
+	\end{align*}
+\end{cor}
+
+\begin{proof}
+	Hidden in Reisz-Fischer.
+\end{proof}
 
 
+\begin{thm}
+\(C_c(\R^N) \) is dense in \(L^p(\R^N) \) for all \( p \in [1, \infty [ \).	
+\end{thm}
 
 
+\begin{proof} 
+	We'll work with the truncation operator. It's a function \( T_n: \R \rightarrow R \) defined by, 
+	\begin{align*}
+			T_nr := \begin{cases}
+				r & \text{ if } |r| \leq n, \\
+				\frac{nr}{|r|} & \text{ if } |r| \geq n.
+			\end{cases}
+	\end{align*}	
+	\textbf{Claim:} for all \( f \in L^p(\R^N) \) and for all \( \eps > 0 \) there exist a \( g \in L^\infty (\R^N) \) and a compact set \( K \subseteq \R^N \) such that, 
+	\begin{align*}
+		\text{supp}(g)  \subseteq  K \text{ and } || f - g ||_{L^p} < \eps. 
+	\end{align*}
+	Let \( f_n := T_n(f)\chi_{B(0,n)} \). Note that  \( f_n - f \rightarrow 0 \) a.e.\ Then, 
+	\begin{align*}
+		| f_n - f| \leq 2 |f| \in L^p. 
+	\end{align*}
+	By the DCT,  \( ||f_n - f||_{L^p} \rightarrow 0 \). Thus, let \( g(x) = f_n(x) \) for \( n \) large. So, \( g \in L^p(\R^N) \) and is compactly supported. Hence, by inclusions in \(L^p \) and Hölder's inequality, we obtain:
+	\begin{align*}
+		g \in L^1(\R^N). 
+	\end{align*}
+	Thus, for all \( \delta > 0 \), by the density in \(L^p \), there exists a \( g \in C_c^0 \) such that  
+	\begin{align*}
+		|| g - g_1||_{L^1} < \delta.
+	\end{align*}
+	WLOG, we may assume that \( ||g_1||_\infty \leq || g ||_\infty \) (by replacing \( g_1 \) for \( T_n g_1 \) for \( n \) large ). Since \( p \in ]1, \infty [ \), 
+	\begin{align*}
+		|| g - g_1 ||_{L^p} & = \left( \int |g-g_1|^p \right)^{1/p}  \\
+		& = \left(  \int |g-g_1||g-g_1|^{p-1} \right)^{1/p} \\
+		& = || g-g_1||_\infty^{(p-1)/p} ||g-g_1||_{L^1}^{1/p} \\
+		& = \delta^{1/p} ||g-g_1||_\infty^{1-1/p}  \\
+		& = 2 ||g||_{L^\infty}^{1-1/p} \delta^{1/p}.
+	\end{align*}
+	Choosing \( \delta \) sufficiently small,
+	\begin{align*}
+		\leq \eps.
+	\end{align*}
+	By Minkowski, \( g \in C_c^0(\R^N) \), 
+	\begin{align*}
+		||f-g_1||_{L^p} \leq || f -g ||_{L^p} + ||g-g_1||_{L^p} \leq 2 \eps, 
+	\end{align*}
+	as desired. Hence, \( C_c(\R^N) \) is dense in \(L^p(\R^N) \). 
+\end{proof} 
 
+
+\begin{thm}
+The vector space \(L^p(\R^N) \) is separable. 	
+\end{thm}
+\begin{proof}
+	Define the following, 
+	\begin{align*}
+		\mathcal{R} := \left\{ \prod_{k=1}^N ]a_k, b_k[,\ a_k, b_k \in \mathbb{Q} \text{ rational rectangles.}  \right\}. 
+	\end{align*}
+	And let, 
+	\begin{align*}
+		\mathcal{E} := \left\{ \text{finite linear combination of elements of } \chi_\mathcal{R}, R \in \mathcal{R}, \text{ with rational coefficients.}  \right\} 
+	\end{align*}
+	(You can think of this as a vector space over the rationals \( \mathbb{Q} \)). \textbf{Claim:} \( \mathcal{E} \) is dense in \( \L^p \). Given an \( f \in L^p(\R^N) \), \( \eps > 0 \) we know that there is a \( f_1 \in C_c^0(\R^N) \) such that, 
+	\begin{align*}
+		|| f - f_1 || < \eps.
+	\end{align*}
+	Let \( \text{supp}(f_1) \subseteq R \subseteq \mathcal{R} \). Now, for all \( \delta > 0 \), build an \( f_2 \in \mathcal{E} \) such that \( || f_1 - f_2 ||_\infty < \delta \). Indeed, re-write, 
+	\begin{align*}
+		R := \bigcup_{i=1}^N R_i \text{ where } R_i \in \mathcal{R} \text{ and } \forall i, \text{osc}_{R_i} f_1 = \sup_{R_i} f_1 - \inf_{R_i} f_1 < \delta.
+	\end{align*}
+	Hence, 
+	\begin{align*}
+		f_2 = \sum_{i=1}^N q_i \chi_{R_i} \text{ with } q_i \in \mathbb{Q}, q \approx f_1|_{R_i}.
+	\end{align*}
+	Which implies, 
+	\begin{align*}
+		||f_1 - f_2||_{L^\infty} \leq \delta.
+	\end{align*}
+	So, 
+	\begin{align*}
+		||f_1 - f_2||_{L^p} & \leq ||f_1 - f_2||_\infty |R|^{1/p} \text{ (compact support) } \\
+		& \leq \delta |R|^{1/p} \\
+	 & < \delta \text{ for \( \delta \) chosen. }
+	\end{align*}
+	Which implies that, 
+	\begin{align*}
+		||f - f_2 ||_{L^p} & \leq ||f-f_1||_{L^p} + ||f-f_2||_{L^p} \\
+						 & \leq \eps + \eps = 2 \eps,
+	\end{align*}
+	as asserted.
+\end{proof}
+
+\begin{rem}
+These results are more general. In particular, if \( \Omega \) is separable, then \(L^p(\Omega) \) is separable. 	
+\end{rem}
+
+
+\subsection{Convolutions and Mollifers}
+
+\begin{defn}[Convolution]
+	Let \(f \) and \( g \) be functions. Their \textbf{convolution} is defined as: 
+	\begin{align*}
+		(f * g)(x) := \int_{\R^N} f(x-y)g(y) dy = \int_{\R^N} g(x-y)f(y) dy = (g*f)(x).
+	\end{align*}
+\end{defn}
+
+\begin{thm}[Young's Inequality]
+		If \( f \in L^1 \), \( g \in L^p \), then, 
+		\begin{align*}
+			\boxed{||f *g||_{L^p} \leq ||f||_{L^1} ||g||_{L^p}}
+		\end{align*}
+		Hence, \( f*g \in L^p \) and hence \( f *g \) is defined almost everywhere.
+\end{thm}
+
+\begin{prop}
+	Let \( f, g \) be functions. Then, 
+	\begin{align*}
+		\text{supp}(f*g) \subseteq \overline{ \text{sup}(f) + \text{sup}(g) }
+	\end{align*}
+\end{prop}
+
+\begin{rem}
+	If \( f, g \) are both compactly supported, then \( f * g \) is compactly supported. If only one is compactly supported, you cannot say anything.	
+\end{rem}
+
+\begin{defn}[\(L^p_{\text{loc}} \) ]
+	Let \( f \) be a function. \( f \in L^p_{\text{loc}} \) if \( f \chi_{K} \in L^p \) for all \(K \) compact, \(K \subseteq \Omega \).
+\end{defn}
+
+\begin{rem}
+	By using some sort of a Hölder-estimate, we can show that \( f \in L^p_{\text{loc}} \Rightarrow f \in L^1_{\text{loc}}\).
+\end{rem}
+
+\begin{prop}
+	Let \( f \), \( g \) be functions. If \( f \in C_c^0(\R^N) \),  \( g \in L^1_{\text{loc}}(\R^N) \). Then, \( (f *g)(x) \) is defined for every \( x \) and \( (f*g) \in C(\R^N) \). 
+\end{prop}
+
+\begin{proof}
+	We have that for every \( x \in \R^N \), 
+	\begin{align*}
+		 \left| \int f(x-y)g(y)dy \right| & = \left| \int g(x-y)f(y)dy \right| \\
+		 & \leq || f ||_\infty \int_K |g(x-y)| dy \text{ (by compactly supported) } \\
+		 & \leq ||f||_\infty ||g||_L^1(\tilde{K}) \text{ (since } g \in L^1_{\text{loc}} \text{)}\\
+		 & < \infty 
+	\end{align*}
+	Since \( \tilde{K} \) is compact. Now suppose that \( x_n \rightarrow x \) (which means that \( |x_n - x| \leq B_1 \) for all \( n \geq N \)). Then, since \( \text{supp}(f) \) is compact, there exists a compact set such that, 
+	\begin{align*}
+		| f(x_n - y) - f(x-y) | \leq \varepsilon_n \chi_K(y) 
+	\end{align*}
+	(by the uniform continuity and by taking \( \eps_n \rightarrow 0 \)). So, now it's obvious, 
+	\begin{align*}
+		| (f*g)(x_n) - (f*g)(x) | \leq \eps_n \int_K |g(y)|dy \rightarrow 0, 
+	\end{align*}
+	where the last limit follows from the fact that \( g \in L^1_{\text{loc}}\).
+\end{proof}
+
+\textbf{Mollification} is approximating a function by a smooth function. We define a \textbf{mollifier} by:
+\begin{align*}
+	\rho(x) := \begin{cases}
+		C \text{exp} \left( - \frac{1}{1-|x|^2} \right) & \text{ if } |x| \leq 1, \\
+		0 & \text{ if } |x| > 1
+	\end{cases}
+\end{align*}
+This is continuous and smooth, with \( C \) chosen based on the dimensions such that, 
+\begin{align*}
+		\int_{\R^N} \rho(x) dx = 1.
+\end{align*}
+Note that \( \rho \in C_c^\infty (\R^N) \). We define: 
+\begin{align*}
+	\rho_h(x) := \frac{\rho(x/h)}{h^N} \hspace{1cm} u_h(x) := (\rho_h * u)(x) = \frac{1}{h^N} \int_{\Omega} \rho \left( \frac{x-y}{h} \right) u(y)dy.
+\end{align*}
+
+
+\begin{prop}
+	Let \( u \in C_c^0(\Omega) \). Then, \( u_h \in C_c^\infty (\Omega) \) and if \( u < \mathrm{dist}(\mathrm{supp}, \partial \Omega ) \), then \( u_h \rightarrow u \) uniformly on \( \Omega \) as \( h \rightarrow 0 \). 
+\end{prop}
+
+\begin{proof}
+	Let \( h < \mathrm{dist}(\mathrm{supp}, \partial \Omega) \). Observe that by the dominated convergence theorem, 
+	\begin{align*}
+		\partial_i u_h(x) = \int_\Omega \partial_i \rho \left( \frac{x-y}{h} \right) u(y)dy, 
+	\end{align*}
+	where \( \partial_i \rho \left( \frac{x-y}{h} \right)  \) is smooth with compact support, and hence the integral is finite. This implies that \( \rho \in C_c^\infty (\Omega) \) and hence \( u_h \in C_c^\infty (\Omega ) \). Observe, 
+	\begin{align*}
+		& \frac{1}{h^N} \int_{\R^N} \rho \left( \frac{y}{h} \right) dy = 1 \\
+		\Rightarrow & \frac{1}{h^N} \int_{B(0, h)} \rho \left( \frac{y}{h} \right) dy = 1  \\
+		\Rightarrow & \frac{1}{h^N} \int_{B(0,h)} \rho \left( \frac{x-y}{h} \right) dy = 1\ \forall x.  
+	\end{align*}
+	Hence, 
+	\begin{align*}
+		u_h(x) - u(x) = \frac{1}{h^N} \int_{\Omega} \rho \left( \frac{x-y}{h} \right) [ u(y) - u(x) ] dy  \text{ (multiplying by 1 in a smart way)} 
+	\end{align*}
+	Hence, 
+	\begin{align*}
+		| u_h(x) - u(x) | & = \left| \frac{1}{h^N} \int_{|x-y| \leq h} \rho \left( \frac{x-y}{h} \right) |u(y) - u(x) | dy \right|  \\
+		& \leq \sup_{|x-y| \leq h } |u(y) - u(x) | \frac{1}{h^N} \int_{|x-y| \leq h } \rho \left( \frac{x-y}{h} \right) dy \\
+		& = \sup_{|x-y| \leq h } |u(y) - u(x) |. 
+	\end{align*}
+	Invoking the uniform continuity of \( u \in C_c^0 \), we can bound \( \sup_{|x-y| \leq h } |u(y) - u(x) | \leq u(h) \). Hence, 
+	\begin{align*}
+		\sup_{x \in \Omega} |u_h(x) - u(x) | \rightarrow 0 \text{ as } h \rightarrow 0.
+	\end{align*}
+\end{proof}
+
+\begin{thm}
+	Assume that \( f \in L^p(\R^N) \) with \( 1 \leq p < \infty \). Then, 
+	\begin{align*}
+		(\rho_h *f) \rightarrow f \text{ as } h \rightarrow 0 \text{ in } L^p.
+	\end{align*}	
+\end{thm}
+
+\begin{proof}
+	Fix an \( \eps > 0 \). We know that there exists an \( f_1 \in C_c^0(\R^N) \), \( ||f-f_1||_L^P < \eps \). Also, since \( f_1 \in C_c^0(\R^N) \), we know that 
+	\begin{align*}
+		(\rho_h * f_1) \rightarrow f_1 \text{ uniformly.} 
+	\end{align*}
+	We also have that
+	\begin{align*}
+		\mathrm{supp}(\rho_h * f_1) & \subseteq \overline{B(0,h) + \mathrm{supp}(f_1) } \\
+		& \subseteq \underbrace{\overline{B(0,1) + \mathrm{supp}(f_1)}}_{\text{compact}}
+	\end{align*}
+	Hence, 
+	\begin{align*}
+		|| (\rho_h * f_1) - f_1||_{L^p} \rightarrow 0.
+	\end{align*}
+	Thus, 
+	\begin{align*}
+		(\rho_h * f) - f = (\rho_h * (f-f_1)) + [ (\rho_h *f_1) -f_1] + f_1 - f.
+	\end{align*}
+	By the triangle inequality and Young's inequality, 
+	\begin{align*}
+		|| (\rho_h *f)-f||_{L^p} \leq 2 \underbrace{|| f-f_1||_{L^p}}_{:=(1)} + \underbrace{||(\rho_h *f_1) - f_1 ||_{L^p}}_{:=(2)}
+	\end{align*}
+	Where \( (1) \) is small by density and \( (2) \) is small because we just did it. Hence, 
+	\begin{align*}
+		& \limsup_{h \rightarrow 0 } || (\rho_h * f) - f ||_{L^p} \leq \eps \\
+		\Rightarrow & \lim_{h \rightarrow 0 } || (\rho_h *f) -f ||_{L^p} = 0 
+	\end{align*}
+\end{proof}
+
+\begin{cor}
+	Let \( \Omega \subseteq \R^N \) (possibly all of \( \R^N \)) with \( 1 \leq p < \infty \). Then, \( (\rho_h *f) \rightarrow f \) in \( L^P(\R^N) \) as \( h \rightarrow 0 \).
+\end{cor}
+
+\begin{proof}
+	Given an \( f \in L^p(\Omega) \), we extend to \( \overline{f} \in L^p(\R^n) \) by:
+	\begin{align*}
+		\overline{f}(x) := \begin{cases}
+			f(x) & x \in \Omega, \\
+			0 & x \in \R^n \setminus \Omega.
+		\end{cases}
+	\end{align*}
+	Let \( \{ K_N \} \subseteq \R^N \) be a compact set such that \( \bigcup_{n=1}^\infty K_N = \Omega \). (Remark: if \( \Omega \subseteq \R^N \) is bounded, then \( \mathrm{dist}(K_n \cap \Omega^c) > 2/n \)). Now let \( g_n := \overline{f} \chi_{K_n} \). This is compactly supported. Also, \( f_n := \rho_{1/n} * g_n \) is compactly supported. Hence, 
+	\begin{align*}
+		\mathrm{supp}(f_n) \subseteq \overline{B(0, 1/n) + K_n} \subseteq \Omega,
+	\end{align*}
+	and \( f_n \in C_c^\infty (\Omega) \) for all \( n \in \mathbb{N} \). Also, 
+	\begin{align*}
+		|| f_n - f||_{L^p(\Omega)} & = || f_n - \overline{f} ||_{L^p(\R^N)} \\
+		& \leq || ( \rho_{1/n} * g_n) - (\rho_{1/n} * \overline{f} ) ||_{L^p(\R^N) } + || (\rho_{1/n} * \overline{f} ) - \overline{f} ||_{L^p(\R^N)}  \text{ (Minkowski and triangle inequality)} 
+	\end{align*}
+	By the linearity of convolution, 
+	\begin{align*}
+		\leq || \rho_{1/n} * (g_n - \overline{f} ) ||_{L^p(\R^N)} + || (\rho_{1/n} * \overline{f} ) - \overline{f} ||_{L^p(\R^N) }.
+	\end{align*}
+	Apply Young's Inequality to the first term, 
+	\begin{align*}
+		\leq || g_n - \overline{f}||_{L^p(\R^N)} + || (\rho_{1/n} * \overline{f}) - \overline{f}||_{L^p(\R^N)}.
+	\end{align*}
+	Note that \( g_n := \overline{f}\chi_{k_n } \), and hence by the dominated convergence theorem, 
+	\begin{align*}
+		||g_n - \overline{f} ||_{L^p(\R^N)} \rightarrow 0, 
+	\end{align*}
+	and by the last theorem, 
+	\begin{align*}
+		|| ( \rho_{1/n} * \overline{f} ) - \overline{f} ||_{L^p(\R^N) } \rightarrow 0.
+	\end{align*}
+	Combining everything together, we get
+	\begin{align*}
+		||f_n - f||_{L^p(\Omega) } \rightarrow 0.
+	\end{align*}
+	Which proves that smooth functions with compact support are dense in \( L^p \).
+\end{proof}
+
+\subsection{Hilbert Spaces}
+
+\begin{defn}[Inner Product]
+	An \textbf{inner product} over a vector space \( X \) is a map \( \langle \cdot, \cdot \rangle: X \times X \rightarrow \R \) such that:
+	\begin{enumerate}
+		\item \( \langle \lambda x + \mu y, z \rangle = \lambda \langle x, z \rangle + \mu \langle y, z \rangle \) for all \( \lambda, \mu \in \R \).
+		\item \( \langle y, x \rangle = \langle x, y \rangle \) for all \( x, y \in X \). 
+		\item \( \langle x, x \rangle \geq 0 \) for all \( x \in X \) and \( \langle x, x \rangle = 0 \iff x =0 \).
+	\end{enumerate}
+\end{defn}
+An inner product generates a norm: 
+\begin{align*}
+	|| x || := \sqrt{ \langle x, x, \rangle}.
+\end{align*}
+And we have Cauchy-Schwarz: 
+\begin{align*}
+	\boxed{|\langle x, y \rangle | \leq || x || || y ||}
+\end{align*}
+Proof of Cauchy-Schwarz:
+\begin{proof}
+	Let \( z := x - \frac{\langle x, y \rangle}{\langle y, y \rangle} y \). We have that, 
+	\begin{align*}
+		0 \leq || z ||^2 &  = \left\langle x - \frac{\langle x, y \rangle}{\langle x, x \rangle}y, x - \frac{\langle x, y \rangle}{\langle y, y \rangle} \right\rangle  \\
+		& = \langle x, x \rangle - \frac{\langle x, y \rangle^2}{\langle y, y \rangle} - \frac{\langle x, y \rangle^2}{\langle y, y \rangle} + \frac{\langle x, y \rangle^2 \langle y, y \rangle}{\langle y, y \rangle^2} \\
+		& = ||x||^2 - \frac{\langle x, y \rangle^2}{||y||^2}
+	\end{align*}
+	And hence, 
+	\begin{align*}
+		\langle x, y \rangle^2 \leq || x||^2 ||y||^2 \iff \boxed{. || \langle x, y \rangle || \leq || x || || y || }
+	\end{align*}
+\end{proof}
+
+\begin{defn}[Hilbert Space]
+	A \textbf{Hilbert Space} \( \mathcal{H} \) is a complete inner product space (with respect to the norm induced by the inner product). This satisfies the parallelogram law, 
+	\begin{align*}
+		\boxed{||u+v||^2 + ||u-v||^2 = 2 ||u||^2 + 2 ||v||^2}
+	\end{align*}
+\end{defn}
+Examples of Hilbert Spaces you've encountered:
+\begin{enumerate}
+	\item \( \ell^2 \) with the inner product \( \langle x, y \rangle = \sum_{i=1}^\infty x_i y_i \). 
+	\item \( L^2 \) with inner product \( \langle f, g \rangle := \int_\Omega f(x) g(x) dx \).
+\end{enumerate}
 
 
 
