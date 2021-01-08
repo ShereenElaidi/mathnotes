@@ -1,0 +1,40 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{enumitem} 
+\setlist[enumerate]{itemsep=0mm}
+\setenumerate{label=(\arabic*)}
+\begin{document}
+\begin{center}
+	\textbf{PHYS 514: General Relativity Lecture Notes} \\
+	\textbf{Shereen Elaidi}
+\end{center}
+
+\section*{Lecture 1: 7 January 2020}
+\emph{What is GR?} GR is the modern theory of classical gravity that incorporates the effects of special relativity. The basic idea is the following: gravity is a force. Most forces are described by fields. \emph{What are fields}? We have the following examples of fields: 
+\begin{enumerate}[noitemsep]
+	\item The Newtonian gravitational Potential, \( \Phi \). 
+	\item For electromagnetism, we have the electromagnetic fields \(  E \) and \( B \). 
+\end{enumerate}
+We call such a theory a \textbf{field theory}. A classical field theory has two ingredients that make up a theory of forces described by fields: 
+\begin{enumerate}[noitemsep]
+	\item \textbf{A field equation}: an equation of motion which tells us exactly how the field is determined by some set of forces. This is typically a 2nd order ODE. For example: 
+	\begin{enumerate}[noitemsep]
+		\item The field equation for Newtonian gravity is \( \nabla^2 \Phi = 4 \pi G \rho \). 
+		\item The field equations for E\&M are Maxwell's equations. 
+	\end{enumerate}
+	\item \textbf{Force Law:} an equation which determines how objects move in the presence of a field. For example: 
+	\begin{enumerate}[noitemsep]
+		\item For Newtonian gravity, this is \( F = ma = m \nabla \Phi \).
+		\item For E\&M, this is the Lorentz force law \( F = q(E + v \times B ) \).
+	\end{enumerate}
+\end{enumerate}
+The fields are functions of points in space-time. We write them as \( \Phi(t,x) \) for the gravitational field or \( E(t,x) \) for the electric field. The force law tells us how the objects move, i.e., how they deviate from a straight line (\( a = 0 \) ). The modern perspective of GR is the following: it is not a field theory; it is something totally different-- gravity is not due to a field \( \Phi \) that is a function of space-time, but is instead a feature of space-time itself. Hence, we replace the \( \Phi \) with a ``metric tensor'' which describes the curvature / geometry of space-time. 
+\newline
+\newline
+The field equation of GR determines how space-time curves in the presence of matter or energy. This field equation is a differential equation for the metric of space-time that helps us determine how space-time curves in the presence of matter. 
+\newline
+\newline
+The force law is the geodesic equation, which tells us how objects move through curved space-time. In short, this means that objects travel on \textbf{geodesics}, which are as straight as possible given the curvature of space-time. For example, on a plane, the shortest way to travel between two points is simply a line. However, for a sphere, the curve that minimises distance is the arc of a great circle. 
+
+
+\end{document}
