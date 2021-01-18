@@ -1,6 +1,14 @@
 \documentclass[11pt]{article}
 \usepackage[margin=2cm]{geometry}
 \usepackage{enumitem} 
+\usepackage{amsmath} 
+\usepackage{amsfonts}
+\newcommand{\R}[0]{\mathbb{R}}
+
+% relativity commands
+\newcommand{\srmetric}[0]{\eta_{\mu \nu}}
+\newcommand{\grmetric}[0]{g_{\mu \nu}}
+
 \setlist[enumerate]{itemsep=0mm}
 \setenumerate{label=(\arabic*)}
 \begin{document}
@@ -36,5 +44,164 @@ The field equation of GR determines how space-time curves in the presence of mat
 \newline
 The force law is the geodesic equation, which tells us how objects move through curved space-time. In short, this means that objects travel on \textbf{geodesics}, which are as straight as possible given the curvature of space-time. For example, on a plane, the shortest way to travel between two points is simply a line. However, for a sphere, the curve that minimises distance is the arc of a great circle. 
 
+\section*{Lecture 2: 12 January 2021} 
+Space time is a set of points at which events could take place, which can be parameterized in a smooth manner by a coordinate system, such as cartesian coordinates (t, x). We call points in space-time \textbf{events}. Physics should be independent of the coordinate system used. 
+\newline 
+\newline 
+In Newtonian physics, for two points \( (t_1, x_1) \) and \( (t_2, x_2) \), we can define the time-separation and spatial separations:
+\begin{align*}
+	\Delta t & = t_2 - t_1, \\
+	\Delta x & = \sqrt{(x_2-x_1)^2}.
+\end{align*}
+These two quantities have independent meaning and make sense in Newtonian physics (this is called the principle of general covariance). In SR, there is no separate notion of time and space (time separation/distance) between two events. In other words, \( \Delta t \) and \( \Delta x \) do not make sense independently. These depend on the frame of reference in which they are measured. But, there is a notion of an ``invariant interval'' between two events. Given two events, 
+\begin{align*}
+	\Delta s^2 & = -c^2 \Delta t^2 + \Delta x^2 \\
+			& = - \Delta t^2 + \Delta x^2 \text{ (units where \( c = 1 \) ) }
+\end{align*}
+When we talk about space-time, it's useful to draw pictures. We'll plot pictures in space-time using a \textbf{space-time diagram}, with time running vertically. Curves of a fixed \( \Delta s \) trace out hyperbolae. We have that light-rays travel on \( 45 \) degree lines. We have three cases: 
+\begin{enumerate}[noitemsep]
+	\item \( \Delta s^2 = 0 \): these two points can be connected by a light ray. These pairs of events are called \textbf{null-separated} or \textbf{light-like separated}. 
+	\item \( \Delta s^2 < 0 \): these points/events can be connected with a trajectory with a velocity less than \( c \). We call such events \textbf{time-like separated}. 
+	\item \( \Delta s^2 > 0 \): these are points which cannot be connected as above. We call such events \textbf{space-like separated}.
+\end{enumerate}
+\textbf{Claim:} all of special relativity can be reduced to the following statement: 
+\begin{quote}
+	For two time-like separated events, the proper time \( \Delta \tau \) measured by an observer moving at a constant velocity between the events is given by:
+	\begin{align*}
+		( \Delta \tau ) ^2 = - ( \Delta s)^2.
+	\end{align*}
+\end{quote}
+This reproduces various phenomena. For example, consider \textbf{time-dilation}. Using the above, we can deduce that the relative age difference between the two twins would be \( \frac{2 \Delta \tau}{\Delta t} =\sqrt{1-v^2} \). We see a similar result for \textbf{length contraction}: \( \frac{\Delta \tau^2}{t^2} = 1 - v^2 \). In our world, we have three spatial coordinates, and so the invariant interval takes the following form:
+\begin{align*}
+	\Delta s^2 = - \Delta t^2 + \Delta x_1^2 + \Delta x_2^2 + \Delta x_3^2. 
+\end{align*}
+To write this more compactly, we'll introduce a new notation. Let \( x^\mu = (t, x) \) where \( \mu = 0, 1, 2, 3 \). Then, we can write the invariant interval as: 
+\begin{align}
+	(\Delta s)^2 & = \sum_{\mu, \nu = 0}^3 g_{\mu \nu} \Delta x, 
+\end{align}
+where, 
+\begin{align*}
+	g_{\mu \nu} = \begin{bmatrix}
+		-1 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 1
+	\end{bmatrix}. 
+\end{align*}
+That matrix is the ``metric'' of flat space-time in cartesian coordinates. We can write things even more compactly by introducing \textbf{Einstein summation notation}:
+\begin{align*}
+	\Delta s^2 = g_{\mu \nu} \Delta x^\mu \Delta x^\nu. 
+\end{align*}
+We read this by knowing that repeated indices are summed. Since \( \mu \) and \( \nu \) range from 0 to 3, we will be summing the above from 0 to 3. 
+\newline
+\newline
+You are familiar with Euclidean space \( \R^2 \) and \( \R^3 \). Minkowski space is denoted by \( \R^{3,1} \); this is just like \( \R^4 \) except we have a negative sign in the formula for the distance. This gives us a \textbf{Lorentzian space-time}. 
+
+
+\section*{Lecture 3: 14 January 2021}
+\subsection{Special Relativity and the Equivalence Principle}
+We left off last time with a reformulation of special relativity as the geometry of space-time. In particular, 
+\begin{quote}
+	The proper time \( \Delta \tau \) measured by an observer moving at a constant velocity between two points in space-time is given by the invariant interval \( \Delta s \): 
+	\begin{align*}
+		(\Delta \tau)^2 = - (\Delta s)^2, 
+	\end{align*}
+	where \( \Delta s^2 = - \Delta t^2 + (\Delta x)^2 \) in Cartesian coordinates. 
+\end{quote}
+Recalling that \( \Delta x^\mu = (\Delta t, \Delta x) \), we can write the above using the metric as: 
+\begin{align*}
+	\Delta s^2 = \eta_{\mu \nu} \Delta x^\mu \Delta x^\nu, 
+\end{align*}
+where the metric is given by the following matrix:
+\begin{align*}
+	\ \eta_{\mu \nu} = \begin{bmatrix}
+		-1 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 1 
+	\end{bmatrix}. 
+\end{align*}
+Now, we want to build up to the equivalence principle. This requires us to think about observers who are accelerating (basic idea of the equivalence principle). For us, accelerating means that observers are moving through a path in space-time which is not in a straight line. 
+\newline
+\newline
+A general path through space-time is known as a \textbf{world-line}. It is parameterized by four functions. Let \( \lambda \) be our parameter which labels different points on the curve. Then:
+\begin{align*}
+	x^\mu(\lambda) = (t (\lambda), x^1(\lambda), x^2 (\lambda), x^3 (\lambda)). 
+\end{align*}
+\textbf{Q: How would you measure the proper time of an observer moving on this trajectory: \( \Delta \tau \)?}
+The proper time \( \Delta \tau \) measured on an observer can be obtained by taking the following limiting process: break the curve down into small segments, approximate each segment by straight lines, then apply the formula from the previous lecture to proper time along a straight line. Then, take the limit as the length of each interval goes to zero. This gives us that the proper time along a path is \( \sqrt{-(\Delta s)^2 } \), where
+\begin{align}
+	\Delta s = \int \sqrt{- \left( \frac{dt}{d \lambda} \right)^2 + \left(  \frac{dx^1}{d \lambda} \right)^2 + \left(  \frac{dx^2}{d  \lambda} \right)^2 + \left(  \frac{dx^3}{d \lambda} \right)^2} d \lambda. 
+\end{align}
+Observe that the above is similar to the arc-length of a curve from calculus. Using the Einstein summation notation, we can write this more compactly as: 
+\begin{align}
+\Delta s= \int \sqrt{\srmetric \frac{\partial x^\mu}{\partial \lambda} \frac{\partial x^\nu}{\partial \lambda}} d \lambda. 	
+\end{align}
+We will write this as \( \Delta s= \int ds \), where \( ds \) is an infinitesimal interval of space-time. We call it the \textbf{line-element of ST in GR}: 
+\begin{align*}
+	ds^2 = \srmetric dx^\mu dx^\nu 
+\end{align*}
+which we got by cancelling the \( d \lambda \) in the above. Now, special relativity is the statement that ``line element'' is given by
+\begin{align*}
+	ds^2 = \srmetric dx^\mu dx^\nu  \text{ with } \srmetric = \begin{bmatrix}
+		-1 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 1
+	\end{bmatrix}.
+\end{align*}
+GR is a very simple modification of the above statement; GR is the statement that all the effects of gravity are packages in terms of the replacement of \( \srmetric \) by \( \grmetric(x) \); the components depend on the coordinates themselves. We call this the ``metric of curved space-time.'' \( \srmetric \) is parameterized by 16 functions of \( x \). Hence, to summarise, every statement of ST goes to GR with the proviso that 
+\begin{align}
+	ds^2 = \grmetric dx^\mu dx^\nu. 	
+\end{align}
+In GR, light rays still travel along null trajectories, but the null trajectory is defined as \( ds = 0 \) rather than \( \Delta s = 0 \) as previously. Similarly, time-like trajectories (trajectories which massive objects travel along) has \( (ds)^2 < 0 \) for every point along the trajectory. The proper time measured by an observer who travels along a wordline \( x^\mu(\lambda) \) is again given by: 
+\begin{align}
+	\Delta \tau^2 = - \Delta s^2, 	
+\end{align}
+where \( \Delta s = \int ds \) where \( ds \) is given by:
+\begin{align}
+	\Delta s - \int \sqrt{\grmetric \frac{dx^\mu}{d \lambda} \frac{dx^\nu}{d \lambda}} d \lambda. 	
+\end{align}
+
+With this geometric formulation, general relativity is a nearly trivial modification of special relativity. Just replace \( \srmetric \) with \( \grmetric \). We still need some dynamical principle (this will be Einstein's field equations) and we need some mathematical tools. For example, the above gives us time dilation, which then give us phenomena such as red shift in cosmology and event horizons for black holes. 
+
+\subsection{Why GR is a simple modification of SR (Equivalence Principle)}
+The equivalence principle starts with a very simple but powerful observation about gravity. In Newtonian gravity, the way that you describe dynamics is by determining force. Let \( m_i \) be the inertial mass of an object and let \( m_g \) be the gravitational mass of an object. Let \( \Phi \) be the gravitational potential. Then, 
+\begin{align*}
+	F & = m_i a \\
+	& = - m_g \nabla \Phi. 
+\end{align*}
+In principle, \( m_i \) may not be equal to \( m_g \). But, it is an \emph{experimental fact} that for every object that we know, \( m_i = m_g \). You can cancel them out and get the first \textbf{equivalence principle}: 
+\begin{align} 
+	\boxed{ a = - \Delta \Phi  } 
+\end{align} 
+for all objects, independent of their mass (think of the Leaning tower of Pisa experiment or the feather dropping experiments from space). Note that it is possible that we could discover a new form of matter for which this is not true, in which case we would need to modify GR to deal with that. The above implies that in the presence of a gravitational potential, there is a preferred set of trajectories which any freely-falling object would prefer. These trajectories are the solutions of \( a = - \Delta \Phi \). We call those trajectories \textbf{inertial trajectories}. 
+\newline
+\newline
+Consider a small region of space-time where \( \nabla \Phi \) is approximately constant. Call that constant \( - a_0 \). The basic idea of the \textbf{Weak Equivalence Principle} is the following: 
+\begin{quote}
+	In this very small region, the effects of gravity are \emph{indistinguishable} from the effects of being in a constantly accelerating reference frame. 
+\end{quote}
+We can see this via a thought experiment. Consider two labs: one situated on Earth, and another attached to the end of a rocket in space which is accelerating with \( a_0 = g \). The EOM of an object in the first lab is \( \ddot{x} = -g \). The EOM of an object in the second lab would be \( x' = x- \frac{1}{2} gt^2 \), i.e., \( \ddot{x'} = -g \). This means that if you were to do experiments in these labs, there is no way to tell which scenario that you are in, i.e., the laws are the same. We call forces which arise due to acceleration \textbf{fictitious forces}. 
+\newline
+\newline
+The equivalence principle is the statement that in a very small area, the effects of gravity are indistinguishable from a fictitious force due to acceleration. In this case, the metric of flat space-time (Minkowski space) will no longer be constant when written in terms of accelerating coordinates, which then gives us that the effects of gravity can be captured by changes in the metric. 
+\newline
+\newline
+Once \( \Delta \Phi \) is no longer approximately constant, i.e., when we are no longer in a region of space-time which is small, we cannot just think of gravity in terms of acceleration (fictitious forces). For example, in a very lab due to tidal forces, we can use experiments to tell if there is varying gravitational potential present; this cannot be mimicked by a constantly accelerating reference frame.
+\newline
+\newline
+Let's conclude by reformulating the EP (Equivalence Principle) a bit: 
+\begin{quote}
+	\textbf{Einstein Equivalence Principle}: in a sufficiently small region of space-time, the laws of physics reduce to those of SR. In other words, space-time \emph{locally} looks like Minkowski space \( \R^{3,1} \). 
+\end{quote}
+We'll spend the next few weeks unpacking the above statement. There's also a V2 of the EEP: 
+\begin{quote}
+	\textbf{EEP'}: for any point \( x_0^\mu \), there is a coordinate system such that the line element takes the form of that in SR near \( x_0^\mu \). Mathematically: 
+	\begin{align*}
+		ds^2 = \srmetric dx^\mu dx^\nu + O(x-x_0^\mu), 
+	\end{align*}
+	where \( O(x-x_0^\mu) \) represents the extent to which gravity is not a fictitious force. 
+\end{quote}
 
 \end{document}
