@@ -9,6 +9,17 @@
 \newcommand{\srmetric}[0]{\eta_{\mu \nu}}
 \newcommand{\grmetric}[0]{g_{\mu \nu}}
 
+% hyper-ref commands
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+
 \setlist[enumerate]{itemsep=0mm}
 \setenumerate{label=(\arabic*)}
 \begin{document}
@@ -16,8 +27,9 @@
 	\textbf{PHYS 514: General Relativity Lecture Notes} \\
 	\textbf{Shereen Elaidi}
 \end{center}
+\tableofcontents
 
-\section*{Lecture 1: 7 January 2020}
+\section{Lecture 1: 7 January 2020}
 \emph{What is GR?} GR is the modern theory of classical gravity that incorporates the effects of special relativity. The basic idea is the following: gravity is a force. Most forces are described by fields. \emph{What are fields}? We have the following examples of fields: 
 \begin{enumerate}[noitemsep]
 	\item The Newtonian gravitational Potential, \( \Phi \). 
@@ -44,7 +56,7 @@ The field equation of GR determines how space-time curves in the presence of mat
 \newline
 The force law is the geodesic equation, which tells us how objects move through curved space-time. In short, this means that objects travel on \textbf{geodesics}, which are as straight as possible given the curvature of space-time. For example, on a plane, the shortest way to travel between two points is simply a line. However, for a sphere, the curve that minimises distance is the arc of a great circle. 
 
-\section*{Lecture 2: 12 January 2021} 
+\section{Lecture 2: 12 January 2021} 
 Space time is a set of points at which events could take place, which can be parameterized in a smooth manner by a coordinate system, such as cartesian coordinates (t, x). We call points in space-time \textbf{events}. Physics should be independent of the coordinate system used. 
 \newline 
 \newline 
@@ -98,7 +110,7 @@ We read this by knowing that repeated indices are summed. Since \( \mu \) and \(
 You are familiar with Euclidean space \( \R^2 \) and \( \R^3 \). Minkowski space is denoted by \( \R^{3,1} \); this is just like \( \R^4 \) except we have a negative sign in the formula for the distance. This gives us a \textbf{Lorentzian space-time}. 
 
 
-\section*{Lecture 3: 14 January 2021}
+\section{Lecture 3: 14 January 2021}
 \subsection{Special Relativity and the Equivalence Principle}
 We left off last time with a reformulation of special relativity as the geometry of space-time. In particular, 
 \begin{quote}
@@ -160,7 +172,7 @@ In GR, light rays still travel along null trajectories, but the null trajectory 
 \end{align}
 where \( \Delta s = \int ds \) where \( ds \) is given by:
 \begin{align}
-	\Delta s - \int \sqrt{\grmetric \frac{dx^\mu}{d \lambda} \frac{dx^\nu}{d \lambda}} d \lambda. 	
+	\Delta s = \int \sqrt{\grmetric \frac{dx^\mu}{d \lambda} \frac{dx^\nu}{d \lambda}} d \lambda. 	
 \end{align}
 
 With this geometric formulation, general relativity is a nearly trivial modification of special relativity. Just replace \( \srmetric \) with \( \grmetric \). We still need some dynamical principle (this will be Einstein's field equations) and we need some mathematical tools. For example, the above gives us time dilation, which then give us phenomena such as red shift in cosmology and event horizons for black holes. 
@@ -204,4 +216,217 @@ We'll spend the next few weeks unpacking the above statement. There's also a V2 
 	where \( O(x-x_0^\mu) \) represents the extent to which gravity is not a fictitious force. 
 \end{quote}
 
+
+\section{Lecture 4: 19 January 2020}
+\subsection{Manifolds}
+Space-time locally ``looks like'' Minkowski space \( \R^{3,1} \). On larger scales, gravity cannot just be regarded as a fictitious force. It's in the sense that a sphere locally looks like flat space. Precisely, this is the statement that ST is a four-dimensional pseudo-Riemannian \textbf{manifold}. We say that A \( D \)-dimensional \textbf{manifold} \( M \) is a set of points that can be labelled by coordinate systems in a smooth way. 
+\newline
+\newline
+Precisely, a coordinate system is a set of \( d \) functions \( x^i \) which label different points in some region \( U \subseteq M \) in a unique way. Mathematically, this is expressed as:
+\begin{align*}
+	x^i: \mathcal{U} \rightarrow \R^d, \hspace{1cm} i = 1, ..., D.
+\end{align*}
+The region \( \mathcal{U} \) which these coordinates label uniquely is called a \textbf{patch} or \textbf{coordinate patch} of the manifold which is `` covered'' by the \( x^i \). A \textbf{global coordinate system} is one which covers all of \( M \). Generally, there are many coordinate systems which may cover some patch \( \mathcal{U} \) of \( M \). 
+\newline
+\newline
+\textbf{E.g.:} \( x^i \) and \( x^{i'} \) are two different ways of labelling points in \( \mathcal{U} \). Then, we can talk about the coordinate transformation or a change of coordinates between \( x^i \) and \( x^{i'} \). These functions will be parameterized and \( C^\infty \). 
+\begin{align*}
+	x^i(x^{i'}) \text{ or } x^{i'}(x^i).
+\end{align*}
+If the coordinates \( x^i \) and \( x^{i'} \) uniquely, label points in some region \( \mathcal{U} \), then the Jacobian matrix
+\begin{align*}
+	\frac{\partial x^i}{\partial x^{i'}} = \frac{\partial x^{i}}{\partial x^{j'}}, 
+\end{align*}
+is invertible (each index runs from \(1, ...D \)). This describes the components of a \( D \times D \) matrix. If it's invertible, then we have that \( \text{det}\left(\frac{dx^i}{dx^j}  \right) \neq 0 \). If the determinant is zero, then one of the coordinate system has become degenerate in some way in the sense that it no longer labels points in a unique way. Hence, the coordinate system becomes singular. 
+\newline
+\newline
+For example, the plane \( \R^2 \) describes a two-dimensional manifold. Two coordinate systems on this manifold are the cartesian coordinates \( (x,y) \) (global coordinates) and polar coordinates \( (r, \theta) \). They are related by a chance of coordinates: 
+\begin{align*}
+	x^i & = (x^1, x^2)  = (x,y), \\
+	x^{i'} & = (x^{1'}. x^{2'} )  = (r, \theta).
+\end{align*}
+Then, the coordinate transformations arse given by: 
+\begin{align*}
+	x^{i}(x^{i'}): x = r \cos \theta,\ y = r \sin \theta
+\end{align*}
+and the inverse transformation is given by: 
+\begin{align*}
+	x^{i'}(x^{i}): r = \sqrt{x^2 + y^2},\ \theta = \arctan (y/x). 
+\end{align*} 
+Hence, the Jacobian matrix is given by: 
+\begin{align*}
+	\left( \frac{\partial x^i}{\partial x^{j'}} \right) & = \begin{bmatrix}
+		 \cos \theta & \sin \theta \\
+		 - r \sin \theta & r \cos \theta 
+	\end{bmatrix}
+\end{align*}
+We have that \( \text{det}(\text{jac}) = r \cos^2 \theta + r \sin^2 \theta = r \), which is non-zero only if \( r \neq 0 \).
+\newline
+\newline
+When describing space-time, we usually use a spatial notation for the coordinates: 
+\begin{align*}
+	x^\mu, \mu = 0, ..., 3. 
+\end{align*}
+Having greek indices mean that we are describing space-time; having Roman indices mean that we are describing a Euclidean manifold. For example: 
+\begin{align*}
+	x^\mu = (t, x) \text{ of } \R^{3,1} \text{ is an example of a coordinate system on a space-time.} 
+\end{align*} 
+\textbf{Most important sentence of this lecture: our goal is to write the laws of physics in such a way that any physical prediction made by these laws is independent of the choice of coordinate systems that we use to write the law.} For example, we had the same laws in Newtonian physics for both polar and cartesian coordinates. We give this goal the following name: \textbf{Principle of General Covariance}. 
+\newline
+\newline
+E.g., in previous lectures we met the line element \( ds^2 = \eta_{\mu \nu} dx^\mu dx^\nu \).  Under some change of coordinates \( x^\mu \rightarrow x^{\mu'}(x^\mu) \), we have that the line element transforms by multiplication by the Jacobian matrix: 
+\begin{align*}
+	dx^\mu = \left( \frac{\partial x^\mu}{\partial x^\nu} \right) dx^{\nu'}, 
+\end{align*}
+What this is saying is the following: if I displaced \( \nu' \) by some infinitesimal amount, and asked how much \( \mu \) changed, then the above equation (basically thanks to the chain rule), will answer that question for us. This becomes clear with an example: 
+\newline
+\newline
+\textbf{E.g.:} set \( x = r \cos \theta, y = r \sin \theta \). Then, 
+\begin{align*}
+	dx & = \cos \theta r -  r \sin \theta d \theta, \\
+	dy & = \sin \theta dr + r \cos \theta d \theta. 
+\end{align*}
+How does the line element transform? We apply the formula:
+\begin{align*}
+	ds^2 & = \srmetric dx^\mu dx^\nu \\
+		& = \left( \frac{\partial x^\mu}{\partial x^{\mu'}} dx^{\mu'} \right) \left( \frac{\partial x^\nu}{\partial x^{\nu'}} dx^{\nu'} \right) \srmetric \\
+		& = g_{\mu' \nu'}dx^{\mu'} dx^{\nu'}, 
+\end{align*}
+where 
+\begin{align*}
+	g_{\mu' nu'} = \srmetric \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^\nu}{\partial x^{\nu'}}. 
+\end{align*}
+In other words, the metric transforms as: 
+\begin{align*}
+	\srmetric \rightarrow g_{\mu' \nu'} = \srmetric \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^\nu}{\partial x^{\nu'}}. 
+\end{align*}
+\textbf{E.g.:} the line element of flat space \( \R^2 \) is the thing that we use to measure distances: 
+\begin{align*}
+	ds^2 = dx^2 + dy^2. 
+\end{align*}
+In polar coordinates, this becomes: 
+\begin{align*}
+	ds^2 & = dx^2 + dy^2 \\
+	& = ( \cos \theta dr - r \sin \theta d \theta)^2 + ( \sin \theta dr + r \cos \theta d \theta)^2 \\
+	& = dr^2 + r^2 d \theta 
+\end{align*}
+\section{Lecture 5: 21 January 2021}
+\subsection{Tensors}
+Our goal is to formulate the laws of physics such that things are independent of the coordinate systems in which we use to measure them. This goal is called the \textbf{Principle of Covariance}. This goal underlies everything that we will be discussing today. To tackle this goal, we will need to understand how quantities transform under coordinate transformations. 
+\newline
+\newline
+To that end, consider a D-dimensional manifold \( M \). A patch \( M \) can be described by multiple different coordinate systems; say, \( x^\mu \) and \( x^{\mu'} \). The simples object that can transform is a \textbf{scalar/scalar function}. 
+\newline
+\newline
+A \textbf{scalar function} \( f \) is an assignment of a number to each point on a manifold \( M \) which is \emph{independent} of the coordinates. For example: 
+\begin{align*}
+	& f(x^\mu) \text{ in } x^\mu \text{ coordinates.} \\
+	& f(x^{\mu'}) \text{ in } x^{\mu'} \text{ coordinates}  = f(x^{\mu'}(x^\mu)) \text{ in } x^{\mu'} \text{ coordinates.} 
+\end{align*}
+We say that \( f \) is invariant under the change of coordinates \( x^\mu \rightarrow x^{\mu'} = x^{\mu'}(x^\mu) \). A scalar function is called a \textbf{(0,0)-tensor}. 
+\newline
+\newline
+A \textbf{vector} is a set of \( D \) functions \( V^\mu \) (in each coordinate system) which transforms under changes of coordinates in a particular way: 
+\begin{align*}
+	& V^\mu (x^\mu)  \text{ in } x^\mu \text{ coordinates.} \\
+	& V^{\mu'} (x^{\mu'}) = \frac{\partial x^{\mu'}}{\partial x^\mu} V^\mu (x^{\mu'}(x^\mu)). 
+\end{align*}
+This is known as a \textbf{contravariant} vector or a \( (1,0) \)-tensor. This is a generalisation of the usual idea of a vector in multivariable calculus. For example, consider \( \R^3 \), and let \( v \) be a vector. We can represent \( v \) in a specific coordinate system with the following components: \( v = (v^1, v^2, v^3) \). If we were to rotate the axes, then we can express the rotation with a rotation matrix \( R \): 
+\begin{align*}
+	\begin{bmatrix}
+		x' \\
+		y' \\
+		z' \\
+	\end{bmatrix} = R \begin{bmatrix}
+		x \\
+		y \\
+		z \\
+	\end{bmatrix}
+\end{align*}
+The components of \( v \) in this new coordinate system would accordingly change:
+\begin{align*}
+	\begin{bmatrix}
+		v^{1'} \\
+		v^{2'} \\
+		v^{3'} \\
+	\end{bmatrix} = \begin{bmatrix}
+		R^{1}_2 & R_2^1 & R_3^1 \\
+		\vdots & \ddots & \vdots \\
+		R_1^r & \hdots & R_3^3
+	\end{bmatrix} \begin{bmatrix}
+		v^1 \\
+		v^2 \\
+		v^3
+	\end{bmatrix}
+\end{align*}
+The \emph{components} of the vector will transform by the multiplication of the transformation matrix. To see how this exactly works out, let \( v^i \) be the components of \( v \) in the unprimed coordinate frame, and let \( v^{i'} \) be the components in the un-primed frame. Using index multiplication, we will discover that Einstein summation notation is basically repackaging matrix multiplication:
+\begin{align*}
+	v^{i'} = R^{i'}_j v^j, 
+\end{align*} 
+that is, \( R \) is simply the Jacobian:
+\begin{align*}
+	R^{i'}_j = \frac{\partial x^{i'}}{\partial x^j}. 
+\end{align*}
+So, our definition of a vector is simply an object that obeys the following transformation rule: \( v^{\mu'} = \frac{\partial x^{\mu'}}{\partial x^\mu} v^\mu \); it's just a generalisation from vector calculus which accommodates more interesting and non-linear coordinate transformations. This is interesting to us if we think about Einstein's Equivalence Principle. Even tho the components of our vecttor, 
+\begin{align*}
+	v^\mu & = \begin{bmatrix}
+		v^0 \\
+		\vdots \\
+		v^3 
+	\end{bmatrix} 
+\end{align*} 
+will look different in different coordinate systems, a vector should be regarded as a \textbf{geometric object} with \emph{coordinate-independent meaning}. A typical example is as follows: consider a world line \( x^\mu(\lambda) \) which is moving through the manifold. The points on this curve are parameterised by some variable \( \lambda \). We can then define the vector \( v^\mu := \frac{ \partial x^\mu }{ \partial \lambda} \); this is the tangent vector to the world-line. 
+\newline
+\newline
+\textbf{Why is this a vector in the sense of tensor calculus?} This is a vector because of the chain rule; the chain rule says that in the new coordinates \( x^{\mu'}(x^\mu) \): 
+\begin{align*}
+	v^{\mu'} = \frac{\partial x^{\mu'}}{\partial \lambda} = \left( \frac{\partial x^{\mu'}}{\partial x^\mu} \right) \frac{\partial x^\mu}{\partial \lambda }, 
+\end{align*}
+where \( \left( \frac{\partial x^{\mu'}}{\partial x^\mu} \right) \) is the Jacobian matrix.  We can consider the set of all tangent vectors -- the \textbf{tangent space}, denoted \( T_p(M) \) -- is the set of all tangent vectors attached to a point \( p \) of \( M \). This is a vector space. A tangent vector is an example of a vector that is defined for each point on a curve. A vector attached to each point in \( M \) is called a \textbf{vector field}; in this class, if we talk about a vector, we mean a VECTOR FIELD.
+\newline
+\newline
+We can also use our vectors to define differential operators. Given a scalar \( f \) and a vector \( v^\mu (x^\mu) \), we can define the \textbf{differential operator} \( v \) by:
+\begin{align*}
+	vf := v^\mu \frac{\partial }{\partial x^\mu} f = v^\mu \partial_\mu f = v^\mu f_{ , \mu}. 
+\end{align*}
+This is precisely the directional derivative in the direction \( v \). For this to be well-defined, \( vf \) must be a scalar. Indeed, we have that it is a scalar by the chain rule. 
+\begin{align*}
+	vf = v^{\mu'} \frac{\partial }{\partial x^{\mu'}} f = v^\mu \left( \frac{\partial x^{\mu'}}{\partial x^\mu} \right) \left( \frac{\partial x^\nu}{\partial x^{\mu'}} \right) \frac{\partial}{\partial x^\nu}f. 
+\end{align*}
+In particular, by the chain rule, 
+\begin{align*}
+	\frac{\partial x^{\mu'}}{\partial x^\mu} \frac{\partial x^\nu}{\partial x^{\mu'}} = \frac{\partial x^\nu}{\partial x^\mu}. 
+\end{align*}
+Since the product of the two Jacobians, 
+\begin{align*}
+	J = \begin{bmatrix}
+		\frac{\partial x^{1'}}{\partial x^1} & \hdots & \frac{\partial x^{D'}}{\partial x^1} \\
+		\vdots  & & \vdots \\
+		\frac{\partial x^{1'}}{\partial x^D} & \hdots & \frac{\partial x^{D'}}{\partial x^D}
+	\end{bmatrix}
+\end{align*}
+and 
+\begin{align*}
+	\hat{J} = \begin{bmatrix}
+		\frac{\partial x^{1}}{\partial x^{1'}} & \hdots & \frac{\partial x^{D}}{\partial x^{1'}} \\
+		\vdots  & & \vdots \\
+		\frac{\partial x^{1}}{\partial x^{D'}} & \hdots & \frac{\partial x^{D}}{\partial x^{D'}}
+	\end{bmatrix}
+\end{align*}
+gives us the identity, that means: 
+\begin{align*}
+	vf = v^\mu \delta_\mu^\nu \frac{\partial f }{\partial v} = v^\mu \frac{\partial}{\partial x^\mu} f.
+\end{align*}
+This verifies that the differential operator \( v = v^\mu \partial_\mu \) takes scalars to scalars. We call this the \textbf{directional derivative in the direction of \( v \)}. If we had some scalar function, 
+\begin{align*}
+	f(x^\mu(\lambda)) = f(\lambda), 
+\end{align*}
+then we can intepret the directional derivative as: 
+\begin{align*}
+	\frac{df}{d \lambda} = \frac{\partial x^\mu}{\partial \lambda} \frac{\partial f}{\partial x^\mu} = v^\mu \frac{\partial}{\partial x^\mu}f.
+\end{align*}
+The geometric interpretation of this is as follows: this operator takes a derivative along the curve to which \( v \) is a tangent vector. Sometimes, we think of this \( \partial_\mu \) as a ``basis'' for the set of vector in the same sense that the \( e_i \) form a standard basis of \( \R^n \): 
+\begin{align*}
+	v = v^\mu \partial_\mu
+\end{align*}
 \end{document}
