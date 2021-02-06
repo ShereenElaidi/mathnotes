@@ -9,6 +9,13 @@
 \newcommand{\srmetric}[0]{\eta_{\mu \nu}}
 \newcommand{\grmetric}[0]{g_{\mu \nu}}
 
+% physics packages 
+\usepackage{tensor}
+
+% physics shortcuts 
+\newcommand{\kltensor}[0]{\tensor{T}{^{\mu_1 ... \mu_k}}_{\nu_1 ... \nu_l}}
+
+
 % hyper-ref commands
 \usepackage{hyperref}
 \hypersetup{
@@ -19,6 +26,20 @@
     urlcolor=black
 }
 
+% math commands
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+% tensor products
+\usepackage{xparse}
+
+\NewDocumentCommand{\tens}{t_}
+ {%
+  \IfBooleanTF{#1}
+   {\tensop}
+   {\otimes}%
+ }
 
 \setlist[enumerate]{itemsep=0mm}
 \setenumerate{label=(\arabic*)}
@@ -429,4 +450,119 @@ The geometric interpretation of this is as follows: this operator takes a deriva
 \begin{align*}
 	v = v^\mu \partial_\mu
 \end{align*}
+
+\section{Lecture 6: Tensors 26 January 2021}
+A tensor is a generalisation to the manifold the idea of a vector or a matrix. We already met other tensors before: 
+\begin{itemize}[noitemsep]
+	\item A \textbf{scalar}, or a \( (0,0) \)-tensor, is a number for each point in a manifold \( M \). It is of the form of \( f(x^\mu) \).
+	\item A \textbf{vector}, or a \( (1,0) \)-tensor, is a collection of \( D \) functions of the coordinates which transforms as:
+	\begin{align*}
+		v^\mu \rightarrow v^{\mu'} = \frac{\partial x^{\mu'}}{\partial x^{\mu}} v^{\mu}.
+	\end{align*}
+	We call the matrix \( \frac{\partial x^{\mu'}}{\partial x^{\mu}}  \) the Jacobian matrix. We can write this more familiarly as a Jacobian matrix: 
+	\begin{align*}
+		J \cdot v, 
+	\end{align*}
+	where \( v \) is a column vector. 
+\end{itemize} 
+These are the two tensors which we have met so far. We can represent a vector \( v^{\mu} \) in a \emph{coordinate-independent way} as a differential operator which takes scalars to tensors: 
+\begin{align*}
+	v = v^\mu \frac{\partial }{\partial x^\mu}, 
+\end{align*}
+where \( \mu \) is summed over according to the Einstein summation notation. 
+\begin{enumerate}[noitemsep]
+	\item A \textbf{one-form} is a set of \( D \) functions of the coordinates which transform as: 
+	\begin{align*}
+		\omega_\mu \rightarrow \omega_{\mu'} = \frac{\partial x^\mu}{\partial x^{\mu'}} \omega_\mu.
+	\end{align*}
+	Note that \( \frac{\partial x^\mu}{\partial x^{\mu'}} \) is the \emph{inverse} of the Jacobian. A one form looks similar to a vector. It is known as a \textbf{covariant vector}, or a \( (0,1) \)-tensor. Note that a one-form has a LOWER index whereas a vector has an UPPER index. 
+\end{enumerate}
+This is useful because if we have a one form \( \omega_\mu \) and a vector \( v^\mu \), then we can combine them to make a scalar. To see why, let's \textbf{contract} them together:
+\begin{align*}
+	v^\mu \omega_\mu \rightarrow v^{\mu'}\omega_{\mu'} & = \left( v^{\mu'} \frac{\partial x^{\mu'}}{\partial x^{\mu}} \right) \left( \frac{\partial x^{\nu}}{\partial x^{\nu'}} \omega_{\nu} \right) \\
+	& = v^{\mu} \left(\frac{\partial x^{\mu'}}{\partial x^{\mu}} \frac{\partial x^{\nu}}{\partial x^{\mu}}  \right) \omega_{\nu}  \\
+	& = v^{\mu} \delta_\mu^\nu \omega_\nu  \text{ (by the chain rule) } \\
+	& = v^{\mu}\omega_{\mu}.
+\end{align*} 
+This shows that a vector and a one-form get combined together to make a scalar.  Formally, we can think of a one-form \( \omega_\mu \) as defining a map from vectors to numbers. We see one-forms referred to as \textbf{dual vectors} which live in a \textbf{dual tangent space}, \( T_p^*(M) \). You've encountered one-forms before. In linear algebra, we usually represent vectors as column vectors and one-forms as row vectors. 
+\begin{align*}
+	\omega_\mu = \begin{bmatrix}
+		\omega_1 & \cdots & \omega_d 
+	\end{bmatrix} \hspace{0.5cm} v^\mu = \begin{bmatrix}
+		v^1 \\
+		\vdots \\
+		v^d 
+	\end{bmatrix}. 
+\end{align*}
+The scalar you would have formed from these two objects is the dot product: 
+\begin{align*}
+	\omega_\mu v^\mu = \begin{bmatrix}
+		\omega_1 & \cdots & \omega_d 
+	\end{bmatrix} \begin{bmatrix}
+		v^1 \\
+		\vdots \\
+		v^d 
+	\end{bmatrix}. 
+\end{align*}
+The location of an index -- namely, if it's an upper index or a lower index -- tells us how an object transforms. When we set an upper and a lower index equal to each other and sum over them, we say that we are \textbf{contracting the indices}. 
+\begin{align*}
+	\omega_\mu v^\nu \rightarrow \omega_\mu v^\mu.
+\end{align*}
+Now consider a scalar \( f \). Then, we can define a one-form whose components are just the derivatives of \( f \) in a given coordinate system:
+\begin{align*}
+	\frac{\partial f}{\partial x^\mu} = \partial_\mu f.
+\end{align*}
+We can obtain the transformation rule for this by using the chain rule:
+\begin{align*}
+	\partial_\mu f \rightarrow \partial_{\mu'} f = \frac{\partial x^\mu}{\partial x^{\mu'}} \partial_\mu f, 
+\end{align*}
+which is indeed the multiplication rule that defines a one-form. Just as we write vectors in a basis-independent way as \( v = v^\mu \partial_\mu \), we can write one-forms in a basis-independent was as \( \omega = \omega_\mu dx^\mu \). We can think of the \( dx^\mu \) as infinitesimal displacements of the coordinate \( x^\mu \). They also form a basis of the cotangent space, and they transform as vectors: 
+\begin{align*}
+	\omega &  = \omega_\mu  dx^\mu \\
+		   & = \left( \omega_{\mu'} \frac{\partial x^{\mu'}}{\partial x^{\mu}	} \right) \left( \frac{\partial x^{\mu}}{\partial x^{\nu'}} dx^{\nu'} \right) \\
+		   & = \omega_{\mu'} dx^{\mu'}, 
+\end{align*}
+where the final equality follows from the chain rule. Since the notation is consistent, this proves that  \(  \omega_\mu  dx^\mu \) is a basis-independent representation of a one-form. There is a special notation for the one-form \( \partial_\mu f \): 
+\begin{align*}
+	df = \partial_\mu f dx^\mu. 
+\end{align*}
+If, for example, \( f = x^1 \), then this defines, by taking derivatives, the one-form whose components are the derivative of that function: 
+\begin{align*}
+	\partial_\mu (x^1) = (1, 0, ..., 0), 
+\end{align*}
+which is written as \( dx^1 \). Now we are ready to introduce the general definition of a tensor. 
+\begin{definition}[Tensor]\label{def:tensor}
+	A \((k,l)\)-\textbf{tensor}, \( \tensor{T}{^{\mu_1 ... \mu_k}}_{\nu_1 ... \nu_l} \), is a set of \( D^{k+l} \) functions which transform under coordinate transformations in a particular way: 
+	\begin{align*}
+		 \boxed{ \tensor{T}{^{\mu_1' ... \mu_k'}}_{\nu_1' ... \nu_l'} = \left( \frac{\partial x^{\mu_1'}}{\partial x^{\mu_1}} \right)  \hdots \left( \frac{\partial x^{\mu_k'}}{\partial x^{\mu_k}} \right) \left( \frac{\partial x^{\nu_1}}{\partial x^{\nu_1'}} \right) \hdots \left( \frac{\partial x^{\nu_l}}{\partial x^{\nu_l'}} \right) \kltensor }
+	\end{align*}
+\end{definition}
+An easy way to remember Definition \ref{def:tensor} is to remember that this is the only way to ``balance the indices'' in a way that respects the Einstein summation convention: upper and lower indices are summed over. We call \( (k,l) \) the \textbf{rank of the tensor}, and \( k \) is the number of \textbf{contravariant indices} and \( l \) is the number of \textbf{covariant indices}. Crucial note: the order and placement of the indices in Definition \ref{def:tensor} matter! 
+\newline
+\newline
+Sometimes you'll see people writing tensors in the coordinate-invariant way by contracting it with a bunch of partial derivatives and a bunch of one-forms that are multiplied together by using some cross product as a circle -- this is called a \textbf{tensor product}, but we'll leave that formal stuff to the mathematicians to deal with. 
+\begin{align*}
+	T = \kltensor \partial_{\mu_1} \tens \cdots \tens \partial_{\mu_k} \tens dx^{\nu_1} \tens \hdots \tens dx^{\nu_l}, 
+\end{align*}
+e.g., we can write a \( (0,2) \)-tensor with components \( g_{\mu \nu} \) as: 
+\begin{align*}
+	g & = g_{\mu \nu} dx^\mu \tens dx^{\nu} \\
+	& = g_{\mu \nu} dx^{\mu} dx^{\nu}.
+\end{align*}
+Now, a few comments about tensors. There are three operations that we can do on tensors: 
+\begin{enumerate}[noitemsep]
+	\item \textbf{Add} together two tensors of the same rank to get another tensor of the same rank: 
+	\begin{align*}
+		\tensor{T}{^{\mu_1}_1^{...\mu_k}_{\nu_1 ... \nu_l}} + \tensor{T}{^{\mu_1}_2^{...\mu_k}_{\nu_1 ... \nu_l}} = \tensor{T}{^{\mu_1}_3^{...\mu_k}_{\nu_1 ... \nu_l}}. 
+	\end{align*}
+	\item \textbf{Multiply} a tensor with rank \( (k,l) \) with a tensor of rank \( (k', l') \) to get a tensor of rank \( (k+k', l+l') \): 
+	\begin{align*}
+		\kltensor \tensor{S}{^{\mu_{k+1} ... \mu_{k+k'}}_{\nu_{l+1}...\nu_{l+l'}}} \text{ is a tensor of rank \( (k+k', l+k') \).}
+	\end{align*}
+	\item Given a tensor of rank \( (k,l) \), we can \textbf{contract} an upper and a lower index together to get a tensor of rank \( (k-1, l-1) \): 
+	\begin{align*}
+		\tensor{T}{^{\mu_1 ... \alpha ... \mu_{k-1}}_{\nu_1 ... \alpha ... \nu_{l-1}}}.
+	\end{align*}
+	e.g., given a vector and a one-form, you can define a \( (1,1) \)-tensor \( v^\mu \omega_\nu \) with \( \mu \) and \( \nu \) separate indices, and \( v^\mu \omega_\mu \) as a scalar ( a \( (0,0) \)-tensor).
+\end{enumerate}
 \end{document}
