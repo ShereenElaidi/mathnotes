@@ -14,6 +14,7 @@
 
 % physics shortcuts 
 \newcommand{\kltensor}[0]{\tensor{T}{^{\mu_1 ... \mu_k}}_{\nu_1 ... \nu_l}}
+\newcommand{\christoffel}[0]{\tensor{\Gamma}{^\rho_{\mu \nu}}}
 
 
 % hyper-ref commands
@@ -770,7 +771,108 @@ The laws of physics involve derivatives. To write physics in a way that satisfie
 \end{align*}
 However, for a vector, \( \partial_\mu v^\rho \) is NOT a \( (1,1)\)-tensor, even if the vector is a \( (1,0) \)-tensor. We want a new notion of derivatives -- a \textbf{covariant derivative} -- \( \nabla_\mu \) such that \( \nabla_\mu v^\rho \) is a \((1,1)\)-tensor. Such a covariant derivative should be the generalization of the derivative above. For example, 
 \begin{align*}
-	\nabla_\mu f := \partial_\mu f
+	\nabla_\mu f := \partial_\mu f 
 \end{align*}
-
+\textbf{Q: How will we define a covariant derivative on vectors?}
+\begin{enumerate}[noitemsep]
+	\item \textbf{Linearity:} \( \nabla_\mu (v^\rho + \omega^\rho ) = \nabla_\mu v^\rho + \nabla_\mu \omega^\rho \).
+	\item \textbf{Leibnitz:} \( \nabla_\mu (f v^\rho) = \nabla_\mu f v^\rho + f \nabla_\mu v^\rho = \partial_\mu f v^\rho + f \nabla_\mu v^\rho \).
+\end{enumerate}
+You can convince yourself that this constrains the possible forms of the covariant derivative: 
+\begin{align*}
+	\nabla_\mu v^\rho = \partial_\mu v^\rho + \tensor{G}{^\rho_{\mu \nu}} v^\nu, 
+\end{align*}
+where \( G \) represents some linear transformation acting on a vector. For the \( \nabla_\mu v^\rho \) to be a tensor, one must investigate how it transforms under coordinate transformations.
+\begin{align*}
+	\nabla_{\mu'} v^{\rho'} & = \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^{\rho'}}{\partial x^\rho} \nabla_{\mu \nu}^\rho \\
+	& =  \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^{\rho'}}{\partial x^\rho} \left( \partial_\mu v^\rho + \tensor{G}{^\rho_{\mu \nu}} v^\nu  \right)  \\
+	& = \partial_{\mu'} \left( \frac{\partial x^{\rho'}}{\partial x^\rho} v^\rho \right) + \tensor{G}{^{\rho'}_{\mu' \nu'}} v^{\nu'}\\
+	& = \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^{\rho'}}{\partial x^\rho} v^\rho_{, \mu} + \tensor{G}{^{\rho'}_{\mu' \nu'}} + \frac{\partial^2 x^{\rho'}}{\partial x^\rho \partial x^{\mu}} \frac{\partial x^{\mu}}{\partial x^{\mu'}} v^\rho.
+\end{align*}
+Re-arranging for  \( \tensor{G}{^{\rho'}_{\mu' \nu'}} \), we obtain: 
+\begin{align*}
+	\tensor{G}{^{\rho'}_{\mu' \nu'}} = \frac{\partial x^{\mu}}{\partial x^{\mu'}} \frac{\partial x^{\rho'}}{\partial x^{\rho}} \tensor{G}{^\rho_{\mu \nu}} v^\nu - \frac{\partial^2 x^{\rho'}}{\partial x^\nu \partial x^\mu} \frac{\partial x^\mu}{\partial x^{\mu'}} v^\nu.
+\end{align*}
+Re-write the above so that everything is a tensor contracted with \( v^{\nu'} \) (use that \( v^{\nu} = \frac{\partial x^\nu}{\partial x^{\nu'}} v^{\nu'} \)): 
+\begin{align*}
+	\tensor{G}{^{\rho'}_{\mu' \nu'}} v^{\nu'} = \left( \frac{\partial x^{\rho'}}{\partial x^\rho } \frac{\partial x^\nu}{\partial x^{\nu'}} \frac{\partial x^\mu}{\partial x^{\mu'}} \tensor{G}{^\rho_{\mu \nu}} - \frac{\partial^2 x^{\rho'}}{\partial x^\mu \partial x^\nu} \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^\nu}{\partial x^{\nu'}} \right) v^{\nu'}.
+\end{align*}
+Since this is true for all \( v^{\nu'} \), we know that \( G \) transforms under coordinate transformations as: 
+\begin{align*}
+	\tensor{G}{^{\rho'}_{\mu' \nu'}} = \left( \frac{\partial x^{\rho'}}{\partial x^\rho } \frac{\partial x^\nu}{\partial x^{\nu'}} \frac{\partial x^\mu}{\partial x^{\mu'}} \tensor{G}{^\rho_{\mu \nu}} - \frac{\partial^2 x^{\rho'}}{\partial x^\mu \partial x^\nu} \frac{\partial x^\mu}{\partial x^{\mu'}} \frac{\partial x^\nu}{\partial x^{\nu'}} \right). 
+\end{align*}
+Observe that this transformation rule for \( G \) has already been met before: this is exactly how the Christoffel symbol transforms. In fact, \( \christoffel \) is the unique object that we can form of the metric \( \grmetric \) an its first derivatives that has this transformation rule. So, we want to \emph{define} the covariant derivative of a vector in terms of the christoffel symbols as: 
+\begin{align}\label{def:covariantderiv} 
+	\boxed{\nabla_\mu v^\rho := \partial_\mu v^\rho + \christoffel v^\nu }	
+\end{align}
+Now, let's go back and visit the geodesic equation. The geodesic equation for a path \( x^\mu (\lambda) \) is: 
+\begin{align*}
+	v^\mu \nabla_\mu v^\nu & = v^\mu \partial_\mu v^\nu + \christoffel v^\mu  v^\rho  = f(\lambda) v^\nu 
+\end{align*}
+by definition, and so by the chain rule this gives us, 
+\begin{align*}
+	v^\mu \nabla_\mu v^\nu = \ddot{x}^\nu + \christoffel \dot{x}^\mu \dot{x}^\rho = f (\lambda) \dot{x}^\nu. 
+\end{align*}
+This means that in terms of the covariant derivative, the geodesic equation is a particular example of the covariant derivative at work. Namely: 
+\begin{align}\label{gechrist} 
+	\boxed{v^\mu \nabla_\mu v^\nu = f(\lambda)v^\nu}
+\end{align}
+This gives us a geometric understanding of the geodesic equation. Namely, we can think of the quantity \( v^\mu \nabla_\mu \) as the ``directional derivative'' along a path. 
+\newline
+\newline
+\textbf{Q: What about derivatives of other tensors?}
+\newline
+We \emph{must} preserve the Leibniz rule as well as linearity. For example, suppose we want to differentiate a one-form. Then,  using the fact that we know that \( \omega_\mu v^\mu \) is a scalar, we can use its covariant derivative to find the covariant derivative of a one-form as follows: 
+\begin{align*}
+	\nabla_\alpha ( \omega_\mu v^\nu ) = \partial_\alpha (\omega_\mu v^\mu ) = (\nabla_\alpha \omega_\mu ) v^\mu + \omega_\mu (\nabla_\alpha v^\mu).
+\end{align*}
+Solving for the covariant derivative of the one-form, we get the definition of a derivative of a one-form: 
+\begin{align}
+	\boxed{\nabla_\mu \omega_\nu := \partial_\mu \omega - \christoffel \omega_\mu. }
+\end{align}
+Noticing the pattern, we go on to define the covariant derivative in terms of Christoffel symbols, where upper indices come with a positive sign and lower indices come with a negative sign: 
+\begin{align}\label{defn:covdevtensor}
+	\boxed{\nabla_\alpha \tensor{T}{^{\mu_1 ... \mu_k}_{\nu_1 ... \nu_l}} :=  \partial_\alpha  \tensor{T}{^{\mu_1 ... \mu_k}_{\nu_1 ... \nu_l}} + \tensor{\Gamma}{^{\mu_1}_{\alpha \rho}}  \tensor{T}{^{\rho, \mu_2,  ... \mu_k}_{\nu_1 ... \nu_l}}  + ... + \tensor{\Gamma}{^\alpha _{\nu_1}}  \tensor{T}{^{\mu_1 ... \mu_k}_{\rho \nu_2 ... \nu_l}} }	
+\end{align}
+This is the only possible expression that we can build out of the metric \( \grmetric \) that is consistent with linearity and the Leibniz rule. For example, 
+\begin{align*}
+	\nabla_\alpha ( \tensor{T}{^{\mu \nu}} v_\rho) = ( \nabla_\alpha \tensor{T}{^{\mu \nu}}) v_\rho + \tensor{T}{^{\mu \nu}} ( \nabla_\alpha v_\rho ). 
+\end{align*}
+\textbf{Note.} There is one important property that it does not have. Covariant derivatives DO NOT commute with each other, e.g.: 
+\begin{align*}
+	\nabla_\alpha ( \nabla_\beta v^\rho ) \neq \nabla_\beta (\nabla_\alpha v^\rho ) 
+\end{align*}
+However, covariant derivatives DO commute in flat-space time. Hence, this is THE signature feature of curved space-time. To summarize: \emph{space-time curved \( \iff \) the covariant derivatives do NOT commute.}
+\newline
+\newline
+\textbf{Q: What properties does this covariant derivative have?}
+\begin{enumerate}[noitemsep]
+	\item \textbf{Metric compatible:} the covariant derivative of the metric is zero:
+	\begin{align*}
+		\nabla_\mu g_{\rho \sigma} = 0 
+	\end{align*}
+	\textbf{Proof:} Writing this derivative out, 
+	\begin{align*}
+		\nabla_\mu g_{\rho \sigma} & = \partial_\mu g_{\rho \sigma} - \tensor{\Gamma}{^{\lambda}_{\mu \rho}} g_{\lambda \sigma} - \tensor{\Gamma}{^{\lambda}_{\mu \sigma}} g_{\lambda \rho} \\
+		& = g_{\rho \sigma, \mu} - \frac{1}{2} \left( g_{\mu \sigma, \rho} + g_{\rho \sigma, \mu} - g_{\mu \rho, \sigma} \right) - \frac{1}{2} \left( g_{\mu \rho, \sigma} + g_{\rho \sigma, \mu} - g_{\mu \sigma, \rho}  \right) \\
+		& = 0.
+	\end{align*}
+	Similarly, you can show that \( \nabla_{\mu} g^{\rho \sigma} = 0 \) and that \( \nabla_\mu \delta_\sigma^\rho = 0 \) (the calculation is nearly identical). What does this mean for us? When we write down expressions with covariant derivatives, we can freely pass expressions including the metric and \( \delta \) through \( \nabla_\mu \); in other words, raising and lowering of indices commutes with the covariant derivative. For example: 
+	\begin{align*}
+		v^\mu \nabla_\rho v_\mu = v_\mu \nabla_\rho v^\mu.
+	\end{align*} 
+	Note that in general the above is not true for partial derivatives. 
+\end{enumerate}
+Now we define the \textbf{contravariant derivative} as follows: 
+\begin{align}\label{defn:contravariant}
+	\nabla^\rho := g^{\rho \mu} \nabla_\mu, 
+\end{align}
+such that
+\begin{align*}
+	\nabla_\mu v^\mu = v^\mu v_\mu,
+\end{align*}
+i.e., it's the divergence of a vector. By definition, this is a scalar. Similarly, we can define the \textbf{Laplacian} or \textbf{Laplace Beltrami} operator to be:
+\begin{align*}
+	\nabla^2 := \nabla_\mu \nabla^\mu 
+\end{align*}
 \end{document}
