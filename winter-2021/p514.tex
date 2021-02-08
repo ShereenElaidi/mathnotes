@@ -565,4 +565,212 @@ Now, a few comments about tensors. There are three operations that we can do on 
 	\end{align*}
 	e.g., given a vector and a one-form, you can define a \( (1,1) \)-tensor \( v^\mu \omega_\nu \) with \( \mu \) and \( \nu \) separate indices, and \( v^\mu \omega_\mu \) as a scalar ( a \( (0,0) \)-tensor).
 \end{enumerate}
+
+\section{Lecture 7: 28 January 2021}
+\subsection{Tensors and the Geometry of Space-Time}
+From the operations on tensors introduced last class, we can build other operations. But first, let's define a math term. A \textbf{permutation} \( \sigma \) is a re-ordering of the numbers \( (1,..., l)  \rightarrow (1, ..., l ) \). A result from algebra tells us that \( \sigma \) is the product of pairwise interchanges. Using this notation, we can define two more operations on tensors: 
+\begin{enumerate}[noitemsep]
+	\item The \textbf{symmetrization} of a tensor makes it symmetric: 
+	\begin{align*}
+		T_{(\mu_1, ..., \mu_l)} = \frac{1}{l!} \sum_{\text{perms of } \sigma} \tensor{T}{_{\sigma(\mu_1) ... \sigma(\mu_l)}}. 
+	\end{align*}
+	\item The \textbf{anti-symmetrization} of a tensor makes it anti-symmetric: 
+	\begin{align*}
+		T_{[\mu_1 ... \mu_l]} = \frac{1}{l!} \sum_{\text{perms of } \sigma} \text{sgn}(\sigma) \tensor{T}{_{\sigma(\mu_1) ... \sigma(\mu_l)}}. 
+	\end{align*}
+\end{enumerate} 
+For example: 
+\begin{align*}
+	T_{(\mu_1, \mu_2)} & = \frac{1}{2}( T_{\mu_1 \mu_2} + T_{\mu_2 \mu_1} ) \\
+	T_{[\mu_1, \nu_2]} & = \frac{1}{2}( T_{\mu_1 \mu_2} - T_{\mu_2 \mu_1} ). 
+\end{align*}
+We can also do this procedure with upper indices or with only some fraction of the indices. E.g., we can consider something like this: 
+\begin{align*}
+	\tensor{T}{^{[\mu_1 \mu_2]}_{\nu_1 (\nu_2 \nu_3)}}. 
+\end{align*}
+
+
+\begin{definition}[(Anti)-Symmetric Tensor]\label{def:symmtens} 
+	A \textbf{(anti)-symmetric tensor} is one which equals its (anti)-symmetrization. 
+\end{definition}
+\begin{itemize}[noitemsep]
+	\item A symmetric tensor is unchanged when we permute two of its indices. 
+	\item An anti-symmetric tensor will pick up a factor that is sgn(\(\sigma \)) when we interchange two of the indices. Hence, if two of the indices are equal for an anti-symmetric tensor, then the tensor is zero.
+\end{itemize}
+
+An anti-symmetric tensor of rank \( (0,n) \) is a \textbf{differential form of rank \( n \)}, e.g., an anti-symmetric \( (0,2) \)-tensor is a \(2\)-form. You've already met some tensors: 
+\begin{align*}
+	f & = (0,0)-\text{tensor.}  \\
+	\partial_\mu f& = (0,1)-\text{tensor.} \\
+	\frac{\partial x^\mu}{\partial \lambda} & = (1,0)-\text{tensor}  \text{ (tangent line of a world line).} \\
+	\tensor{\delta}{^\mu_\nu} & = (1,1)-\text{tensor.} \\
+	g_{\mu \nu} & \text{ a symmetric \((0,2)\)-tensor.} 
+\end{align*}
+\textbf{Why are we studying tensors?} The reason why is the Principle of General Covariance: the laws of physics should make predictions which should be \emph{independent} of the coordinate system that we use to write those laws. Hence, the laws of physics are TENSOR equations, i.e., every law of physics better take the form of 
+\begin{align*}
+	\kltensor = \tensor{S}{^{\mu_1 ... \mu_k}_{\nu_1 ... \nu_l}}
+\end{align*}
+in one reference frame, and 
+\begin{align*}
+	\tensor{T}{^{\mu_1' ... \mu_k'}_{\nu_1' ... \nu_l'}} = \tensor{S}{^{\mu_1' ... \mu_k'}_{\nu_1' ... \nu_l'}}, 
+\end{align*}
+in another reference frame, because of the tensor transformation rule (Jacobian matrices are invertible). For example, Maxwell's equations are tensor equations. 
+\newline
+\newline
+We need to take derivatives of tensors now. We don't know how to do this in a \textbf{covariant manner}. Consider the only notion of differentiation that we have for now: 
+\begin{align*}
+	v^\mu \rightarrow \partial_\nu v^\mu \neq (1,1)-\text{tensor}, 
+\end{align*}
+This specifies a direction, and is not what we need. There is more than one way of formulating calculus on tensors. We'll be studying differential geometry / Riemannian geometry to do so. 
+\newline
+\newline
+Recall the Einstein Equivalence Principle: the effect of gravity in a very small region of space-time is indistinguishable from an accelerating reference frame. Let's try to interpret this in a slightly more geometric point of view. \emph{Space-time is a manifold with a metric \( g_{\mu \nu}\) that is used to define the line-element}:
+\begin{align*}
+	ds^2 = g_{\mu \nu} dx^\mu dx^\nu, 
+\end{align*}
+\emph{such that for any point \( x_0^\mu \), there is a coordinate system such that}
+\begin{align*}
+	g_{\mu \nu} = \eta_{\mu \nu} + \text{ terms that vanish as } x^\mu_0 \rightarrow x_0^\mu, 
+\end{align*}
+\emph{i.e., we've Taylor expanded the metric about a point!} From this more geometric formulation of the Einstein Equivalence Principle, we find that \( \grmetric \) is a \((0,2)\)-tensor with three properties: 
+\begin{enumerate}[noitemsep]
+	\item \textbf{Symmetric}: \( \grmetric = g_{\nu \mu} \).
+	\item \textbf{Invertible}: \( \text{det}(\grmetric) \neq 0 \). 
+	\item \textbf{diagonalizablity}: \( g \) is diagonalizable with eigenvalues \( \lambda = -1, 1, 1, 1 \), i.e., there exists some basis where the metric can be expressed as \( \text{diag}(-1, 1, 1, 1) \). 
+\end{enumerate}
+These three properties are proven by noting that there exists some basis where \( \grmetric = \srmetric)\):
+\begin{align*}
+	\Rightarrow \grmetric = \left( \frac{\partial x^{\mu'}}{\partial x^{\mu}} \right) \left( \frac{\partial x^{\nu'}}{\partial x^{\nu}} \right) \eta_{\mu' \nu'} + ... , 
+\end{align*}
+i.e., in matrix notation:
+\begin{align*}
+	\grmetric = J^t \begin{bmatrix}
+		-1 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 1
+	\end{bmatrix} J. 
+\end{align*}
+The above properties are coordinate-invariant statements in the sense that if they are true in one coordinate system then they are true in every coordinate system. 
+\newline
+\newline
+An invertible symmetric \( (0,2)\)-tensor is a \textbf{metric}. If the eigenvalues of the matrix are all positive, then we call it a \textbf{Riemannian metric}. Otherwise, we call it a \textbf{pseudo-Riemannian metric}. The number of positive and negative eigenvalues of \( \grmetric \) is called the \textbf{signature} of the metric. Using this new vocabulary, we can now say that in general relativity, space-time is a manifold with a pseudo-Riemannian metric of signature \( (-, +, +, +) \), or signature \( (1,3) \). 
+\newline
+\newline
+\textbf{What can we do with this metric?}
+\newline 
+We can invert the metric. We'll denote the inverse of \( \grmetric \) as \( g^{\mu \nu} \). It is a symmetric \( (2,0)\)-tensor. Using the Einstein summation notation, we find: 
+\begin{align*}
+	g^{\mu \nu} g_{\nu \rho} & = \tensor{\delta}{^\mu_\rho}, \text{ or } \\
+	g_{\mu \nu} g^{\nu \rho} & = \tensor{\delta}{^\rho_\mu} 
+\end{align*}
+\textbf{Conclusion:} the inverse of a metric is a tensor. We will use \( \grmetric \) and \( g^{\mu \nu} \) to raise and lower indices via Einstein summation notation. I.e., given a vector \( v^\mu \) we define a one-form \( v_\mu := \grmetric v^\nu \). Given a one-form \( \omega^\mu \), we define a vector \( \omega^\mu := g^{\mu \nu} \omega_\nu \). We can ``lower an index'' as:
+\begin{align*}
+	\tensor{T}{^{\mu \nu}_\rho} = g_{\rho \sigma} \tensor{T}{^{\mu \nu \sigma}}.
+\end{align*}
+Note that the order of the indices still matter. For example: 
+\begin{align*}
+	\tensor{T}{^{\mu}_{\rho}^{\nu}} = g_{\rho \sigma} \tensor{T}{^{\mu \sigma \nu}}.
+\end{align*}
+Given a vector \( v^\mu \) or a one-form \( \omega_\mu \), we can define the \textbf{norm}: 
+\begin{align*}
+	v^2 = v_\mu v^\mu \text{ and } \omega^2 = \omega_\mu \omega^\mu. 
+\end{align*}
+These norms are NOT positive-definite: a vector is space-like, time-like, or null depending on whether \( v^2 \) is \( > 0, < 0, \text{or} = 0 \). 
+
+
+\section{Lecture 8: 2 February 2021}
+\subsection{Geometry}
+The metric \( \grmetric \) determines the geometry of space-time in the sense that it determines the distance (i.e., the invariant interval) between points in space-time. It also determines the length of paths through space-time. For example, consider a world line \( x^\mu (\lambda) \) connecting two points, \( \lambda_0 \) and \( \lambda_1 \). Then, we get the distance, or the interval, connecting \( x^\mu (\lambda_0) \) and \( x^\mu (\lambda_1) \) as measured along \( x^\mu (\lambda) \). 
+\begin{align*}
+	s & = \int_{\lambda_0}^{\lambda_1} ds \\
+	  & = \int_{\lambda_0}^{\lambda_1} \sqrt{\grmetric \dot{x}^\mu \dot{x}^\nu }  d \lambda, 
+\end{align*}
+where \( \dot{x}^\mu = \frac{dx^\mu}{d \lambda} \) is the tangent vector to the curve. The proper time as measured by an observer on this path is \( T = is \). 
+\begin{definition}[Geodesic]\label{dfn:geodesic}
+	A path which extremizes  \( S[x^\mu (\lambda) ] \) is called a \textbf{geodesic}. The length of such a path is the geodesic between \( x^\mu (\lambda_0) \) an \( x^\mu (\lambda_1) \). 
+\end{definition}
+\begin{itemize}[noitemsep]
+	\item If \( S \) is real, then the end-points are space-like separated. 
+	\item If \( S \) is imaginary, then the points are time-like separated. 
+	\item If \( S \) is zero, then the points are null separated. 
+\end{itemize}
+This means that given a metric, we now have a notion of distance. 
+\newline
+\newline
+\textbf{Q: What do geodesics look like?}
+\newline
+Let's derive it:
+\begin{align*}
+	S[x^\mu (\lambda)] = \int \sqrt{\grmetric \dot{x}^\mu \dot{x}^\nu} d \lambda.
+\end{align*}
+We have that \( \frac{ds}{d \lambda} = \sqrt{\grmetric \dot{x}^\mu \dot{x}^\nu} \). The above quantity is extremized under \( x^\mu \rightarrow x^\mu + \delta x^\mu \) if: 
+\begin{align}\label{derivation:geodesic1} 
+	0 = \frac{\delta S}{\delta x^\mu} = \frac{d}{d \lambda} \left( \frac{g_{\mu \alpha} \dot{x}^\alpha }{\frac{dS}{d \lambda}} \right)  - \frac{1}{2} \frac{g_{\alpha \beta, \mu}. \dot{x}^\mu \dot{x}^\nu }{\frac{dS}{d \lambda}}.
+\end{align}
+c.f. Euler-Lagrange Equations: 
+\begin{align*}
+	S[x^i (t) ] = \int dt \mathcal{L}(x^i,\dot{x}^i) \Rightarrow \frac{d}{dt} \left( \frac{\partial \mathcal{L}}{\partial \dot{x}^i} \right) - \frac{\partial \mathcal{L}}{\partial x^i} = 0.
+\end{align*}
+Let's try to unpack (\ref{derivation:geodesic1}) a bit: 
+\begin{align*}
+	0 = - g_{\mu \alpha}\dot{x}^\alpha \frac{\frac{d^2s}{d \lambda}}{\left( \frac{ds}{d \lambda} \right)^2} + \frac{1}{\frac{ds}{d \lambda}} \left( g_{\mu \alpha} \ddot{x}^\alpha  + ( g_{\mu \alpha, \beta} - \frac{1}{2} g_{\alpha \beta, \mu} ) \dot{x}^\alpha \dot{x}^\beta \right).
+\end{align*}
+Re-writing the terms in brackets more cleverly as \( \frac{1}{2} ( g_{\mu \alpha, \beta} + g_{\mu \beta, \alpha} - g_{\alpha \beta, \mu} ) \), we obtain: 
+\begin{align*}
+	0 =  - g_{\mu \alpha}\dot{x}^\alpha \frac{\frac{d^2s}{d \lambda}}{\left( \frac{ds}{d \lambda} \right)^2} + g_{\mu \alpha} \ddot{x}^\alpha + \frac{1}{2} (g_{\mu \alpha, \beta} + g_{\mu \beta, \alpha} - g_{\alpha \beta, \mu} ) \dot{x}^\alpha \dot{x}^\beta.
+\end{align*}
+We want to re-write the above equation as the second derivative of \( x \), which involves multiplying the above by the inverse of the metric, \( g^{\mu \nu} \). This gives us the \textbf{geodesic equation}: 
+\begin{align}\label{eqn:geodesiceqn}
+	\boxed{\ddot{x}^\nu + \tensor{\Gamma}{^\nu_{\alpha \beta}} \dot{x}^\alpha \dot{x}^\beta = \dot{x}^\nu \frac{d^2s}{d\lambda^2} \left( \frac{ds}{d \lambda} \right)^{-1} }
+\end{align}
+where, 
+\begin{align}\label{eqn:christoffel}
+	\tensor{\Gamma}{^\nu_{\alpha \beta}} := \frac{1}{2} g^{\mu \nu} ( g_{\alpha \mu, \beta} + g_{\beta \mu, \alpha} - g_{\alpha \beta, \mu} ),
+\end{align}
+are called the \textbf{christoffel symbols}, or the connection coefficients, associated to the metric \( \grmetric \). Sometimes we write \( \ddot{x}^\mu + \tensor{\Gamma}{^\mu_{\nu \rho}} \dot{x}^\nu \dot{x}^\rho = f(\lambda) \dot{x}^\mu \). In particular, \( \lambda \) is some parameter that we would use to label points along the path. We could choose a new parameter, \( f'(\lambda) \), which would change the right hand side of the geodesic equation.
+\newline
+\newline
+Since \( f (\lambda) = \frac{d^2s}{d \lambda} \left( \frac{ds}{d \lambda} \right)^{-1} \), we could set \( f = 0 \) by choosing to label points using the parameter \( s \) itself, i.e., choose \( \lambda \) such that as we travel along the path, \( s(\lambda_0, \lambda) = \lambda \) . This would imply that
+\begin{align*}
+	\frac{ds}{d \lambda} = 1 \text{ and } \frac{d^2s}{d \lambda} = 0.
+\end{align*}
+Such a parameter has a name: \( \lambda \) like the above are known as \textbf{affine parameters}. For an affine parameter, the geodesic equation looks like: 
+\begin{align}
+	\boxed{\ddot{x}^\mu + \tensor{\Gamma}{^\mu_{\nu \rho}} \dot{x}^\nu \dot{x}^\rho = 0  }	
+\end{align}
+In many cases, the above will be the geodesic equation that we want to study. For a null geodesic, it is impossible to choose an affine parameter. The Christoffel symbol, 
+\begin{align*}
+	\tensor{\Gamma}{^\mu_{\nu \rho}} = \frac{1}{2} g^{\mu \sigma} ( g_{\mu \sigma, \rho} + g_{\rho \sigma, \nu} - g_{\nu \rho, \sigma} ), 
+\end{align*}
+has various different properties: 
+\begin{enumerate}[noitemsep]
+	\item \( \tensor{\Gamma}{^\mu_{\nu \rho}} = \tensor{\Gamma}{^\mu_{\rho \nu}} \)  (symmetric in its lower indices). 
+	\item \( \tensor{\Gamma}{^\mu_{\nu \rho}} \) is not a tensor. Instead, it transforms as: 
+	\begin{align*}
+		\tensor{\Gamma}{^{\mu'}_{\nu' \rho'}} = \frac{\partial x^{\mu'}}{\partial x^{\mu}} \frac{\partial x^{\nu}}{\partial x^{\nu'}} \frac{\partial x^\rho}{\partial x^{\rho'}} \tensor{\Gamma}{^\mu_{\nu \rho}} - \frac{\partial x^\rho}{\partial x^{\rho'}} \frac{\partial x^\nu}{\partial x^{\nu'}} \frac{\partial^2 x^{\mu'}}{\partial x^\rho \partial x^\nu}
+	\end{align*}
+\end{enumerate}
+The correction terms arise from some non-linear coordinate change. This reflects that going into an accelerating coordinate system gives rise to fictitious forces.  
+\subsection{Derivatives of the Metric of Spacetime}
+The Christoffel symbol captures in some sense how geodesics deviate from being ``straight lines.'' with \( \ddot{x}^\mu = 0 \). That is, the christoffel symbol tells us how much we deviate from being on straight line due to both being in an accelerating reference frame AND due to the curvature of space-time (by the Einstein Equivalence Principle) [this is the effect of gravity]. You should think of a geodesic as a curve which is as straight as possible given the curvature of space-time. For example, the geodesics on spheres are arcs of great circles. Curvature is the mathematical way in which we describe the non-fictitiousness of the force of gravity.
+\newline
+\newline
+We say that a geodesic is time-like, space-like, or null if \( S \) is imaginary, real, or zero. Similarly, the tangent vector to a geodesic is time-like/space-like/null if the tangent is. 
+
+\section{Lecture 9: 4 February 2021}
+\subsection{Calculus on Curved Spaces}
+We learned that space-time is a manifold with metric \( g_{\mu \nu} \). From this metric, we can define a geometry and a distance along geodesics. The equation for a geodesic is: 
+\begin{align*}
+	\ddot{x}^\mu + \tensor{\Gamma}{^\mu_{\nu \rho}} \dot{x}^\rho \dot{x}^\nu = f(\lambda) \dot{x}^\mu.
+\end{align*}
+The laws of physics involve derivatives. To write physics in a way that satisfies the principle of covariance, we need to take derivatives of tensors. 
+\begin{align*}
+	f: \text{scalar} \rightarrow \partial_\mu f = f_{, \mu}.
+\end{align*}
+However, for a vector, \( \partial_\mu v^\rho \) is NOT a \( (1,1)\)-tensor, even if the vector is a \( (1,0) \)-tensor. We want a new notion of derivatives -- a \textbf{covariant derivative} -- \( \nabla_\mu \) such that \( \nabla_\mu v^\rho \) is a \((1,1)\)-tensor. Such a covariant derivative should be the generalization of the derivative above. For example, 
+\begin{align*}
+	\nabla_\mu f := \partial_\mu f
+\end{align*}
+
 \end{document}

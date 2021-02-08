@@ -53,6 +53,9 @@
 \usepackage{appendix}
 \newcommand{\eps}[0]{\varepsilon}
 
+
+\newcommand{\norm}[1]{	\left| \left| #1 \right| \right| }
+
 \makeatletter
 \let\c@equation\c@thm
 \makeatother
@@ -814,6 +817,354 @@ Examples of Hilbert Spaces you've encountered:
 	\item \( L^2 \) with inner product \( \langle f, g \rangle := \int_\Omega f(x) g(x) dx \).
 \end{enumerate}
 
+\subsubsection{Orthogonal Projections}
+If \( M \subseteq H \) is a subset, then the \textbf{orthogonal  complement} of \( H \) is defined as:
+\begin{align*}
+	\boxed{M^{\perp} := \{ u \in H\ |\ \langle u, v \rangle = 0\}\ \forall v \in M }
+\end{align*}
 
+\begin{prop}
+	If \( M \) is a closed linear subspace of \( H \), then every \( x \in H \) has the following unique decomposition: 
+	\begin{align*}
+		x = u+v,\ u \in M,\ v \in M^\perp 
+	\end{align*}
+\end{prop}
+\begin{proof}
+	Fix an \( x \in H \). If \( x \in M \), then \( u = x \) and \( v = 0 \) (straightforward). Now assume that \( x \notin H \); then, we claim that there exists a \( u \in M \) such that 
+	\begin{align*}
+		|| x -u || = \inf_{y \in M } ||x-y|| = \delta > 0.
+	\end{align*}
+	By the definition of infimum, there exists a sequence \( \{ u_n \} \subseteq M \) such that
+	\begin{align*} 
+		|| x - u_n || \leq \delta^2 + \frac{1}{n} \hspace{1cm} (*)
+	\end{align*}
+	We'll show that this sequence \( \{ u_n \} \) is Cauchy. To that end, let
+	\begin{align*}
+		v & \coloneqq u_m - x, \\
+		w & \coloneqq u_n - x 
+	\end{align*}
+	Using the Parallelogram law, 
+	\begin{align*}
+		||u_m - u_n||^2 + ||u_m + u_n + 2x||^2 = 2||u_m - x||^2 + 2 ||u_n - x||^2 .
+	\end{align*}
+	\textbf{Note.} \( || u_m + u_n + 2x||^2 = 4 || 1/2 (u_m + u_n) - x ||^2 \)  and therefore, 
+	\begin{align*}
+		||u_m - u_n||^2 = 2 ||u_m - x ||^2 + 2||u_n - x||^2 - 4 || (1/2)(u_m + u_n)-x||^2.
+	\end{align*}
+	However, \( M \) is a linear subspace, and therefore
+	\begin{align*}
+		1/2(u_n + u_m) \in M \Rightarrow || x - (1/2)(u_m + u_n) || \geq \delta.
+	\end{align*}
+	By \( (*) \) and the above, 
+	\begin{align*}
+		||u_m - u_n||^2 & \leq 2 \left( \delta^2 + \frac{1}{m} \right) + 2 \left( \delta^2 + \frac{1}{n} \right) - 4 \delta^2 \\
+		& = \frac{1}{m} - \frac{1}{n}.
+	\end{align*}
+	Hence, \( \{ u_n \} \subseteq M \) is Cauchy and since \( H \) is complete, \( M \) is closed. Hence, \( u_n \rightarrow u \in M \). Using the triangle inequality, 
+	\begin{align*}
+		|| x - u || &  \leq ||x-u_n|| + ||u_n - u || \\
+					& \leq \left( \delta^2 + \frac{1}{n} \right)^{1/2} + ||u_n - u||
+	\end{align*}
+	Letting \( n \rightarrow \infty\), we get that \( ||x-u|| \leq \delta \). Hence, 
+	\begin{align*}
+		\delta \leq ||x-u|| \leq \Delta \iff ||x-u|| = \delta,
+	\end{align*}
+	which proves that the infimum was attained and hence proves the claim. Next claim -- \textbf{Claim:} if \( v = x-u \), then \( v \in M^\perp \). To show this, consider \( y \in M \). Then, 
+	\begin{align*}
+		|| x - (u-ty)||^2 = || v + ty|| = ||v||^2 + 2t \langle v, y \rangle + t^2 ||y||^2.
+	\end{align*}
+	Note that the map \( t \mapsto || v+ty|| \) is minimized when \( t = 0 \). So, 
+	\begin{align*}
+		\frac{\partial}{\partial t} \left[ ||v||^2 + 2t \langle v, y \rangle + t^2 ||y||^2 \right]_{t=0} & = [2 \langle v, y \rangle + 2t ||y||^2 ]_{t = 0 } \\
+		& = 2 \langle v, y \rangle = 0\ \forall y \in M, \\
+		& \Rightarrow v \in M^\perp 
+	\end{align*}
+	Hence, \( x = u + v \) where \( u \in M \) and \( v \in M^\perp \). Now, to show uniqueness, assume, not: 
+	\begin{align*}
+		x = u_1 + v_1 = u_2 + v_2.
+	\end{align*}
+	Then, 
+	\begin{align*}
+		u_1 - u_2 = v_2 - v_1 \iff ||v_1 - v_2||^2 = \langle v_1 - v_2, v_1 - v_2 \rangle = \langle v_1 - v_2, u_2 - u_2 \rangle = 0 
+	\end{align*}
+	where \( v_1 - v_2 \in M^\perp \) and \( u_2 - u_1 \in M \). Hence, \( v_1 \equiv v_2 \) and \( u_2 \equiv u_2 \).
+\end{proof}
+
+We can now define orthogonal projections onto \( M \): \( P_M(x) = u \). Observe that the following hold:
+
+\begin{itemize}
+	\item \( P_M^2 = P_M \circ P_M = P_M \). 
+	\item By orthogonality, one has
+	\begin{align*}
+		||x||^2 = \underbrace{||u||^2}_{=P_M(x)} + ||x-u||^2
+	\end{align*}
+	which implies that
+	\begin{align*}
+		||P_M(x) || \leq ||x||,
+	\end{align*}
+	that is, projecting can only shorten vectors.
+\end{itemize}
+
+
+
+\subsubsection{Orthonormal Bases}
+
+\begin{defn}[Orthonormal Set]
+	Let \( \{ e_j \} \subseteq H \). Then, \( \{ e_j \} \) is orthonormal \( \iff \) \( \langle e_i, e_j \rangle = \delta_{ij} \).
+\end{defn}
+
+\begin{defn}[Orthonormal Basis]
+	We say that \( \{ e_j \} \subseteq H \) is an orthonormal basis for \( H \) if \( \{ e_j \} \) is orthonormal and, 
+	\begin{align*}
+		x = \sum_{j=1}^\infty \langle x, e_j \rangle e_j \hspace{1cm} \forall x \in H.
+	\end{align*}
+	This happens \( \iff \):
+	\begin{align*}
+		\left| \left| x - \sum_{j=1}^N \langle x, e_j \rangle e_j \right| \right| \rightarrow 0 \text{ as } N \rightarrow \infty 
+	\end{align*}
+\end{defn}
+
+\begin{prop}[Parseval's Equality]
+	Let \( \{ e_j \} \subseteq H \) be orthonormal. Then, its a basis \( \iff \) 
+	\begin{align}
+		||x||^2 = \sum_{j=1}^\infty \langle x_j , e_j \rangle^2 \hspace{1cm} \forall x \in H.	
+	\end{align}
+\end{prop}
+
+\begin{proof}
+``\( \Rightarrow \)'': Suppose that we have a basis. Then, 
+\begin{align*}
+	\norm{\sum_{j=1}^n \langle x, e_j \rangle e_j} = \sum_{j=1}^n \langle x_i, e_j \rangle^2.
+\end{align*}
+Taking the limit, we obtain: 
+\begin{align*}
+	\norm{x}^2 = \sum_{j=1}^\infty \langle x, e_j \rangle^2.
+\end{align*}
+``\(\Leftarrow \)'': Suppose that Parseval's holds for all \( x \in H \). Set:
+\begin{align*}
+	Y := \{ x \given x = \sum_{j=1}^\infty \langle x, e_j \rangle e_j \}.
+\end{align*}
+\textbf{Claim:} \( Y = H \). We'll show that \( Y \) is closed and dense in \( H \). This will be sufficient to prove the claim. 
+\begin{enumerate}
+	\item \( Y \) is closed in \( H \): Let \( \{ Y_n \} \subseteq Y \) be a Cauchy sequence. Note that by Parseval's, 
+	\begin{align*}
+		Y \simeq \ell^2 \text{ (square-summable sequence)}.
+	\end{align*}
+	We have that \( \ell^2 \) is complete, which means that Cauchy sequences converge to points in the set \( \ell^2 \):
+	\begin{align*}
+		\Rightarrow \{ y_n \} \rightarrow y^*,\ y^* \in Y, \\
+		\Rightarrow Y \text{ is closed.} 
+	\end{align*}
+	\item \( Y \) is dense in \( H \): Suppose that \( Y \) is not dense. Then, \( H \setminus Y \) has a non-zero element. Hence, \( Y^\perp \) has a non-zero element. But, if \( x \in Y^\perp \), \( \langle x, e_j \rangle = 0 \forall j \), and hence by Parseval, \( x \equiv 0 \) which is a contradiction. 
+\end{enumerate}
+Hence, \( Y = H \).
+\end{proof}
+
+
+\begin{prop}
+	H is separable \( \iff \) H has a countable basis. 
+\end{prop}
+
+
+\begin{proof}
+	If \( H \) has a countable basis , then, 
+	\begin{align*}
+		\mathrm{span}_{\mathbb{Q}} \{ \text{basis} \} \text{ is a countable dense set.}
+	\end{align*}
+	If \( H \) is separable, let \( \{ x_n \} \) be the countable dense subset. Use Gram Schmidt: for \( \{ x_n \} \), remove a linear combination of the proceeding elements as follows:
+	\begin{align*}
+		e_i & = \frac{x_1}{\norm{x_1}} \\
+		y_n & = x_n - \sum_{i=1}^{n-1} \langle x_n, e_i \rangle e_i,
+	\end{align*}
+	and let \( e_n \coloneqq \frac{y_n}{||y_n||} \). Then, \( \text{span}\{e_n\} = \text{span}\{x_n \} \) and \( e_n \) are orthonormal and dense (the linear combination is dense).
+\end{proof}
+All of this allows us to see the following proposition:
+\begin{prop}
+	The nit ball in any infinite-dimensional Hilbert Space is not compact. 
+\end{prop}
+
+\begin{proof}
+	Let \( \{ w_n \}_{n=1}^\infty\) be orthonormal with \( \norm{w_n} = 1 \) for all \( n \in \mathbb{N} \). Then, 
+	\begin{align*}
+		\norm{w_n - w_m}^2 & = \langle w_n - w_m, w_n - w_m \rangle, \\
+		& = \norm{w_n}^2 + \norm{w_m}^2 \\
+		& = 2 \text{ ( if \( m \neq n \) )}.
+	\end{align*}
+	Hence, no subsequence can converge, and hence the unit ball is not compact.
+\end{proof}
+
+\section{Hahn-Banach Theorem and Convex Conjugate Functions}
+Let \( E \) be a vector space over \( \R \). Recall that \( f: E \rightarrow R \) is a functional. \textbf{Goal:} given \( G \subseteq E \) a linear space and a linear functional \( g \) on \( G \), when can we extend this to a functional defined on all of \( E \)? Before stating the main theorem, we will first provide two definitions and a lemma. 
+
+\begin{defn}[Partially-Ordered]
+	Let \( P \) be a set. We say that a \textbf{partial order}, denoted \( \leq \), on \( P \) satisfies the following: 
+	\begin{enumerate}
+		\item \( a \leq a \) for all \( a \in P \). 
+		\item \( a \leq b \) and \( b \leq c \) implies that \( a \leq c \). 
+		\item If \( a \leq b \) and \( b \leq a \), then \( a =b \).
+	\end{enumerate}
+\end{defn}
+
+\begin{defn}[Totally Ordered Set/Upper Bound/Maximal Element]
+	\begin{enumerate}
+		\item We say that \( Q \subseteq P \) is \textbf{totally-ordered} if for all \( a, b \in Q \), either \( a \leq b \) or \( b \leq a \) (or both).
+		\item We say that \( c \in P \) is an upper bound of \( Q \) if \( \forall a \in Q \), \( a \leq c \). 
+		\item We say that \( m \in P \) is a \textbf{maximal element} if \( m \leq x \Rightarrow m=x \).
+		\item We say that \( P \) is \textbf{inductive} if every totally-ordered subset \( Q \subseteq P \) has an upper-bound.
+	\end{enumerate}
+\end{defn}
+
+\begin{lem}
+	Every non-empty partially-ordered set that is inductive has a maximal element.
+\end{lem}
+
+\begin{thm}[Hahn-Banach]
+	Let \( E \) be a vector space on \( \R \). Let \( p: E \rightarrow \R \) be a function satisfying:
+	\begin{enumerate}
+		\item \( p(\lambda x) = \lambda p(x) \forall \lambda \geq 0 \) 
+		\item \( p(x+y) \leq p(x) + p(y) \). 
+	\end{enumerate}
+	Let \( G \subseteq E \) be a linear subspace and let \( g: G \rightarrow \R \) be a linear functional such that \(g(x) \leq p(x) \) for all \( x \in G \). Then,  there exists an \( f: E \rightarrow \R \) linear functional such that
+	\begin{enumerate}
+		\item \(f(x) = g(x) \) for all \( x \in G \) (``\(f\) extends \( g\)'') and 
+		\item \( f(x) < p(x) \) for all \( x \in E \).
+	\end{enumerate}
+\end{thm}
+
+\begin{proof}
+	To do...
+\end{proof}
+
+\subsection{Application of Hahn-Banach and Duals}
+Let \( E \) be a normed vector space. 
+
+\begin{defn}[Dual Space]
+	We denote \( E^* = E = \text{dual space of \( E \) } \).
+	\begin{align*}
+		E^* := \{ f: E \rightarrow \R, \text{cts} \text{linear functionals.} \},
+	\end{align*}
+	with the following norm, 
+	\begin{align*}
+		||f||_{E^*} = ||f|| = \sup_{\norm{x} \leq 1} |f(x)| = \sup_{x \in E } = \frac{|f(x)|}{\norm{x}}
+	\end{align*}
+\end{defn}
+We will write \( f(x) = \langle f, x \rangle \), where \( \langle \cdot, \cdot \rangle = \langle \cdot, \cdot \rangle_{E^*, E} \) (scalar product, not to be confused with inner product).
+
+
+\section{Compact Operators, Spectral Decomposition, Self-Adjoint Compact Operators}
+
+\subsection{Definitions, Elementary Properties}
+\begin{defn}[Compact Operator]
+	A linear operator \( T: E \rightarrow F \) is \textbf{compact} if \( T(B_E) \) is pre-compact (compact closure).
+\end{defn}
+This is true if \( \overline{T(W)} \) is compact for any \( W \subseteq E \) bounded. This is true if and only if the following hold: 
+\begin{itemize}
+	\item \( T(B_E) \) can be covered by finitely many balls in the strong topology of \( F \). 
+	\item \( \{ x_n \} \subseteq E \) bounded and \( T \) compact means that \( \{ T x_n \} \subseteq \) compact subset of \( F \). Hence, there exists a strongly convergent subsequence in \( F \).
+\end{itemize}
+
+\begin{exmp}
+An example of a non-compact operator is the identity operator:
+\begin{align*}
+	T: H \rightarrow H, \\
+	Tx = x 
+\end{align*}	
+We saw that \( T(B_H) \) is not compact if \( H \) is an infinite-dimensional vector space. Hence, the identity operator is a non-compact operator.
+\end{exmp}
+
+\begin{lem}
+	Any compact operator is bounded.
+\end{lem}
+\begin{proof}
+	Since \( B_E \) is bounded and \( T \) is compact, \( \overline{T(B_E)} \subseteq B_F(0, R) \) for some \( R > 0 \). Hence, it's compact in the strong topology. Hence, 
+	\begin{align*}
+		& \Rightarrow \sup_{||x || \leq 1}||Tx||_{F} \leq R \\
+		& \Rightarrow ||T|| \leq R \text{ (operator norm)} \\
+		& \Rightarrow T \text{ is bounded.}  
+	\end{align*}
+	So, WLOG, we could define a compact operator as belonging to \( \mathcal{L}(E, F) \) (bounded linear operators between \( E \) and \( F \)). We'll call \( \mathcal{K}(E, F) \subseteq \mathcal{L}(E,F) \) the set of \textbf{compact operators} from \( E \) to \( F \).
+\end{proof}
+
+\begin{thm}
+	\( \mathcal{K}(E,F) \) forms a Banach space with the \( \mathcal{L}_{(E,F)} \) norm. 
+	\begin{align*}
+		|| T||_{\mathcal{L}(E,F)} = \sup_{x \in E, ||x|| \leq 1 } ||Tx||_F 
+	\end{align*}
+\end{thm}
+
+
+
+\begin{proof}
+	Clearly, \( \mathcal{K}(E, F) \) is closed under linear combinations. We claim now that \( \mathcal{K}(E, F) \) is closed under limits. This will require some work. Let \( \{ T_n \} \subseteq \mathcal{K}(E, F) \) be a convergence sequence such that:
+	\begin{align*}
+		||T_n - T ||_{\mathcal{L(E,F)} } \rightarrow 0.
+	\end{align*}
+	Note that \( \mathcal{L}(E,F) \) is a Banach space, and so \( T \in \mathcal{L}(E,F) \). We need to now check the compactness of \( T \). Let \( \{ x_n \} \subseteq E \) be a bounded sequence. We need to extract from this a convergent subsequence. We will construct this using diagonalization.
+	\newline
+	\newline
+	\( T_1 \) is compact. Hence, \( \{ T_1(x_{n_{1_j}}) \}_n  \) has a convergent subsequence in \( F \), since \( T_1 \) is compact. Call it \( T_1(x_{1_j} ) \). Similarly, \( T_2(x_{n_{2_j}}) \) has a convergent sequence. (to do: finish the proof)
+\end{proof}
+
+\begin{defn}[Finite-Rank]
+	\( T \in \mathcal{L}(E,F) \) has \textbf{finite rank} if \(R(T) \) has finite dimensions. 
+\end{defn}
+
+\begin{lem}
+	If \( T \in \mathcal{L}(E,F) \) and is finite-rank, then \( T \) is a compact operator.
+\end{lem}
+
+\begin{proof}
+	Let \( \{ x_n \} \subseteq E \) be bounded. Then, 
+	\begin{align*}
+		|| Tx_n || \leq ||T || \underbrace{||x_n||}_{:=C} < \infty 
+	\end{align*}
+	which implies that \( \{ Tx_n \} \) is bounded in \( F \). But, \( R(T) \) is finite-dimensional. However, finite-dimensional Banach spaces are isomorphic to \( \R^n \). By the Bolzano-Weierstrass theorem plus the fact that all norms on a finite-dimensional space are equivalent, we have that \( \{ T x_n \} \) has a strongly convergent subsequence. Hence, \( T \) is compact. 
+\end{proof}
+
+\begin{cor}
+	If \( \{ T_n \} \subseteq \mathcal{L}(E,F) \) is finite-rank, \( T_n \rightarrow T \) in \( \mathcal{L}(E, F) \). Then, \( T \) is compact.	
+\end{cor}
+
+\begin{exmp}
+	Let \( \Omega \subseteq \R^n \) be a bounded domain. The \textbf{kernel}, denoted by \( K(x,y) \in L^2(\Omega \times \Omega) \), is defined as:
+	\begin{align*}
+		T_u(x) := \int_\Omega K(x,y)u(y) dy,
+	\end{align*}
+	where \( T: L^2(\Omega) \rightarrow L^2(\Omega) \) and \( u \in L^2(\Omega) \). 
+	\newline
+	\newline
+	\textbf{Claim:} the \( T_u \) operator is a compact operator. To see why, recall that \( L^2 \) is a Hilbert space. Hence, it has an orthonormal basis; let \( \{ \phi_j \} \) be an orthonormal basis of \( L^2 \). Then, we claim that \( \{ \phi_i (x) \phi_j(y) \} \) forms an orthonormal basis for \( L^2(\Omega \times \Omega) \). To see why, we may apply Fubini's theorem:
+	\begin{align*}
+		\iint (\phi_i(x) \phi_j(y) ) \phi_m(x) \phi_n(y) dx dy = \int \phi_i(x) \phi_m(x) dx \int \phi_j(y) \phi_n(y) dy 
+	\end{align*}
+	where \( \int \phi_i(x) \phi_m(x) dx = 1 \) if and only if \( i = m \) and \( 0 \) otherwise, and similarly for \( \int \phi_j(y) \phi_n(y) dy  \).
+	\newline
+	\newline
+	Now, \( K(x,y) \in L^2(\Omega \times \Omega) \) implies that \( K^2(x,y) \in L^1(\Omega \times \Omega) \). Hence, we can re-arrange the integrals as we'd like, and we obtain that \( K(x, \cdot ) \in L^2 (\Omega) \). We can write out \( K(x,y) \) in the orthonormal basis as:
+	\begin{align*}
+		K(x,y) = \sum k_{ij} \phi_i(x) \phi_j(y) 
+	\end{align*}
+	Let \( K_n(x,y) \) be given by:
+	\begin{align*}
+		K_n(x,y) := \sum_{i,j= 1}^n k_{ij} \phi_j(x) \phi_j(y), 
+	\end{align*}
+	which gives us a new set of operators:
+	\begin{align*}
+		T_n(u) := \int_{\Omega} K_n(x,y) u(y) dy.
+	\end{align*}
+	Since \( u \in L^2(\Omega) \), we can write \( u \) out in terms of the basis of \(L^2 \):
+	\begin{align*}
+		u = \sum_{\ell = 1}^\infty c_\ell \phi_\ell 
+	\end{align*}
+	By orthogonality:
+	\begin{align*}
+		T_n(u) & = \int_\Omega \sum_{i, j = 1}^n K_{ij} \phi_i(x) \phi_j(y) \left( \sum_{\ell = 1}^\infty c_\ell \phi_\ell (y) \right) dy \\
+		& = \sum_{i, j = 1}^n K_{ij} c_j \phi_i(x) 
+	\end{align*}
+	which implies that \( T_n \) has rank \( n \). By the Lemma, this implies that \( T_n \) is compact for all \( n\). We now claim that \( ||T_n - T|| \rightarrow 0 \) as \( n \rightarrow \infty \). We have:
+	\begin{align*}
+		||T - T_n||^2 & = \sup_{||u|| \leq 1 } \left| \left| \int_\Omega \int_\Omega [K(x,y) - K_n(x,y)]u(y) dy dx \right| \right|^2 
+	\end{align*}
+\end{exmp}
 
 \end{document}

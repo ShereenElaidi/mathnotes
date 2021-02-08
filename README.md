@@ -10,20 +10,22 @@ This repository contains:
 * Math 254 (Analysis 1, Fall 2018) summary.
 * Math 247 (Applied Linear Algebra, Winter 2018) summary.  
 * Math 248 (Vector Calculus / Advanced Calculus, Fall 2018) summary sheet. 
+* Math 376 (Non-Linear Dynamics and Chaos, Fall 2019) final project on Ergodic Theory. 
+* Directed Reading Project Expository paper on Lorentzian Causality Theory. 
 
 Work-in-progress:
-* Math 466 (Complex Analysis, Fall 2020) full notes.
-* Math 456 (Algebra 3, Fall 2020) full notes. 
-* Math 567 (Functional Analysis, Fall 2020) full notes. 
-* Math 580 (Partial Differential Eqns 1, Fall 2020) full notes. 
-* Phys 251 (Classical Mechanics, Fall 2020) summary. 
+* Phys 514 (General Relativity, Winter 2021) full notes. 
+* Phys 321 (Observational Astrophysics and Data Science) midterm summary. 
 
-If I have time: 
+
+Probably Going To Upload/Finish at Some point 
+* Math 466 (Complex Analysis, Fall 2020) definitions, results, and important examples.
+* Math 567 (Functional Analysis, Fall 2020) definitions, results, and important examples.
+* Math 580 (Partial Differential Equations 1, Fall 2020) definitions, results, and important examples.
+* Phys 251 (Classical Mechanics, Fall 2020) full notes. 
 * Phys 260 (Modern Physics \& Relativity, Fall 2020) summary.
 
 Long-term projects: 
 
-* Math 475 (Partial Differential Eqns, Fall 2019) 
-* Something to review Math 235. 
-
-Some physics things. 
+* Something related to quantum ergodicity. 
+* Some notes on special relativity.  
