@@ -3,11 +3,14 @@
 \usepackage{enumitem} 
 \usepackage{amsmath} 
 \usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{float} 
 \newcommand{\R}[0]{\mathbb{R}}
 
 % relativity commands
 \newcommand{\srmetric}[0]{\eta_{\mu \nu}}
 \newcommand{\grmetric}[0]{g_{\mu \nu}}
+\newcommand{\riemanntensor}[0]{\tensor{R}{^\rho_{\sigma \mu \nu}}}
 
 % physics packages 
 \usepackage{tensor}
@@ -875,4 +878,121 @@ i.e., it's the divergence of a vector. By definition, this is a scalar. Similarl
 \begin{align*}
 	\nabla^2 := \nabla_\mu \nabla^\mu 
 \end{align*}
+
+\section{Lecture 10: 9 February 2021}
+\subsection{Curvature}
+ST is a manifold with a metric \( \grmetric \), from this metric, we define a notion of derivative: \textbf{covariant derivative}: 
+\begin{align*}
+	v_\mu v^\rho = \partial_\mu v^\rho + \tensor{\Gamma}{^{\mu}_{\rho \sigma}} v^\sigma. 
+\end{align*}
+where \(  \tensor{\Gamma}{^{\mu}_{\rho \sigma}} = \frac{1}{2} g^{\mu \sigma} (g_{\sigma \nu, \rho} + g_{\sigma \rho, \nu} - g_{\nu \rho, \sigma} ) \). Recall that the christoffel symbols are not a tensor in the exact opposite way that \( \partial_\mu v^\rho \) is not a tensor. A metric defines a kind of geometry. 
+\newline
+\newline
+\textbf{Q: What do we mean by a curved geometry?}
+\newline
+We can informally think of this by transporting a vector around a curve such that it keeps the same angle with the tangent line. In flat space, the vector will return the same location. If we consider this exercise in a curved space, like a sphere, and transport the vector along geodesics (great circles), then the vector does not come back to it self. The whole question of if the vector comes back to itself is how we will capture the notion of curvature. 
+\newline
+\newline
+To make this precise, we need some way of understanding how vectors change when transported around loops. But the above gives us the intuitive notion of what happens. 
+\begin{definition}[Parallel Transport]
+	A vector \( \omega^\mu \) is \textbf{parallely transported} along a curve \( x^\mu (\lambda) \) if the directional derivative along the curve is zero: 
+	\begin{align*}
+		v^\mu \nabla_\mu \omega^\nu = 0 \text{ where } v^\mu = \dot{x}^\mu = \frac{dx^\mu}{d \lambda}.
+	\end{align*}
+\end{definition}
+We now need a tensorial notion for what it means for something to be parallely transported. 
+\newline
+\newline
+\textbf{E.g.:} A geodesic is a curve which has the property where the tangent vector of the curve is parallely transported to itself along the curve. We can read this off of the geodesic equation: 
+\begin{align*}
+	v^\mu \nabla_\mu v^\rho = f(\lambda) v^\rho.
+\end{align*}
+\textbf{Q: How do vectors change as we parallel transport them around some small loop in space-time?}
+
+\begin{figure}[H]
+	\centering 
+	\includegraphics[width=15cm]{parallel-transport.png}
+\end{figure}
+
+We can ask ourselves the following question: how does the same vector change under the above process, i.e., under the displacement \( x^\mu \rightarrow x^\mu + B^\mu \). We would see that:
+\begin{align*}
+	v \rightarrow v^\mu + B^\alpha v_\alpha v^\mu + ... 
+\end{align*}
+If we add on the displacement, \( x^\mu + B^\mu \rightarrow x^\mu + B^\mu + A^\mu \), we see that: 
+\begin{align*}
+	 v^\mu + B^\alpha V_\alpha V^\mu \rightarrow V^\mu + B^\alpha V_\alpha V^\mu + A^\beta \nabla_\beta ( V^\mu + B^\alpha \nabla_\alpha V^\mu), 
+\end{align*}
+and so on...
+\newline 
+\newline
+So if we transport around the entire loop, then \( V \) will change as: 
+\begin{align}
+	\delta V^p = A^\mu A^\nu [ \nabla_\mu, \nabla_\nu ] V^\rho = A^\mu B^\nu ( \nabla_\mu \nabla_\nu - \nabla_\nu \nabla_\mu ) V^\rho. 	
+\end{align}
+Note that covariant derivatives DO NOT commute. The above captures how vectors will change when you move around in small loops. This is a \textbf{characterization} of the local curvature at some point in space-time. We will define the \textbf{curvatue tensor/Riemann tensor} by:
+\begin{align}
+	\delta V^\rho = \tensor{R}{^\rho_{\sigma \mu \nu}}	 A^\mu B^\nu V^\sigma. 
+\end{align}
+This is a \( (1,3)\)-tensor, which by definition is going to be anti-symmetric in its last two indices thanks to the commutator. \( A \) and \( B \) are arbitrary vectors that we use to measure curvature in different directions. Let's compute \( \riemanntensor \):
+\begin{align*}
+	[ \nabla_\mu, \nabla_\nu ] v^\rho & = \nabla_\mu ( \nabla_\nu v^\rho) - \nabla_\nu ( \nabla_\mu v^\rho ) \\
+	& = \partial_\mu ( \nabla_\nu v^\rho) - \tensor{\Gamma}{^\lambda_{\mu \nu}} \nabla_\lambda v^\rho + \tensor{\Gamma}{^\lambda_{\mu \nu}} + \tensor{\Gamma}{^\rho_{\mu \sigma}} \nabla_\nu v^\sigma - ( \mu \leftrightarrow \nu ) 
+\end{align*}
+Observe that the Christoffel symbols by definition are symmetric in its lower indices. We then obtain: 
+\begin{align*}
+	& = \partial_\mu ( \partial_\nu v^\rho ) - \partial_\mu ( \tensor{\Gamma}{^\mu_{\nu \sigma}} v^\sigma) + \tensor{\Gamma}{^\rho_{\mu \sigma}} \partial_\nu v^\sigma + \tensor{\Gamma}{^\rho_{\mu \sigma}} \tensor{\Gamma}{^\sigma_{\nu \lambda}} v^\lambda - ( \mu \leftrightarrow \nu ) \\
+\end{align*}
+By the equality of the mixed partials, the first two terms will cancel. We get, after re-labelling the indices \( \sigma \leftrightarrow \lambda \): 
+\begin{align*}
+	& = v^\sigma ( \partial_\mu \tensor{\Gamma}{^\partial_{\nu \sigma}} + \tensor{\Gamma}{^\rho_{\mu \lambda}} \tensor{\Gamma}{^\lambda_{\nu \lambda}} - ( \mu \leftrightarrow \nu ) ) \\
+	& = \riemanntensor v^\sigma. 
+\end{align*}
+So, to summarize: 
+\begin{align}
+\boxed{\riemanntensor := \partial_\mu \tensor{\Gamma}{^\rho_{\nu \sigma}} - \partial_\nu \tensor{\Gamma}{^\rho_{\mu \sigma}} + \tensor{\Gamma}{^\rho_{\mu \lambda}} \tensor{\Gamma}{^\lambda_{\nu \sigma}} - \tensor{\Gamma}{^\rho_{\nu \lambda}} \tensor{\Gamma}{^\lambda_{\mu \sigma}}}	
+\end{align}
+Now we need to unpack and understand this expression for curvature. First we'll state some facts about the curvature tensor: 
+\begin{enumerate}[noitemsep]
+	\item \( \riemanntensor \) is a tensor even though \( \Gamma \) is not. 
+	\item If \( \riemanntensor = 0 \) then we say that the space-time is \textbf{flat.}
+	\item \textbf{Theorem.} space-time is flat \( \iff \) there is a coordinate system where the metric \( \grmetric \) is constant. The ``proof'': for the forward direction it follows from a complicated theorem that we will ignore; for the backward direction it follows easily since the Christoffel symbols vanish. 
+\end{enumerate}
+Now we'll define the following quantity by lowering the indices: 
+\begin{align*}
+	R_{\rho \sigma \mu \nu} := g_{\rho \alpha} \tensor{R}{^\alpha_{\sigma \mu \nu}}
+\end{align*}
+We have the following properties of this: 
+\begin{enumerate}[noitemsep]
+	\item (Anti-symmetric in the second pair of indices): \( R_{\rho \sigma \mu \nu} = - R_{\rho \sigma \nu \mu} \). 
+	\item (Anti-symmetric in its first two indices): \(  R_{\rho \sigma \mu \nu} = - R_{\sigma \rho \mu \nu} \). 
+	\item \(  R_{\rho \sigma \mu \nu} = R_{\mu \nu \rho \sigma} \).
+	\item (Total symmetrization vanishes): \( R_{[\rho \sigma \mu \nu ]} = 0 \) (this is important).
+\end{enumerate}
+The Riemann tensor involves the first and second derivatives of the metric, but the important feature is it packages them into a tensor, so if the Riemann tensor vanishes in one coordinate system then it much vanish in \emph{every} coordinate system. However, we want something that's simpler than a four-index tensor. We ask ourselves the following question: \textbf{Q: What is the sort of thing we could construct from the Riemann tensor?} Let's contract the upper indices with a lower index to get the \textbf{Ricci tensor}:
+\begin{align}
+	R_{\mu \nu} := \tensor{R}{^\rho_{\mu \rho \nu}}.
+\end{align}
+By the symmetries of the Riemann tensor, this is the \emph{only} possible contraction. 
+\begin{definition}[Ricci Tensor]
+	\( R_{\mu \nu} := \tensor{R}{^\rho_{\mu \rho \nu}} \) is the \textbf{Ricci Tensor}, a \( (0,2) \)-tensor. This tensor is symmetric, and up to a sign is the only \( (0,2) \)-tensor formed by contracting the indices of the Riemann tensor. 
+\end{definition}
+We can use the metric to define something even simpler.
+\begin{definition}[Ricci Scalar]
+	We define the \textbf{Ricci Scalar} as:
+	\begin{align}
+		R := R_{\mu \nu} g^{\mu \nu}.	
+	\end{align}
+\end{definition}
+Let's take a step back. We are developing a theorem of differential geometry to define the curvature of space-time. The equations of motion obeyed by space-time will be an equation involving the curvature (so the Riemann tensor). One possible equation that could describe the curvature of space-time is: 
+\begin{align*}
+	\riemanntensor = 0, 
+\end{align*}
+but this would describe flat space-time. This is too simple. Let's go to the next simplest one: 
+\begin{align*}
+	R_{\mu \nu} = 0.
+\end{align*}
+This is Einstein's equation in the \emph{absence} of matter!
+
+\section{Lecture 11: 11 Feb 2021}
+
 \end{document}
