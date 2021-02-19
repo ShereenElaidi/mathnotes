@@ -11,6 +11,7 @@
 \newcommand{\srmetric}[0]{\eta_{\mu \nu}}
 \newcommand{\grmetric}[0]{g_{\mu \nu}}
 \newcommand{\riemanntensor}[0]{\tensor{R}{^\rho_{\sigma \mu \nu}}}
+\newcommand{\jac}[0]{\frac{\partial x}{\partial \hat{x}}}
 
 % physics packages 
 \usepackage{tensor}
@@ -994,5 +995,115 @@ but this would describe flat space-time. This is too simple. Let's go to the nex
 This is Einstein's equation in the \emph{absence} of matter!
 
 \section{Lecture 11: 11 Feb 2021}
-
+\subsection{Curvature}
+We want to unpack the idea that \( \riemanntensor \) captures the extent to which space-time is not flat, i..e, the extent to which it is impossible to find a coordinate system where the metric is constant. We recall the Equivalence principle: for any point \( x_0^\mu \), we can find coordinates, say \( \hat{x}^\mu \) such that \( g_{\hat{\mu} \hat{\nu}} = \eta_{\hat{\mu} \hat{\nu}} \) (the metric is the usual flat metric at this point ). Indeed, we can always make this choice where this point \( x_0 \) 
+is the origin in the hatted coordinates: 
+\begin{align*}
+	\hat{x}^\mu = 0.
+\end{align*}
+Let's unpack the equivalence in more detail: the Riemann tensor captures the extent to which you can't do the above \emph{everywhere}. 
+\newline
+\newline
+\textbf{Q:} How would we implement this idea? How would we do this? 
+\newline
+\newline
+Imagine starting with a coordinate system with a metric \( \grmetric \) in some coordinates \( x^\mu \). Let's go to some new coordinate system,\( \hat{x}^\mu \), where: 
+\begin{align*}
+	g_{\hat{\mu} \hat{\nu}} = \frac{\partial x^\mu}{\partial x^{\hat{\mu}}}\frac{\partial x^\nu}{\partial x^{\hat{\nu}}} \grmetric.
+\end{align*}
+We want to Taylor expand both sides of this equation in powers of \( x^{\hat{\mu}} \) around the point that we're interested in -- \( x^{\hat{\mu}}  = 0 \). At \(  x^{\hat{\mu}}  = 0 \), the metric has 10 degrees of freedom and the Jacobian, \( \jac \), has 16 degrees of freedom. Since \( 16 > 10 \), we can just choose the set of derivatives \( \jac \) to be such that
+\begin{align*}
+	g_{\hat{\mu} \hat{\nu}} = \eta_{\hat{\mu} \hat{\nu}}.
+\end{align*}
+In this implementation, we want to think of the Jacobian as a set of free parameters to find the coordinate system we used to get the Einstein Equivalence principle. 
+\newline
+\newline
+\textbf{Q:} What about \emph{near} \( \hat{x} = 0 \) instead of just \( \hat{x} = 0 \)?
+\newline
+\newline
+Imagine expanding the Jacobian order by order in powers of \( \hat{x} \). Then: 
+\begin{align*}
+	\jac = \left[ \jac \right]_{\hat{x} = 0 } + \left[ \frac{\partial^2 x}{\partial \hat{x} \partial \hat{x} } \right]_{\hat{x} = 0} \hat{x} + \left[ \frac{\partial^3 x}{\partial \hat{x} \partial \hat{x} \partial \hat{x} } \right]_{\hat{x} = 0} \hat{x}^2 + ... 
+\end{align*}
+Let's count the degrees of freedom appearing in this expression: 
+\begin{itemize}[noitemsep]
+	\item For the \( \left[ \jac \right]_{\hat{x} = 0 }  \) term, we have one upper index ranging from 0 to 3, and one lower index ranging from 0 to 3. Hence, we have \( 4 \times 4 = 16 \) degrees of freedom. 
+	\item For the \( \left[ \frac{\partial^2 x}{\partial \hat{x} \partial \hat{x} } \right]_{\hat{x} = 0} \) term, we have one upper index and two lower indices. By the equality of partial derivatives, this means we have \( 4 \times 10 = 40 \) degrees of freedom, where \( 10 \) is the degrees of freedom in a symmetric 2-index tensor. 
+	\item For the \( \left[ \frac{\partial^3 x}{\partial \hat{x} \partial \hat{x} \partial \hat{x} } \right]_{\hat{x} = 0} \) term, there is one upper index and three lower indices. Hence, we will have \( 4 \times \) (number of degrees of freedom in a symmetric three-index tensor ) \( = 4 \times ( 4 + 4 \times 3 + \frac{4 \times 3 \times 2}{6}) = 80 \) DOF. 
+\end{itemize}
+We want to use the freedom to choose coordinates to make the metric as flat as possible \( \Rightarrow \) we want to compare to the degrees of freedom of our metric \( g_{\hat{\mu} \hat{\nu}} \) expanded about \( \hat{x} = 0 \): 
+\begin{align*}
+	\hat{g} = [ \hat{g}]_{\hat{x} = 0 } + [ \partial \hat{g}]_{\hat{x} = 0 } \hat{x} + [ \partial^2 \hat{g} ]_{\hat{x} = 0 } \hat{x}^2 + ... 
+\end{align*}
+\begin{itemize}[noitemsep]
+	\item \( [ \hat{g}] \): there are 10 degrees of freedom in a symmetric \( 4 \times 4 \) matrix. 
+	\item \( [ \partial \hat{g}] \): there are \( 4 \times 10 = 40 \) degrees of freedom. 
+	\item \( [ \partial^2 \hat{g} ] \): there are 10 degrees of freedom in the second partial derivative (by equality of the mixed partial derivatives) and there are 10 degrees of freedom in the metric, which gives us a total of 100 degrees of freedom for this term. 
+\end{itemize}
+So, in particular, 
+\begin{enumerate}[noitemsep]
+	\item At \( O(\hat{x}^0) \), we can use the 16 degrees of freedom in the \( \jac \) to set \( \hat{g} = \hat{\eta} \). 
+	\item At \(  O(\hat{x}^1) \), we can get another 40 degrees of freedom in the Jacobian to set \( \partial \hat{g} = 0 \).  
+	\item At \(  O(\hat{x}^2) \), we have 80 degrees of freedom in the Jacobian but 100 degrees of freedom in the metric; this leaves us with 20 degrees of freedom remaining in the second derivative of the metric which cannot be removed by some choice of a coordinate system. 
+\end{enumerate}
+To summarize: the result is that we can always choose coordinates where, at \( \hat{x}^\mu = 0 \): 
+\begin{align*}
+	g_{\hat{\mu} \hat{\nu}} & = \eta_{\hat{\mu} \hat{\nu}} \\
+	\partial_{\hat{\rho}} g_{\hat{\mu} \hat{\nu}} & = 0,
+\end{align*}
+at \( \hat{x}^\mu = 0 \). These coordinates are called the \textbf{Riemann Normal Coordinates} or \textbf{locally-inertial coordinates} or \textbf{freely-falling coordinates}. We say \textbf{locally-inertial coordinates} since this means that the Christoffel symbols vanish if the first derivatives vanish, which means that there are no fictitious forces at that point. This is why the Riemann tensor needs \emph{second} derivatives, since if a tensor vanishes in one coordinate system then it vanishes in all coordinate systems. 
+\newline
+\newline
+\textbf{Q:} What is the Riemann Tensor in these freely-falling coordinates? 
+\newline
+\newline
+Let's compute, at \( \hat{x} = 0 \): 
+\begin{align*}
+	R_{\rho \sigma \mu \nu} & = g_{\rho \alpha} R^{\alpha}_{\sigma \mu \nu} \\
+	& = g_{\rho \alpha} ( \partial_\mu \tensor{\Gamma}{^\alpha_{\sigma \nu}} - \partial_\nu \tensor{\Gamma}{^\alpha_{\sigma \mu}} ) \\
+	& = \frac{1}{2} ( \partial_\mu( \partial_\nu g_{\sigma \rho} + \partial_\sigma g_{\nu \rho}  - \partial_\rho g_{\sigma \nu} ) - \partial_\nu ( \partial_\mu g_{\sigma \rho}  + \partial_\sigma g_{\mu \rho} - \partial_\rho g_{\sigma \mu} )  ). 
+\end{align*}
+Using the equality of the mixed partial derivatives, we obtain: 
+\begin{align*}
+	R_{\rho \sigma \mu \nu} = \frac{1}{2} ( \partial_\mu \partial_\sigma g_{\nu \rho} - \partial_\mu \partial_\rho g_{\sigma \nu} - \partial_\nu \partial_\sigma g_{\rho \mu} + \partial_\nu \partial_\rho g_{\sigma \mu} ). 
+\end{align*}
+Using this, we can read off the following properties: 
+\begin{enumerate}[noitemsep]
+	\item (Anti-symmetry when you switch the last two indices): \( R_{\rho \sigma \mu \nu} = - R_{\rho \sigma \nu \mu} \). 
+	\item (Anti-symmetry under the interchange of the first index with the second):\( R_{\rho \sigma \mu \nu} = - R_{\sigma \rho \mu \nu} \). 
+	\item \( R_{\rho \sigma \mu \nu} = R_{\mu \nu \rho \sigma} \).
+	\item \( R_{[\rho \sigma \mu \nu]} = R_{\rho[\sigma\mu \nu] } = 0 \).
+\end{enumerate}
+The above are tensor equations, which means that they are true in any coordinate system. Hence, we derived symmetry arguments for the Riemann tensor by thinking of it in inertial coordinates. 
+\newline
+\newline
+\textbf{Q:} How many degrees of freedom are there in the Riemann tensor?
+\begin{itemize}[noitemsep]
+	\item Conditions (1) and (2) force each pair to be like an anti-symmetric matrix. There are 6 degrees of freedom in a \( 4 \times 4 \) anti-symmetric matrix. 
+	\item From condition (3), we get \( \frac{6 \times 7}{2} = 21 \) degrees of freedom.
+	\item Condition (4) removes a degree of freedom from an anti-symmetric 5 index tensor (all four need to be different). 
+\end{itemize}
+Hence, the number of degrees of freedom in the Riemann tensor is 20. But, we've encountered this number earlier in class. \( \riemanntensor \) is just a re-packaging of those 20 degrees of freedom in the second derivative of the metric in a tensorial way. Hence, you should think of the Riemann tensor as all of the coordinate-invariant information in \( \partial^2 g \). 
+\newline
+\newline
+We have one final identity on the first derivatives of the Riemann tensor: \textbf{Bianchi Identity}: 
+\begin{align}
+	\boxed{\nabla_{[ \lambda} R_{\rho \sigma]\mu \nu} = 0}	
+\end{align}
+Recall that \( R_{\mu \nu} = R^{\rho}_{\mu \rho \nu} \) and \( R = g^{\mu \nu} R_{\mu \nu} \). Then, the Bianchi identity can be used to show that \( \nabla^\mu R_{\mu \nu} = \frac{1}{2} \nabla_\nu R \). 
+\newline
+\newline
+Now define \( G_{\mu \nu} := R_{\mu \nu} - \frac{1}{2} g_{\mu \nu} R \). This is called the \textbf{Einstein tensor}. It has the property that: 
+\begin{align*}
+	\nabla^\mu G_{\mu \nu} = 0.
+\end{align*}
+This follows from the Bianchi identity. 
+\newline
+\newline
+Up to a unique sign, \( G_{\mu \nu} \) is the unique tensor formed from second derivatives of the metric \( \grmetric \) with this property. The changes of coordinates which leave the metric \( \srmetric \) unchanged give us the \textbf{Symmetries of flat Minkowski space}. They are: 
+\begin{enumerate}[noitemsep]
+	\item The three rotations
+	\item The three boosts 
+\end{enumerate}
+These are called the Lorentz transformations of flat Minkowski space, and they generate the Lorentz group. 
 \end{document}
