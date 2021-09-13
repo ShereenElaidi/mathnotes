@@ -1,0 +1,72 @@
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath} 
+\usepackage{enumitem} 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+
+% Examples, definitions, theorems, etc
+\theoremstyle{definition}
+\newtheorem{ex}{Example}[section]
+\newtheorem{defn}{Definition}[section]
+\newtheorem{rmk}{Remark}[section]
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{lem}{Lemma}[section]
+
+\theoremstyle{theorem}
+\newtheorem{thm}{Theorem}[section]
+
+% Short-cuts
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\N}[0]{\mathbb{N}}
+
+\newcommand{\prob}[1]{\mathbb{P}(#1)}
+\newcommand{\comp}[1]{{#1}^{\texttt{C}}}
+\newcommand{\borel}[0]{\mathcal{B}(\R)}
+\newcommand{\pisys}[0]{\mathcal{I}}
+\newcommand{\dsys}[0]{\mathcal{D}}
+
+
+% physics short-cuts
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\bra}[1]{\langle #1|}
+
+
+\begin{document}
+\begin{center}
+	\textbf{PHYS 551: Quantum Theory} \\
+	\textbf{Shereen Elaidi}
+\end{center}
+
+\section{Fundamentals}
+The objective of this part of the course is to review mathematical language. 
+\subsection{Hilbert Spaces}
+A \textbf{Hilbert Space} is a generalized vector space. In Quantum mechanics, a physical state is represented by a \textbf{state vector}. A quantum state corresponds to a vector in the Hilbert Space. In Dirac notation, we describe a quantum state with a \textbf{ket}:
+\begin{align}
+	\ket{\psi}.
+\end{align}
+Consider \( 2 \ket{\psi} \). This disrupts the normalization, but it still represents the same state. Hence, we don't think of quantum states as vectors, but rather as a ``ray in Hilbert Space.'' It's the direction that counts. We usually will normalize it to unit length.
+\newline
+\newline
+The dimension of our Hilbert Space depends on the system we're studying. If we are studying spin \(1/2 \) systems, then the Hilbert space would be two-dimensional:
+\begin{align*}
+	\ket{\uparrow} \text{ and } \ket{\downarrow}. 	
+\end{align*}
+Here, \( N = 2 \) and \( \ket{\uparrow} \text{ and } \ket{\downarrow} \) are the eigenvectors of the spin operator \( \hat{S}_z \). In general, the dimension of our Hilbert Space is the amount of numbers you need to describe the state. For example, we can consider a particle in a square box. What would the dimension of that Hilbert Space be? Since there are infinitely-many stationary states, \( N = \infty \). We would write: 
+\begin{align*}
+	\ket{\psi} = \sum c_n \ket{n}, 	
+\end{align*}
+where \( \ket{\psi} \) represents the state of the system and \( c_n \) is the weight corresponding to the energy level \( \ket{n} \). The \( \ket{n} \) correspond to the eigenstates of the Hamiltonian operator. We could also specify the wave function: 
+\begin{align}
+	\ket{\psi} = \int dx \psi(x) \ket{x}.
+\end{align}
+Here, \( \ket{x} \) corresponds to the position eigenstates: this is a continuous variable. This is an infinite Hilbert Space since \( \psi(x) \) is a \emph{continuous function}. 
+
+\subsection{Inner Product and Dual Space}
+For every ket \( \ket{\psi} \), there is an associated \textbf{bra} \( \bra{\psi} \), which lives in the dual space. Hence, there is a one-to-one correspondence between the Hilbert Space and the Dual space. 
+
+
+\end{document}

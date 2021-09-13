@@ -1,0 +1,229 @@
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath} 
+\usepackage{enumitem} 
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+
+% Examples, definitions, theorems, etc
+\theoremstyle{definition}
+\newtheorem{ex}{Example}[section]
+\newtheorem{defn}{Definition}[section]
+\newtheorem{rmk}{Remark}[section]
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{lem}{Lemma}[section]
+
+\theoremstyle{theorem}
+\newtheorem{thm}{Theorem}[section]
+
+% Short-cuts
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\N}[0]{\mathbb{N}}
+
+\newcommand{\prob}[1]{\mathbb{P}(#1)}
+\newcommand{\comp}[1]{{#1}^{\texttt{C}}}
+\newcommand{\borel}[0]{\mathcal{B}(\R)}
+\newcommand{\pisys}[0]{\mathcal{I}}
+\newcommand{\dsys}[0]{\mathcal{D}}
+
+\begin{document}
+\begin{center}
+	\textbf{MATH 587: Advanced Probability Theory} \\
+	\textbf{Shereen Elaidi}
+\end{center}
+
+\section{Review of Probability Spaces}
+The standard notation for a probability space is \( ( \Omega, \mathcal{F}, \mathbb{P} ) \). The components of this tuple are: 
+\begin{enumerate}[noitemsep]
+	\item \( \Omega \): this is the \textbf{sample space}, which is the collection of ALL possible outcomes. \( \omega \in \Omega \) is a \textbf{sample point}. \( \omega \) corresponds to a specific outcome.
+	\item \( \mathcal{F} \): this is a \textbf{ \( \sigma \)-algebra}. This is a collection of events. For \( A \in \mathcal{F} \), we call \( A \) an \textbf{event}. \( A \subseteq \Omega \). As we will see later, a \( \sigma \)-algebra is a collection of subsets of \( \Omega \). This satisfies certain conditions. 
+	\item \( \mathbb{P} \): this is a function defined on a sigma algebra. 
+	\begin{align*}
+		& \mathbb{P}: \mathcal{F} \rightarrow [0,1],\\
+		& A \in \mathcal{F} \mapsto \mathbb{P}(A) \in [0,1].
+	\end{align*}
+	We call \( \prob{A} \) the \textbf{probability of event A}.
+\end{enumerate}
+
+\begin{ex}
+	Consider flipping a fair coin. Then: 
+	\begin{align*} 
+		\Omega & = \{ H, T \},  \\
+		\mathcal{F} & = \{ \{ H \}, \{ T \}, \{ H, T \}, \emptyset \}, \\
+		\prob{H} & = \frac{1}{2},\ \prob{T} = \frac{1}{2},\ \prob{ \{H, T \}} = 1,\ \prob{ \emptyset } = 0.
+	\end{align*} 
+\end{ex}
+
+\begin{ex}
+	Will do later, It's annoying to write out. 
+\end{ex}
+
+\subsection{Measure Theory}
+\textbf{Measure theory} is the foundation of modern probability theory. We will define things for a general measure space \( (S, \Sigma, \mu ) \) to replace \( ( \Omega, \mathcal{F}, \mathbb{P} ) \). 
+
+\begin{defn}[Algebra]
+	Let \( S \) be a set. A collection \( \Sigma_0 \) of subsets of \( S \) is called an \textbf{algebra} if: 	
+	\begin{enumerate}[noitemsep]
+		\item \( S \in \Sigma_0 \). 
+		\item \( A \in \Sigma_0 \Rightarrow \comp{A} := S \setminus A \in \Sigma_0 \) (\textbf{closed under complements}).
+		\item \( \forall n \in \N, A_1, ..., A_n \in \Sigma_0 \Rightarrow \bigcup_{j=1}^n A_j \in \Sigma_0 \) \textbf{(closed under finite unions)}.
+	\end{enumerate}
+\end{defn}
+
+Some remarks: if \( \Sigma_0 \) is an algebra of \( S \), then: 
+
+\begin{enumerate}[noitemsep]
+	\setcounter{enumi}{3}
+	\item \( \emptyset \in \Sigma_0 \).
+	\item if \( A, B \in \Sigma_0 \), then \( A \cup B \), \( A \cap B \), \( A \setminus B \), \( A \triangle B \), \( B \setminus A  \in  \Sigma_0 \).
+	\item \( \forall n \in \N \), \( A_1, ..., A_n \in \Sigma_0  \Rightarrow \bigcap_{j=1}^n A_j \in \Sigma_0 \).
+\end{enumerate}
+Note that all of these operations are \underline{finite}.
+
+
+\begin{defn}[\(\sigma\)-algebra]
+	A collection of subsets \( \Sigma \) of \( S \) is a \textbf{sigma-algebra} if:
+	\begin{enumerate}[noitemsep]
+		\item \( \Sigma \) is an algebra.
+		\item \( A_1, A_2, ... \in \Sigma \Rightarrow \cup_{j=1}^\infty A_j \in \Sigma \) (closed under countable unions).
+	\end{enumerate}
+\end{defn}
+
+\begin{rmk}
+If \( \Sigma \) is a sigma algebra, then \( \Sigma \) satisfies \( (1) \)-\( (6) \) and: 
+\begin{align}
+	A_1, A_2, ... \in \Sigma \Rightarrow \bigcap_{j=1}^\infty A_j \in \Sigma.
+\end{align}	
+Very often at this stage, when we want to prove something, we have to go back to the definitions.
+\end{rmk}
+
+\begin{defn}[Measurable Space]
+	The pair \( (S, \Sigma) \) is called a \textbf{measurable space}. A set \( A \in \Sigma \) is a \textbf{measurable set}.
+\end{defn}
+
+\begin{defn}[Sigma Algebra Generated]
+	Let \( \mathcal{C} \) be a collection of subsets of \( S \). The \( \sigma \)-algebra \textbf{generated} by \( \mathcal{C} \), denoted by \( \sigma ( \mathcal{C}) \), is the smallest \( \sigma \)-algebra which is a subset of \( \mathcal{C} \):
+	\begin{enumerate}[noitemsep]
+		\item \( \mathcal{C} \subseteq \sigma ( \mathcal{C}) \).
+		\item if \( \Sigma' \) is a \( \sigma \)-algebra containing \( \mathcal{C} \), then \( \sigma ( \mathcal{C} ) \subseteq \Sigma' \).
+	\end{enumerate}
+\end{defn}
+
+\begin{rmk}
+\begin{enumerate}[noitemsep]
+	\item if \( \mathcal{C} \) is a \( \sigma \)-algebra, then \( \sigma( \mathcal{C} ) = \mathcal{C} \).
+	\item \( \sigma ( \sigma ( \mathcal{C} )) = \sigma ( \mathcal{C} ) \).
+	\item if \( \mathcal{C}_1 \subseteq \mathcal{C}_2 \), then \( \sigma (\mathcal{C}_1) \subseteq \sigma (\mathcal{C}_2 ) \).
+\end{enumerate}	
+\end{rmk}
+
+\begin{prop}
+\begin{align}
+	\sigma ( \mathcal{C} ) = \bigcap \left\{  \Sigma\ |\ \Sigma \text{ is a } \sigma-\text{algebra and } \mathcal{C} \in \Sigma \right\}.
+\end{align}	
+\end{prop}
+
+\textbf{Fact}: if \( \{ \Sigma_\alpha\ |\ \alpha \in I \} \) where \( I \) is some index set is any collection of \( \sigma \)-algebras of subsets of \( S \), then \( \bigcap \Sigma_\alpha \) remains a \( \sigma \)-algebra, i.e., intersections of \( \sigma \)-algebras remain \( \sigma \)-algebras. 
+
+\begin{ex}
+Given \( S \), let \( A, B \subseteq S \). Then, \( \sigma ( \{ A \} 	)  = \{ A, \comp{A}, \emptyset, S \} \).
+\end{ex}
+\emph{Question: What do \( \sigma \)-algebras mean for us?} 
+\newline
+\newline
+A \( \sigma \)-algebra contains the collection of events we can study. In other words, it tells me the information available to me, from the point of view of probability. If you're not in the \( \sigma \)-algebra, then you're not measurable with respect to the \( \sigma \)-algebra. 
+
+\begin{ex}[Borel \( \sigma \)-algebra]
+	Take \( S = \R \). Then, we define the \textbf{Borel Sigma Algebra} to be: 
+	\begin{align}
+		\borel := \sigma( \{ \text{ open subsets of } \R \} ).
+	\end{align}
+	This applies to any topological space. Equivalently, only for \( \R \), this reduces to: 
+	\begin{align}
+		\borel = \sigma ( \{ ]a, b [\ |\ a < b,\ a, b \in \R \} ) =: \Sigma_{], [}.
+	\end{align}
+	Note that the generating class of \( \borel \) is \emph{not} unique.
+\end{ex}
+
+\begin{defn}[\( \pi \)-system]
+	Let \( S \) be a set. A collection \( \mathcal{I} \) (of subsets of \( S \)) is called a \textbf{\( \pi \)-system} if \( \forall\ A, B \in \mathcal{I} \), one has \( A \cap B \in \mathcal{I} \).
+\end{defn}
+\begin{defn}
+Let \( S \) be a set. A collection \( \dsys \) (of subsets of S) is called a \textbf{\( \dsys \)-system} if: 
+\begin{enumerate}[noitemsep]
+	\item \( S \in \dsys \). 
+	\item If \( A, B \in \dsys \) and if \( A \subseteq B \), then \( B \setminus A \in \dsys \).
+	\item If \( A_n \in \dsys \) for \( n \geq 1 \), and \( A_n \uparrow A \) then \( A \in \dsys \).
+\end{enumerate}	
+\end{defn}
+
+Note that these two definitions mean that we can separate the properties of \( \borel \) into a \( \pi \)-system and a \( \dsys \)-system. This will allow us to further decode a sigma algebra. 
+
+\begin{lem}
+Let \( \Sigma \) be a collection of subsets of \( S \). Then, \( \Sigma \) is a sigma-algebra \( \iff \) \( \Sigma \) is a \( \pi \)-system and a \( \dsys \)-system.	
+\end{lem}
+
+\begin{proof}
+	``\( \Rightarrow \)'': trivial.
+	\newline
+	``\( \Leftarrow \)'': We just need to verify that \( \Sigma \) is a \( \sigma \)-algebra.
+	\begin{enumerate}[noitemsep]
+		\item \( S \in \Sigma \) follows from the fact that \( \Sigma \) is a d-algebra. 
+		\item If \( A \in \Sigma \), then \( \comp{A} = S \setminus A  \in \Sigma \) from (2) of d-system definition. 
+		\item If \( A_n \in \Sigma \) for \( n \geq 1 \), we need to check that \( \bigcup_{n=1}^\infty A_n \in \Sigma \). 
+		\newline
+		\newline
+		Set \( B_n := \bigcup_{j=1}^n B_n \). Then, \( B_n \) is an increasing sequence, and \( B_n \in \Sigma \) for all \( n \in \N \) (we know this since we can apply deMorgan's Law, then use the fact that \( \Sigma \) is a \( \pi \)-system and is hence closed under intersections. Now, using (III) of being a d-system, we can conclude:
+		\begin{align*}
+			\bigcup_{n=1}^\infty B_n \in \Sigma \Rightarrow \bigcup_{n=1}^\infty B_n = \bigcup_{n=1}^\infty A_n \in \Sigma.
+		\end{align*}
+	\end{enumerate}
+\end{proof}
+
+\begin{thm}[Dykins \( \pi \)-d lemma]
+	Suppose that \( \pisys \) is a \( \pi \)-system of subsets of \( S \), and \( d( \pisys ) \) is the d-system generated by \( \pisys \). Then, \( d( \pisys ) = \sigma ( \pisys ) \).
+\end{thm}
+In words, this theorem is saying that if you start with a \( \pi \)-system generating class, all you need is a d-system and you'll automatically get a \( \sigma \)-algebra. 
+\begin{proof}
+	We observe that it is sufficient to show that \( d( \pisys ) \) is a \( \pi \)-system. Why?
+	\begin{enumerate}[noitemsep]
+		\item If we manage to show this, by the previous lemma, we would know that \( d ( \pisys ) \) is a \( \sigma \)-algebra, and so by the definition of a \( \sigma \)-algebra one would get that \( \sigma ( \pisys ) \subseteq d ( \pisys ) \).
+		\item Since \( \sigma ( \pisys ) \) is certainly a d-system, \( d( \pisys ) \subseteq \sigma ( \pisys ) \).
+	\end{enumerate}
+	So the GOAL: show that \( d ( \pisys ) \) is a \( \pi \)-system. This proof requires two stages. We will use the \textbf{good set principle}, which is a common technique in set theory. Broadly speaking, you collect all items with a certain property, argue that this collection satisfies certain properties, then show that this collection is actually the whole set. So, our ``good set'' will be defined as follows: 
+	\begin{align*}
+		\mathcal{D}_1 := \{\ B \in d( \pisys )\ |\ B \cap A \in d (\pisys)\ \forall A\ \in \pisys \}.	
+	\end{align*}
+	\textbf{Claim:} \( \mathcal{D}_1 \) is a d-system. We need to check against the definition of a d-system. 
+	\begin{enumerate}[noitemsep]
+		\item \( S \in \mathcal{D}_1 \): satisfied, since \( \forall A \in \pisys \), \( A \cap S = A \in d (\pisys) \) since \( A \in \mathcal{I} \subseteq d ( \mathcal{I}) \). 
+		\item Let \( A_1, A_2 \in \mathcal{D}_1 \). Suppose that \( A_1 \subseteq A_2 \). We want to show that \( A_2 \setminus A_1 \in \mathcal{D}_1 \). So, we need to verify that \( ( A_2 \setminus A_1) \cap A \in d ( \mathcal{I})  \) for any \( A \in \mathcal{I} \):
+		\begin{align*}
+			A \cap (A_2 \setminus A_1 ) = ( A_2 \cap A) \setminus (A_1 \cap A ) \in d(\mathcal{I} 
+		\end{align*}
+		\( ( A_2 \cap A)  \) and \( (A_1 \cap A ) \) both belong to \( d (\mathcal{I}) \) since by definition they are in \( \mathcal{D}_1 \). Now, since \( d(\mathcal{I}) \) is a d-system, the difference is in \( d( \mathcal{I} ) \). 
+		\item Finally we need to show that when \( A_n \in \mathcal{D}_1 \), for \( n \geq 1 \) and \( A_n \uparrow A_\infty  \), then \( A_\infty \in \mathcal{D}_1 \). However, since \( A \in \mathcal{I} \): 
+\begin{align*}
+	\underbrace{A_n \cap A}_{\in d( \mathcal{I} )} \uparrow A_\infty \cap A  \Rightarrow A_\infty \cap A \in d( \mathcal{I}) \Rightarrow A_\infty \in \mathcal{D}_1.	
+ \end{align*}
+	\end{enumerate} 
+	
+	This shows me that \( \mathcal{D}_1 \) forms a d-system. Since \( \mathcal{I} \) is a \( \pi \)-system, \( I \subseteq \mathcal{D}_1 \). This tells me that \( d ( \mathcal{I}) \subseteq \mathcal{D}_1 \). However, \( \mathcal{D}_1 \)   is defined using only elements in \( d ( \mathcal{I}) \), which then gives us the second inequality: \( \mathcal{D}_1 \subseteq d ( \mathcal{I}) \).  Therefore, \( \forall B \in d( \mathcal{I} ) \) and  \( \forall A \in \mathcal{I} \), one has that \( B \cap A \in d( \mathcal{I}) \). This was the intermediate step; we need to re-do this but with \( A \in d( \mathcal{I} ) \) now. Hence, we set: 
+	\begin{align*}
+		\mathcal{D}_2 := \{ c \in d( \mathcal{I} )\ |\ B \cap C \in d ( \mathcal{I} ) \text{ for  all } B \in d( \mathcal{I}) \} 	
+	\end{align*}
+	From our intermediate step conclusion, we know that \( \mathcal{I} \subseteq \mathcal{D}_2 \). Next, we verify that \( \mathcal{D}_2 \) is a d-system. Exercise: verify this. This shows that \( \mathcal{D}_2 \) is a d-system and \( \mathcal{I} \subseteq \mathcal{D}_2 \). This shows us that \( d (\mathcal{I}) \subseteq \mathcal{D}_2 \). Hence, \( d( \mathcal{I} ) = \mathcal{D}_2 \). Hence, \( \forall c \in d ( \mathcal{I} ) \), \( \forall B \in d( \mathcal{I} ) \), \( B \cap C \in d( \mathcal{I} ) \). This proves that \( d ( \mathcal{I} ) \) is a \( \pi \)-system, which is what we wanted to show.
+\end{proof}
+This idea is very important in the study of measures. The reason why this theorem is important is because when constructing a measure, we only look at the \( \pi \)-system that generates the \( \sigma \)-algebra. 
+
+
+
+
+
+
+
+
+\end{document}
