@@ -23,7 +23,7 @@
 \newcommand{\R}[0]{\mathbb{R}}
 \newcommand{\N}[0]{\mathbb{N}}
 
-\newcommand{\prob}[1]{\mathbb{P}(#1)}
+\newcommand{\prob}[1]{\mathbb{P}\left(#1 \right)}
 \newcommand{\comp}[1]{{#1}^{\texttt{C}}}
 \newcommand{\borel}[0]{\mathcal{B}(\R)}
 \newcommand{\pisys}[0]{\mathcal{I}}
@@ -219,10 +219,340 @@ In words, this theorem is saying that if you start with a \( \pi \)-system gener
 \end{proof}
 This idea is very important in the study of measures. The reason why this theorem is important is because when constructing a measure, we only look at the \( \pi \)-system that generates the \( \sigma \)-algebra. 
 
+\begin{defn}[Additive]
+Let \( S \) be a set. Let \( \Sigma_0 \) be an algebra of subsets of \( S \). Let \( \mu_0 \) be a non-negative set function defined on \( \Sigma-0 \) i.e.: 
+\begin{align*}
+\mu_0 := \sigma_0 \rightarrow [0, \infty ].
+\end{align*}
+We say that \( \mu_0 \) is \textbf{additive} if (1) is \( \mu_0 ( \emptyset ) = 0 \) and (2) \( \forall A, B \in \Sigma_0 \) and \( A \cap B = \emptyset \), \( \mu_0 (A \cup B) = \mu_0(A) + \mu_0(B) \). 
+\end{defn}
+\begin{defn}
+We say that \( \mu_0 \) is \textbf{countably additive} if:
+\begin{enumerate}[noitemsep]
+	\item \( \mu_0( \emptyset) = 0 \) 
+	\item \( \forall \) \( A_n \in \Sigma_0 \),\( n \geq 1 \) such that \( A_i \cap A_j = \emptyset \) for all \( i \neq j \) and \( \cup_{n=1}^\infty A_n \in \Sigma_0 \), then we require: 
+	\begin{align*}
+		\mu_0 \left( \bigcup_{n=1}^\infty A_n \right) = \sum_{n=1}^\infty \mu_0(A_n).	
+	\end{align*}
+\end{enumerate}
+\end{defn}
+
+\begin{defn}
+Let \( (S, \Sigma) \) be a measure space. If \( \mu \) is a non-negative set function defined on \( \Sigma \) and if \( \mu \) is countably additive, then \(\mu\) called a \textbf{measure} and the triple \( (S, \Sigma, \mu ) \) is called a \textbf{measure space}.
+\begin{enumerate}[noitemsep]
+	\item If \( \mu(S)>\infty \), then \( \mu \) is a \textbf{finite measure}.
+	\item If \( \mu(S) = 1 \), then \( \mu\) is a \textbf{probability measure}. 
+	\item If \( \exists \) \( \{ S_n | n \geq 1 \} \subseteq \Sigma \) such that \( \bigcup_{n=1}^\infty S_n = S \) and \( \mu(S_n) < \infty \) for all \( n \geq 1 \),then \( \mu \) is \( \sigma \)-finite.
+	\item For \( N \in \Sigma \) such that \( \mu(N) = 0 \), then we say that \( N \) is a \textbf{null set}. 
+	\item Of a statement holds everywhere except on a null set, then we say that the statement is true \textbf{almost everywhere} or \textbf{almost surely}.
+\end{enumerate}
+\end{defn}
+
+\textbf{Remark:} All measures that we will discuss in this course will either be finite or \( \sigma \)-finite. 
+
+\subsection{Properties of a Measure \( \mu \)}
+\begin{prop}[Monotonicity]
+	Let \( A, B \in \Sigma \), \( A \subseteq B \). Then, \( \mu(A) \leq \mu(B) \).  
+\end{prop}
+\textbf{Caution!} Do not take the difference, \( \mu(B) - \mu(A) \),because both \( \mu(A) \) and \( \mu(B) \) might be infinite. This is undefined! If at least one of them are finite, then this is ok. 
+\begin{prop}[Subadditivity]
+	Let\( A_n \in \Sigma \) for all \( n \geq 1 \). Then:
+	\begin{align}
+		\mu \left( \bigcup_{n=1}^\infty A_n \right) \leq \sum_{n=1}^\infty \mu(A_n).
+	\end{align}
+\end{prop}
+\begin{proof}
+	We can prove this using the monotonicity of \( \mu \). Define a new collection of sets \( B_n \):
+	\begin{align*}
+		B_1 & = A_1 \\
+		B_2 & = A_2 \setminus A_1 \\
+		B_n & = A_n \setminus \left( \bigcup_{j=1}^{n-1} A_j \right). 
+	\end{align*}
+	The \( B_n \)'s are disjoint, and by construction \( B_n \subseteq A_n \). This gives us that \( \forall \) \( n \geq 1 \) we have: \( \mu(B_n) \leq \mu (A_n) \). Furthermore, \( \bigcup_{n=1}^\infty B_n = \bigcup_{n=1}^\infty A_n \). Combining all this together and using the countable additivity of \( \mu \) on the \( B_n \)'s, we obtain:
+	\begin{align*}
+		\mu \left( \bigcup_{n=1}^\infty A_n \right)	= \mu \left( \bigcup_{n=1}^\infty B_n \right) = \sum_{n=1}^\infty \mu(B_n) \leq \sum_{n=1}^\infty \mu(A_n).
+	\end{align*}
+\end{proof}
+
+\begin{prop}[Continuity from Below]
+	Let \( A_n \in \Sigma \) for all \( n \geq 1 \). Also suppose that \( A_n \uparrow \) (``monotonic increasing sequence''). Then: 
+	\begin{align}
+		\mu \left( \bigcup_{n=1}^\infty A_n \right) = \lim_{n \rightarrow \infty} \mu (A_n).
+	\end{align}
+	When \( A_n \uparrow \), we view \( \bigcup_{n=1}^\infty A_n \) as \( \lim_{n \rightarrow \infty} \mu(A_n) \). Then, \( \mu ( \lim_{n \rightarrow \infty} A_n) = \lim_{n \rightarrow } \mu (A_n) \). This is what continuity means: I can interchange the limit with the measure \( \mu \).
+\end{prop}
+\begin{proof}
+	Define a new sequence of disjoint sets \( B_n \) as follows:
+	\begin{align*}
+		B_1 & = A_1 \\
+		B_n & = A_n \setminus A_{n+1} \forall n \geq 2. 
+	\end{align*}
+	The \( B_n \)'s are clearly disjoint, and \( \bigcup_{n=1}^\infty B_n =  \bigcup_{n=1}^\infty A_n \). Hence, we can use countable additivity:
+	\begin{align*}
+		\mu \left( \bigcup_{n=1}^\infty B_n \right)	= \sum_{n=1}^\infty \mu (B_n ) = \lim_{n \rightarrow \infty} \sum_{j=1}^n \mu (B_j) = \lim_{n \rightarrow \infty} \mu \left( \bigcup_{j=1}^n B_j \right) = \lim_{n \rightarrow \infty } \mu (A_n).
+ 	\end{align*}
+\end{proof}
+
+\begin{prop}[Continuity from Above]
+	If \( A_n \in \Sigma \) for all \( n \geq 1 \), \( A_n \downarrow \), AND \( \mu(A_n) \) is finite for \emph{some} \( n \geq 1 \), then:
+	\begin{align}
+		\mu \left( \bigcap_{n=1}^\infty A_n \right) = \lim_{n \rightarrow \infty} \mu(A_n).
+	\end{align}
+\end{prop}
+
+\begin{proof}
+	We'll show this property through continuity from below. WLOG, assume that \( \mu (A_1 ) < \infty \). By monotonicity, this implies that \( \mu(A_n) \) is finite \( \forall n \in \N \). Using our decreasing sequence \( \{ A_n \} \) of sets, construct an increasing sequence of sets as follows: 
+	\begin{align*}
+		B_n := A_1 \setminus A_n \text{ for all } n \geq 1.	
+	\end{align*}
+	Then, \( B_n \uparrow \) and we can use Continuity from Below:
+	\begin{align*}
+		\lim_{n \rightarrow \infty} \mu (B_n)  & = \mu \left( \bigcup_{n=1}^\infty B_n \right) \\
+		& = \mu \left( \bigcup_{n=1}^\infty ( A_1 \setminus B_n) \right) \\
+		& = \mu \left( A_1 \setminus \bigcap_{n=1}^\infty B_n  \right) \\
+		& = \mu(A_1) - \mu \left( \bigcap_{n=1}^\infty B_n \right) \text{ (this is ok since everything is finite).}  
+	\end{align*}
+	Hence, 
+	\begin{align*}
+		\lim_{n \rightarrow \infty} \mu(A_n) = \mu \left( \bigcap_{n=1}^\infty A_n \right).	
+	\end{align*}
+\end{proof}
+\textbf{Remark:} in general, the assumption ``\( \mu(A_n) < \infty \) for some \( n \)'' is necessary. For example, consider the set \( S = \R \), \( A_n := ]n, \infty[ \). Consider the lebesgue measure which we will denote by \( \mu \). Then: \( A_n \) is a decreasing sequence, but for each \( n \): 
+\begin{align*}
+	\mu ( ]n, \infty [ ) = \infty \Rightarrow \lim_{n \rightarrow \infty} \mu (A_n) = \infty. 	
+\end{align*}
+However, since \( A_n \downarrow \emptyset \), 
+\begin{align*}
+	\mu \left( \bigcap_{n=1}^\infty A_n \right) = 0.
+\end{align*}
+This is a contradiction.
+
+\begin{thm}
+	Given a set \( S \) and an algebra \( \Sigma_0 \). Suppose that \( \mu \) is a non-negative set function: 
+	\begin{align*}
+		\mu: \Sigma_0 \rightarrow [0, \infty [	
+	\end{align*}
+	and \( \mu \) is finitely additive. Then, \( \mu \) is countably additive \( \iff \) \( \mu \) is continuous at \( \emptyset \). We call this ``continuity at the empty set.'' 
+\end{thm}
+
+\begin{proof}
+	To do.
+\end{proof}
+
+\subsection{Existence and Uniqueness of Measure}
+Before proceeding, we define what it means for two measures to be equal. Given a measure space \( (S, \Sigma) \) and two measures \( \mu_1, \mu_2 \), we say that \( \mu_1 = \mu_2 \) if \( \mu_1(A) = \mu_2 (A) \) for all \(A \in \Sigma \).
+
+\begin{thm}
+Given a set \( S \) and a \( \pi \)-system \( \pisys \) 	of subsets of \( S \). Let \(S \) and \( \Sigma \) be the sigma algebra  generated by the set \( \pisys \). Then, if \( \mu_1(S) = \mu_2(S) < \infty \) and if \( \mu_1(A)= \mu_2(A) \) for all \( A \in \pisys \), then \( \mu_1 = \mu_2 \) on the whole sigma-algebra. 
+\end{thm}
+Significance of this theorem:
+\begin{enumerate}[noitemsep]
+	\item Only \( \R \) valued.
+	\item Can extend to any \( \sigma\)-finite space.
+\end{enumerate}
+
+\begin{thm}[Caratheodory's Extension Theorem]
+Given a set \( S \), suppose that \( \Sigma_0 \) is an algebra and \( \mu_0: \Sigma_0 \rightarrow [0, \infty ] \) is countably additive. Then, there exists a measure defined on \( \Sigma = \sigma ( \Sigma_0 ) \) such that \( \mu(A) = \mu_0(A) \) for all \( A \in \Sigma \). 	
+\end{thm}
+We can extend a measure on \( \Sigma_0 \) to \( \Sigma \). Moreover, if \( \mu_0(S) <\infty \), then such an extension is unique. 
+
+\subsection{Completion of Measure / Measure Space}
+Sometimes it is convenient to ``assume'' subsets of null sets are measurable. Let \( (S, \Sigma, \mu) \) be a measurable space. Let \( N := \{ A \subseteq S\ |\ \exists B \in \Sigma \text{ and } \mu(B) = 0 \text{ s.t. } A \subseteq B \} \). Define: 
+\begin{align}
+	\Sigma^* := \{ F \subseteq S\ |\ \exists\ G, H \in \Sigma\ \text{ s.t. } G \subseteq F \subseteq H \text{ and } \mu (H \setminus G ) = 0 \} 
+\end{align}
+\begin{prop}
+	\( \Sigma^* \) is a sigma-algebra and \( \Sigma^* \) is the sigma-algebra generated by 
+	\begin{align*}
+		\Sigma^* = \sigma ( \Sigma \cup N ).	
+	\end{align*}
+\end{prop}
+\begin{prop}
+Define \( \mu^* \) to be a set function of \( \Sigma^* \) by: 
+\begin{align*}
+	\forall\ F \in \Sigma^* \text{ if } G \subseteq F \subseteq H \text{ for some } G, H \in \Sigma \text{ with } \mu(G) = \mu(H). \text{ Then, }  \mu^*( F) = \mu(G) = \mu(H). 
+\end{align*}
+	Then, \( \mu^* \) is a measure on \( (S, \Sigma^*) \). 
+\end{prop}
+
+\begin{defn}[Complete Measure Space]
+	\( (S, \Sigma^*, \mu^*) \) is a \textbf{complete measure space}, i.e., the completion of \( (S, \Sigma, \mu) \).
+\end{defn}
+
+\section{Events and Independence}
+Throughout this section, assume that \( ( \Sigma, \mathcal{F}, \mathbb{P} ) \) is a probability space. 
+\begin{defn}[Limsup and Liminf]
+	Let \( \{ A_n\ |\ n \geq 1 \} \) be a sequence of events, i.e., \( A_n \in \mathcal{F} \) for all \( n \geq 1 \). Then: 
+	\begin{align}
+		\limsup_{n \rightarrow \infty} A_n & := \bigcap_{n=1}^\infty \bigcup_{m=n}^\infty A_m. \\ 
+		& = \lim_{n \rightarrow \infty} \bigcup_{m=n}^\infty A_m. \\
+		\liminf_{n \rightarrow \infty} A_n & := \bigcup_{n=1}^\infty \bigcap_{m=n}^\infty A_m. \\
+		& = \lim_{n \rightarrow \infty} \bigcap_{m=n}^\infty A_m.
+	\end{align}
+	\( \limsup \) is the collection of outcomes which are in infinitely many \( A_n \)'s; the \( \liminf \) is the collection of outcomes which are in every \( A_n \) after a certain cutoff. 
+\end{defn}
+\textbf{Remarks}:
+\begin{enumerate}[noitemsep]
+	\item Obviously, \( \liminf_{n } A_n \subseteq \limsup_{n } A_n \). If \( \liminf_{n } A_n = \limsup_{n} A_n \), we say that \( \lim_{n}  A_n \) exists. 
+	\item If \( \{ A_n\ |\ n \in \N \} \) is a sequence of events and \( \{ B_n\ |\ n \in \N \} \subseteq \mathcal{F} \) and \( A_n \subseteq B_n \). Then:
+	\begin{align*}
+		\limsup_{n} A_n \subseteq \limsup_{n} B_n
+	\end{align*}
+	and 
+	\begin{align*}
+		\limsup_{n} A_n \subseteq \limsup_{n} B_n. 	
+	\end{align*}
+	\item \textbf{(deMorgan's Law)}: \( \limsup_{n}A_n^c =(\liminf_{n} A_n)^c \) and \( \liminf_{n}A_n^c = ( \limsup_{n} A_n)^c \).
+	\item \( ( \limsup_{n}A_n ) \setminus ( \liminf_{n} A_n ) = \limsup_{n} ( A_n \setminus A_{n+1} ) \).
+	\item Let \( \{ A_n\ |\ n \in \N \} \) and \( \{ B_n\ |\ n \in \N \} \) be two sequences of events. Then in general: 
+	\begin{enumerate}[noitemsep]
+		\item \( ( \limsup_{n} A_n) \cap (\limsup_{n}B_n ) \supseteq \limsup_{n}(A_n \cap B_n) \).
+		\item \( (\limsup_{n}A_n ) \cup ( \limsup_{n} A_n ) = \limsup_{n} (A_n \cup B_n ) \).
+		\item \( ( \liminf_{n} A_n ) \cap ( \liminf_n B_n ) = \liminf_{n} (A_n \cap B_n) \).
+		\item \( (\liminf_{n} A_n ) \cup ( \liminf_{n} B_n ) \subseteq \liminf_{n} (A_n \cup B_n) \).
+	\end{enumerate}
+\end{enumerate}
+
+\begin{thm}[Borel-Cantelli Lemma (BC1)] 
+	If \( \sum_{n=1}^\infty \prob{A_n} < \infty \) then \( \prob{ \limsup_{n \rightarrow \infty A_n }} = 0 \). 
+\end{thm}
+
+\begin{defn}[Independent]
+	Given a probability space \( ( \Omega, \mathcal{F}, \mathbb{P}) \), a sequence of events \( \{ E_n\ |\ n \geq 1 \} \subseteq \mathcal{F} \) is called \textbf{(mutually) independent} if \( \forall k \in \N \), \( \forall 1 \leq i_1 \leq i_2 \leq ... \leq i_k \):
+	\begin{align*}
+		\prob{  \bigcap_{j=1}^k E_{ij}} = \prod_{j=1}^k \prob{ E_{ij} }
+	\end{align*}
+\end{defn}
+
+\begin{defn}
+Let \( (\Omega, \mathcal{F}, \mathbb{P} ) \) be a probability space. Suppose that \( \{ G_n\ |\ n \in \N \} \) is a sequence of 	\( \sigma \)-algebras (of subsets of \( \Omega \). Then, \( \{ G_n\ |\ n \in \N \} \) is \emph{independent} if for any choice of \( E_n \in G_n \), \( n \geq 1 \), \( \{ E_n\ |\ n \geq 1 \} \) is independent. 
+\end{defn}
+
+\begin{prop}
+Given \( \{ E_n\ |\ n \geq 1 \} \subseteq \mathcal{F} \), we say that the collection \( \{ E_n\ |\ n \geq 1 \} \) is independent \( \iff \) \( \{ \sigma(E_n)\ |\ n \geq 1 \} \) is independent. 
+\end{prop}
+
+\begin{thm}
+	Given \( (\Omega, \mathcal{F}, \mathbb{P}) \), \( \{ I_n\ |\ n \geq 1 \} \) be sequence of \( \pi \)-systems (of subsets of \( \Omega \)) \( I_n \subseteq \mathcal{F} \), \( \forall \) \( n \geq 1 \). Then, \( \{ E_n\ |\ n \geq 1 \} \) is independent \( \iff \) \( \{ \sigma (I_n)\ |\ n \geq 1 \} \) is independent. 
+\end{thm}
+
+\begin{thm}[Borel-Cantelli Lemma (BC2)] 
+	Given a probability space \( (\Omega, \mathcal{F}, \mathbb{P}) \) let \( \{ E_n\ |\ n \in \N \} \) be an independent sequence of events if: 
+	\begin{align}
+		\sum_{n=1}^\infty \prob{E_n} = \infty, \text{ then } \prob{ \limsup_{n} E_n } = 1. 	
+	\end{align}
+	
+\end{thm}
+
+\begin{defn}[Tail Sigma-Algebra]
+	Given \( (\Omega, \mathcal{F}, \mathbb{P}) \) and a sequence of events \( \{ E_n\ |\ n \geq 1 \} \). Define: 
+	\begin{align}
+		\mathcal{T} := \bigcap_{n=1}^\infty \sigma (\{ E_n, E_{n+1}, E_{n+2},... \}).
+	\end{align}
+	Then, \( \mathcal{T} \) is defined to be the \textbf{tail sigma algebra} associated with \( \{ E_n\} \). If an event\( A \in \mathcal{T} \), then \( A \) is a \textbf{tail event} with respect to \(\{ E_n\ |\ n \in \N \} \). 
+\end{defn}
+
+\begin{thm}[Kolmogorov's 0-1 Law]
+	If \( \{ E_n\ |\ n \geq 1 \} \) is independent, and \( \mathcal{T} \) is the tail sigma-algebra associated with \( E_n \) then for all \( A \in \mathcal{T} \), either \( \prob{A} = 0 \) or \( \prob{A} = 1 \). 
+\end{thm}
+
+\section{Random Variables}
+\begin{defn}[Measurable]
+		Let \( (S, \Sigma) \) be a measurable space and \( h: S \rightarrow \R \) (in certain situations, could be \( \overline{\R} \)) be a function. We say that \( h \) is \( \Sigma \)\textbf{-measurable}, denoted by \( h \in m \Sigma \) if: \( \forall B \in \mathcal{B}(\R) \), the pre-image of \( B \) under \( h \) is measurable, i.e., \( h^{-1}(B) \in \Sigma \). 
+\end{defn}
+Remarks: 
+\begin{enumerate}[noitemsep]
+	\item If \( h \) is a measurable function, \( h \in m \Sigma \), then \( \{ h = \infty \} = \{ s \in S\ |\ h(s) = + \infty \} \in \Sigma \) and \( \{ h = - \infty \} = \{ s \in S\ |\ h(s) = + \infty \} \in \Sigma \). 
+	\item More generally, \( h: (S_1, \Sigma_1 ) \rightarrow (S_2, \Sigma_2 ) \), then we say that \( h \) is \( \Sigma_1 \setminus \Sigma_2 \)-measurable if \( \forall B \in \Sigma_2 \), \( h^{-1}(B) \in \Sigma_1 \).  
+	\item For al \( A \subseteq  \R \), \( h^{-1}(A^c ) = (h^{-1}(A))^c \). Moreover, for all \( A_\alpha \in \R \),where \( \alpha \in I \), 
+	\begin{align*}
+		h^{-1} \left( \bigcup_{\alpha \in I} A_\alpha \right) &  = \bigcup_{\alpha \in I} 	h^{-1}(A_\alpha), \\
+		h^{-1} \left( \bigcap_{\alpha \in I} A_\alpha \right) & = \bigcap_{\alpha \in I} h^{-1}(A_\alpha).
+	\end{align*}
+	\item Suppose \( \mathcal{C} \subseteq \mathcal{B}(\R) \)and \( \sigma ( \mathcal{C} ) = \mathcal{B}(\R ) \). Then, a function is measurable \( \iff \) \( \forall c \in \mathcal{C} \), \( h^{-1}(c)\in \Sigma \).
+	\item Given \( h: S \rightarrow \R \) measurable, \( f: \R \rightarrow \R \) a Borel function, then \( (f \circ h ) \in m \Sigma \). 
+	\item Given \( h_1, h_2 \in m\Sigma \), \( h_1 + h_2\), \( h_1 - h_2 \), \( h_1 \cdot h_2 \), \( \frac{h_1}{h_2} \) (where \( h_2 \neq 0 \)),..., \( \in m\Sigma \). 
+	\item Given \( \{ h_n\ |\ n \in \N \} \subseteq m \Sigma \), we have:
+	\begin{align*}
+		\inf_n h_n,\ \sup_n h_n,\ \liminf_n h_n,\ \limsup_n h_n \in m \Sigma. 	
+	\end{align*}
+\end{enumerate}
+\begin{defn}[Random Variable]
+	Consider a random probability space \( (\Sigma, \mathcal{F},\mathbb{P}) \). \( X: \Sigma \rightarrow \R \) is a \textbf{Random Variable} if \( X \) is \( \mathcal{F} \)-measurable, i.e., \( X \in m \mathcal{F} \). 
+\end{defn}
+
+\begin{defn}[Sigma Algebra Generated by \( X\)] 
+	Let \( X \) be a random variable. The \( \sigma \)-algebra generated by \( X \), denoted by \( \sigma(X) \), is:
+	\begin{align}
+		\sigma(X) := \{ X^{-1}(\mathcal{B})\ |\ B \in \mathcal{B}(\R) \}.
+	\end{align}
+	I.e.: \( \sigma(X) \) is the smallest \( \sigma \)-algebra with respect to which the random variable \( X \) is measurable. 
+\end{defn}
+\textbf{Remarks}:
+\begin{enumerate}[noitemsep]
+	\item Given \( ( \Sigma, \mathcal{F}, \mathbb{P}) \) and \( X: \Omega \rightarrow \R \). Then, \( X \) is a random variable \( \iff \) \( \forall \) \( a \in \R \) \( \{ X \leq a \} \in \mathcal{F} \).
+	\item Let \( \{ X_\alpha\ |\ \alpha \in I \} \) be a family of random variables on \( (\Omega, \mathcal{F}, \mathbb{P} ) \). Then, the \( \sigma \)-algebra generated by \( \{ X_\alpha\ |\ \alpha \in I \} \) is 
+	\begin{align*}
+		\sigma ( \{ X_\alpha\ |\ \alpha \in I \} ) = \sigma( \{ X_\alpha^{-1} (B)\ |\ B \in \mathcal{B}(\R), \alpha \in I \} ). 	
+	\end{align*}
+	\item Let \( \{ X_n\ |\ n \in \N \} \) be a sequence of random variables on \( ( \Omega, \mathcal{F}, \mathbb{P} ) \). Set:
+	\begin{align*}
+		\mathcal{P} := \left\{ \bigcap_{j=1}^k \{ x_{n_j} \leq a_j \}  \right \}.	
+	\end{align*}
+	Then, \( \mathcal{P} \) is a \( \pi \)-system and \( \sigma( \mathcal{P}) = \sigma (\{ X_n\ |\ n \in \N \} )\). 
+\end{enumerate}
+
+\begin{defn}[Independent Random Variables]
+	Given \( (\Omega, \mathcal{F}, \mathbb{P} ) \) and a sequence of random variables \( \{ X_n\ |\ n \in \N \} \), \( \{ X_n\ |\ n \in \N \} \) is \textbf{independent} if \( \{ \sigma (X_n)\ |\ n \in \N \} \) is independent. 
+\end{defn}
+
+\begin{prop}
+	\( \{ X_n\ |\ n \in \N \} \) are independent \( \iff \) \( \forall k \geq 1 \) , \( \forall \) \( 1 \leq n_1 \leq n_2 \leq ... \leq n_k \), \( \forall a_1, a_2, ...,a_k \in \R \):
+	\begin{align}
+		\prob{\bigcap_{j=1}^k \{ X_{n_j} \leq a_j \} } = \prod_{j=1}^k \prob{X_{n_j} \leq a_j }.
+	\end{align}
+\end{prop}
+
+\begin{defn}[Tail Sigma Algebra]
+	Let \( \{ X_n\ |\ n \in \N \} \) be a sequence of random variables. The \textbf{tail sigma-algebra} associated with \( \{ X_n\ |\ n \in \N \} \) is defined as:
+	\begin{align}
+		\mathcal{T} := \bigcap_{n=1}^\infty \sigma (\{X_n, X_{n+1}, ...  \} )
+	\end{align}
+\end{defn}
+
+\begin{thm}[Kolmogorov's 0-1 Law]
+	Let \( \{ X_n\ |\ n \in \N \} \) be a sequence of independent random variables and let \( \mathcal{T} \) be the tail sigma-algebra associated with \( \{ X_n\ |\ n \in \N \} \). Then, for all \( A \in \mathcal{T} \):
+	\begin{align}
+		\prob{A} \in \{ 0, 1 \} 
+	\end{align}
+	If \( X \in m \mathcal{T} \), then \( X \) is constant a.s., i.e., \( \exists \) an \( a \in \bar{\R} \) such that \( \prob{X = a} = 1 \). 
+\end{thm}
 
 
+\section{Distribution Functions}
+\begin{defn}[Law/Distribution]
+	Given \( (\Omega, \mathcal{F}, \mathbb{P}) \) and a random variable \( X: \Omega \rightarrow \R \). The \textbf{law/ distribution} of \( X \), denoted by \( \mathcal{L}_X \), id the probability distribution on \( (\R, \mathcal{B}(\R)) \)such that for all \( B \in \mathcal{B}( \R) \): 
+	\begin{align}
+		\mathcal{L}_X(B) = \prob{X^{-1}(B)} = \prob{X \in B }. 
+	\end{align}
+	The \textbf{distribution function} of \( X \) (of \( \mathcal{L}_X \)) is: 
+	\begin{align*} 
+		F_x: \R & \rightarrow [0, 1] \\
+		x \in \R & \mapsto F_X(x) := \prob{X \leq x} = \mathcal{L}_X(]-\infty, x])
+	\end{align*}
+\end{defn}
+\textbf{Remarks}
+\begin{enumerate}[noitemsep]
+	\item \( F_X \) is increasing.
+	\item \( \lim_{x \rightarrow + \infty} F_X(x) = 1 \).
+	\item \( \lim_{x \rightarrow -\infty} F_X(x) = 0 \). 
+	\item \( F_X \) is \textbf{right continuous}: \( \forall \) \( a \in \R \), \( F_X(a^+) = \lim_{x \rightarrow a^+} F_X(x) = F_X(a) \). 
+	\item For all \( a > b \), \( F_X(a) - F_X(b) = \prob{b < X < a } = \mathcal{L}_X(]b, a]) \). 
+\end{enumerate}
 
-
+\begin{defn}[Independent and Identically Distributed]
+	Let \( \{ X_n\ |\ n \in \N \} \) be a sequence of random variables. We say they are \textbf{independent and identically distributed (iid)} if \( \{ X_n\ |\ n \in \N \} \) is independent and for some probability measure \( \mu\) on \( ( \R, \mathcal{B}(\R) ) \), \( \mathcal{L}_{X_n} = \mu \) for all \( n \in \N \). 
+\end{defn}
 
 
 
